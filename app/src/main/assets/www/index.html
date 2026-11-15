@@ -16811,6 +16811,7 @@ function af323ApplyHit(u,target,damage){
   const matchup=counterDamageMultiplier(u,target);
   if(matchup!==1){damage=Math.max(1,Math.round(damage*matchup));if(ally)addCombatText(x,y-34,matchup>1?'AVANTAJ!':'DİRENÇ',matchup>1?'#ffe39a':'#b7c9d8');}
   {const af327d=af327Incoming(u,target,damage,'hit');if(af327d<0)return;damage=Math.round(af327d);} // v3.27: ortak savunma hesabı
+  try{af222HitSound(u,target,damage);}catch(_){} /* ateş atan birimin mermisi çarpınca "küm" */
   const before=Math.max(0,target.hp);
   target.hp-=damage;target.hitFlash=.13;target.killedBy=u.team;const dealt=Math.min(before,Math.max(0,damage));if(af378InLoop)af378Later.push([u,target,damage,dealt]);else af327OnHit(u,target,damage,dealt); /* v3.77.04: savaş döngüsünde ikincil etkiler karenin sonunda */
   if(hero&&u.heroType==='necromancer'){af327HealUnit(u,Math.max(1,Math.round(Math.max(0,damage)*.08)),u,true);}
@@ -17102,7 +17103,7 @@ function tick(ts){
       // v1.92: prevent tower-front deadlock. Spacing stopped rear units below .962 forever.
       // Units in a short same-lane queue can attack from their real positions, without teleporting/overlapping.
       u.facingDir=1;u._afEng=1;u._afTgt=null;u._afTower=1;af34055PortalSlot(u);
-      if(u.cd<=0){af321MarkHit(u,null);const damage=u.atk*(u.heroType==='orc'?1.25:1)*(u.buffUntil>elapsed?(u.buffDamage||1):1)*(u.siegeMul||1);const af323Hit=()=>{if(enemyHP[u.lane]<=0)return;const beforeTower=enemyHP[u.lane],af327f=af327EnemyPortalFactor(u.lane)*(+window.__AF36PortalScale||1),af327pd=af327f<1?Math.max(1,Math.round(damage*af327f)):damage;enemyHP[u.lane]=Math.max(0,enemyHP[u.lane]-af327pd);try{af334NoteSiege(af327E,u.lane,beforeTower-enemyHP[u.lane]);}catch(_){}if(beforeTower>0&&enemyHP[u.lane]<=0){af274Beep('tower');af274Vibrate(45);}matchStats.towerDamage+=beforeTower-enemyHP[u.lane];const tx=W*.92,ty=laneY(u.lane,tx)-8,sx=laneX(u.x),sy=laneY(u.lane,sx)-af320ChestY(u);addCombatText(tx,ty-10,'-'+Math.round(beforeTower-enemyHP[u.lane]),af327f<AF332_PORTAL_TAKEN-1e-9?'#9ee8ff':'#ffcf82');!af34033IsCloseCombat(u)&&af321QueueShot(u,tx,ty,.16,u.heroType==='mage'?'#c39aff':u.heroType==='archer'||u.heroType==='ranger'?'#ffdf92':'#ffad51',sx,sy);burst(tx,ty,u.heroType==='mage'?'#b98cff':'#ffad51',u.heroType==='mage'?8:5);try{AFX.portal(tx,ty,u);}catch(_){}};if(af323IsShooter(u))af323Launch(u,null,damage,{x:1,apply:af323Hit});else af323Hit();u.cd=af327Period(u)+Math.max(u.cd,-dt);af274Beep('hit',af323IsShooter(u)?'ranged':(u.atk>=30?'heavy':'melee'))}
+      if(u.cd<=0){af321MarkHit(u,null);const damage=u.atk*(u.heroType==='orc'?1.25:1)*(u.buffUntil>elapsed?(u.buffDamage||1):1)*(u.siegeMul||1);const af323Hit=()=>{if(enemyHP[u.lane]<=0)return;const beforeTower=enemyHP[u.lane],af327f=af327EnemyPortalFactor(u.lane)*(+window.__AF36PortalScale||1),af327pd=af327f<1?Math.max(1,Math.round(damage*af327f)):damage;enemyHP[u.lane]=Math.max(0,enemyHP[u.lane]-af327pd);try{af334NoteSiege(af327E,u.lane,beforeTower-enemyHP[u.lane]);}catch(_){}if(beforeTower>0&&enemyHP[u.lane]<=0){af274Beep('tower');af274Vibrate(45);}matchStats.towerDamage+=beforeTower-enemyHP[u.lane];const tx=W*.92,ty=laneY(u.lane,tx)-8,sx=laneX(u.x),sy=laneY(u.lane,sx)-af320ChestY(u);addCombatText(tx,ty-10,'-'+Math.round(beforeTower-enemyHP[u.lane]),af327f<AF332_PORTAL_TAKEN-1e-9?'#9ee8ff':'#ffcf82');!af34033IsCloseCombat(u)&&af321QueueShot(u,tx,ty,.16,u.heroType==='mage'?'#c39aff':u.heroType==='archer'||u.heroType==='ranger'?'#ffdf92':'#ffad51',sx,sy);burst(tx,ty,u.heroType==='mage'?'#b98cff':'#ffad51',u.heroType==='mage'?8:5);try{AFX.portal(tx,ty,u);}catch(_){}};if(af323IsShooter(u))af323Launch(u,null,damage,{x:1,apply:af323Hit});else af323Hit();u.cd=af327Period(u)+Math.max(u.cd,-dt);if(!(af323IsShooter(u)&&af222IsFire(u)))af274Beep('hit',af323IsShooter(u)?'ranged':(u.atk>=30?'heavy':'melee'))}
     }else if(u.team==='enemy'&&allyTowerHP[u.lane]>0&&(
       u.x<=.105 ||
       (!af34033IsCloseCombat(u)&&u.x<=.32&&(u.x-.05)<=unitAttackRange(u)*1.55+.05&&units.some(other=>other!==u&&other.team==='enemy'&&other.hp>0&&other.lane===u.lane&&(other.x<=.105||other._afTower)&&other.x<u.x&&u.x-other.x<=.15))
@@ -17698,8 +17699,10 @@ function af222ShotColor(u){
   if(ps){const dk=(ps.dot&&ps.dot.kind)||(ps.dotArea&&ps.dotArea.kind);if(dk)c=dk==='poison'?'#9cff6a':'#ff9b46';else if(ps.slow)c='#9fe9ff';else if(ps.vuln)c='#c78bff';}
   return (u._af222Col=c);
 }
+function af222IsFire(u){const ps=af327Pas(u);return !!(ps&&((ps.dot&&ps.dot.kind==='burn')||(ps.dotArea&&ps.dotArea.kind==='burn')));}
+function af222HitSound(u,target,damage){if(!u||!target||target.isBarrier||!af323IsShooter(u)||!af222IsFire(u))return;const n=performance.now();if(n-(af222HitSound._t||0)<70)return;af222HitSound._t=n;try{if(window.AFPAudioV1)window.AFPAudioV1.sfx('hit',af328Vol('sfx'),'fire');}catch(_){}}
 function af222LaunchShooter(u,target,damage){
-  af222Key=u.heroType||'x';
+  af222Key=u.heroType||'x';if(af222IsFire(u))af222Sfx('fireLaunch');
   const P=u._af222P||[],ps=af327Pas(u),big=P.includes('crit')||P.includes('execute')||P.includes('first')||(P.includes('special')&&ps&&ps.everyN&&ps.everyN.mult);
   if(!big||damage<3){af323Launch(u,target,damage,null);return;}
   const d1=Math.max(1,Math.round(damage*.4)),d2=Math.max(1,Math.round(damage*.3)),d3=Math.max(1,damage-d1-d2),off=[[0,0,0],[-3,-9,.045],[3,9,.09]];
@@ -20169,7 +20172,7 @@ function af327AIStep(side,dt){
 function af327TickSide(side,dt){
  if(!side)return;
  for(const a of side.abil)a.cd=Math.max(0,a.cd-dt);
- if(side.events.length){const list=side.events;side.events=[];for(const ev of list){if(ev.done)continue;if(elapsed+1e-9<ev.t1){side.events.push(ev);continue;}ev.done=1;try{if(ev.sub)ev.sub();else af327Resolve(ev);}catch(e){console.error('[v3.32] büyü çözümlenemedi',e);}}}
+ if(side.events.length){const list=side.events;side.events=[];for(const ev of list){if(ev.done)continue;if(elapsed+1e-9<ev.t1){side.events.push(ev);continue;}ev.done=1;try{if(!ev.sub&&ev.sp&&window.AFPAudioV1&&window.AFPAudioV1.impact)window.AFPAudioV1.impact(side.hero,ev.sp.vfx,ev.sp.cls,af328Vol('sfx'));}catch(_){}try{if(ev.sub)ev.sub();else af327Resolve(ev);}catch(e){console.error('[v3.32] büyü çözümlenemedi',e);}}}
  if(side.zones.length){const foe=side.team==='ally'?'enemy':'ally';side.zones=side.zones.filter(z=>{if(elapsed>=z.until){const amt=Math.floor(z.acc);if(amt>0)for(const e of units.filter(e=>e.team===foe&&e.hp>0&&e.lane===z.lane&&Math.abs(e.x-z.x)<=z.r))af327DealDamage(e,amt,Object.assign({},z.opt,{kind:'dot',color:z.kind==='storm'?'#9fd8ff':z.kind==='shadow'?'#c98bff':'#ff9b46'}));return false;} /* v3.40.45 BUG-S2: son dilim */z.tick+=dt;z.acc+=z.dps*dt;
    const inside=units.filter(e=>e.team===foe&&e.hp>0&&e.lane===z.lane&&Math.abs(e.x-z.x)<=z.r);
    if(z.slow)for(const e of inside)e.slowUntil=Math.max(e.slowUntil||0,elapsed+.6*z.cc);
@@ -41127,9 +41130,46 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
     R.forEach(function (r, i) { var o = osc(ctx, 'sine', base * r, t, t + D[i] + 0.15), g = ctx.createGain(); env(g, t, vol * G[i], 0.001, 0.004, D[i]); o.connect(g); g.connect(d); });
     var n = nsrc(ctx, t, 0.05), f = filt(ctx, 'bandpass', rnd(3500, 6000), 1.4), ng = ctx.createGain(); env(ng, t, vol * 0.9, 0.001, 0.006, 0.035); n.connect(f); f.connect(ng); ng.connect(d);
   }
+
+  /* ---- gerçekçi patlama: çatlama + gövde + alçalan "küm" + yankılı kuyruk ---- */
+  function revOf(ctx, d) {
+    if (ctx.__afRev && ctx.__afRev.d === d) return ctx.__afRev.in;
+    var len = Math.floor(ctx.sampleRate * 1.5), buf = ctx.createBuffer(2, len, ctx.sampleRate), ch, i, x;
+    for (ch = 0; ch < 2; ch++) { x = buf.getChannelData(ch); for (i = 0; i < len; i++) x[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.2); }
+    var cv = ctx.createConvolver(); cv.buffer = buf; var wet = ctx.createGain(); wet.gain.value = 0.55; var inn = ctx.createGain(); inn.connect(cv); cv.connect(wet); wet.connect(d);
+    ctx.__afRev = { d: d, in: inn }; return inn;
+  }
+  function boom(ctx, d, t, vol, s) {
+    s = s || 1; var o, g, n, f, rv = revOf(ctx, d);
+    n = nsrc(ctx, t, 0.07); f = filt(ctx, 'highpass', 1000, 0.7); g = ctx.createGain(); env(g, t, 0.5 * vol, 0.001, 0.008, 0.05); n.connect(f); f.connect(g); g.connect(d); g.connect(rv);
+    n = nsrc(ctx, t, 1.0 * s); f = filt(ctx, 'lowpass', 2800, 0.8); f.frequency.setValueAtTime(2800, t); f.frequency.exponentialRampToValueAtTime(150, t + 0.6 * s); g = ctx.createGain(); env(g, t, 0.9 * vol, 0.004, 0.1 * s, 0.6 * s); n.connect(f); f.connect(g); g.connect(d); g.connect(rv);
+    o = osc(ctx, 'sine', 105, t, t + 1.0 * s); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(30, t + 0.5 * s); env(g, t, 1.0 * vol, 0.003, 0.14 * s, 0.55 * s); o.connect(g); g.connect(d);
+    o = osc(ctx, 'triangle', 170, t, t + 0.6 * s); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(55, t + 0.35 * s); env(g, t, 0.45 * vol, 0.003, 0.06 * s, 0.3 * s); o.connect(g); g.connect(d);
+    rumble(ctx, d, t + 0.04, 0.9 * s, 0.3 * vol, 240); crackle(ctx, d, t + 0.1, 0.7 * s, 0.1 * vol, Math.round(26 * s));
+  }
+  function thunder(ctx, d, t, vol) {
+    var n = nsrc(ctx, t, 0.12), f = filt(ctx, 'highpass', 2200, 0.7), g = ctx.createGain(); env(g, t, 0.7 * vol, 0.001, 0.012, 0.09); n.connect(f); f.connect(g); g.connect(d);
+    boom(ctx, d, t + 0.03, 0.55 * vol, 0.75);
+  }
+  function fireLaunch(ctx, d, t, v) {
+    whoosh(ctx, d, t, 0.38, 240, 2400, 0.42 * v, 1); crackle(ctx, d, t, 0.4, 0.14 * v, 55);
+    var o = osc(ctx, 'sawtooth', 70, t, t + 0.4), f = filt(ctx, 'lowpass', 500, 0.8), g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(190, t + 0.35); env(g, t, 0.22 * v, 0.1, 0.12, 0.2); o.connect(f); f.connect(g); g.connect(d);
+  }
+  /* büyü çarpma anı (fırlatma sesinden sonra, gerçek isabet anında): "küm" */
+  function impactSfx(ctx, d, t, hero, vfx, v) {
+    var i;
+    if (vfx === 'wave') { boom(ctx, d, t, 0.68 * v, 1.0); crackle(ctx, d, t + 0.1, 0.9, 0.18 * v, 45); }
+    else if (vfx === 'meteor') { boom(ctx, d, t, 0.72 * v, 1.5); for (i = 0; i < 4; i++) thud(ctx, d, t + 0.18 + i * 0.12, 0.35 * v, rnd(70, 130)); crackle(ctx, d, t + 0.2, 1.0, 0.16 * v, 40); }
+    else if (vfx === 'zone') { if (hero === 'valen') thunder(ctx, d, t, 0.8 * v); else { boom(ctx, d, t, 0.55 * v, 0.8); crackle(ctx, d, t + 0.1, 1.0, 0.14 * v, 38); } }
+    else if (vfx === 'bolt' || vfx === 'chain') thunder(ctx, d, t, 0.8 * v);
+    else if (vfx === 'stone') boom(ctx, d, t, 0.6 * v, 0.9);
+    else if (vfx === 'summon') boom(ctx, d, t, 0.5 * v, 0.7);
+    else if (vfx === 'shadow') { thud(ctx, d, t, 0.45 * v, 90); whoosh(ctx, d, t, 0.2, 2500, 600, 0.2 * v, 1.3); }
+  }
   function hitSfx(ctx, d, t, v, variant) {
-    var n, f, g, o; v = v * 0.9; /* savaşta müzik kapalı; vuruş sesleri net duyulsun */
-    if (variant === 'ranged') {
+    var n, f, g, o; v = v * 0.8; /* savaşta müzik kapalı; vuruş sesleri net duyulsun */
+    if (variant === 'fire') { boom(ctx, d, t, 0.6 * v, 0.55); crackle(ctx, d, t + 0.05, 0.35, 0.12 * v, 40); }
+    else if (variant === 'ranged') {
       n = nsrc(ctx, t, 0.1); f = filt(ctx, 'bandpass', rnd(1100, 1700), 2); g = ctx.createGain(); env(g, t, 0.34 * v, 0.001, 0.015, 0.05); n.connect(f); f.connect(g); g.connect(d);
       o = osc(ctx, 'sine', rnd(300, 360), t, t + 0.12); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(170, t + 0.05); env(g, t, 0.34 * v, 0.001, 0.02, 0.06); o.connect(g); g.connect(d);
       o = osc(ctx, 'triangle', rnd(500, 560), t, t + 0.3); g = ctx.createGain(); env(g, t, 0.07 * v, 0.002, 0.03, 0.18); o.connect(g); g.connect(d);
@@ -41154,7 +41194,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
     if (vfx === 'wave') { whoosh(ctx, d, s, 0.7, 200, 2600, 0.5 * v, 0.9); crackle(ctx, d, s, 0.8, 0.16 * v, 40); }
     else if (vfx === 'smoke') { n = nsrc(ctx, s, 0.9); f = filt(ctx, 'lowpass', 1400, 0.6); g = ctx.createGain(); env(g, s, 0.3 * v, 0.2, 0.3, 0.5); n.connect(f); f.connect(g); g.connect(d); }
     else if (vfx === 'zone') { rumble(ctx, d, s, 1.1, 0.4 * v, 260); crackle(ctx, d, s, 1.1, 0.12 * v, 28); }
-    else if (vfx === 'meteor') { o = osc(ctx, 'sine', 1800, s, s + 0.7); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(260, s + 0.6); env(g, s, 0.18 * v, 0.05, 0.5, 0.05); o.connect(g); g.connect(d); thud(ctx, d, s + 0.62, 0.95 * v, 70); rumble(ctx, d, s + 0.62, 0.9, 0.5 * v, 300); crackle(ctx, d, s + 0.62, 0.6, 0.14 * v, 30); }
+    else if (vfx === 'meteor') { o = osc(ctx, 'sine', 1800, s, s + 0.7); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(260, s + 0.6); env(g, s, 0.18 * v, 0.05, 0.5, 0.05); o.connect(g); g.connect(d); }
     else if (vfx === 'buff') { [60, 67, 72].forEach(function (m, j) { pluck(ctx, d, s + j * 0.07, m + 12, 0.7, 0.2 * v, 'triangle'); }); pad(ctx, d, s, [60, 67, 72], 0.9, 0.12 * v, 2800); }
     else if (vfx === 'bolt') { zap(ctx, d, s, 0.65 * v, 3600); n = nsrc(ctx, s, 0.5); f = filt(ctx, 'lowpass', 500, 0.7); g = ctx.createGain(); env(g, s + 0.05, 0.4 * v, 0.01, 0.05, 0.4); n.connect(f); f.connect(g); g.connect(d); rumble(ctx, d, s + 0.06, 0.8, 0.3 * v, 200); }
     else if (vfx === 'chain') { for (i = 0; i < 4; i++) zap(ctx, d, s + i * 0.09, (0.5 - i * 0.06) * v, 3200 - i * 300); rumble(ctx, d, s + 0.3, 0.6, 0.22 * v, 220); }
@@ -41181,6 +41221,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
       else if (variant === 'slash') { whoosh(ctx, d, t, 0.11, 6000, 1700, 0.34 * v, 1.2); whoosh(ctx, d, t + 0.07, 0.11, 5200, 1500, 0.3 * v, 1.2); clang(ctx, d, t + 0.1, 0.22 * v, 1400); }
       else if (variant === 'stun') { thud(ctx, d, t, 0.6 * v, 100); bell(ctx, d, t + 0.04, 91, 0.13 * v, 0.5); bell(ctx, d, t + 0.1, 96, 0.1 * v, 0.5); }
       else if (variant === 'wave') { whoosh(ctx, d, t, 0.3, 250, 1800, 0.34 * v, 1); thud(ctx, d, t + 0.05, 0.4 * v, 130); }
+      else if (variant === 'fireLaunch') fireLaunch(ctx, d, t, v);
       else if (variant === 'blink') { whoosh(ctx, d, t, 0.16, 300, 5200, 0.3 * v, 1.4); bell(ctx, d, t + 0.13, 96, 0.13 * v, 0.4); bell(ctx, d, t + 0.17, 93, 0.09 * v, 0.4); whoosh(ctx, d, t + 0.15, 0.16, 5000, 500, 0.22 * v, 1.2); }
       else if (variant === 'heal') { [76, 81, 84].forEach(function (m, j) { bell(ctx, d, t + j * 0.06, m, 0.12 * v, 0.5); }); }
       else { bell(ctx, d, t, 84, 0.16 * v, 0.45); whoosh(ctx, d, t, 0.15, 800, 3200, 0.16 * v, 1.2); }
@@ -41288,6 +41329,13 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
         return true;
       } catch (e) { return false; }
     },
+    impact: function (hero, vfx, cls, vol) {
+      try {
+        var c = cfg(); if (!c.sound) return true; if (!ensure() || ctx.state !== 'running') return true;
+        impactSfx(ctx, sfxBus, ctx.currentTime + 0.005, hero, vfx, Math.max(0, Math.min(1, +vol || 0.8)));
+        return true;
+      } catch (e) { return false; }
+    },
     scene: function () { return cur ? cur.name : null; },
     /* kalite denetimi için çevrim dışı kayıt (oyunda kullanılmaz) */
     _render: function (name, bars, sr) {
@@ -41299,7 +41347,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
     },
     _renderSfx: function (items, sr, gap) {
       var OC = window.OfflineAudioContext || window.webkitOfflineAudioContext, gp = gap || 1.6, oc = new OC(1, Math.ceil((items.length * gp + 1) * sr), sr), g = makeChain(oc, oc.destination);
-      items.forEach(function (it, i) { var t = 0.2 + i * gp; if (it.k === 'spell') spellSfx(oc, g, t, it.h, it.f, 0.8); else sfxPlay(oc, g, it.k, t, 0.8, it.v); });
+      items.forEach(function (it, i) { var t = 0.2 + i * gp; if (it.k === 'spell') spellSfx(oc, g, t, it.h, it.f, 0.8); else if (it.k === 'impact') impactSfx(oc, g, t, it.h || 'ruul', it.f, 0.8); else sfxPlay(oc, g, it.k, t, 0.8, it.v); });
       return oc.startRendering();
     }
   };

@@ -141,3 +141,12 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 ## Savaş sesi ve rozetler (son istek)
 - **Savaşta müzik kapalı:** savaş başlayınca müzik kesiliyor (menüde, bekleme odasında ve sonuç ekranında çalmaya devam eder); yalnızca efekt sesleri var. Vuruş sesi seviyesi müzik kalktığı için 0,62'den 0,9'a çıkarıldı. Test: savaşta sahne boş, ses seviyesi ~0 (efekt çalmadığı anlarda), sayfa hatası yok. Ayarlardan müzik/ses düğmeleri aynen çalışıyor.
 - **Rozetler kaldırıldı:** yetenek adı rozeti artık çizilmiyor. Yetenek efektleri (kılıç izi, alev, buz, ışınlanma kapısı vb.), parlama ve yetenek sesleri duruyor.
+
+## Gerçekçi patlama sesleri ("küm") — son istek
+**İstek:** Efekt sesleri gerçek seslerden alınsın; örn. ateş topu atılınca, çarpınca "küm" diye ses çıksın.
+**Gerçek kayıt konusu (yapılamadı):** Bu ortamdan ses sitelerine (Freesound, OpenGameArt, Kenney, Archive.org) erişim yok; yalnızca npm/PyPI paket depoları açık. Orada bulunan ses paketleri yalnızca arayüz sesi (tık, bildirim) içeriyor, savaş/patlama kaydı yok; başka yerden kaydı lisansı doğrulanmadan oyuna koymadım. Bu yüzden gerçek kayıt yerine, gerçek bir patlamanın katmanlarını taklit eden sentez yazıldı (aşağıda). Gerçek kayıt eklemek istersen: telefondan indirdiğin lisansı serbest (CC0) .ogg/.wav dosyalarını gönder, oyuna gömerim.
+**Yapılan:**
+- Yeni patlama sesi: ilk çatlama + alçalan gürültü gövdesi + 105→30 Hz alçalan "küm" + gümbürtülü kuyruk + yankı + kıvılcım çıtırtısı.
+- **Büyülerde fırlatma ve çarpma ayrıldı:** fırlatınca kahramanın sesi, mermi/büyü gerçekten çarptığı anda patlama sesi çalıyor (Alev Dalgası: orta patlama, Lav Yağmuru: büyük patlama + moloz, alanlar: alçak patlama, Yıldırım/Zincir/Fırtına: gök gürültüsü, kaya: çatlama). Daha önce Lav Yağmuru'nun çarpma sesi fırlatmayla birlikte yanlış anda çalıyordu.
+- **Ateş atan minyonlar** (yanma yeteneği olan okçu/büyücüler): atarken alev fışkırması, çarpınca küçük "küm". Diğer birimlerin vuruş sesleri değişmedi.
+- Test: 10 büyü atıldı, 10 çarpma sesi çaldı; ateş atan birimlerle 22 fırlatma / 26 çarpma sesi; vuruş sesleri çift çalmıyor; kırpma yok; sayfa hatası yok.
