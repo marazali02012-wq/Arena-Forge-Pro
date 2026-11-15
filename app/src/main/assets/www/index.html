@@ -39195,6 +39195,18 @@ html:not(#_d1):not(#_d2):not(#_d3):not(#_d4):not(#_d5):not(#_d6):not(#_d7):not(#
  }
 }
 </style>
+<style id="AFP_ANDROID_220_SHOP_LAYER">
+/* v3.60.220 Android: mağaza kartı yazı onarımı. Mağaza stilleri "@layer af172Commerce" içinde ve !important kullanıyor;
+   katmanlı !important kurallarını yalnızca DAHA ÖNCE tanımlanmış bir katman ezebilir. Bu blok o yüzden mağaza stilinden önce durur. */
+@layer afpAndroid220Shop{
+/* Yan kartlar: başlık satırı 0 piksele düşüp açıklamanın üstüne biniyordu. */
+#af171Shop .af173-side>.af4-item{grid-template-rows:auto minmax(0,1fr) auto!important}
+#af171Shop .af173-side>.af4-item>b{min-height:1.2em!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#af171Shop .af173-side>.af4-item>small{min-height:0!important;max-height:2.7em!important;overflow:hidden!important;align-self:start!important}
+/* Öne çıkan kart: açıklama satırı 3 piksele düşüp düğmenin altında kalıyordu. */
+#af171Shop .af173-hero .af4-cos>small{min-height:2.6em!important;max-height:2.8em!important;overflow:hidden!important}
+}
+</style>
 <style id="AFP_V174_COMMERCE">
 @layer af172Commerce {
 
@@ -40511,6 +40523,12 @@ html.afx369:not(#_1):not(#_2):not(#_3) #afxRoadInfo[data-mode="arenas"] .afx-win
 .af220-road-arena small,.af220-road-arena span {color:#ffe0a5;font:750 clamp(8px,2.7dvh,12px)/1.1 system-ui;}
 .af220-road-arena span {display:flex;align-items:center;gap:3px;}
 .af220-road-arena span svg {width:12px;height:12px;flex:none;}
+</style>
+<style id="AFP_ANDROID_220_LAYOUT_FIXES">
+/* v3.60.220 Android düzen onarımları (800×360, 854×393 ve 915×412 denetimi). Yalnızca görünüm; oyun mantığı ve kayıt değişmez.
+   Mağaza onarımları AFP_ANDROID_220_SHOP_LAYER içindedir (mağaza stilleri @layer kullandığı için oraya konması gerekir). */
+/* Savaş eli: uzun kart adları iki yandan kırpılıyordu; artık baştan başlar, yalnızca sonu kırpılır. */
+html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not(#_9) #battleRoster .battlePick .battlePickName{display:block!important;text-align:center!important;line-height:var(--bp-foot,13px)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
 </style>
 <dialog id="afpAndroidPrivacy" aria-labelledby="afpAndroidPrivacyTitle">
 <style>
