@@ -40,6 +40,20 @@ Yöntem: tarayıcı saati hızlandırılarak her savaş bitirildi. Kart oynayan 
 ## Görsel tarama (tüm ekranlar)
 Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üstteki tüm ekranlar, sekmeler, mağaza bölümleri, ayarlar, profil, harita ve mod ekranları gezilip kırık/boş görsel, var olmayan SVG simgesi ve gizlenmiş yazı arandı; 83 savaş sprite türünün hepsi hazır, yüklenemeyen yok. Bulunan gerçek hatalar aşağıda. Gerçek telefonda WebGL çizimi (bu ortamda kapalıydı) denenmedi.
 
+## Kod taraması ve bekleme odaları (son tur)
+**Kod:** 96 satır içi betiğin hepsi söz dizimi denetiminden geçti (Node). ESLint ile 2,5 MB betikte yalnızca iki gerçek uyarı çıktı, ikisi de zararsız: `unlocked` nesnesinde tekrar eden `archer/warrior` anahtarı ve çeviri tablosunda tekrar eden "ÖRÜMCEK AKINI" anahtarı. "Tanımsız değişken" uyarıları (42 ad) betikler birbirinin kapsamına eriştiği için çıkıyor; savaşlar ve tüm modlar hatasız çalıştığı için gerçek hata değil. Dokuz modun ve çok sayıda ekranın taramasında sayfa hatası (JavaScript) çıkmadı.
+
+**Bekleme odaları:** Giriş, hesap oluşturma, şifre sıfırlama, gizlilik, sandık odası (boş ve dolu), Lonca & Etkinlik Merkezi (beş sekme), rakip arama penceresi (arama, bulundu, hazırlık, 3-2-1 geri sayım) ve savaş hazırlık ekranı tek tek çekilip incelendi; görsel eksik ya da bozuk bulunmadı.
+
+**Görseller:** Koleksiyonlarda (101 minyon, 50 ek karakter, 5 kahraman) kırık görsel ve emoji yedeği yok. Savaş sprite'ı olmayan 31 tür var, ama bunların 30'u emekli edilmiş eski kartlar (kilitli, desteye giremiyor) ve sonuncusu `skeleton_clone` kendi iskeletine sahip. Oyuncunun göreceği canlı içerikte çizilecek eksik görsel bulunmadı, bu yüzden yeni görsel çizilmedi.
+
+**Telefon efektleri doğrulaması:** Eski sürümde 8 çekirdekli/8 GB bir telefon "düşük güç" sayılıyordu; yeni sürümde sayılmıyor. Ayarlar'da Grafik kalitesi "Düşük" seçilince ve 4 çekirdek/2 GB gibi zayıf donanımda yine "düşük güç" açılıyor.
+
+### Dikkat gerektiren bulgular (düzeltilmedi, karar sende)
+1. **Sahte rakip:** Çevrim içi rakip bulunamazsa oyun 10 saniye sonra "Rakip bulundu" yazıp uydurma bir komutan adıyla (örn. "Komutan Q2AD") bot maçı başlatıyor; kodda "bot maçı bildirimi yok" diye yorum var ve maçta duraklatılamıyor, hız değiştirilemiyor. Kupa da veriliyor. Oyuncu gerçek biriyle oynadığını sanabilir. Eski sürüm notu ise "bot kendiliğinden açılmaz, Botla oyna / Tekrar ara / İptal sorulur" diyor; mevcut davranış bununla çelişiyor. Öneri: metni "Rakip bulunamadı, bot rakibe karşı oynuyorsun" yapmak.
+2. **Mağaza → PLAY sekmesi** oyunculara "Google Play için hazırlanıyor. Bu test sürümünde gerçek para alınmaz" yazısını ve pasif "HAZIRLIK AŞAMASINDA" düğmelerini gösteriyor. Yayında ya gizlenmeli ya da ödeme gerçekten bağlanmalı.
+3. **Sunucu kurulumu:** Sıralama, dostluk maçı ve hesap silme için sunucuda `AFP_SOSYAL_KURULUM.sql` çalıştırılmış olmalı. Çalıştırılmamışsa oyuncuya "SQL dosyasını Supabase'te çalıştırın" gibi geliştirici mesajı çıkıyor. Üretim sunucusunda kurulu olup olmadığını bu ortamdan doğrulayamadım.
+
 ## Bulunup düzeltilenler
 1. **Sosyal paneli**: geri tuşu paneli kapatmıyordu, çıkış sorusuna düşüyordu. Düzeltildi.
 2. **Rakip arama penceresi**: geri tuşu aramayı iptal etmiyordu. Düzeltildi.
