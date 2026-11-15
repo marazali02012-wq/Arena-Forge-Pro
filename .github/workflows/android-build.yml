@@ -1,4 +1,5 @@
 name: Android derleme
+# (Actions açıldıktan sonra yeniden tetikleme)
 
 # Bilgisayar gerekmeden APK ve AAB üretir. Elle başlatmak için: GitHub → Actions → "Android derleme" → Run workflow.
 on:
