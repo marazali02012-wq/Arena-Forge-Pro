@@ -10977,7 +10977,12 @@ function af214SquadPlacement(type,lane,requestedX,team){
     const xs=squad.map(([offset])=>mirror(q+offset));
     if(xs.every(x=>occupied.every(u=>Math.abs(u.x-x)>=requiredUnitGap(u,probe,lane))))return xs;
   }
-  return null;
+  /* Düşman portala dayandıysa normal yer penceresi boşalır (eskiden kart "Grubun tamamı için boş alan yok" diye reddediliyordu).
+     Eski 3'lü klon kartındaki gibi acil diziliş: grup, kendi portalının önünde, düşmana en uzak/en az çakışan tabana çıkar. */
+  {const offs=squad.map(s=>s[0]),minOff=Math.min(...offs),maxOff=Math.max(...offs),q0=.005-minOff;
+   const clear=q=>{let best=Infinity;for(const o of offs){const x=mirror(Math.max(.005,Math.min(.12,q+o)));for(const u of occupied)best=Math.min(best,Math.abs(u.x-x)-requiredUnitGap(u,probe,lane));}return best;};
+   let bq=q0,bc=-Infinity;for(let q=Math.min(.12-maxOff,.1);q>=q0-1e-9;q-=.008){const c=clear(q);if(c>bc){bc=c;bq=q;}}
+   return squad.map(([o])=>mirror(Math.max(.005,Math.min(.12,bq+o))));}
 }
 function af214Share(value,index,count){
   const total=Math.max(count,Math.round(value));

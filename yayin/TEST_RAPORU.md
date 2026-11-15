@@ -160,3 +160,11 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 - **Aşırı gürültü olmasın diye:** saldırı sesleri en fazla ~16/sn, bağırma sesi saldırıların yarısında ve en fazla ~6/sn, acı sesi darbelerin ~%40'ında; hepsi ses sınırlayıcıdan geçer (kırpma yok).
 - **Test (62 sn savaş):** 60 kılıç savurma, 11 ok teli, 3 büyü fırlatma, 95 vuruş, 34 ok çarpma, 2 büyü çarpma, çok sayıda saldırı/acı/ölüm sesi; sayfa hatası yok.
 **Sınır:** Sesler gerçek kayıt değil, sentezdir; özellikle insan sesi gerçek bir kayda göre yapaydır. Gerçek kayıt için CC0 .ogg/.wav dosyalarını gönderirsen gömebilirim. Telefonda dinleme yapılmadı.
+
+## Grup kartları düşman portala gelince çıkmıyordu (son istek)
+**Şikâyet:** İskelet / okçu / kılıççı kartları, düşman portala gelince sahaya çıkmıyor.
+**Kök neden:** Üç grup kartı (İskelet Savaşçı 3'lü, Orman Okçusu 2'li, Kılıçlı Asker 2'li) `af214SquadPlacement` ile yerleştiriliyor. Düşman koridorda x≤0,15'e gelince hesaplanan yer penceresi boşalıyor (başlangıç > bitiş) ve fonksiyon `null` dönüyor; kart "Grubun tamamı için boş alan yok" diye reddediliyordu. Eski 3'lü klon kartında "acil diziliş" yedeği vardı, bu üç karta eklenmemişti.
+**Test (düzeltmeden önce):** düşman x=0,15 / 0,10 / 0,06 / 0,03 → üç kart için de `NULL` (yerleştirilemiyor).
+**Düzeltme:** normal yer bulunamazsa grup, kendi portalının önünde, düşmana göre en az çakışan tabana acil dizilişle çıkıyor (üyeler x=0,005–0,12 arasında, kendi aralarındaki dizilişi koruyarak). Hasar, enerji, kart sırası aynı; yalnızca "çıkamama" giderildi.
+**Test (düzeltmeden sonra):** aynı koşullarda üç kart da geçerli yer buldu; gerçek savaşta düşman portala dayalıyken Kılıçlı Asker +2, Orman Okçusu +2, İskelet Savaşçı +3 birim sahaya çıktı; sayfa hatası yok. Rakip tarafın grup kartları da aynı fonksiyonu kullandığı için aynı şekilde düzeldi.
+**Sınır:** Düşman tam portalın üstündeyken grup düşmanla iç içe geçebilir (eski klon kartıyla aynı davranış). Aynı koridorda saha dolu (36 birim) ise yine "Saha dolu" diye reddedilir; bu bilinçli sınırdır.
