@@ -56,6 +56,8 @@ public final class GameActivity extends Activity {
         settings.setAllowFileAccess(false);
         settings.setAllowContentAccess(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+        // Müzik ilk dokunuşu beklemeden, giriş ekranından itibaren çalabilsin (Web Audio otomatik başlatma).
+        settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setSupportMultipleWindows(false);
         settings.setSupportZoom(false);
         settings.setBuiltInZoomControls(false);

@@ -70,6 +70,17 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 2. **Telefon performansı:** önceki turda telefonların "düşük güç" sayılması kaldırıldı (tam efekt). Yazılım tabanlı çizimde bu savaşı yaklaşık 2,7 kat yavaşlattı (104 sn → 277 sn, aynı savaş). Gerçek telefon GPU'sunda etkisi ölçülmedi. Takılma olursa Ayarlar'dan Grafik kalitesini Orta/Düşük yap. Müzik motorunun ölçülebilir maliyeti yok (düşük güç yolunda müzik açıkken 91 sn, taban 104 sn).
 3. **Bekleme odası görseli misafirde de çıkıyor:** 222'nin koşulu misafirde de doğru sayılıyor (misafir 10 sn aramaya girip bota düşüyor). 222'nin tasarımı olarak bırakıldı.
 
+## Ses düzeltmesi (müzik hiç duyulmuyordu, efektler basitti)
+**Kök neden 1 (müzik):** Önceki sürümlerde "Müzik" ayarı varsayılan KAPALIydı ve bu, oyuncuların kayıtlı ayarlarına işlenmişti. Ben yalnızca yeni kurulumlarda açık yaptığım için güncelleme sonrası müzik motoru hiç çalmıyordu. Düzeltme: oyun ayarları okunmadan önce çalışan küçük bir betik, kayıtlı "müzik kapalı"yı **bir kez** açık yapıyor (`afpMusicDefaultOnV1` bayrağı); sonra oyuncunun Ayarlar'daki seçimi geçerli. Android'de ayrıca WebView'ın ses otomatik başlatması açıldı, böylece giriş ekranından itibaren ilk dokunuşu beklemeden çalabilir.
+**Kök neden 2 (efektler):** Bir önceki turda "oyunun ses efektlerini koru" isteği üzerine yeni efekt sentezleyicisini oyuna bağlamamıştım; oyun hâlâ eski tek notalı bipleri çalıyordu. Şimdi bağlandı (eski bip yalnızca yedek).
+- **Vuruş:** yakın dövüş (metal çınlaması veya ten/darbe sesi rastgele), ağır birim (daha derin ve güçlü), ok atan birim (ok/ahşap sesi). Her vuruş hafifçe farklı.
+- **Kahraman büyüleri (5 kahraman, 25 büyü):** Korvayn ateş (alev dalgası, lav yağmuru meteor düşüşü ve patlama, ateş duvarı çıtırtısı), Vaelor fırtına (yıldırım çatlaması ve gök gürültüsü, zincir şimşek, kasırga), Theryn doğa (şifa çanları, diken hışırtısı, kök/taş gümbürtüsü), Elyvara zaman ve buz (cam çınlamaları, kristal kalkan, mühür), Saelith gölge (bıçak savrulması, alçak uğultu, çağırma). Ses, büyünün görsel türüne göre seçiliyor.
+- Kart oynama, ölüm, portal vuruşu, zafer, yenilgi, ödül, arayüz ve hata efektleri de yenilendi.
+- Savaş müziğinde vuruş (kick) ve tomlara telefon hoparlöründe duyulacak orta frekanslar eklendi; müzik biraz yükseltildi.
+
+**Testler:** eski "müzik kapalı" kayıtla açılışta ayar açık oluyor ve ana üste/savaşta ses seviyesi var; tam bir savaşta 80 yakın dövüş vuruşu, 6 ok vuruşu, 7 ölüm, 14 kart, portal, yenilgi ve her iki tarafın büyüleri yeni motora yönlendi; sayfa hatası yok; 98 betik söz dizimi geçti; müzik aç/kapa, bekleme odasında iptal ve savaşa geçiş çalışıyor.
+**Yapılamayanlar:** sesleri kulakla dinleyemedim, yalnızca sayısal denetledim (her efekt sesli, taşma ve geçersiz değer yok). Gerçek Android'de WebView otomatik başlatmasını denemedim. Efektlerin "gerçekçilik" derecesi sentezleyici sınırındadır; örnek kayıt (sample) kullanılmadı.
+
 ## Bulunup düzeltilenler
 1. **Sosyal paneli**: geri tuşu paneli kapatmıyordu, çıkış sorusuna düşüyordu. Düzeltildi.
 2. **Rakip arama penceresi**: geri tuşu aramayı iptal etmiyordu. Düzeltildi.
