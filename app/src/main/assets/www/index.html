@@ -22113,11 +22113,40 @@ window.AFPOnlineBattleInternal={
    drawBattleCard();try{renderBattleRoster();updateHUD();updateDuelHUD();}catch(e){}
    matchStats.discardedCards=(matchStats.discardedCards||0)+1;showNotice('Kart desteden atıldı; el boşluğu yeni kartla dolduruldu.');
  }
+ /* v3.60.220 Android: "KARTI AT" artık iki adımlı. Düğmeye dokun (düğme yanar), sonra atmak istediğin minyon kartına dokun.
+    Önceki sürüm önceden seçilmiş bir kart istiyordu, ama savaş kartları dokunmayla seçilmediği (yalnızca sürüklenir) için düğme hep kapalı kalıyordu. */
+ let af352DiscardArmed=false;
+ function setDiscardArmed(on){
+   af352DiscardArmed=!!on&&!!playing&&!battlePaused;
+   try{syncDiscardButton();}catch(_){}
+   if(af352DiscardArmed)showNotice('Atmak istediğin minyon kartına dokun. Vazgeçmek için tekrar KARTI AT.');
+ }
+ function onDiscardButton(ev){
+   if(ev){ev.preventDefault();ev.stopPropagation();}
+   if(!playing||battlePaused){showNotice('Kart yalnızca aktif savaşta atılabilir.');return;}
+   setDiscardArmed(!af352DiscardArmed);
+ }
+ document.addEventListener('pointerdown',ev=>{
+   if(!af352DiscardArmed)return;
+   const t=ev.target&&ev.target.closest?ev.target:null;if(!t)return;
+   if(t.closest('#af352DiscardCard'))return;
+   const cardEl=t.closest('#battleRoster .battlePick[data-card-id]');
+   if(!cardEl){setDiscardArmed(false);return;}
+   ev.preventDefault();ev.stopImmediatePropagation();
+   const id=battleHandSlots.find(x=>String(x)===String(cardEl.dataset.cardId));
+   af352DiscardArmed=false;
+   if(id==null){try{syncDiscardButton();}catch(_){}return;}
+   selectedBattleCardId=id;
+   discardSelectedCard();
+   try{syncDiscardButton();}catch(_){}
+ },true);
  function syncDiscardButton(){
-   const root=byId('battleRoster');if(!root)return;let b=byId('af352DiscardCard');const full=typeof battleHandSlots!=='undefined'&&battleHandSlots.length>=af333HandSize(energyCap);
+   const root=byId('battleRoster');if(!root)return;root.classList.toggle('af352-armedHand',!!(af352DiscardArmed&&playing));let b=byId('af352DiscardCard');const full=typeof battleHandSlots!=='undefined'&&battleHandSlots.length>=af333HandSize(energyCap);
+   if(!playing)af352DiscardArmed=false;
    if(!full||!playing){if(b)b.remove();return;}
-   if(!b){b=document.createElement('button');b.type='button';b.id='af352DiscardCard';b.className='af352DrawCard af352DiscardCard';b.innerHTML='<strong>🗑</strong><small>KARTI<br>AT</small>';b.title='El doluyken seçili kartı at ve desteden kart çek.';b.setAttribute('aria-label','El doluyken seçili kartı at ve yerine kart çek');b.addEventListener('click',discardSelectedCard);}
-   b.disabled=!playing||battlePaused||selectedBattleCardId==null||!battleHandSlots.includes(selectedBattleCardId);b.style.borderColor='#d55a66';b.style.background='linear-gradient(180deg,#552630,#25121a)';if(b.parentElement!==root)root.appendChild(b);
+   if(!b){b=document.createElement('button');b.type='button';b.id='af352DiscardCard';b.className='af352DrawCard af352DiscardCard';b.innerHTML='<strong>🗑</strong><small>KARTI<br>AT</small>';b.title='El doluyken seçili kartı at ve desteden kart çek.';b.setAttribute('aria-label','El doluyken seçili kartı at ve yerine kart çek');b.addEventListener('click',onDiscardButton);}
+   b.title='Önce bu düğmeye, sonra atmak istediğin minyon kartına dokun.';b.setAttribute('aria-label','Kart at: önce bu düğmeye, sonra atılacak karta dokun');
+   b.disabled=!playing||battlePaused;b.classList.toggle('af352-armed',af352DiscardArmed);b.setAttribute('aria-pressed',af352DiscardArmed?'true':'false');{const sm=b.querySelector('small');if(sm){const t=af352DiscardArmed?'KARTA<br>DOKUN':'KARTI<br>AT';if(sm.innerHTML!==t)sm.innerHTML=t;}}b.style.borderColor='#d55a66';b.style.background='linear-gradient(180deg,#552630,#25121a)';if(b.parentElement!==root)root.appendChild(b);
  }
  function syncDrawButton(){
    const root=byId('battleRoster');if(!root)return;
@@ -40538,6 +40567,10 @@ html.afx369:not(#_1):not(#_2):not(#_3) #afxRoadInfo[data-mode="arenas"] .afx-win
 <style id="AFP_ANDROID_220_LAYOUT_FIXES">
 /* v3.60.220 Android düzen onarımları (800×360, 854×393 ve 915×412 denetimi). Yalnızca görünüm; oyun mantığı ve kayıt değişmez.
    Mağaza onarımları AFP_ANDROID_220_SHOP_LAYER içindedir (mağaza stilleri @layer kullandığı için oraya konması gerekir). */
+/* Kartı At: düğmeye basılınca yanar (atılacak kartı seçme bekleniyor). */
+html #hud #af352DiscardCard.af352-armed,html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not(#_9) #af352DiscardCard.af352-armed{border-color:#ffe08a!important;background:linear-gradient(180deg,#b04a30,#5a2417)!important;box-shadow:0 0 0 2px #ffe08a,0 0 14px 2px #ffb347!important;animation:af352Armed .9s ease-in-out infinite alternate}
+@keyframes af352Armed{from{filter:brightness(1)}to{filter:brightness(1.35)}}
+html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not(#_9) #battleRoster.af352-armedHand .battlePick{outline:2px dashed #ffe08a;outline-offset:-2px}
 /* Savaş eli: uzun kart adları iki yandan kırpılıyordu; artık baştan başlar, yalnızca sonu kırpılır. */
 html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not(#_9) #battleRoster .battlePick .battlePickName{display:block!important;text-align:center!important;line-height:var(--bp-foot,13px)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important}
 </style>
