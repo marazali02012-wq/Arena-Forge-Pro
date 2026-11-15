@@ -609,7 +609,7 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.132" />
+<meta name="afp-build" content="v3.60.220" />
 <title>Arena Forge Pro v3.60.220 — Arena İç Ekran Testi</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
@@ -21765,7 +21765,7 @@ function liveRows(e){
   const a=profile.af297;
   return A.EVENTS.map(ev=>{const n=Math.min(ev.goal,A.eventProgress(ev)),claimed=a.eventClaims.includes(ev.id),ready=n>=ev.goal;
    const btn=claimed?'<span class="af4-done">'+ico('check')+'ALINDI</span>':ready?'<button type="button" class="af4-btn af4-btnGreen af4-sm" data-act="af297:event|'+ev.id+'">AL</button>':'<button type="button" class="af4-btn af4-sm" data-act="battle">GİT</button>';
-   return '<li class="af4-row af4-trackRow'+(claimed?' is-claimed':ready?' is-done':'')+'"><span class="af4-rowIco af4-emo">'+esc(ev.icon)+'</span><div class="af4-rowBody"><b>'+esc(ev.name)+'</b><small>'+esc(ev.desc)+'</small><span class="af4-bar af4-barBlue"><i style="width:'+pct(n,ev.goal)+'%"></i><span>'+fmt(n)+'/'+fmt(ev.goal)+'</span></span></div><span class="af4-rew">'+ico('coin')+'<b>'+fmt(ev.reward)+'</b></span>'+btn+'</li>';}).join('');
+   return '<li class="af4-row af4-trackRow'+(claimed?' is-claimed':ready?' is-done':'')+'"><span class="af4-rowIco af4-emo">'+(window.AFXIcon&&window.AFXIcon(ev.icon)||esc(ev.icon))+'</span><div class="af4-rowBody"><b>'+esc(ev.name)+'</b><small>'+esc(ev.desc)+'</small><span class="af4-bar af4-barBlue"><i style="width:'+pct(n,ev.goal)+'%"></i><span>'+fmt(n)+'/'+fmt(ev.goal)+'</span></span></div><span class="af4-rew">'+ico('coin')+'<b>'+fmt(ev.reward)+'</b></span>'+btn+'</li>';}).join('');
  }
  function challengeCards(A){
   const a=profile.af297;
@@ -39263,6 +39263,11 @@ html:not(#_d1):not(#_d2):not(#_d3):not(#_d4):not(#_d5):not(#_d6):not(#_d7):not(#
 #chestRevealBackdrop .chestRevealReward{grid-column:1!important;grid-row:3!important;width:100%!important;text-align:center!important}
 #chestRevealBackdrop .chestRevealCards{top:calc(var(--af220-chest) + 8px)!important;left:0!important;right:0!important;margin:0!important;transform:none!important;width:100%!important;max-width:none!important;box-sizing:border-box!important;padding:0!important;justify-content:center!important;flex-wrap:wrap!important}
 #chestRevealBackdrop .chestRevealCards{gap:10px!important;column-gap:10px!important}
+/* Meydan Okumalar: düğme yazısı "DEVA M ET" diye bölünüyor, ödül sayısı alt alta diziliyordu. */
+#af4Screen .af4-chal .af4-btn{flex-wrap:nowrap!important;white-space:nowrap!important;gap:4px!important;padding-left:5px!important;padding-right:5px!important;font-size:10px!important}
+#af4Screen .af4-chal .af4-btn .af4-price{flex:0 0 auto!important;white-space:nowrap!important;width:auto!important;min-width:0!important}
+/* Minyon kartları: "SV 1" rozeti "S…" diye kırpılıyordu. */
+#af4Screen[data-screen="minions"] .afp134-lv{overflow:visible!important;text-overflow:clip!important;padding:2px 4px!important;flex:0 0 auto!important;width:auto!important;max-width:none!important}
 #chestRevealBackdrop .chestRevealCard{flex:0 0 auto!important;margin:0!important}
 }
 </style>

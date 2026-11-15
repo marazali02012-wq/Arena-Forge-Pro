@@ -37,6 +37,9 @@ Yöntem: tarayıcı saati hızlandırılarak her savaş bitirildi. Kart oynayan 
 - Her modun yenilgi yolu tek tek denenmedi (yalnızca Arena ve Doruk Kulesi).
 - Kahraman büyüleri bot tarafından yalnızca zaman zaman denendi; her büyünün etkisi tek tek doğrulanmadı.
 
+## Görsel tarama (tüm ekranlar)
+Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üstteki tüm ekranlar, sekmeler, mağaza bölümleri, ayarlar, profil, harita ve mod ekranları gezilip kırık/boş görsel, var olmayan SVG simgesi ve gizlenmiş yazı arandı; 83 savaş sprite türünün hepsi hazır, yüklenemeyen yok. Bulunan gerçek hatalar aşağıda. Gerçek telefonda WebGL çizimi (bu ortamda kapalıydı) denenmedi.
+
 ## Bulunup düzeltilenler
 1. **Sosyal paneli**: geri tuşu paneli kapatmıyordu, çıkış sorusuna düşüyordu. Düzeltildi.
 2. **Rakip arama penceresi**: geri tuşu aramayı iptal etmiyordu. Düzeltildi.
@@ -46,7 +49,11 @@ Yöntem: tarayıcı saati hızlandırılarak her savaş bitirildi. Kart oynayan 
 6. **Sandık açılış ekranı**: sandık ve kartlar sola yaslanıyor, soldaki kart ekran kenarından kırpılıyordu. Mağaza stilleri açılış penceresini iki sütuna bölüyordu. Artık sandık üstte ortada, kartlar altında ortada (800×360, 854×393, 915×412; Basit, Usta ve Delüks sandık denendi). Efsanevi sandık denenmedi.
 7. **Kartı At düğmesi**: önceden seçili kart istiyordu, savaş kartları dokunmayla seçilmediği için hiç çalışmıyordu. Artık önce düğmeye, sonra atılacak karta dokunuluyor.
 8. **Telefonda efektlerin kısılması**: oyun, dokunmatik ekranı olan her cihazı "düşük güç" sayıyordu (parıltılar kapalı, parçacıklar 180→56, vuruş izleri ince, 30 FPS, düşük çözünürlük) ve Ayarlar'daki Grafik kalitesi bunu etkilemiyordu. Artık yalnızca Grafik kalitesi "Düşük" ise ya da zayıf donanımda (≤4 çekirdek veya ≤2 GB bellek) düşük güç açılıyor. Telefonda akıcılığı denenmedi; takılırsa Ayarlar'dan Grafik kalitesini Orta/Düşük yap ve oyunu yeniden aç.
-9. **Hesap silme**: başarıdan sonra silinen hesabın yerel kopyası cihazda kalıyordu. Artık siliniyor.
+9. **Etkinlikler satır simgeleri** görünmüyordu (emoji gizleniyor, yerine konacak simge hiç eklenmiyordu); simgeler eklendi.
+10. **Meydan Okumalar** düğmesi "DEVA M ET" diye bölünüp ödül sayısı alt alta diziliyordu; tek satıra alındı.
+11. **Minyon kartlarında** "SV 1" rozeti "S…" diye kırpılıyordu; düzeltildi.
+12. **Ayarlar → Hakkında** sürümü v3.60.132 gösteriyordu; v3.60.220 yapıldı.
+13. **Hesap silme**: başarıdan sonra silinen hesabın yerel kopyası cihazda kalıyordu. Artık siliniyor.
 
 ## Bilinen, düzeltilmemiş
 - Birçok ekranda 6–7 piksellik yazılar var (ör. Kahramanlar, Kristal Kolos). Küçük ekranda okunması zor olabilir. Gerçek telefonda bakılıp karar verilmeli; toptan büyütmek düzeni bozabilir.
