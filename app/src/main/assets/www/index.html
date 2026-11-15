@@ -39245,6 +39245,17 @@ html:not(#_d1):not(#_d2):not(#_d3):not(#_d4):not(#_d5):not(#_d6):not(#_d7):not(#
 #af171Shop .af173-side>.af4-item>small{min-height:0!important;max-height:2.7em!important;overflow:hidden!important;align-self:start!important}
 /* Öne çıkan kart: açıklama satırı 3 piksele düşüp düğmenin altında kalıyordu. */
 #af171Shop .af173-hero .af4-cos>small{min-height:2.6em!important;max-height:2.8em!important;overflow:hidden!important}
+/* Sandık açılış ekranı: mağaza stilleri (layer af172Commerce) paneli iki sütuna bölüp sandığı ve kartları sol sütuna sıkıştırıyordu.
+   Tek sütuna dönülür; sandık ve kartlar panelin ortasında durur. */
+#chestRevealBackdrop .chestRevealPanel{grid-template-columns:minmax(0,1fr)!important;justify-items:center!important}
+#chestRevealBackdrop{--af220-chest:clamp(64px,19vh,100px)}
+#chestRevealBackdrop .chestRevealIcon{width:var(--af220-chest)!important;height:var(--af220-chest)!important;min-height:0!important}
+#chestRevealBackdrop .chestRevealTitle,#chestRevealBackdrop .chestRevealClose{grid-column:1!important}
+#chestRevealBackdrop .af190-reveal-stage{grid-column:1!important;grid-row:2!important;width:100%!important}
+#chestRevealBackdrop .chestRevealReward{grid-column:1!important;grid-row:3!important;width:100%!important;text-align:center!important}
+#chestRevealBackdrop .chestRevealCards{top:calc(var(--af220-chest) + 8px)!important;left:0!important;right:0!important;margin:0!important;transform:none!important;width:100%!important;max-width:none!important;box-sizing:border-box!important;padding:0!important;justify-content:center!important;flex-wrap:wrap!important}
+#chestRevealBackdrop .chestRevealCards{gap:10px!important;column-gap:10px!important}
+#chestRevealBackdrop .chestRevealCard{flex:0 0 auto!important;margin:0!important}
 }
 </style>
 <style id="AFP_V174_COMMERCE">
