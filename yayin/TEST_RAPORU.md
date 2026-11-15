@@ -54,6 +54,22 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 2. **Mağaza → PLAY sekmesi** oyunculara "Google Play için hazırlanıyor. Bu test sürümünde gerçek para alınmaz" yazısını ve pasif "HAZIRLIK AŞAMASINDA" düğmelerini gösteriyor. Yayında ya gizlenmeli ya da ödeme gerçekten bağlanmalı.
 3. **Sunucu kurulumu:** Sıralama, dostluk maçı ve hesap silme için sunucuda `AFP_SOSYAL_KURULUM.sql` çalıştırılmış olmalı. Çalıştırılmamışsa oyuncuya "SQL dosyasını Supabase'te çalıştırın" gibi geliştirici mesajı çıkıyor. Üretim sunucusunda kurulu olup olmadığını bu ortamdan doğrulayamadım.
 
+## 222 (çevrim içi bekleme odaları) birleştirmesi ve müzik
+**Yöntem:** ArenaForgePro_222 HTML'i, tabanı `ba077a3` olan üç yönlü birleştirmeyle (taban, GitHub'daki güncel `15046e1`, 222) birleştirildi. Çakışma çıkmadı; yinelenen `<script>/<style>` bloğu yok; tabandaki hiçbir blok kaybolmadı. 222'nin 172 satırlık değişikliği tamamen alındı: beş bekleme odası (Arena, Sancak, Gizli Bölge, Karanlık Geçit, İki Oyunculu Kolosus) ve arka plan görselleri, mağazada "Kredi Kazan" düğmesi, hesap silme metinleri ve sunucu onay denetimi, 221 denetim stilleri, sürüm etiketi v3.60.222. Aynı düzeltme iki kez uygulanmadı.
+
+**İki bilinçli karar:**
+- 222 bizim "Kartı At" parlama stilini (3 satır CSS) silmişti, ama JS'ini bırakmıştı. Özellik görünmez kalmasın diye o 3 satır tabandaki haliyle geri konuldu. 222'nin kart adı hizası değişikliği (`center`→`start`) olduğu gibi bırakıldı.
+- "Oyunun ses efektlerini koru" isteğiyle, benim yeni ses efekti sentezleyicim oyuna **bağlanmadı**; oyunun kendi efektleri aynen çalıyor. Yalnızca müzik eklendi (ana üs/menü, bekleme odası, savaş). Efekt sentezleyici kodda hazır bekliyor.
+
+**Test edilenler (tarayıcıda, ağ kapalı):** 97 betiğin söz dizimi geçti; müzik Ayarlar'dan kapatılınca susuyor, açılınca geri geliyor ve ayar kaydediliyor (yeni kurulumda varsayılan açık); bekleme odasında "Aramayı iptal et" pencereyi kapatıyor; 10 sn'lik arama 8,4. sn'de "rakip bulundu", ~13. sn'de savaşa geçiyor (yeni bekleme süresi eklenmedi); savaşta müzik sahne değiştiriyor; Kartı At çalışıyor; Arena savaşı sorunsuz bitiyor. Sayfa hatası çıkmadı.
+
+**Yapılamayanlar:** gerçek hesapla çevrim içi bekleme odası (arka plan görselli odanın hesaplı hali) ve iki telefonla gerçek eşleşme; müziğin kulakla dinlenmesi ve telefonda ses dengesi; Android'de müzik ve onay penceresi; 222'nin hesap silme değişikliğinin gerçek sunucuyla doğrulanması.
+
+**Dikkat:**
+1. **222 hesap silme:** istemci artık sunucudan `ok:true` yanıtı bekliyor (`receipt?.ok!==true`). Sunucudaki `afp_delete_account` işlevi `{ok:true}` döndürmüyorsa, silme başarılı olsa bile oyun "Sunucu silmeyi onaylamadı" der ve oturumu temizlemez. Gerçek test hesabıyla doğrulanmalı.
+2. **Telefon performansı:** önceki turda telefonların "düşük güç" sayılması kaldırıldı (tam efekt). Yazılım tabanlı çizimde bu savaşı yaklaşık 2,7 kat yavaşlattı (104 sn → 277 sn, aynı savaş). Gerçek telefon GPU'sunda etkisi ölçülmedi. Takılma olursa Ayarlar'dan Grafik kalitesini Orta/Düşük yap. Müzik motorunun ölçülebilir maliyeti yok (düşük güç yolunda müzik açıkken 91 sn, taban 104 sn).
+3. **Bekleme odası görseli misafirde de çıkıyor:** 222'nin koşulu misafirde de doğru sayılıyor (misafir 10 sn aramaya girip bota düşüyor). 222'nin tasarımı olarak bırakıldı.
+
 ## Bulunup düzeltilenler
 1. **Sosyal paneli**: geri tuşu paneli kapatmıyordu, çıkış sorusuna düşüyordu. Düzeltildi.
 2. **Rakip arama penceresi**: geri tuşu aramayı iptal etmiyordu. Düzeltildi.
