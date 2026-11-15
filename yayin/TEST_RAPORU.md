@@ -168,3 +168,11 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 **Düzeltme:** normal yer bulunamazsa grup, kendi portalının önünde, düşmana göre en az çakışan tabana acil dizilişle çıkıyor (üyeler x=0,005–0,12 arasında, kendi aralarındaki dizilişi koruyarak). Hasar, enerji, kart sırası aynı; yalnızca "çıkamama" giderildi.
 **Test (düzeltmeden sonra):** aynı koşullarda üç kart da geçerli yer buldu; gerçek savaşta düşman portala dayalıyken Kılıçlı Asker +2, Orman Okçusu +2, İskelet Savaşçı +3 birim sahaya çıktı; sayfa hatası yok. Rakip tarafın grup kartları da aynı fonksiyonu kullandığı için aynı şekilde düzeldi.
 **Sınır:** Düşman tam portalın üstündeyken grup düşmanla iç içe geçebilir (eski klon kartıyla aynı davranış). Aynı koridorda saha dolu (36 birim) ise yine "Saha dolu" diye reddedilir; bu bilinçli sınırdır.
+
+## Gerçek ses kayıtları oyuna gömüldü (kullanıcının yüklediği 17 Pixabay dosyası)
+- 17 dosyadan **15 parça** kesilip normalleştirildi (toplam ~155 KB, `index.html` içinde `AFP_AUDIO_SAMPLES`), her biri oyunda ilgili yere bağlandı: yumruk → yakın dövüş isabeti, yer çarpması/gümleme → ağır vuruş, metal çarpma katmanı, 2 kısa uğultu → kılıç savurma ve ok vınlaması, sinematik uğultu → ağır savurma ve büyü/ateş topu fırlatma, sinematik boom → "küm" (Alev Dalgası, Lav Yağmuru, ateş topu isabeti, alan büyüleri, gök gürültüsü), araba çarpması + boom → portal yıkılışı, ezme vuruşu → sersemletme/kaya/çağırma, buz büyüsü çarpması → Zaman Yavaşlatma, nefes → saldırı sesine katman.
+- **Kullanılmayanlar:** makineli tüfek, tabanca, koridor ayak sesi (fantezi oyununa uymuyor).
+- Parçalar her seferinde hafif farklı perdede çalınır (±%5) ve sentez "küm"/ses katmanlarıyla birlikte çalar; örnek yüklenemezse eski sentez sesler yedek olarak çalar.
+- **Test:** 15/15 parça çözüldü; kırpma yok; 58 sn'lik savaşta yeni sesler çaldı; Arena, Yanki, Kolos, Gizli, kart silme, bekleme odası testleri hatasız.
+- Kaynak ve lisans notu: `yayin/SES_LISANS_NOTU.md` (Play yayını öncesi her dosyanın lisansını kontrol et).
+- **Sınır:** kılıç-kılıç çarpışması, gerçek ok teli ve insan "hah/uhh/ohh" savaşçı sesi için uygun kayıt yoktu; bunlar sentez olarak kaldı (savurma/vuruş artık gerçek kayıt, savaşçı sesleri sentez, yalnızca nefes katmanı gerçek).
