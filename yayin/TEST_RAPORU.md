@@ -81,6 +81,18 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 **Testler:** eski "müzik kapalı" kayıtla açılışta ayar açık oluyor ve ana üste/savaşta ses seviyesi var; tam bir savaşta 80 yakın dövüş vuruşu, 6 ok vuruşu, 7 ölüm, 14 kart, portal, yenilgi ve her iki tarafın büyüleri yeni motora yönlendi; sayfa hatası yok; 98 betik söz dizimi geçti; müzik aç/kapa, bekleme odasında iptal ve savaşa geçiş çalışıyor.
 **Yapılamayanlar:** sesleri kulakla dinleyemedim, yalnızca sayısal denetledim (her efekt sesli, taşma ve geçersiz değer yok). Gerçek Android'de WebView otomatik başlatmasını denemedim. Efektlerin "gerçekçilik" derecesi sentezleyici sınırındadır; örnek kayıt (sample) kullanılmadı.
 
+## Minyon yetenekleri artık görünür ve duyulur (v3.60.223)
+**İstek:** Basit yetenekler "gerçek" olsun; örn. okçunun yeteneği devreye girince 3 ok atsın; tüm minyonlar için.
+**Ne yapıldı:** 137 minyonun (36 eski, 52 AF37, 49 yeni) pasif yeteneği ortak bir "yetenek efekti" katmanına bağlandı. **Sayısal değerler (hasar, ihtimal, süre) değişmedi.**
+- **3 mermilik salvo (gerçek mekanik):** Menzilli birimlerin (okçu, nişancı, büyücü…) kritik, "son darbe", "ilk kan" ve çarpanlı her-N'inci vuruşu 3 mermi olarak atılıyor: hasar %40 + %30 + %30'a bölünüyor, **toplam hasar eskisiyle aynı**. Mermiler yelpaze gibi hafif sapmayla ve kısa aralıkla çıkıyor. Test: Orman Okçusu'nun kritiği 19 hasarı 8+6+5 olarak 3 oka böldü, 18'i 7+5+6.
+- **Yetenek adı:** tetiklenince birimin üstünde yeteneğin adı uçuyor (örn. "İSABETLİ ATIŞ!", "KESİK DARBE!"), birim başına en fazla 1,1 sn'de bir.
+- **Türüne göre efekt:** kılıç darbesi (kesik/kritik), sersemletme yıldızları, itme dalgası, ilk kan ve son darbe patlamaları, delici vuruşta arkadaki düşmana çizgi, savurma/alan hasarında genişleyen halka, iyileştirme/kalkan yeteneklerinde dosta ışın, yanma/zehir/yavaşlatma/zayıflatma vuruşlarında renkli parçacık.
+- **Ok rengi yeteneği gösteriyor:** zehirli ok yeşil, yanıcı ok turuncu, yavaşlatan ok buz mavisi, zayıflatan ok mor.
+- **Aura yetenekleri** (ordu narası, can yenileme, yavaşlatma, kalkan) zeminde soluk halka olarak çiziliyor.
+- **Ses:** yetenek anında türüne göre ses çalıyor (salvo için 3 ok teli, kılıç, sersemletme, itme, vb.).
+**Test:** bot oynayan savaşta salvo, kılıç darbesi ve diğer yetenekler tetiklendi (örn. 24 sn'lik savaşta 3 tetiklenme); sayfa hatası yok; 98 betiğin söz dizimi geçti.
+**Yapılamayanlar / sınırlar:** 137 minyonun her biri tek tek sahada denenmedi; efektler yetenek *türüne* göre ortak olduğu için bir tür doğruysa o türdeki tüm minyonlar çalışır. Gerçek telefonda görünürlük ve performans (özellikle büyük savaşlarda) ölçülmedi. Sürekli açık yetenekler (zırh/hasar azaltma, kaçınma, diken) yeni efekt almadı; kaçınma ve diken yazıları zaten oyunda vardı. Hasar bölüşümü (%40/30/30) değiştirilebilir; toplamı artırmak denge kararıdır, yapılmadı.
+
 ## Bulunup düzeltilenler
 1. **Sosyal paneli**: geri tuşu paneli kapatmıyordu, çıkış sorusuna düşüyordu. Düzeltildi.
 2. **Rakip arama penceresi**: geri tuşu aramayı iptal etmiyordu. Düzeltildi.

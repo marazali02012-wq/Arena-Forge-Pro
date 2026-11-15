@@ -14733,13 +14733,14 @@ function afpDrawAtlasUnit(u,R,C,x,y,px,k2){
     u._afAtlasHealSeen=u._afHealAt;af321Heals.push({u,by:u._afHealBy||null,t0:elapsed,shaman:false});
   }
   for(const shot of af323Shots)if(shot.u===u&&shot.x0===undefined){
-    shot.x0=sprite.muzzleX;shot.y0=sprite.muzzleY;
+    shot.x0=sprite.muzzleX+(shot.ox||0);shot.y0=sprite.muzzleY+(shot.oy||0);
     shot.color=afpShotColor(u,shot.kind);
     af321Flashes.push({x:shot.x0,y:shot.y0,t0:elapsed,life:.09,color:shot.color,r:shot.kind==='arrow'?3:5});
   }
   return true;
 }
 function afpShotColor(u,kind){
+  { const pc=af222ShotColor(u); if(pc) return pc; }
   const r=af320Resolve(u),type=u.heroType||r.kind,archetype=SPELL_ARCHETYPE[type];
   if(kind==='arrow')return AF321_ARROW[type]||AF321_ARROW[r.kind]||'#f3e3b8';
   return AF321_ELEMENT[type]||AF321_ELEMENT[r.kind]||AF321_ELEMENT[archetype]||(r.blue?'#bfe6ff':'#ff9a7a');
@@ -14834,7 +14835,7 @@ function drawHero(u){
   af321Band[0]=Math.min(af321Band[0],y-top*1.25);af321Band[1]=Math.max(af321Band[1],y+px*.6);/* v3.35.3 V2: heavy weapons (club/sword) swing up to ~.5px below the feet; the GL band no longer cuts them */
   // ---- effects bound to the real events ----
   // v3.23: a projectile launched by attack() this step leaves from the bow / staff of the release frame drawn now
-  if(shooter)for(const s of af323Shots)if(s.u===u&&s.x0===undefined){const m=AF321.muzzlePoint(K,M,V);s.x0=m[0];s.y0=m[1];
+  if(shooter)for(const s of af323Shots)if(s.u===u&&s.x0===undefined){const m=AF321.muzzlePoint(K,M,V);s.x0=m[0]+(s.ox||0);s.y0=m[1]+(s.oy||0);
     s.color=s.kind==='arrow'?(AF321_ARROW[R.kind]||'#f3e3b8'):(AF321_ELEMENT[R.kind]||(blue?'#bfe6ff':'#ff9a7a'));af321Flashes.push({x:m[0],y:m[1],t0:elapsed,life:.12,color:s.color,r:s.kind==='arrow'?4:7});}
   if((u._afHits||0)!==st.fxHits){
     if(st.fxHits!==undefined&&!shooter){
@@ -14915,7 +14916,7 @@ function af321DrawProjectiles(){
   // v3.23: one projectile system - these are the simulation shots of af323Shots (damage applied on arrival)
   for(const p of af323Shots){
     const u=p.u;let x0=p.x0,y0=p.y0;
-    if(x0===undefined){x0=u._vis?.muzzleX??laneX(u.x);y0=u._vis?.muzzleY??(laneY(u.lane,x0)-af320ChestY(u));p.x0=x0;p.y0=y0;p.color=p.color||afpShotColor(u,p.kind);}
+    if(x0===undefined){x0=u._vis?.muzzleX??laneX(u.x);y0=u._vis?.muzzleY??(laneY(u.lane,x0)-af320ChestY(u));x0+=p.ox||0;y0+=p.oy||0;p.x0=x0;p.y0=y0;p.color=p.color||afpShotColor(u,p.kind);}
     let tx,ty;
     if(p.target&&p.target.hp>0&&units.includes(p.target)){[tx,ty]=af321TargetPoint(u,p.target,false);p.lx=tx;p.ly=ty;}
     else if(p.tower){tx=p.tower.x>.5?W*.92:W*.08;ty=laneY(p.lane,tx)-8;p.lx=tx;p.ly=ty;}
@@ -15585,7 +15586,7 @@ function af360DrawDeploymentBoundaries(){
   }
   ctx.restore();
 }
-function draw(dt=1/60){const af321T0=performance.now();if(af3711ResizePending){af3711ResizePending=false;try{resize();}catch(_){}}drawBackground();drawAFPortalAnim();af360DrawDeploymentBoundaries();af332DrawZones();drawAmbientEffects(dt);af321Band[0]=1e9;af321Band[1]=-1e9;if(typeof AF321!=='undefined')AF321.begin();drawFallenUnits(dt);units.sort((a,b)=>a.x-b.x);const af320Order=units.slice().sort((a,b)=>((a.lane|0)-(b.lane|0))||(a.x-b.x));af320Order.forEach(u=>{if(u._afp177CaptiveBy){u._vis=null;return;}if(u.isBarrier)af334DrawBarrier(u);else {if(u._af203Echo){ctx.save();const px=laneX(u.x),py=laneY(u.lane,px);ctx.beginPath();ctx.ellipse(px,py+3,Math.max(15,W*.018),Math.max(6,H*.008),0,0,6.283);ctx.strokeStyle='#db9bff';ctx.lineWidth=2.2;ctx.shadowBlur=13;ctx.shadowColor='#a83bff';ctx.stroke();ctx.restore();}drawHero(u);}});afBattleDrawGhost();af320PrepareHudOffsets(af320Order);if(typeof AF321!=='undefined')af321Flush();afBattleDrawGhostDirectArt();afBattleDrawGhostMarker();af321DrawTrails();af321DrawProjectiles();af327DrawFx();af332DrawFxExtra();try{AFX.draw(dt);}catch(_){}af328DrawTeamMarks();af320Order.forEach(af320DrawHud);drawShots(dt);drawCombatTexts(dt);if(!(LOW_POWER_DEVICE&&playing&&window.__AFPOnlineContext?.active&&units.length>=24&&((af382DecorFrame++&1)===1)))drawParticles(dt);if(playing)af321PerfSample(performance.now()-af321T0);if(eventFlash>0){const world=ARENA_DATA[profile.arena]||ARENA_DATA.forest;ctx.save();ctx.globalAlpha=Math.min(.008,eventFlash*.006);const edge=ctx.createRadialGradient(W*.5,H*.52,Math.min(W,H)*.28,W*.5,H*.52,Math.max(W,H)*.72);edge.addColorStop(0,'rgba(0,0,0,0)');edge.addColorStop(1,world.eventColor+'22');ctx.fillStyle=edge;ctx.fillRect(0,0,W,H);ctx.restore();}}
+function draw(dt=1/60){const af321T0=performance.now();if(af3711ResizePending){af3711ResizePending=false;try{resize();}catch(_){}}drawBackground();drawAFPortalAnim();af360DrawDeploymentBoundaries();af332DrawZones();drawAmbientEffects(dt);af321Band[0]=1e9;af321Band[1]=-1e9;if(typeof AF321!=='undefined')AF321.begin();drawFallenUnits(dt);units.sort((a,b)=>a.x-b.x);const af320Order=units.slice().sort((a,b)=>((a.lane|0)-(b.lane|0))||(a.x-b.x));af320Order.forEach(u=>{if(u._afp177CaptiveBy){u._vis=null;return;}if(u.isBarrier)af334DrawBarrier(u);else {if(u._af203Echo){ctx.save();const px=laneX(u.x),py=laneY(u.lane,px);ctx.beginPath();ctx.ellipse(px,py+3,Math.max(15,W*.018),Math.max(6,H*.008),0,0,6.283);ctx.strokeStyle='#db9bff';ctx.lineWidth=2.2;ctx.shadowBlur=13;ctx.shadowColor='#a83bff';ctx.stroke();ctx.restore();}drawHero(u);}});afBattleDrawGhost();af320PrepareHudOffsets(af320Order);if(typeof AF321!=='undefined')af321Flush();afBattleDrawGhostDirectArt();afBattleDrawGhostMarker();af321DrawTrails();af321DrawProjectiles();af327DrawFx();af222DrawProcs();af332DrawFxExtra();try{AFX.draw(dt);}catch(_){}af328DrawTeamMarks();af320Order.forEach(af320DrawHud);drawShots(dt);drawCombatTexts(dt);if(!(LOW_POWER_DEVICE&&playing&&window.__AFPOnlineContext?.active&&units.length>=24&&((af382DecorFrame++&1)===1)))drawParticles(dt);if(playing)af321PerfSample(performance.now()-af321T0);if(eventFlash>0){const world=ARENA_DATA[profile.arena]||ARENA_DATA.forest;ctx.save();ctx.globalAlpha=Math.min(.008,eventFlash*.006);const edge=ctx.createRadialGradient(W*.5,H*.52,Math.min(W,H)*.28,W*.5,H*.52,Math.max(W,H)*.72);edge.addColorStop(0,'rgba(0,0,0,0)');edge.addColorStop(1,world.eventColor+'22');ctx.fillStyle=edge;ctx.fillRect(0,0,W,H);ctx.restore();}}
 /* v3.78.11: render-only safety net. A render exception used to pause the whole battle (and, if thrown between save()/restore(), leak
    alpha/filter/transform state into every later frame = progressive dimming). Now: reset the 2D context, repaint the arena, keep fighting.
    Only 120 consecutive failing frames (2 s) fall through to the existing safe-pause handler. Simulation code is untouched. */
@@ -16776,7 +16777,7 @@ function attack(u,target){
   damage=af327AttackMods(u,target,damage); // v3.27: komutan kritiği + kart pasifleri
   // v3.34.63: Heroic-style area splash can hit the tower while the lane-end unit is also fighting a blocker.
   af334TryAreaPortalSplash(u,damage);
-  if(af323IsShooter(u)){af323Launch(u,target,damage,null);return;}
+  if(af323IsShooter(u)){af222LaunchShooter(u,target,damage);return;}
   af323ApplyHit(u,target,damage);
 }
 // v3.23: the unchanged hit / damage code of attack(); melee calls it immediately, projectiles call it on arrival.
@@ -17636,6 +17637,70 @@ function af327Post(team){return team==='ally'?AF327_CMD_POST:1-AF327_CMD_POST;}
 function af327SideOf(u){return u&&u.team==='enemy'?af327E:af327S;}
 /* ---------------- ortak savunma / hasar / iyileştirme ---------------- */
 function af327Pas(u){return u&&u.heroType&&!u.enemyType?AF327_PASSIVES[u.heroType]||null:null;}
+
+/* ===== v3.60.223 · MİNYON YETENEK EFEKTLERİ =====
+   Pasif yetenekler (137 minyon) artık sahada görünür ve duyulur. Sayısal değerler (hasar, süre, ihtimal) DEĞİŞMEDİ; yalnızca
+   yetenek tetiklendiğinde: adı uçar, türüne göre efekt çizilir ve ses çalar. Okçu/büyücü gibi menzilli birimlerin kritik, son darbe,
+   ilk kan ve güçlü her-N'inci vuruşu 3 mermilik salvoya dönüşür (toplam hasar aynı: %40 + %30 + %30). */
+const AF222_PROCS=[];
+function af222Pt(t){const x=laneX(t.x);return [x,laneY(t.lane,x)-af320ChestY(t)*.95];}
+function af222Add(f){f.t0=elapsed;if(AF222_PROCS.length>(LOW_POWER_DEVICE?24:56))AF222_PROCS.shift();AF222_PROCS.push(f);}
+function af222Sfx(v){try{if(window.AFPAudioV1)window.AFPAudioV1.sfx('proc',af328Vol('sfx'),v);}catch(_){}}
+function af222Name(u,txt,color,snd){
+  const now=elapsed;if(now-(u._af222NameAt==null?-9:u._af222NameAt)<1.1)return;u._af222NameAt=now;
+  const ps=af327Pas(u);af327Text(u,String(txt||(ps&&ps.n)||'').toLocaleUpperCase('tr-TR')+'!',color||'#ffe08a');af222Sfx(snd||'generic');
+}
+function af222ShotColor(u){
+  if(u._af222Col!==undefined)return u._af222Col;
+  const ps=af327Pas(u);let c=null;
+  if(ps){const dk=(ps.dot&&ps.dot.kind)||(ps.dotArea&&ps.dotArea.kind);if(dk)c=dk==='poison'?'#9cff6a':'#ff9b46';else if(ps.slow)c='#9fe9ff';else if(ps.vuln)c='#c78bff';}
+  return (u._af222Col=c);
+}
+function af222LaunchShooter(u,target,damage){
+  const P=u._af222P||[],ps=af327Pas(u),big=P.includes('crit')||P.includes('execute')||P.includes('first')||(P.includes('special')&&ps&&ps.everyN&&ps.everyN.mult);
+  if(!big||damage<3){af323Launch(u,target,damage,null);return;}
+  const d1=Math.max(1,Math.round(damage*.4)),d2=Math.max(1,Math.round(damage*.3)),d3=Math.max(1,damage-d1-d2),off=[[0,0,0],[-3,-9,.045],[3,9,.09]];
+  [d1,d2,d3].forEach((d,i)=>{af323Launch(u,target,d,null);const s=af323Shots[af323Shots.length-1];if(s){s.ox=off[i][0];s.oy=off[i][1];s.t1+=off[i][2];s.volley=1;}});
+  af222Name(u,null,'#ffe08a','volley');
+}
+function af222OnHit(u,target,damage,ps){
+  try{
+    if(!ps||!target)return;const P=u._af222P||[],[x,y]=af222Pt(target),px=Math.max(18,af320PxFor('hero',1,1)*.5);
+    if(P.includes('first')){af222Add({k:'burst',x,y,r:px*1.1,life:.4,color:'#ffd36b'});af222Name(u,'İlk Kan','#ffd36b','strike');}
+    if(P.includes('execute')){af222Add({k:'burst',x,y,r:px*1.15,life:.45,color:'#ff6a5a'});af222Add({k:'slash',x,y,r:px,life:.4,color:'#ffd0c8'});af222Name(u,null,'#ff8a7a','strike');}
+    if(P.includes('crit')&&!af323IsShooter(u)){af222Add({k:'slash',x,y,r:px*1.2,life:.42,color:'#fff0b0'});af222Name(u,null,'#ffd36b','slash');}
+    if(P.includes('special')){const e=ps.everyN||{};
+      if(e.stun){af222Add({k:'stars',x,y:y-px*.8,r:px,life:.7,color:'#fff3a6'});af222Name(u,null,'#fff3a6','stun');}
+      else if(e.push){af222Add({k:'wave',x,y,r:px*1.3,life:.45,color:'#e6efff',dir:u.team==='ally'?1:-1});af222Name(u,null,'#dfe9ff','wave');}
+      else if(e.mult){af222Add({k:'slash',x,y,r:px*1.2,life:.45,color:'#ffe9b0'});af222Name(u,null,'#ffe08a','slash');}
+      else af222Name(u,null,'#d9c9ff','generic');}
+    if(ps.cleave||ps.splash){const c=ps.cleave||ps.splash,rr=Math.abs(laneX(Math.min(.99,target.x+c.r))-laneX(target.x))||px;af222Add({k:'ring',x,y:y+px*.55,r:rr,life:.32,color:ps.splash?'#ffb35a':'#ffd9a0'});}
+    if(ps.pierce){const behind=units.filter(o=>o!==target&&o.team===target.team&&o.hp>0&&o.lane===target.lane&&Math.abs(o.x-target.x)<=ps.pierce.r&&(u.team==='ally'?o.x>target.x:o.x<target.x)).sort((a,b)=>Math.abs(a.x-target.x)-Math.abs(b.x-target.x))[0];
+      if(behind){const [x2,y2]=af222Pt(behind);af222Add({k:'beam',x,y,x2,y2,life:.28,color:'#fff0c8'});}}
+    if(ps.healLowest||ps.shieldLowest){const f=units.filter(o=>o.team===u.team&&o.hp>0&&o.lane===u.lane&&(ps.shieldLowest||o.hp<o.maxHp)).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];
+      if(f&&f!==u){const [ux,uy]=af222Pt(u),[x2,y2]=af222Pt(f);af222Add({k:'beam',x:ux,y:uy,x2,y2,life:.4,color:ps.healLowest?'#9dffb0':'#8fe3ff'});}
+      else if(f){const [ux,uy]=af222Pt(u);af222Add({k:'ring',x:ux,y:uy+px*.5,r:px,life:.4,color:ps.healLowest?'#9dffb0':'#8fe3ff'});}}
+    const dk=(ps.dot&&ps.dot.kind)||(ps.dotArea&&ps.dotArea.kind);
+    if(dk)burst(x,y,dk==='poison'?'#9cff6a':'#ff9b46',3);else if(ps.slow)burst(x,y,'#9fe9ff',3);else if(ps.vuln)burst(x,y,'#c78bff',3);
+  }catch(e){}
+}
+function af222DrawProcs(){
+  const now=elapsed;
+  for(const u of units){if(u.hp<=0||!u._vis)continue;const ps=af327Pas(u);if(!ps)continue;const a=ps.aura||ps.slowAura||ps.regenAura||ps.periodicShield;if(!a||!a.r)continue;
+    const v=u._vis,col=ps.slowAura?'#9fe9ff':ps.regenAura?'#8fffa0':ps.periodicShield?'#8fe3ff':(a.dmg?'#ffb35a':'#ffd36b'),rx=Math.abs(laneX(Math.min(.99,u.x+a.r))-laneX(u.x))||v.px*.6;
+    af327Ring(v.x,v.y+1,rx,rx*.26,col,.15+.07*Math.sin(now*2.4+u.x*9),1.2);}
+  for(let i=AF222_PROCS.length-1;i>=0;i--){
+    const f=AF222_PROCS[i],t=(now-f.t0)/f.life;if(t<0||t>=1){AF222_PROCS.splice(i,1);continue;}
+    const a=1-t;ctx.save();ctx.globalCompositeOperation='lighter';ctx.strokeStyle=f.color;ctx.fillStyle=f.color;ctx.lineCap='round';
+    if(f.k==='ring'){const r=f.r*(.35+t*.85);ctx.globalAlpha=a*.8;ctx.lineWidth=2.4;ctx.beginPath();ctx.ellipse(f.x,f.y,r,r*.34,0,0,Math.PI*2);ctx.stroke();}
+    else if(f.k==='burst'){ctx.globalAlpha=a*.9;ctx.lineWidth=2;for(let j=0;j<8;j++){const an=j*Math.PI/4+.3,r0=f.r*(.25+t*.4),r1=f.r*(.55+t*.8);ctx.beginPath();ctx.moveTo(f.x+Math.cos(an)*r0,f.y+Math.sin(an)*r0*.8);ctx.lineTo(f.x+Math.cos(an)*r1,f.y+Math.sin(an)*r1*.8);ctx.stroke();}}
+    else if(f.k==='slash'){ctx.lineWidth=3.2-t*1.6;for(let j=0;j<3;j++){const p=Math.max(0,Math.min(1,t*3.2-j*.55));if(p<=0)continue;ctx.globalAlpha=Math.min(1,a*1.4);const x0=f.x-f.r*.7+j*f.r*.38,y0=f.y-f.r*.8;ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x0+f.r*.9*p,y0+f.r*1.5*p);ctx.stroke();}}
+    else if(f.k==='stars'){ctx.globalAlpha=a;for(let j=0;j<3;j++){const an=now*7+j*2.09;ctx.beginPath();ctx.arc(f.x+Math.cos(an)*f.r*.55,f.y+Math.sin(an)*f.r*.16,2.4,0,Math.PI*2);ctx.fill();}}
+    else if(f.k==='wave'){ctx.globalAlpha=a*.85;ctx.lineWidth=2.6;for(let j=0;j<3;j++){const d=(t*.9+j*.14)*f.r*(f.dir||1);ctx.beginPath();ctx.arc(f.x+d,f.y,f.r*.32*(1+j*.25),-1.1,1.1);ctx.stroke();}}
+    else if(f.k==='beam'){ctx.globalAlpha=a*.9;ctx.lineWidth=3.2-t*2;ctx.shadowColor=f.color;ctx.shadowBlur=LOW_POWER_DEVICE?0:8;ctx.beginPath();ctx.moveTo(f.x,f.y);ctx.lineTo(f.x+(f.x2-f.x)*Math.min(1,t*2.2),f.y+(f.y2-f.y)*Math.min(1,t*2.2));ctx.stroke();}
+    ctx.restore();
+  }
+}
 function af327Text(u,txt,color){try{addCombatText(laneX(u.x),laneY(u.lane,laneX(u.x))-48,txt,color);}catch(e){}}
 function af327AuraFrom(u,key){ // aynı koridordaki dostların aurası (en güçlü olanı)
  let best=null;
@@ -17703,15 +17768,15 @@ function af327Push(e,d,casterTeam){if(afp196IsBraced(e))return; /* v3.60.196: si
 /* ---------------- birim pasifleri: saldırı anı, isabet anı, saldırı hızı ---------------- */
 function af327AttackMods(u,target,damage){
  if(!u||(u.hp<=0&&u._af378Live!==af378F))return damage; // v3.77.01: aynı karede ölen birliğin son vuruşu da kart pasifini kullanır
- let d=damage,crit=false;
- if(u.isCommander&&af330Rand()<(u.crit||0)){d*=u.critDmg||1.5;crit=true;}
+ let d=damage,crit=false;u._af222P=[];
+ if(u.isCommander&&af330Rand()<(u.crit||0)){d*=u.critDmg||1.5;crit=true;u._af222P.push('crit');}
  const ps=af327Pas(u);
  if(ps){
   u._af327N=(u._af327N||0)+1;
-  if(ps.everyN&&u._af327N%ps.everyN.n===0){u._af327Special=1;if(ps.everyN.mult)d*=ps.everyN.mult;}else u._af327Special=0;
-  if(ps.firstStrike&&!u._af327FirstUsed){d*=ps.firstStrike;u._af327FirstUsed=1;u._af327FirstHit=1;}else u._af327FirstHit=0;
-  if(ps.execute&&target&&target.hp>0&&target.hp/Math.max(1,target.maxHp)<ps.execute.below)d*=ps.execute.mult;
-  if(ps.crit&&af330Rand()<ps.crit.chance){d*=ps.crit.mult;crit=true;u._af327CritLs=ps.crit.lifesteal||0;}else u._af327CritLs=0;
+  if(ps.everyN&&u._af327N%ps.everyN.n===0){u._af327Special=1;u._af222P.push('special');if(ps.everyN.mult)d*=ps.everyN.mult;}else u._af327Special=0;
+  if(ps.firstStrike&&!u._af327FirstUsed){d*=ps.firstStrike;u._af327FirstUsed=1;u._af327FirstHit=1;u._af222P.push('first');}else u._af327FirstHit=0;
+  if(ps.execute&&target&&target.hp>0&&target.hp/Math.max(1,target.maxHp)<ps.execute.below){d*=ps.execute.mult;u._af222P.push('execute');}
+  if(ps.crit&&af330Rand()<ps.crit.chance){d*=ps.crit.mult;crit=true;u._af222P.push('crit');u._af327CritLs=ps.crit.lifesteal||0;}else u._af327CritLs=0;
  }
  const aDmg=u.team&&af327AuraFrom(u,'dmg');if(aDmg)d*=aDmg;
  u._af327Crit=crit;
@@ -20106,6 +20171,7 @@ function af327OnHit(u,target,damage,dealt){
   if(ps.cleave&&ps.cleave.stun&&target.hp>0)target.stunUntil=Math.max(target.stunUntil||0,elapsed+ps.cleave.stun);}
  if(ps.healLowest){const f=units.filter(o=>o.team===u.team&&o.hp>0&&o.lane===u.lane&&o.hp<o.maxHp).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(f)af327HealUnit(f,ps.healLowest*K,u);}
  if(ps.shieldLowest){const f=units.filter(o=>o.team===u.team&&o.hp>0&&o.lane===u.lane).sort((a,b)=>a.hp/a.maxHp-b.hp/b.maxHp)[0];if(f)af327Shield(f,ps.shieldLowest*K,6);}
+ af222OnHit(u,target,damage,ps);
  if(ps.rearmOnKill&&target.hp<=0)u._af327FirstUsed=0;
 }
 /* Ek büyü görselleri (kartal dalışı, gergedan hücumu, ruh çağrısı, taşlaşma, donma, büyüme). Yalnızca çizim. */
@@ -40958,6 +41024,16 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
     var o, g, f, n, i;
     if (kind === 'hit') hitSfx(ctx, d, t, v, variant);
     else if (kind === 'tower') { thud(ctx, d, t, 1.0 * v, 82); rumble(ctx, d, t, 0.9, 0.5 * v, 320); clang(ctx, d, t + 0.01, 0.2 * v, 420); n = nsrc(ctx, t, 0.4); f = filt(ctx, 'lowpass', 1500, 0.6); g = ctx.createGain(); env(g, t, 0.3 * v, 0.003, 0.04, 0.3); n.connect(f); f.connect(g); g.connect(d); }
+    else if (kind === 'proc') {
+      /* minyon yeteneği tetiklenince (nadir an): yeteneğin türüne göre */
+      if (variant === 'volley') { for (i = 0; i < 3; i++) { var tt = t + i * 0.045; n = nsrc(ctx, tt, 0.09); f = filt(ctx, 'bandpass', 2400 - i * 300, 1.6); g = ctx.createGain(); env(g, tt, 0.28 * v, 0.001, 0.012, 0.05); n.connect(f); f.connect(g); g.connect(d); o = osc(ctx, 'triangle', 560 - i * 40, tt, tt + 0.2); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(300, tt + 0.08); env(g, tt, 0.2 * v, 0.001, 0.015, 0.09); o.connect(g); g.connect(d); } }
+      else if (variant === 'strike') { thud(ctx, d, t, 0.6 * v, 110); clang(ctx, d, t, 0.3 * v, 1100); whoosh(ctx, d, t - 0.0, 0.12, 5000, 1800, 0.2 * v, 1); }
+      else if (variant === 'slash') { whoosh(ctx, d, t, 0.11, 6000, 1700, 0.34 * v, 1.2); whoosh(ctx, d, t + 0.07, 0.11, 5200, 1500, 0.3 * v, 1.2); clang(ctx, d, t + 0.1, 0.22 * v, 1400); }
+      else if (variant === 'stun') { thud(ctx, d, t, 0.6 * v, 100); bell(ctx, d, t + 0.04, 91, 0.13 * v, 0.5); bell(ctx, d, t + 0.1, 96, 0.1 * v, 0.5); }
+      else if (variant === 'wave') { whoosh(ctx, d, t, 0.3, 250, 1800, 0.34 * v, 1); thud(ctx, d, t + 0.05, 0.4 * v, 130); }
+      else if (variant === 'heal') { [76, 81, 84].forEach(function (m, j) { bell(ctx, d, t + j * 0.06, m, 0.12 * v, 0.5); }); }
+      else { bell(ctx, d, t, 84, 0.16 * v, 0.45); whoosh(ctx, d, t, 0.15, 800, 3200, 0.16 * v, 1.2); }
+    }
     else if (kind === 'card') { whoosh(ctx, d, t, 0.09, 3600, 1400, 0.24 * v, 1.2); thud(ctx, d, t + 0.07, 0.34 * v, 210); }
     else if (kind === 'spell') spellSfx(ctx, d, t, 'ruul', 'wave', v);
     else if (kind === 'ui') { o = osc(ctx, 'sine', 1250, t, t + 0.06); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(880, t + 0.03); env(g, t, 0.16 * v, 0.001, 0.008, 0.035); o.connect(g); g.connect(d); }
