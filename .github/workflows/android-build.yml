@@ -1,5 +1,4 @@
 name: Android derleme
-# (Actions açıldıktan sonra yeniden tetikleme)
 
 # Bilgisayar gerekmeden APK ve AAB üretir. Elle başlatmak için: GitHub → Actions → "Android derleme" → Run workflow.
 on:
@@ -15,9 +14,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '17' }
-      - uses: android-actions/setup-android@v3
       - name: SDK 36 ve Build-Tools 36.0.0
-        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"
       - uses: gradle/actions/setup-gradle@v4
       - name: Test APK (hata ayıklama anahtarıyla imzalı, yalnızca telefonda deneme için) ve imzasız AAB
         run: ./gradlew --no-daemon :app:assembleDebug :app:bundleRelease
