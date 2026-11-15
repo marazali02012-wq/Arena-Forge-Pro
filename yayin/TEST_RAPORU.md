@@ -150,3 +150,13 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 - **Büyülerde fırlatma ve çarpma ayrıldı:** fırlatınca kahramanın sesi, mermi/büyü gerçekten çarptığı anda patlama sesi çalıyor (Alev Dalgası: orta patlama, Lav Yağmuru: büyük patlama + moloz, alanlar: alçak patlama, Yıldırım/Zincir/Fırtına: gök gürültüsü, kaya: çatlama). Daha önce Lav Yağmuru'nun çarpma sesi fırlatmayla birlikte yanlış anda çalıyordu.
 - **Ateş atan minyonlar** (yanma yeteneği olan okçu/büyücüler): atarken alev fışkırması, çarpınca küçük "küm". Diğer birimlerin vuruş sesleri değişmedi.
 - Test: 10 büyü atıldı, 10 çarpma sesi çaldı; ateş atan birimlerle 22 fırlatma / 26 çarpma sesi; vuruş sesleri çift çalmıyor; kırpma yok; sayfa hatası yok.
+
+## Minyonlar birbirine vururken savaş sesleri (son istek)
+**Bulgu (kök neden):** Birim-birim savaşında vuruş sesi çalan hiçbir çağrı yoktu; duyulan "vuruş" sesleri aslında yalnızca kule/portal vuruşlarınındı. Ölçüm: 62 sn'lik bir savaşta birim saldırılarında 0 ses.
+**Yapılan:** (gerçek kayıt indirilemediği için sentezle; yukarıdaki notla aynı gerekçe)
+- **Savurma:** kılıç/balta savururken "vııt" (hafif birimler), ağır birimlerde (saldırı ≥30) alçak ve güçlü savurma.
+- **Ok:** ok atarken yay teli sesi + ok vınlaması; **büyü atan** birimlerde (büyücü, rahip, şifacı, çağırıcı vb.) yükselen büyü fırlatma sesi; çarpınca ok için "tak", büyü için parlak çarpma sesi, ateş atanlarda "küm".
+- **Savaşçı sesleri (insan sesi sentezi):** saldırırken "hah!/heh!", darbe alırken "uhh/ohh", ölürken uzun "ohh". Ses, minyonun adından türetilen bir kimliğe sahip: erkek, tiz ve yaratık/ork/iskelet (alçak, hırıltılı) sesleri var; aynı minyon hep aynı sesle bağırır.
+- **Aşırı gürültü olmasın diye:** saldırı sesleri en fazla ~16/sn, bağırma sesi saldırıların yarısında ve en fazla ~6/sn, acı sesi darbelerin ~%40'ında; hepsi ses sınırlayıcıdan geçer (kırpma yok).
+- **Test (62 sn savaş):** 60 kılıç savurma, 11 ok teli, 3 büyü fırlatma, 95 vuruş, 34 ok çarpma, 2 büyü çarpma, çok sayıda saldırı/acı/ölüm sesi; sayfa hatası yok.
+**Sınır:** Sesler gerçek kayıt değil, sentezdir; özellikle insan sesi gerçek bir kayda göre yapaydır. Gerçek kayıt için CC0 .ogg/.wav dosyalarını gönderirsen gömebilirim. Telefonda dinleme yapılmadı.

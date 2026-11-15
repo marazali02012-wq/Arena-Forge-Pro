@@ -16737,6 +16737,7 @@ function attack(u,target){
     if(Math.abs(target.x-u.x)>trueRange+packAssist+1e-6)return false;
   }
   if(afp177Devour(u,target))return true;
+  try{af222AttackSound(u,target);}catch(_){}
   u.attackPulse=.22;af321MarkHit(u,target); // v3.21 visual marker: strike / release frame and projectile arrival sync
   // Suikastçı saldırınca konumunu belli eder; kısa bir süre sonra yeniden görünmez olur.
   if(af3410HasSoleInvisibility(u)&&!u.enemyType){u.revealedUntil=elapsed+1.15;burst(laneX(u.x),laneY(u.lane,laneX(u.x))-28,'#a9bfff',5);}
@@ -17142,7 +17143,7 @@ function tick(ts){
   }
   afp177Step(0); // release live captives before removing dead Kül Mandası
   units=units.filter(u=>{
-    if(u.hp<=0){if(fallenUnits.length<16&&!u.isBarrier){const afpColBoss=u.team==='enemy'&&u._afpBossArtKey==='colossus.stone_golem';const afpColMinion=window.__AFPColossusPvEContext?.active&&u.team==='enemy'&&!u.isBoss?u._afpColossusMinionKind:null;const afpFallLife=afpColBoss?1.85:afpColMinion?1.16:.95;fallenUnits.push({team:u.team,lane:u.lane,x:Math.max(-.05,Math.min(1.05,u.x)),life:afpFallLife,max:afpFallLife,colossusBoss:afpColBoss,colossusMinionKind:afpColMinion,heroType:u.heroType||null,ref:af320Resolve(u),st:u._af321||null});}try{AFX.death(u);}catch(_){}if(u.team==='enemy'&&u.killedBy==='ally')matchStats.kills++;if(!u.isBarrier){try{af274Beep('death');}catch(e){}}if(u.team==='ally'&&(u.isHero||u.isRoster))matchStats.alliesLost++;if(u.team==='ally'&&(u.isHero||u.isRoster)&&elapsed-lastHeroFallNotice>2.2){lastHeroFallNotice=elapsed;showNotice('Kahraman düştü. Kartı hazır olduğunda aynı kahramanı yeniden gönderebilirsin.')}
+    if(u.hp<=0){if(fallenUnits.length<16&&!u.isBarrier){const afpColBoss=u.team==='enemy'&&u._afpBossArtKey==='colossus.stone_golem';const afpColMinion=window.__AFPColossusPvEContext?.active&&u.team==='enemy'&&!u.isBoss?u._afpColossusMinionKind:null;const afpFallLife=afpColBoss?1.85:afpColMinion?1.16:.95;fallenUnits.push({team:u.team,lane:u.lane,x:Math.max(-.05,Math.min(1.05,u.x)),life:afpFallLife,max:afpFallLife,colossusBoss:afpColBoss,colossusMinionKind:afpColMinion,heroType:u.heroType||null,ref:af320Resolve(u),st:u._af321||null});}try{AFX.death(u);}catch(_){}if(u.team==='enemy'&&u.killedBy==='ally')matchStats.kills++;if(!u.isBarrier){try{af274Beep('death');}catch(e){}try{if(af222Ok('dv',200,.6)){const v=af222VoiceOf(u);af222Snd('voice','death|'+v[0]+'|'+v[1]);}}catch(_){}}if(u.team==='ally'&&(u.isHero||u.isRoster))matchStats.alliesLost++;if(u.team==='ally'&&(u.isHero||u.isRoster)&&elapsed-lastHeroFallNotice>2.2){lastHeroFallNotice=elapsed;showNotice('Kahraman düştü. Kartı hazır olduğunda aynı kahramanı yeniden gönderebilirsin.')}
       return false}
     return u.x>=-.03&&u.x<=.99;
   });
@@ -17700,7 +17701,26 @@ function af222ShotColor(u){
   return (u._af222Col=c);
 }
 function af222IsFire(u){const ps=af327Pas(u);return !!(ps&&((ps.dot&&ps.dot.kind==='burn')||(ps.dotArea&&ps.dotArea.kind==='burn')));}
-function af222HitSound(u,target,damage){if(!u||!target||target.isBarrier||!af323IsShooter(u)||!af222IsFire(u))return;const n=performance.now();if(n-(af222HitSound._t||0)<70)return;af222HitSound._t=n;try{if(window.AFPAudioV1)window.AFPAudioV1.sfx('hit',af328Vol('sfx'),'fire');}catch(_){}}
+const AF222_CREATURE=/zombi|iskelet|skeleton|mumya|ork|golem|devi|giant|beast|wolf|boar|lion|bone|undead|grunt|brute|raider|spider|boss|raven|kurt|domuz|aslan|elemental|ruhu/i;
+function af222VoiceOf(u){if(u._af222V)return u._af222V;const k=String(u.heroType||u.enemyType||'x'),h=af222Hash(k+(u.team==='ally'?'a':'e')),cr=AF222_CREATURE.test(k)||u.enemyType==='grunt'||u.enemyType==='brute'||u.enemyType==='raider';return (u._af222V=[cr?2:(h%3===0?1:0),(h%1000)/1000]);}
+function af222IsMagic(u){return /mage|witch|priest|oracle|caller|shaman|druid|sifaci|buyucu|rahip|cagirici|nekromanci|healer|necro|wizard/.test(String(u.heroType||u.enemyType||''));}
+const af222Gate={};
+function af222Ok(k,ms,p){const n=performance.now();if(n-(af222Gate[k]||0)<ms)return false;if(p<1&&Math.random()>p)return false;af222Gate[k]=n;return true;}
+function af222Snd(kind,variant){try{const A=window.AFPAudioV1;if(A)A.sfx(kind,af328Vol('sfx'),variant);}catch(_){}}
+/* saldırı anı: kılıç/balta savurma + savaşçı sesi ("hah!"), ok teli, büyü fırlatma */
+function af222AttackSound(u,target){
+  if(!u||!target||target.isBarrier)return;
+  if(af323IsShooter(u)){if(af222IsFire(u))return;if(af222Ok('sw',60,1))af222Snd('swing',af222IsMagic(u)?'magic':'bow');return;}
+  if(af222Ok('sw',60,1))af222Snd('swing',u.atk>=30?'heavy':'sword');
+  if(af222Ok('vo',150,.55)){const v=af222VoiceOf(u);af222Snd('voice','attack|'+v[0]+'|'+v[1]);}
+}
+/* isabet anı: vuruş/çarpma sesi + yiyenin acı sesi ("uhh", "ohh") */
+function af222HitSound(u,target,damage){
+  if(!u||!target||target.isBarrier)return;const sh=af323IsShooter(u);
+  if(sh&&af222IsFire(u)){if(af222Ok('fi',70,1))af222Snd('hit','fire');return;}
+  if(af222Ok('ht',55,1))af222Snd('hit',sh?(af222IsMagic(u)?'magic':'ranged'):((damage>=28||u.atk>=30)?'heavy':'melee'));
+  if(damage>0&&af222Ok('pn',170,.4)){const v=af222VoiceOf(target);af222Snd('voice','pain|'+v[0]+'|'+v[1]);}
+}
 function af222LaunchShooter(u,target,damage){
   af222Key=u.heroType||'x';if(af222IsFire(u))af222Sfx('fireLaunch');
   const P=u._af222P||[],ps=af327Pas(u),big=P.includes('crit')||P.includes('execute')||P.includes('first')||(P.includes('special')&&ps&&ps.everyN&&ps.everyN.mult);
@@ -41166,9 +41186,40 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
     else if (vfx === 'summon') boom(ctx, d, t, 0.5 * v, 0.7);
     else if (vfx === 'shadow') { thud(ctx, d, t, 0.45 * v, 90); whoosh(ctx, d, t, 0.2, 2500, 600, 0.2 * v, 1.3); }
   }
+
+  /* ---- savaş sesleri: savurma/ok teli/büyü fırlatma + savaşçı sesleri (hah! uhh... ohh...) ---- */
+  var VOW = { ah: [730, 1090, 2440], uh: [520, 1190, 2390], oh: [570, 840, 2410], eh: [660, 1720, 2410] };
+  /* cls: 0 = erkek sesi, 1 = tiz ses, 2 = yaratık/ork/iskelet (alçak, hırıltılı); seed 0..1 kişiyi ayırt eder */
+  function voice(ctx, d, t, type, cls, seed, v) {
+    var base = cls === 2 ? 68 + seed * 26 : cls === 1 ? 185 + seed * 55 : 98 + seed * 38, vow, dur, drop, vol, breath = 0, o, mix, i, f, gg, n, hp, bg;
+    if (type === 'attack') { vow = seed > 0.55 ? VOW.ah : VOW.eh; dur = 0.17; drop = 0.86; vol = 0.95; breath = 1; base *= 1.08; }
+    else if (type === 'pain') { vow = seed > 0.5 ? VOW.uh : VOW.oh; dur = 0.3; drop = 0.68; vol = 1.05; }
+    else { vow = VOW.oh; dur = 0.55; drop = 0.5; vol = 1.1; }
+    o = osc(ctx, 'sawtooth', base, t, t + dur + 0.08); o.frequency.exponentialRampToValueAtTime(Math.max(40, base * drop), t + dur);
+    var vib = osc(ctx, 'sine', 5.5 + seed * 2, t, t + dur + 0.08), vg = ctx.createGain(); vg.gain.value = base * 0.012; vib.connect(vg); vg.connect(o.frequency);
+    mix = ctx.createGain(); env(mix, t, vol * v, 0.014, dur * 0.45, dur * 0.55); mix.connect(d);
+    var sh = cls === 1 ? 1.16 : cls === 2 ? 0.82 : 1;
+    for (i = 0; i < 3; i++) { f = filt(ctx, 'bandpass', vow[i] * sh, i === 0 ? 5 : 9); gg = ctx.createGain(); gg.gain.value = [1, 0.6, 0.28][i]; o.connect(f); f.connect(gg); gg.connect(mix); }
+    if (cls === 2) { var lp = filt(ctx, 'lowpass', 520, 0.9), sq = osc(ctx, 'square', base * 0.5, t, t + dur + 0.08), sg = ctx.createGain(); env(sg, t, 0.22 * vol * v, 0.02, dur * 0.4, dur * 0.5); sq.connect(lp); lp.connect(sg); sg.connect(d); }
+    if (breath) { n = nsrc(ctx, t, dur); hp = filt(ctx, 'bandpass', 1500 + seed * 700, 0.9); bg = ctx.createGain(); env(bg, t, 0.34 * vol * v, 0.004, 0.05, 0.1); n.connect(hp); hp.connect(bg); bg.connect(d); }
+  }
+  function swingSfx(ctx, d, t, v, variant) {
+    var o, g, n, f;
+    if (variant === 'bow') {
+      o = osc(ctx, 'triangle', 215, t, t + 0.22); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(150, t + 0.12); env(g, t, 0.3 * v, 0.001, 0.02, 0.16); o.connect(g); g.connect(d);
+      o = osc(ctx, 'sine', 430, t, t + 0.16); g = ctx.createGain(); env(g, t, 0.12 * v, 0.001, 0.01, 0.1); o.connect(g); g.connect(d);
+      whoosh(ctx, d, t + 0.01, 0.16, 3600, 900, 0.3 * v, 1.2);
+    } else if (variant === 'magic') {
+      o = osc(ctx, 'sine', 520, t, t + 0.35); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(1500, t + 0.22); env(g, t, 0.2 * v, 0.03, 0.1, 0.2); o.connect(g); g.connect(d);
+      bell(ctx, d, t + 0.1, 88, 0.1 * v, 0.4); whoosh(ctx, d, t, 0.25, 700, 3200, 0.24 * v, 1.4);
+    } else if (variant === 'heavy') {
+      whoosh(ctx, d, t, 0.22, 2800, 500, 0.5 * v, 1); n = nsrc(ctx, t, 0.2); f = filt(ctx, 'lowpass', 400, 0.8); g = ctx.createGain(); env(g, t, 0.22 * v, 0.06, 0.06, 0.1); n.connect(f); f.connect(g); g.connect(d);
+    } else { whoosh(ctx, d, t, 0.16, 4200, 1100, 0.28 * v, 0.9); clang(ctx, d, t + 0.09, 0.05 * v, rnd(1800, 2600)); }
+  }
   function hitSfx(ctx, d, t, v, variant) {
     var n, f, g, o; v = v * 0.8; /* savaşta müzik kapalı; vuruş sesleri net duyulsun */
-    if (variant === 'fire') { boom(ctx, d, t, 0.6 * v, 0.55); crackle(ctx, d, t + 0.05, 0.35, 0.12 * v, 40); }
+    if (variant === 'magic') { bell(ctx, d, t, 91, 0.16 * v, 0.35); thud(ctx, d, t, 0.32 * v, 150); n = nsrc(ctx, t, 0.12); f = filt(ctx, 'highpass', 3000, 0.8); g = ctx.createGain(); env(g, t, 0.18 * v, 0.001, 0.015, 0.08); n.connect(f); f.connect(g); g.connect(d); }
+    else if (variant === 'fire') { boom(ctx, d, t, 0.6 * v, 0.55); crackle(ctx, d, t + 0.05, 0.35, 0.12 * v, 40); }
     else if (variant === 'ranged') {
       n = nsrc(ctx, t, 0.1); f = filt(ctx, 'bandpass', rnd(1100, 1700), 2); g = ctx.createGain(); env(g, t, 0.34 * v, 0.001, 0.015, 0.05); n.connect(f); f.connect(g); g.connect(d);
       o = osc(ctx, 'sine', rnd(300, 360), t, t + 0.12); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(170, t + 0.05); env(g, t, 0.34 * v, 0.001, 0.02, 0.06); o.connect(g); g.connect(d);
@@ -41213,6 +41264,8 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
   function sfxPlay(ctx, d, kind, t, v, variant) {
     var o, g, f, n, i;
     if (kind === 'hit') hitSfx(ctx, d, t, v, variant);
+    else if (kind === 'swing') swingSfx(ctx, d, t, v, variant);
+    else if (kind === 'voice') { var pv = String(variant || 'attack|0|0.5').split('|'); voice(ctx, d, t, pv[0], +pv[1] || 0, +pv[2] || 0.5, v); }
     else if (kind === 'tower') { thud(ctx, d, t, 1.0 * v, 82); rumble(ctx, d, t, 0.9, 0.5 * v, 320); clang(ctx, d, t + 0.01, 0.2 * v, 420); n = nsrc(ctx, t, 0.4); f = filt(ctx, 'lowpass', 1500, 0.6); g = ctx.createGain(); env(g, t, 0.3 * v, 0.003, 0.04, 0.3); n.connect(f); f.connect(g); g.connect(d); }
     else if (kind === 'proc') {
       /* minyon yeteneği tetiklenince (nadir an): yeteneğin türüne göre */
