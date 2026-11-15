@@ -17689,7 +17689,7 @@ function af222Badge(u,kind,color,text,snd,cd){
   const now=elapsed,T=AF222_T[kind]||AF222_T.star;if(now-(u._af222NameAt==null?-9:u._af222NameAt)<(cd||1.1))return false;u._af222NameAt=now;
   for(let i=AF222_BADGES.length-1;i>=0;i--)if(AF222_BADGES[i].u===u)AF222_BADGES.splice(i,1);
   if(AF222_BADGES.length>(LOW_POWER_DEVICE?8:16))AF222_BADGES.shift();
-  const col=color||T[0];AF222_BADGES.push({u,kind,color:col,text:String(text||'').toLocaleUpperCase('tr-TR'),t0:now,life:1.3});
+  const col=color||T[0];
   af222Add({k:'glow',u,life:.7,color:col});af222Sfx(snd||T[1]);return true;
 }
 function af222ShotColor(u){
@@ -17846,7 +17846,6 @@ function af222DrawProcs(){
     const fn=AF222_DRAW[f.k];if(!fn)continue;
     ctx.save();try{fn(f,t);}catch(e){}ctx.restore();
   }
-  af222DrawBadges();
 }
 function af327Text(u,txt,color){try{addCombatText(laneX(u.x),laneY(u.lane,laneX(u.x))-48,txt,color);}catch(e){}}
 function af327AuraFrom(u,key){ // aynı koridordaki dostların aurası (en güçlü olanı)
@@ -41129,7 +41128,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
     var n = nsrc(ctx, t, 0.05), f = filt(ctx, 'bandpass', rnd(3500, 6000), 1.4), ng = ctx.createGain(); env(ng, t, vol * 0.9, 0.001, 0.006, 0.035); n.connect(f); f.connect(ng); ng.connect(d);
   }
   function hitSfx(ctx, d, t, v, variant) {
-    var n, f, g, o; v = v * 0.62; /* savaşta saniyede ~10 kez çalar: müziği bastırmasın */
+    var n, f, g, o; v = v * 0.9; /* savaşta müzik kapalı; vuruş sesleri net duyulsun */
     if (variant === 'ranged') {
       n = nsrc(ctx, t, 0.1); f = filt(ctx, 'bandpass', rnd(1100, 1700), 2); g = ctx.createGain(); env(g, t, 0.34 * v, 0.001, 0.015, 0.05); n.connect(f); f.connect(g); g.connect(d);
       o = osc(ctx, 'sine', rnd(300, 360), t, t + 0.12); g = ctx.createGain(); o.frequency.exponentialRampToValueAtTime(170, t + 0.05); env(g, t, 0.34 * v, 0.001, 0.02, 0.06); o.connect(g); g.connect(d);
@@ -41257,6 +41256,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
       sfxBus.gain.setTargetAtTime(c.sound ? 1 : 0, now, 0.05);
       if (!c.sound || !c.music) { stopCur(0.3); return; }
       var want = sceneNow();
+      if (want === 'battle') { stopCur(0.35); return; } /* savaşta müzik yok: yalnızca efekt sesleri */
       if (!cur || cur.name !== want) startScene(want);
       var S = SC[cur.name], guard = 0;
       while (cur.next < now + 0.45 && guard++ < 4) { bar(ctx, cur.bus, cur.name, cur.bar++, cur.next); cur.next += cur.bt * 4; }

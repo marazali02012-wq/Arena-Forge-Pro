@@ -137,3 +137,7 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 
 ## Gizlilik ve hesap silme sayfaları
 `yayin/web/gizlilik.html` ve `yayin/web/hesap-silme.html` taslaktır. İşleten adı, destek e-postası, saklama süreleri ve silinen veri listesi sarı alanlarda boş bırakıldı; bunları yalnızca sen doğrulayabilirsin. Herkese açık bir adrese yüklenmeleri ve oyundaki Gizlilik Politikası alanına ile Play Console'a bağlanmaları gerekir.
+
+## Savaş sesi ve rozetler (son istek)
+- **Savaşta müzik kapalı:** savaş başlayınca müzik kesiliyor (menüde, bekleme odasında ve sonuç ekranında çalmaya devam eder); yalnızca efekt sesleri var. Vuruş sesi seviyesi müzik kalktığı için 0,62'den 0,9'a çıkarıldı. Test: savaşta sahne boş, ses seviyesi ~0 (efekt çalmadığı anlarda), sayfa hatası yok. Ayarlardan müzik/ses düğmeleri aynen çalışıyor.
+- **Rozetler kaldırıldı:** yetenek adı rozeti artık çizilmiyor. Yetenek efektleri (kılıç izi, alev, buz, ışınlanma kapısı vb.), parlama ve yetenek sesleri duruyor.
