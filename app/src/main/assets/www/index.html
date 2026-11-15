@@ -10919,7 +10919,15 @@ const canvas=$('game'),stage=$('stage'),ctx=canvas.getContext('2d');
 /* v3.18: legacy static battlefield image listener removed. */
 // v2.73: keep the v2.71 mobile render budget and guard the RAF simulation loop against transient exceptions.
 // v2.71: phone-first render budget. Canvas pixels and expensive visual effects are the main cost on mobile.
-const LOW_POWER_DEVICE=!!(window.matchMedia&&window.matchMedia('(pointer: coarse)').matches)||(Number(navigator.hardwareConcurrency||8)<=4&&Math.min(window.innerWidth,window.innerHeight)<=560);
+/* v3.60.220 Android: eskiden dokunmatik ekranı olan HER cihaz (yani her telefon) "düşük güç" sayılıyordu: parıltılar kapanıyor,
+   parçacıklar 180'den 56'ya iniyor, vuruş izleri inceliyor, 30 FPS ve düşük çözünürlük kullanılıyordu; Ayarlar'daki "Grafik kalitesi"
+   seçimi bunu değiştirmiyordu. Artık düşük güç yalnızca (a) Ayarlar'da Grafik kalitesi "Düşük" ise ya da (b) gerçekten zayıf donanımda
+   (4 veya daha az çekirdek, ya da 2 GB ve altı bellek) açılır. Ayar değişikliği oyun yeniden açılınca geçerli olur. */
+const LOW_POWER_DEVICE=(()=>{
+  try{const s=JSON.parse(localStorage.getItem('arenaForgeProSettingsV274')||'null')||{};if(s.lowGraphics||s.quality==='low')return true;}catch(_){}
+  const cores=Number(navigator.hardwareConcurrency||8),mem=Number(navigator.deviceMemory||8);
+  return cores<=4||mem<=2;
+})();
 // v2.79: keep mobile rendering light and give units readable battlefield pacing.
 let UNIT_MOVE_PACING=1.32*(720/1600)/(9/16); // v3.25.9 fixed
 function af324UpdateMovePacing(){/* v3.25.9: gameplay speed is screen-independent. Previous code scaled it by aspect ratio (16:10 tablet +39%, portrait +25% vs 20:9 phone). Value = former 20:9 landscape result (1600x720), so phone play is unchanged. */UNIT_MOVE_PACING=1.32*(720/1600)/(9/16);}
