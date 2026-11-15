@@ -1,0 +1,26 @@
+ARENA FORGE PRO 220 — GOOGLE PLAY İÇİN KALAN İŞLER
+
+Kaynak olarak bu ZIP’teki Android Studio projesini ve içindeki index.html oyununu kullan. Önce mevcut kaynak ve paketleri incele. Test APK’sını yayın paketi olarak kullanma. Kararlı HTML’yi ve canlı Netlify oyununu değiştirme. Canlı Play yayınına geçmeden önce kullanıcıya doğrulanmış dosyaları ver.
+
+1. Paket kimliği ve derleme
+- Play Console’da mevcut uygulama varsa kayıtlı paket adını ve son sürüm kodunu sahibinden doğrula. Projede şu an com.arenaforgepro.game, sürüm kodu 220 ve hedef API 36 var. Mevcut bir kayda güncelleme yapılacaksa kayıtlı paket adı ve daha yüksek sürüm kodu kullanılmalı.
+- Android Studio ve Gradle ile APK ve AAB’yi yeniden derle. bundletool validate ve apksigner verify sonuçlarını kaydet. Play sürümünü sahibinin mevcut yükleme anahtarıyla yerel bilgisayarda imzala. Anahtarı veya parolayı sohbetten talep etme ve ZIP’e koyma.
+- Önceki APK’dan güncelleme planlanıyorsa mevcut yerel kayıtların korunduğunu test et. Değişen paket adı veya WebView adresi nedeniyle eski kayıtların aktarımı garanti değildir.
+
+2. Gerçek Android testi ve onarım
+- Önce Realme C55’te, mümkünse Android 16 ve güncel WebView bulunan ikinci cihazda dene. İlk açılışı, yükleme ekranını, yatay tam ekranı, geri tuşunu, klavyeyi, yeniden açınca kayıtların kalmasını ve internet yokken misafir girişini kontrol et.
+- E-posta kayıt ve girişini, parola sıfırlama bağlantısının Android’de açılmasını ve ardından oyuna giriş yapılmasını doğrula. Google giriş düğmesi bu test paketinde gizli. Tekrar açılacaksa Android’e uygun güvenli giriş akışını kur ve gerçek cihazda test et.
+- Arena’da kupa savaşını, kupa basamaklarıyla açılan arenaları, Kupa Yolu’nu, maçtan geri dönüşü ve diğer sekiz modu test et. Özellikle 854×393, 915×412 ve 800×360 boyutlarında taşma, siyah ekran, kapanan düğme ve okunmayan yazıyı onar.
+- İki cihazla çevrim içi eşleşmeyi, 10 saniyelik aramayı, maça girişi, pes etmeyi, bağlantı kopmasını ve iki tarafa çifte ödül verilmemesini dene. Oyun motorunun üç koridor düzenini, 430 portal canını, mevcut ödülleri ve arenaForgeProProfileV19 kayıt anahtarını koru.
+- Geçen testlerle yapılamayan testleri cihaz ve Android sürümüyle birlikte raporla. Mağaza için gerçek oyundan yatay ekran görüntüleri al.
+
+3. Gizlilik ve hesap silme
+- Üretimde işlenen verileri ve saklama sürelerini uygulama sunucusu, kimlik ve kayıt servisleri üzerinden doğrula. Uygulamayı işleten kişiyi ve destek e-postasını doğru bilgilerle yaz.
+- Herkese açık, giriş gerektirmeyen bir gizlilik politikası sayfası yayımla. Bağlantıyı hem oyundaki Gizlilik Politikası alanına hem Play Console’a ekle. Oyundaki kısa bilgilendirme metnini doğrulanmış politikayla eşleştir.
+- Herkese açık bir hesap silme talep sayfası veya bağlantısı hazırla ve Console’a ekle. Oyundaki Ayarlar → Kayıt bölümündeki hesap silme yolunu test hesabıyla doğrula. afp_delete_account çağrısı hesap ile ilgili sunucu verisini gerçekten silmeli. Başarıdan sonra oturum ve yerel hesap kaydı temizlenmeli. Hata durumunda yanıltıcı başarı gösterme. Bu kontrolü gerçek kullanıcı hesabında yapma.
+
+4. Play Console hazırlığı
+- Paketteki simgeyi, kapak görselini, Türkçe açıklamayı ve gerçek Android ekran görüntülerini kullan. Veri güvenliği, içerik derecelendirmesi, hedef kitle, reklamlar ve uygulama erişimi beyanlarını doğrulanmış sürüme göre doldur. İnceleme için gerekiyorsa bu işe ayrılmış test hesabı hazırla.
+- 13 Kasım 2023 sonrasında açılan kişisel Play Console hesabıysa Google’ın 12 testçi ve 14 kesintisiz gün kapalı test şartını kontrol et. Uygunsa kapalı testi tamamladıktan sonra üretim erişimine başvur.
+
+Teslimde imzalı yayın AAB’sini, telefonda denenmiş APK’yı, gerçek ekran görüntülerini, çalışan gizlilik ve hesap silme bağlantılarını ve kısa test raporunu ver. Canlı yayını kendi başına başlatma.

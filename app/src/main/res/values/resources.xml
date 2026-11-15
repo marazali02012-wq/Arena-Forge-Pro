@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Arena Forge Pro</string>
+    <style name="ForgeTheme" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#111827</item>
+        <item name="android:colorAccent">#E3B36D</item>
+    </style>
+</resources>
