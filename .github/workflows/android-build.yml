@@ -1,0 +1,54 @@
+name: Android derleme
+
+# Bilgisayar gerekmeden APK ve AAB üretir. Elle başlatmak için: GitHub → Actions → "Android derleme" → Run workflow.
+on:
+  workflow_dispatch:
+  push:
+    branches: [ 'claude/**' ]
+    paths: [ 'app/**', 'gradle/**', '*.gradle', '.github/workflows/android-build.yml' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - uses: android-actions/setup-android@v3
+      - name: SDK 36 ve Build-Tools 36.0.0
+        run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Test APK (hata ayıklama anahtarıyla imzalı, yalnızca telefonda deneme için) ve imzasız AAB
+        run: ./gradlew --no-daemon :app:assembleDebug :app:bundleRelease
+      - name: AAB doğrula (bundletool)
+        run: |
+          curl -sSL -o bundletool.jar https://github.com/google/bundletool/releases/download/1.18.1/bundletool-all-1.18.1.jar
+          java -jar bundletool.jar validate --bundle app/build/outputs/bundle/release/app-release.aab | tee bundletool-validate.txt
+      - name: APK imzasını doğrula
+        run: |
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs app/build/outputs/apk/debug/app-debug.apk | tee apksigner-verify.txt
+      - name: AAB'yi yükleme anahtarıyla imzala (yalnızca depo gizli anahtarları tanımlıysa)
+        env:
+          KS_B64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}
+          KS_PASS: ${{ secrets.UPLOAD_KEYSTORE_PASSWORD }}
+          KS_ALIAS: ${{ secrets.UPLOAD_KEY_ALIAS }}
+        run: |
+          if [ -n "$KS_B64" ] && [ -n "$KS_PASS" ] && [ -n "$KS_ALIAS" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+            cp app/build/outputs/bundle/release/app-release.aab app-release-signed.aab
+            jarsigner -keystore "$RUNNER_TEMP/upload.jks" -storepass "$KS_PASS" -sigalg SHA256withRSA -digestalg SHA-256 app-release-signed.aab "$KS_ALIAS"
+            jarsigner -verify app-release-signed.aab | head -3
+            rm -f "$RUNNER_TEMP/upload.jks"
+          else
+            echo "Yükleme anahtarı tanımlı değil; yalnızca imzasız AAB üretildi."
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ArenaForgePro-android
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/bundle/release/app-release.aab
+            app-release-signed.aab
+            bundletool-validate.txt
+            apksigner-verify.txt
+          if-no-files-found: warn
