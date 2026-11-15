@@ -67,10 +67,11 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 10. **Meydan Okumalar** düğmesi "DEVA M ET" diye bölünüp ödül sayısı alt alta diziliyordu; tek satıra alındı.
 11. **Minyon kartlarında** "SV 1" rozeti "S…" diye kırpılıyordu; düzeltildi.
 12. **Ayarlar → Hakkında** sürümü v3.60.132 gösteriyordu; v3.60.220 yapıldı.
-13. **Android onay pencereleri**: uygulamada `WebChromeClient` yoktu; bu yüzden oyundaki tüm `confirm()` pencereleri (buluta yedekle/geri yükle, hesaba bağla, loncadan ayrıl, misafir ilerlemesini kopyala) sessizce "İptal" dönüyordu. Artık Android onay penceresi gösteriliyor. Misafir kopyalama sorusunda görünen `\n` karakterleri de düzeltildi. (GitHub derlemesinde doğrulanmalı, telefonda denenmedi.)
-14. **Şifre sıfırlama penceresi** geri tuşuyla kapanıyor.
-15. **Yankı İstilası sonucu**: mod adı "Savaş Arenaları" yerine "Yankı İstilası" yazıyor ve kazanılan Yankı Özü ödül olarak görünüyor. **Kristal Kolos** zafer başlığı "yenildi" yerine "ZAFER · TAŞ KOLOSUS DEVRİLDİ" oldu.
-16. **Hesap silme**: başarıdan sonra silinen hesabın yerel kopyası cihazda kalıyordu. Artık siliniyor.
+13. **Müzik ve ses efektleri**: oyunda gerçek müzik yoktu (yalnızca iki sabit uğultu, varsayılan kapalı; vuruş sesi tek bir bip). Özgün bir müzik ve ses motoru eklendi (`AFP_AUDIO_V1`): ana üs/menü, rakip bekleme odası ve savaş için ayrı besteler; vuruş, portal, kart, büyü, arayüz, ölüm, ödül, zafer ve yenilgi efektleri. Hepsi nota olarak yazılıp çalma anında üretiliyor; hazır dosya, örnek ya da dış kaynak yok, bu yüzden telif sorunu ve boyut artışı yok. Sahne ekrandan otomatik seçiliyor, Ayarlar'daki Müzik/Ses/Efekt seviyeleri geçerli, yeni kurulumlarda müzik açık. Kulakla dinlenmedi (yalnızca ölçüldü: taşma yok, her sahnede ses var, müzik kapatılınca susuyor); telefonda dinleyip dengeyi değerlendirmek gerekir.
+14. **Android onay pencereleri**: uygulamada `WebChromeClient` yoktu; bu yüzden oyundaki tüm `confirm()` pencereleri (buluta yedekle/geri yükle, hesaba bağla, loncadan ayrıl, misafir ilerlemesini kopyala) sessizce "İptal" dönüyordu. Artık Android onay penceresi gösteriliyor. Misafir kopyalama sorusunda görünen `\n` karakterleri de düzeltildi. (GitHub derlemesinde doğrulanmalı, telefonda denenmedi.)
+15. **Şifre sıfırlama penceresi** geri tuşuyla kapanıyor.
+16. **Yankı İstilası sonucu**: mod adı "Savaş Arenaları" yerine "Yankı İstilası" yazıyor ve kazanılan Yankı Özü ödül olarak görünüyor. **Kristal Kolos** zafer başlığı "yenildi" yerine "ZAFER · TAŞ KOLOSUS DEVRİLDİ" oldu.
+17. **Hesap silme**: başarıdan sonra silinen hesabın yerel kopyası cihazda kalıyordu. Artık siliniyor.
 
 ## Bilinen, düzeltilmemiş
 - Birçok ekranda 6–7 piksellik yazılar var (ör. Kahramanlar, Kristal Kolos). Küçük ekranda okunması zor olabilir. Gerçek telefonda bakılıp karar verilmeli; toptan büyütmek düzeni bozabilir.
