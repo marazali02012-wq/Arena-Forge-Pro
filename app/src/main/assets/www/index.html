@@ -24498,8 +24498,19 @@ window.ArenaForge297={render,RELICS,CHALLENGE_TYPES,EVENTS,act,eventProgress,saf
             ['afpProfileCloudOwnerV1','afpCloudAutoSyncUidV1','afpCloudLastSeenV1','afpCloudAutoSyncV1'].forEach(k=>localStorage.removeItem(k));
           }
         }catch(_){ }
-        saveSession(null);byId('afpCloudPassword').value='';byId('afpCloudEmail').value='';byId('afpCloudDeleteConfirm').hidden=true;updateStatus();
-        setStatus('Hesabın ve bulut verilerin silindi. Bu cihazdaki yerel ilerleme yerinde duruyor.');
+        saveSession(null);
+        /* v3.60.220: Silinen hesaba artık giriş yapılamaz; bu cihazdaki hesap kopyası sahipsiz kalıyordu. Oturum kapanıp
+           misafir profiline geçildikten sonra o hesabın yerel kaydı da kaldırılır. Misafir kaydına dokunulmaz. */
+        let localCleared=false;
+        try{
+          if(deletingUid&&deletingUid!=='guest'&&(!window.AFPLocalProfileV165||window.AFPLocalProfileV165.active()!==deletingUid)){
+            localStorage.removeItem('afpV165LocalSlot:'+encodeURIComponent(deletingUid));
+            localStorage.removeItem('afpLocalAccountSnapshotV1:'+deletingUid);
+            localCleared=localStorage.getItem('afpV165LocalSlot:'+encodeURIComponent(deletingUid))===null;
+          }
+        }catch(_){ }
+        byId('afpCloudPassword').value='';byId('afpCloudEmail').value='';byId('afpCloudDeleteConfirm').hidden=true;updateStatus();
+        setStatus(localCleared?'Hesabın ve bulut verilerin silindi. Bu cihazdaki hesap kaydı da kaldırıldı; misafir profiline dönüldü.':'Hesabın ve bulut verilerin silindi. Bu cihazdaki hesap kaydı kaldırılamadı; Ayarlar bölümünden kaydı sıfırlayabilirsin.');
       }catch(e){
         const m=String(e&&e.message||e);
         if(/could not find the function|afp_delete_account/i.test(m))setStatus('Sunucuda hesap silme kurulumu yok: AFP_SOSYAL_KURULUM.sql dosyasını Supabase SQL Editor’da çalıştırın.');
