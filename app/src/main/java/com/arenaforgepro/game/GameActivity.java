@@ -13,6 +13,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -47,6 +49,7 @@ public final class GameActivity extends Activity {
         game.setBackgroundColor(Color.rgb(17, 24, 39));
         game.setOverScrollMode(View.OVER_SCROLL_NEVER);
         game.setWebViewClient(new LocalGameClient());
+        game.setWebChromeClient(new GameChromeClient());
         WebSettings settings = game.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
@@ -154,6 +157,48 @@ public final class GameActivity extends Activity {
     private static boolean isLocal(Uri uri) {
         return "https".equals(uri.getScheme()) && HOST.equals(uri.getHost())
                 && (uri.getPort() == -1 || uri.getPort() == 443);
+    }
+
+    /**
+     * WebView, bir WebChromeClient olmadan JavaScript confirm()/alert() çağrılarını sessizce iptal eder.
+     * Oyun buluta yedekleme/geri yükleme, hesaba bağlama, loncadan ayrılma ve misafir ilerlemesini
+     * kopyalama için confirm() kullanıyor; bu pencereler artık gerçekten gösterilir.
+     */
+    private final class GameChromeClient extends WebChromeClient {
+        private boolean usable() {
+            return !isFinishing() && !isDestroyed();
+        }
+
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            if (!usable()) {
+                result.cancel();
+                return true;
+            }
+            new AlertDialog.Builder(GameActivity.this)
+                    .setMessage(message)
+                    .setCancelable(true)
+                    .setPositiveButton("Tamam", (dialog, which) -> result.confirm())
+                    .setOnCancelListener(dialog -> result.cancel())
+                    .show();
+            return true;
+        }
+
+        @Override
+        public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
+            if (!usable()) {
+                result.cancel();
+                return true;
+            }
+            new AlertDialog.Builder(GameActivity.this)
+                    .setMessage(message)
+                    .setCancelable(true)
+                    .setPositiveButton("Tamam", (dialog, which) -> result.confirm())
+                    .setNegativeButton("İptal", (dialog, which) -> result.cancel())
+                    .setOnCancelListener(dialog -> result.cancel())
+                    .show();
+            return true;
+        }
     }
 
     private final class LocalGameClient extends WebViewClient {
