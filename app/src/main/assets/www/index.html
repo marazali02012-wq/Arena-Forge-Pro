@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.228" />
-<title>Arena Forge Pro v3.60.228 — Resimli Kupa Yolu</title>
+<meta name="afp-build" content="v3.60.229" />
+<title>Arena Forge Pro v3.60.229 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -23475,7 +23475,7 @@ function af203EchoStep(dt){
  if(r.wave===3&&r.waveSpawn===3&&clonesKilled>=9&&!r.bossSpawned){af206SpawnFinalBoss();window.AFPEchoEvent?.updateBattle?.(r,elapsed);return false;}
  if(r.bossSpawned&&!r.bossDefeated&&elapsed>=r.bossAbilityAt){af206BossAbility();r.bossAbilityAt=elapsed+12;}
  if(r.waveSpawn===3&&clonesKilled>=r.wave*3){
-  if(r.wave===3){if(r.bossDefeated){endGame(true,'Üç gölge dalgasını ve finalde Ayna Celladı’nı yendin.',{title:'YANKI İSTİLASI · ZAFER'});return true;}}
+  if(r.wave===3){if(r.bossDefeated){if(afIsAfkLoss(false,false)){endGame(false,'Hiç kart oynamadan ve büyü kullanmadan bu mod kazanılamaz; savunmayı en az bir kartla ya da büyüyle destekle.',{title:'YANKI İSTİLASI · HAREKETSİZ'});return true;}endGame(true,'Üç gölge dalgasını ve finalde Ayna Celladı’nı yendin.',{title:'YANKI İSTİLASI · ZAFER'});return true;}}
   else if(!r.pausedForChoice){r.pausedForChoice=true;battlePaused=true;window.AFPEchoEvent?.chooseBuff?.(r);return false;}
  }
  if(elapsed>=175){endGame(false,'Yankı İstilası süresi doldu.',{title:'YANKI İSTİLASI · SÜRE DOLDU'});return true;}
