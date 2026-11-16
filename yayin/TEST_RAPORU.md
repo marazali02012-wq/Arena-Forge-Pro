@@ -408,3 +408,16 @@ Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, 
 
 ### Render yayını (sunucu 3.60.103)
 Sunucu PR #4 (CI: başarılı, 22 sn) main'e birleştirildi (b071283); Render otomatik yayınladı, dağıtım `live` (commit b0712833). Canlı günlükte: `AFP online PvP test server 3.60.103 listening`, `[anticheat-store] restored 0 reward and 0 suspect records` (kalıcı kayıt tablosuna canlıda erişildi, hata yok). `AFP_TROPHY_AUTHORITY_ENABLED` **eklenmedi** (bayrak KAPALI): davranış değişmedi. `/health` adresine bu ortamdan erişilemediği için dış doğrulama yapılamadı; doğrulama Render API ve günlükleri üzerinden yapıldı.
+
+## 3.60.242 — Lonca yönetimi (yardımcı lider, üye çıkarma, lider devri, sohbet, katkı sıralaması)
+
+**Oyun:** Lonca sekmesinde üyeler takma adla ve rol etiketiyle (LİDER / YARDIMCI / ÜYE) listelenir; yetkiye göre düğmeler: lider → YARDIMCI YAP, ÜYE YAP, LİDER YAP (onaylı), ÇIKAR; yardımcı → yalnız ÜYE için ÇIKAR; üye → düğme yok. Lonca sohbeti (4 sn yoklama, 200 karakter, HTML kaçırılır). Dev Avı sekmesinde sezon katkı sıralaması (sıra, takma ad, toplam hasar, pay %). Eski sunucuda (sohbet 404) panel hatasız çalışır.
+- Test (headless, sahte sunucu, 14/14): takma adlar/UUID yok, rol etiketleri, düğme matrisi (lider/yardımcı/üye), sohbet gönder-göster-temizle ve HTML kaçırma, terfi/çıkarma/devir istekleri ve ekran güncellemesi, sıralama, eski sunucu düşüşü, sayfa hatası yok. Boot hatasız; kupa testleri (9/9, 18/18) geçti. Ekran görüntüsü 854×393 incelendi; "Rolün: leader" İngilizce çıkıyordu, Türkçeleştirildi.
+- Not: testte `#afqEntry` (hesap giriş kapısı) panelin üstündeydi çünkü test girişi atlamadan paneli açtı; gerçek kullanımda önce kapı geçilir.
+
+**Sunucu (`arena-forge-online-server`, dal `claude/guild-management`, PR #3 üzerine):**
+- `migrations/20261117_guild_management.sql`: `officer` rolü (en çok 5), `afp_guild_chat`, işlev genişletmesi (promote/demote/kick/transfer/chat). Kurallar SQL'de: yardımcı yalnız üye atar, lider herkesi atar/terfi/indirir/devreder, kendine işlem yok, lider ayrılınca halef önce yardımcılardan.
+- API: `/api/v1/guild/{promote,demote,kick,transfer}`, `/chat/send`, `GET /chat?after=`; `/guild/me` takma adlı üyeler + sezon sıralaması.
+- Test: 29 SQL senaryosu (yerel PostgreSQL 16; yetki reddi, sınırlar, 2 sn/20 dk sohbet sınırı, susturma, rol çakışmaları, idempotent yeniden çalıştırma) + 20 API testi.
+- **Canlıya uygulanamadı:** migration'ı canlı Supabase'e uygulama adımı güvenlik denetimince engellendi; canlıda hiçbir şey değişmedi (canlıda 0 lonca/üye, geçiş riski yok). Sunucu kodu da henüz main'e birleştirilmedi.
+- Hasar hâlâ istemci bildirimi (`verified:false`); katkı ödülü/boss ödülü dağıtımı yapılmadı.

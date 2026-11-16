@@ -13,7 +13,7 @@ Dış kaynaklı 25+5 maddelik listeyi hem oyun deposunda hem `arena-forge-online
 | 9–12 | Google Play ödeme, Sezon Bileti doğrulaması, teslim, geri yükleme | **Yok / Sahibi.** Projede Billing kütüphanesi yok; Play Console ürünleri ve sunucu doğrulaması gerekir. |
 | 13 | Hile/ödül kayıtlarının kalıcılığı | **Yapıldı (3.60.103 sunucu).** `afp_anticheat_log` + yeniden başlamada geri yükleme; 4 birim + uçtan uca test. Canlıda `05_antihile_kayit.sql` çalıştırılmalı. |
 | 14 | Güncel Android paketi | Gradle 3.60.241 / 241. İmzalı APK/AAB **Sahibi** (yükleme anahtarı). |
-| 15–17 | Yardımcı lider, lonca sohbeti, katkı sıralaması | **Yok** (istemcide eşleşme yok). Sunucu PR #3'e bağlı; sıradaki iş olarak önerilir. |
+| 15–17 | Yardımcı lider, üye çıkarma, lider devri, lonca sohbeti, katkı sıralaması | **Yapıldı (3.60.242, sunucu dalı `claude/guild-management`)**: sunucu API + SQL (yerelde 29/29) + oyun içi ekran (14/14). **Hazır, canlıya alınmadı**: migration `20261117_guild_management.sql` canlı Supabase'e uygulanmadı, sunucu dalı birleştirilmedi. Katkı ödülü dağıtımı kapalı (hasar doğrulanamıyor). |
 | 18–19 | 8 kişilik Son Kahraman Ayakta, 2 kişilik Kolosus | Sunucu yalnız 1v1 (`ALLOWED_PARTY_SIZES={2}`, PvE modlar `battleEnabled:false`). **Yok.** |
 | 20 | Maça geri katılma | **Yok** (istemcide/sunucuda yeniden bağlanma yok; kopan oyuncu hükmen yenilir). |
 | 21 | Sohbet güvenliği | **Kısmen var:** engelleme ve şikâyet kodu mevcut; moderasyon paneli yok. |
