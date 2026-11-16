@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.237" />
-<title>Arena Forge Pro v3.60.237 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.238" />
+<title>Arena Forge Pro v3.60.238 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -9715,7 +9715,7 @@ function af224Art(key){
 @media (prefers-reduced-motion:reduce){#afxRoad .af228-landmark .af228-emblem.is-current{animation:none}}
 </style>
 <script id="AFP_STORY">
-/* ===== v3.60.237 · ANA HİKÂYE: «ALTINCI MÜHÜR» — 5 kitap · 25 bölüm · 250 aşama =====
+/* ===== v3.60.238 · ANA HİKÂYE: «ALTINCI MÜHÜR» — 5 kitap · 25 bölüm · 250 aşama =====
    Savaşın nedeni ve beş büyücünün geçmişi burada anlatılır. Metinler yalnız okunur; savaş kurallarına, ödüllere ve kayıt şemasına dokunmaz.
    Gösterim: bölüm giriş/yol sayfaları savaştan ÖNCE (aşama 1, 4, 7), bölüm sonu savaşından SONRA (aşama 10) bir kez gösterilir. Hikâye Defteri'nden yeniden okunur. */
 (function(){'use strict';
@@ -9775,7 +9775,7 @@ const WAR=[
 window.AFP_STORY_DATA={PROLOG,EPILOG,B,WIZ,WAR};
 })();
 
-/* ===== v3.60.237 · ANA HİKÂYE KONUŞMALARI + BÜYÜK FİNAL =====
+/* ===== v3.60.238 · ANA HİKÂYE KONUŞMALARI + BÜYÜK FİNAL =====
    Konuşmacı kodları: K Korvayn · E Elyvara · V Vaelor · S Saelith · T Theryn · M Mirael · C Sen (Çırak) · «!Ad» düşman/boss. */
 (function(){'use strict';
 const D=window.AFP_STORY_DATA;if(!D)return;
@@ -9877,7 +9877,7 @@ D.FINALE=[
 ];
 })();
 
-/* ===== v3.60.237 · ANA HİKÂYE arayüzü: hikâye penceresi + Hikâye Defteri ===== */
+/* ===== v3.60.238 · ANA HİKÂYE arayüzü: hikâye penceresi + Hikâye Defteri ===== */
 (function(){'use strict';
 const D=window.AFP_STORY_DATA;if(!D)return;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -10028,7 +10028,7 @@ document.addEventListener('click',e=>{const t=e.target&&e.target.closest?e.targe
 
 </script>
 <script id="AFP_GUIDE">
-/* ===== v3.60.237 · YENİ OYUNCU REHBERİ: ilk savaştan sonra sandık → deste → kart geliştirme → Kupa Yolu =====
+/* ===== v3.60.238 · YENİ OYUNCU REHBERİ: ilk savaştan sonra sandık → deste → kart geliştirme → Kupa Yolu =====
    Oyuncunun gerçek ilerlemesini izler (sandık gerçekten açıldı mı, deste gerçekten değişti mi, kart gerçekten güçlendi mi), halka ile dokunulacak düğmeyi
    gösterir, adımları sırayla ilerletir. Atlanabilir/kapatılabilir; Menü → BAŞLANGIÇ REHBERİ ile yeniden başlatılır. Savaş kuralı/ödül tablosu değişmez. */
 (function(){'use strict';
@@ -11445,14 +11445,14 @@ return {RIGS,STYLE,register,get,kinds,newState,pose,view,bonePoint,apply,begin,p
 const $=id=>document.getElementById(id);
 // v2.74: offline clock guard. Large wall-clock jumps advance rewards by at most five minutes.
 function trustedNow(){
-  // v2.75: wall-clock rollback never advances reward timers; forward jumps are capped at 5 minutes per observation.
+  // v2.75: wall-clock rollback never advances reward timers. v3.60.238: sandık süreleri uzadığı için (30 dk / 2 sa / 6 sa) uygulama kapalıyken geçen gerçek süre de sayılır; tek gözlemde en çok 12 saat ilerler (ileri saat hilesi kısıtlı), geri alma yine ilerletmez.
   const raw=Date.now();let effective=raw;
   try{
     const prevRaw=+(localStorage.getItem('arenaForgeClockRaw')||0);
     const prevTrusted=+(localStorage.getItem('arenaForgeClockTrusted')||0);
     if(prevTrusted>0&&prevRaw>0){
       if(raw<prevRaw)effective=prevTrusted;
-      else effective=prevTrusted+Math.min(300000,Math.max(0,raw-prevRaw));
+      else effective=prevTrusted+Math.min(12*3600000,Math.max(0,raw-prevRaw));
     }
     localStorage.setItem('arenaForgeClockRaw',String(Math.max(raw,prevRaw)));
     localStorage.setItem('arenaForgeClockTrusted',String(Math.max(prevTrusted,effective)));
@@ -11981,9 +11981,9 @@ const RARE_POOL=['warrior','spearman','guardian','assassin','healer','berserker'
 const PACK_COST=150; // Kept for backwards compatibility with old saved builds.
 const CHEST_SLOT_COUNT=4;
 const CHEST_TYPES={
-  small:{name:'Basit Sandık',duration:10*60*1000,cards:1,credits:75,minTrophies:0,emoji:'🪵'},
-  battle:{name:'Usta Sandık',duration:30*60*1000,cards:2,credits:175,minTrophies:100,emoji:'🛡️'},
-  epic:{name:'Delüks Sandık',duration:2*60*60*1000,cards:3,credits:350,minTrophies:500,emoji:'✨'}
+  small:{name:'Basit Sandık',duration:30*60*1000,cards:1,credits:75,minTrophies:0,emoji:'🪵'},
+  battle:{name:'Usta Sandık',duration:2*60*60*1000,cards:2,credits:175,minTrophies:100,emoji:'🛡️'},
+  epic:{name:'Delüks Sandık',duration:6*60*60*1000,cards:3,credits:350,minTrophies:500,emoji:'✨'}
 };
 function afBattleChestSlots(){
   const p=profile;if(!p)return [null,null,null,null];
@@ -12665,7 +12665,7 @@ function afpSeasonGrant(reward,season,level,track){
   return 'Ödül teslim edildi';
 }
 function afpSeasonRestore(snapshot){for(const k of Object.keys(profile))delete profile[k];Object.assign(profile,snapshot);}
-/* ===== v3.60.237 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
+/* ===== v3.60.238 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
    Yerel ve sunucusuz çalışır. Hedefler yalnız gerçek savaş sonucundan ilerler (hareketsiz/pes edilen maç ve antrenman sayılmaz);
    haftalık sayaçlar yalnız o haftanın günlerinde artar; her ödül sezon başına bir kez alınır; sezon dönünce sıfırlanır.
    Sezon Etkinlik Puanı (SEP) ALINAN hedeflerden türetilir (saklanmaz, kayma olmaz). Rütbe = SEP'e göre yerel rütbe.
@@ -14264,7 +14264,7 @@ function addHeroShards(type,count=1){
   return false;
 }
 function openCardPack(){
-  $('cardResult').textContent='Sandık süreleri: Küçük 10 dakika, Savaş 30 dakika, Epik 2 saat. Hazır olunca aynı sandığa dokunup ödülünü al.';
+  $('cardResult').textContent='Sandık süreleri: Basit 30 dakika, Usta 2 saat, Delüks 6 saat (uygulama kapalıyken de işler). Hazır olunca aynı sandığa dokunup ödülünü al.';
 }
 function upgradeSelectedHero(forType){
   const type=(typeof forType==='string'&&HERO_INFO[forType])?forType:heroSelected();if(!type||!isUnlocked(type)){ $('cardResult').textContent='Önce açık bir kahraman kartı seç.';return; }
@@ -23401,6 +23401,17 @@ const AFP_CAMPAIGN_BOOKS=[
 ];
 function afpCampaignInfo(level){level=Math.max(1,Math.min(250,Math.floor(+level||1)));const bi=Math.min(4,Math.floor((level-1)/50)),chapter=Math.floor(((level-1)%50)/10),within=(level-1)%10+1;const b=AFP_CAMPAIGN_BOOKS[bi];const objective=level%10===0?'Boss’u yen veya rakip portalını yık':level%3===2?'180 saniye boyunca kaleni koru':'Düşman portallarını yık';return {level,book:bi+1,bookName:b.name,hero:b.hero,chapter:chapter+1,chapterName:b.chapters[chapter],within,objective,boss:level%10===0};}
 window.AFPStoryHost={profile:()=>profile,save:()=>saveProfile(),state:()=>afpCampaignBattleState()};
+/* v3.60.238: eski sürümlerde güvenilir saat uygulama kapalıyken geride kalıyordu. Tek seferlik: sayaçları (başlamış sandıklar) aynı farkla kaydırıp saati gerçek saate eşitle; kalan süre DEĞİŞMEZ (ne erken açılır ne uzar). */
+(function afChestClockMigrate(){try{
+  if(localStorage.getItem('arenaForgeChestClockV2'))return;
+  const raw=Date.now(),tr=+(localStorage.getItem('arenaForgeClockTrusted')||0),lag=tr>0?raw-tr:0;
+  if(lag>1000&&lag<3650*86400000&&profile&&Array.isArray(profile.battleChests)){
+    for(const c of profile.battleChests){if(c&&+c.startedAt>0){c.startedAt=+c.startedAt+lag;if(+c.readyAt>0)c.readyAt=+c.readyAt+lag;}}
+    localStorage.setItem('arenaForgeClockTrusted',String(raw));localStorage.setItem('arenaForgeClockRaw',String(raw));saveProfile();
+  }
+  localStorage.setItem('arenaForgeChestClockV2','1');
+}catch(e){console.warn('[AFP] sandık saati geçişi',e);}})();
+
 window.AFPGuideHost={profile:()=>profile,save:()=>saveProfile(),now:()=>trustedNow(),playing:()=>!!playing,battle:()=>({deployed:Math.max(0,+(matchStats&&matchStats.deployed)||0),spells:Math.max(0,+(matchStats&&matchStats.spells)||0),mode:gameMode,online:!!(window.__AFPOnlineContext&&window.__AFPOnlineContext.active)}),refresh:()=>{try{updateProfileUI();}catch(_){}try{updateChestUI();}catch(_){}}};
 function afpBossInfo(level){level=Math.max(1,Math.min(82,Math.floor(+level||1)));const boss=level%5===0;return {level,name:boss?'Örümcek Kraliçe':'Örümcek Akını',stage:Math.ceil(level/5),boss};}
 function afpPveCss(){}
