@@ -16962,7 +16962,8 @@ function tick(ts){
   // v2.78: optional WebView/gamepad APIs must never be able to stall the core simulation.
   try{if(typeof af276PollGamepad==='function')af276PollGamepad(ts)}catch(af278PadError){window.__af278InputErrors=(window.__af278InputErrors||0)+1;if(window.__af278InputErrors===1||window.__af278InputErrors%60===0)console.error('[v2.81] Gamepad girdisi devre dışı bırakıldı',af278PadError)}
   // v2.73: low-power frame skipping must still pass through finally so exactly one next frame is queued.
-  if(LOW_POWER_DEVICE&&ts-lastPresentedFrame<RENDER_FRAME_MS-.75)return;
+  if((LOW_POWER_DEVICE||af222W.cap)&&ts-lastPresentedFrame<(LOW_POWER_DEVICE?RENDER_FRAME_MS:33.3)-.75)return;
+  af222Meas=true;af222T0=performance.now();
   // Use one bounded simulation delta for movement, energy, cooldowns and match time.
   // This prevents the match clock racing ahead while movement/energy are capped separately on slow frames.
   const rawDt=Math.max(0,(ts-last)/1000||1/60);last=ts;lastPresentedFrame=ts;const dt=Math.min(.1,rawDt)*Math.max(1,Math.min(2,gameSpeed));elapsed+=dt;afp177Step(dt);afp179Step(dt);afp196Step(dt);enemyClock+=dt;goldClock+=dt;enemyGoldClock+=dt;hudClock+=dt;skillClock=Math.max(0,skillClock-dt);secondarySkillClock=Math.max(0,secondarySkillClock-dt);heroLaneSwitchClock=Math.max(0,heroLaneSwitchClock-dt);
@@ -17213,6 +17214,7 @@ function tick(ts){
     }
   }finally{
     // Exactly one continuation, including early returns and caught transient errors.
+    if(af222Meas){af222Meas=false;try{const n=performance.now();af222WorkNote(n-af222T0,n);}catch(_){}}
     if(playing){if(af316Raf)cancelAnimationFrame(af316Raf);af316Raf=requestAnimationFrame(tick);}
   }
 }
@@ -17662,6 +17664,22 @@ function af327Pas(u){return u&&u.heroType&&!u.enemyType?AF327_PASSIVES[u.heroTyp
    salvoya dönüşür (toplam hasar aynı: %40 + %30 + %30) ve hedefe 3 çizgilik bir yelpaze çizilir. */
 const AF222_PROCS=[],AF222_BADGES=[];
 /* Hız koruyucu: kare süresi uzarsa (yavaş telefon) yetenek efektleri otomatik sadeleşir; hız düzelirse geri döner. */
+const af222W={ema:6,cap:false,hi:0,lo:0,n:0,t0:0,worst:0,last:0};
+let af222Meas=false,af222T0=0,af222FpsEl=null;
+/* Her sunulan karenin iş süresi (JS + çizim): 60 FPS bütçesini (≈17 ms) uzun süre aşarsa çizim 30 FPS'e sabitlenir (yarı GPU aktarımı, dengeli kare aralığı); bol pay kalınca geri döner. */
+function af222WorkNote(ms,ts){
+  const w=af222W;w.ema=w.ema*.9+ms*.1;
+  if(w.ema>17){w.hi++;if(w.lo>0)w.lo--;}else if(w.ema<9){w.lo++;if(w.hi>0)w.hi--;}
+  if(!w.cap&&!LOW_POWER_DEVICE&&w.hi>45){w.cap=true;w.hi=0;w.lo=0;}else if(w.cap&&w.lo>300){w.cap=false;w.hi=0;w.lo=0;}
+  w.n++;const gap=w.last?ts-w.last:0;w.last=ts;if(gap>w.worst&&gap<2000)w.worst=gap;
+  if(typeof af274Settings!=='undefined'&&af274Settings.fpsMeter){
+    if(!w.t0)w.t0=ts;
+    if(ts-w.t0>=500){const fps=w.n*1000/(ts-w.t0);
+      if(!af222FpsEl){af222FpsEl=document.createElement('div');af222FpsEl.id='af222Fps';af222FpsEl.style.cssText='position:fixed;left:6px;top:6px;z-index:99999;padding:2px 6px;border-radius:6px;background:rgba(0,0,0,.62);color:#9dff9d;font:700 11px/1.3 system-ui,sans-serif;pointer-events:none;white-space:pre';document.body.appendChild(af222FpsEl);}
+      af222FpsEl.textContent='FPS '+fps.toFixed(0)+' · iş '+w.ema.toFixed(1)+' ms · en uzun kare '+w.worst.toFixed(0)+' ms'+(LOW_POWER_DEVICE?' · düşük güç':w.cap?' · 30 FPS sınırı':'')+(af222Fps.lvl?' · efekt sv'+af222Fps.lvl:'');
+      w.n=0;w.t0=ts;w.worst=0;}
+  }else if(af222FpsEl){af222FpsEl.remove();af222FpsEl=null;w.t0=0;}
+}
 const af222Fps={last:0,ema:16,low:0,lvl:0};
 function af222Gov(){const n=performance.now(),raw=af222Fps.last?n-af222Fps.last:16;af222Fps.last=n;const dt=raw>100?16:raw;af222Fps.ema=af222Fps.ema*.94+dt*.06;
   if(af222Fps.ema>38)af222Fps.low=Math.min(400,af222Fps.low+1);else if(af222Fps.ema<28)af222Fps.low=Math.max(0,af222Fps.low-2);
@@ -18622,7 +18640,7 @@ function af328EnhanceSettings(){
  const box=document.createElement('div');box.className='af328-settings';
  box.innerHTML=
   sec('Ses',af328Row('Ana ses',rng('af328VolMaster'))+af328Row('Müzik sesi',rng('af328VolMusic'))+af328Row('Efekt sesi',rng('af328VolSfx'))+'<div data-slot="sound"></div>')+
-  sec('Görüntü ve erişilebilirlik',af328Row('Tema',sel('af331Theme',[['red','Kırmızı-siyah'],['classic','Klasik mavi']]))+af328Row('Grafik kalitesi',sel('af328Quality',[['high','Yüksek'],['medium','Orta'],['low','Düşük']]),'Düşük: daha az parçacık ve gölge')+af328Row('Efektleri azalt',chk('af328ReduceFx'),'Parlama ve parçacıkları en aza indirir')+af328Row('Yazı boyutu',sel('af328TextSize',[['normal','Normal'],['large','Büyük'],['xlarge','Çok büyük']]))+af328Row('Renk körü dostu işaretler',chk('af328Colorblind'),'Rakip kırmızı yerine turuncu, takımlar ayrıca ▲/■ işaretli'))+
+  sec('Görüntü ve erişilebilirlik',af328Row('Tema',sel('af331Theme',[['red','Kırmızı-siyah'],['classic','Klasik mavi']]))+af328Row('Grafik kalitesi',sel('af328Quality',[['high','Yüksek'],['medium','Orta'],['low','Düşük']]),'Düşük: daha az parçacık ve gölge')+af328Row('FPS göstergesi',chk('af222FpsChk'),'Savaşta sol üstte FPS, iş süresi ve en uzun kareyi gösterir (takılma teşhisi)')+af328Row('Efektleri azalt',chk('af328ReduceFx'),'Parlama ve parçacıkları en aza indirir')+af328Row('Yazı boyutu',sel('af328TextSize',[['normal','Normal'],['large','Büyük'],['xlarge','Çok büyük']]))+af328Row('Renk körü dostu işaretler',chk('af328Colorblind'),'Rakip kırmızı yerine turuncu, takımlar ayrıca ▲/■ işaretli'))+
   sec('Oynanış',af328Row('Sol el düzeni',chk('af328Left'),'Kartlar ve yetenek düğmeleri yer değiştirir')+af328Row('Rakip zorluğu',sel('af35Diff',[['easy','Kolay'],['normal','Normal'],['hard','Zor']]),'Düello rakibinin karar kalitesi: düşünme süresi, savunma eşiği, karşı kart seçimi ve büyü kullanımı. Kupa: Kolay +12/−5 · Normal +25/−10 · Zor +32/−10')+'<div data-slot="play"></div>'+af328Row('Oyun içi hatırlatmalar',chk('af328Remind'),'Açılışta günlük ödül ve tamamlanan görevler için bildirim (yalnızca oyun içinde)'))+
   sec('Dil',af328Row('Oyun dili','<select id="af328Lang"><option value="tr">Türkçe</option><option value="en">English</option></select>','İngilizce: ana ekranlar (harita, menüler, ayarlar, mod ekranları, savaş ve sonuç). Diğer ekranlar şimdilik Türkçe kalır.'))+
   sec('Bağlantı',af328Row('Çevrim içi hesap','<b id="af363Acct" class="af328-badge"></b>','Bulut kaydı, çevrim içi eşleşme ve lonca için internet ve hesap gerekir; diğer modlar internetsiz çalışır')+af328Row('Cihaz internet bağlantısı','<b id="af328Net"></b>','Bağlantı koparsa çevrimdışı modlar sürer; çevrim içi işlemler bağlantı gelince yeniden denenmelidir'))+
@@ -18634,6 +18652,7 @@ function af328EnhanceSettings(){
  const low=byId('af274Low');if(low)low.hidden=true; // grafik kalitesi seçicisi düşük modu yönetir
  const acts=[...panel.querySelectorAll('.af274-actions')].find(a=>a.querySelector('#af274Export'));if(acts)box.querySelector('[data-slot="save"]').appendChild(acts);
  const $id=id=>document.getElementById(id);
+ {const fc=$id('af222FpsChk');if(fc){fc.checked=!!af274Settings.fpsMeter;fc.addEventListener('change',()=>{af274Settings.fpsMeter=fc.checked;af328Save();});}}
  const bindR=(id,key)=>{const el=$id(id),v=$id(id+'V');el.value=af328S(key);v.textContent=el.value+'%';el.addEventListener('input',()=>{af274Settings[key]=+el.value;v.textContent=el.value+'%';af328ApplyPrefs();});el.addEventListener('change',()=>{af274Settings[key]=+el.value;af328Save();if(key!=='volMusic')af274Beep('card');});};
  bindR('af328VolMaster','volMaster');bindR('af328VolMusic','volMusic');bindR('af328VolSfx','volSfx');
  const q=$id('af328Quality');q.value=af328S('quality');q.addEventListener('change',()=>{af274Settings.quality=q.value;af274Settings.lowGraphics=q.value==='low';const l=$id('af274Low');if(l)l.checked=af274Settings.lowGraphics;af328Save();});
