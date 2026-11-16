@@ -405,3 +405,6 @@ Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, 
 
 ### Canlıya uygulama (aynı gün, yazma yetkili anahtar sonrası)
 `01`, `05`, `06` canlı Supabase'e uygulandı (HTTP 201). Doğrulama: 4 tablo RLS açık; yetki matrisi beklenen (authenticated: UPDATE yok, settle yok, trophy_me var; anon: hiçbiri; service_role: settle var); tetikleyici mevcut; `afp_social_me`/`afp_leaderboard` defteri kullanıyor. Geri alınan canlı saldırı testi: p_trophies=1000000 → 25 kaldı, doğrudan UPDATE ve settle reddedildi, hiçbir veri değişmedi. **Hâlâ yapılmadı:** WSS sunucusunun Render'da yayınlanması ve `AFP_TROPHY_AUTHORITY_ENABLED=1`.
+
+### Render yayını (sunucu 3.60.103)
+Sunucu PR #4 (CI: başarılı, 22 sn) main'e birleştirildi (b071283); Render otomatik yayınladı, dağıtım `live` (commit b0712833). Canlı günlükte: `AFP online PvP test server 3.60.103 listening`, `[anticheat-store] restored 0 reward and 0 suspect records` (kalıcı kayıt tablosuna canlıda erişildi, hata yok). `AFP_TROPHY_AUTHORITY_ENABLED` **eklenmedi** (bayrak KAPALI): davranış değişmedi. `/health` adresine bu ortamdan erişilemediği için dış doğrulama yapılamadı; doğrulama Render API ve günlükleri üzerinden yapıldı.
