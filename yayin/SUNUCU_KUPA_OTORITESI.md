@@ -49,4 +49,9 @@ Bunlar yapılana kadar istemci **geriye uyumlu** çalışır: sunucu fonksiyonu 
 `01_kupa_otorite.sql` → `05_antihile_kayit.sql` → `06_canli_entegrasyon.sql` (hepsi idempotent). Sorun olursa `08_geri_alma.sql`.
 06 sonrası: `afp_social_me` kupayı yok sayar, `afp_leaderboard` defterden sıralar (çıktı biçimi aynı), `afp_players.trophies` otomatik yansır, mevcut oyuncular en çok 300 kupa ile deftere alınır.
 
-**Not (3.60.241 oturumu):** Bu oturuma verilen Supabase erişim anahtarı yalnızca OKUMA yetkili çıktı (`supabase_read_only_user`, `cannot execute CREATE TABLE in a read-only transaction`). Bu yüzden SQL canlıya uygulanamadı; sahibi SQL Editor'den uygulamalı ya da yazma yetkili (Owner/Admin) bir anahtar vermelidir.
+## Canlıya uygulandı (2026-11-16)
+`01`, `05`, `06` canlı Supabase projesine (Arena Forge Pro) uygulandı ve doğrulandı:
+- Yeni tablolar RLS açık; `authenticated` UPDATE yapamıyor, `anon` okuyamıyor, `authenticated` `afp_trophy_settle` çağıramıyor, `service_role` çağırabiliyor.
+- Geri alınan (rollback) canlı saldırı testi: oyuncu rolüyle `afp_social_me(p_trophies=1000000)` → kupa **25 kaldı**; sıralama defterden geliyor; doğrudan UPDATE ve settle **reddedildi**; test verisi bırakmadı.
+- Mevcut tek oyuncu (25 kupa) deftere alındı.
+- **Henüz açık olmayan:** WSS sunucusu 3.60.103'ün Render'a yayınlanması ve `AFP_TROPHY_AUTHORITY_ENABLED=1`. O zamana kadar maç sonu kupa değişimi (ranked) sunucu defterine yazılmaz; yani sıralama kupası **sahtelenemez ama maçlarla artmaz**.

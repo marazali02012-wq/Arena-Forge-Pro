@@ -402,3 +402,6 @@ Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, 
 - `sunucu/06_canli_entegrasyon.sql` (afp_social_me kupayı yok sayar, afp_leaderboard defterden sıralar, tetikleyici ile yansıtma, mevcut oyuncuları 300 sınırıyla deftere alma) + `08_geri_alma.sql` yedeği.
 - Yerel PostgreSQL 16, canlı şemayı taklit eden test: **15/15** (07) + 01 testi **28/28** (02). Sahte 999999 kupa 300'e sınırlandı, `afp_social_me(p_trophies=1000000)` kupayı değiştirmedi, yasaklı oyuncu sıralamada yok, settle sonrası `afp_players.trophies` yansıdı.
 - **CANLIYA UYGULANAMADI:** verilen anahtar salt-okunur (`cannot execute CREATE TABLE in a read-only transaction`). Canlı veritabanında hiçbir değişiklik yapılmadı.
+
+### Canlıya uygulama (aynı gün, yazma yetkili anahtar sonrası)
+`01`, `05`, `06` canlı Supabase'e uygulandı (HTTP 201). Doğrulama: 4 tablo RLS açık; yetki matrisi beklenen (authenticated: UPDATE yok, settle yok, trophy_me var; anon: hiçbiri; service_role: settle var); tetikleyici mevcut; `afp_social_me`/`afp_leaderboard` defteri kullanıyor. Geri alınan canlı saldırı testi: p_trophies=1000000 → 25 kaldı, doğrudan UPDATE ve settle reddedildi, hiçbir veri değişmedi. **Hâlâ yapılmadı:** WSS sunucusunun Render'da yayınlanması ve `AFP_TROPHY_AUTHORITY_ENABLED=1`.
