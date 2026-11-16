@@ -16,6 +16,7 @@ Yüklenemezse oyunun kendi sentez sesleri yedek olarak çalar.
 | crash | dragon-studio-car-crash-sound-effect-376874 | portal/kule yıkılışı |
 | stomp | audiocopper-stomp-percussion-logo-633003 | sersemletme, kaya büyüsü, çağırma |
 | ice | dragon-studio-ice-spell-impact-448563 | buz büyüsü (Zaman Yavaşlatma) çarpması |
+| battle_loop | audiocopper-stomp-percussion-logo-633003 (3,41–12,04 sn) | savaş sırasında kısık arka plan davul döngüsü |
 | breath1, breath2 | hasin2004-breathing-fast-247449 | saldırı sesine nefes katmanı |
 
 Kullanılmayanlar (fantezi oyununa uymadığı için): dragon-studio-machine-gun-sfx-631486, u_62htdrvg4y-gun-shot-359196, freesound_community-footsteps-in-a-hallway-47842, dragon-studio-whoosh-cinematic-376875'in ilk yarısı dışındaki bölümler.

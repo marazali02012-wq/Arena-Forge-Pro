@@ -176,3 +176,9 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 - **Test:** 15/15 parça çözüldü; kırpma yok; 58 sn'lik savaşta yeni sesler çaldı; Arena, Yanki, Kolos, Gizli, kart silme, bekleme odası testleri hatasız.
 - Kaynak ve lisans notu: `yayin/SES_LISANS_NOTU.md` (Play yayını öncesi her dosyanın lisansını kontrol et).
 - **Sınır:** kılıç-kılıç çarpışması, gerçek ok teli ve insan "hah/uhh/ohh" savaşçı sesi için uygun kayıt yoktu; bunlar sentez olarak kaldı (savurma/vuruş artık gerçek kayıt, savaşçı sesleri sentez, yalnızca nefes katmanı gerçek).
+
+## Çan/para sesi kaldırıldı + savaş altında kısık davul döngüsü
+- **Çan/para sesi neydi:** Benim yazdığım sentez efektlerdi: iyileştirme yeteneğinin üç notalı "ting-ting-ting" çanı (Işık Şifacısı vb. her vuruşta), genel yetenek bildiriminin çan sesi, sersemletme/ışınlanma/büyü çarpmasındaki çan sesleri ve Terrin/Noella/koruma/iyileştirme/buz/lanet büyülerindeki zil benzeri tonlar. Hepsi savaş efektlerinden çıkarıldı; yerine çansız (uğultu, nefes, hafif tok vuruş) sesler kondu. Sonuç ekranı, sandık, ödül ve zafer/yenilgi melodileri değişmedi.
+- **Savaş altı müzik:** yüklenen ezme/davul parçasından (audiocopper) 8,6 sn'lik, kesintisiz döngü yapıldı (10 vuruş, 0,3 sn eşit güçlü çapraz geçiş, ~100 KB). Savaş başlayınca 1,2 sn'de yumuşakça başlar, kısık çalar (tepe ses seviyesi ~0,10; efektler 0,5-0,8), savaş/sonuç ekranı bitince yumuşakça söner. Ayarlardan "Müzik" kapatılırsa veya ses kapalıysa çalmaz; duraklatınca daha da kısılır. Melodik savaş müziği kapalı kalmaya devam ediyor.
+- **Test:** 16 örnek yüklendi; savaşta sahne "battle", ses tepesi ~0,10; çansız efektler kırpmasız; Arena, Yanki, Kolos, Gizli, kart silme ve bekleme odası testleri hatasız.
+- **Not:** Parça bas ağırlıklı (enerjinin %88'i 200 Hz altında); telefon hoparlörlerinde çoğunlukla vuruş ucu duyulur, kulaklıkta tam duyulur.
