@@ -182,3 +182,9 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 - **Savaş altı müzik:** yüklenen ezme/davul parçasından (audiocopper) 8,6 sn'lik, kesintisiz döngü yapıldı (10 vuruş, 0,3 sn eşit güçlü çapraz geçiş, ~100 KB). Savaş başlayınca 1,2 sn'de yumuşakça başlar, kısık çalar (tepe ses seviyesi ~0,10; efektler 0,5-0,8), savaş/sonuç ekranı bitince yumuşakça söner. Ayarlardan "Müzik" kapatılırsa veya ses kapalıysa çalmaz; duraklatınca daha da kısılır. Melodik savaş müziği kapalı kalmaya devam ediyor.
 - **Test:** 16 örnek yüklendi; savaşta sahne "battle", ses tepesi ~0,10; çansız efektler kırpmasız; Arena, Yanki, Kolos, Gizli, kart silme ve bekleme odası testleri hatasız.
 - **Not:** Parça bas ağırlıklı (enerjinin %88'i 200 Hz altında); telefon hoparlörlerinde çoğunlukla vuruş ucu duyulur, kulaklıkta tam duyulur.
+
+## Vuruşlardaki ince tiz "para düşer gibi" ses kaldırıldı
+- **Kaynak:** (1) benim sentez "clang" metal-çan katmanım (650-1300 Hz tabanında 4-8 kHz'e uzanan kısmi tonlar, ~0,16 sn tınlıyor), (2) yüklenen plaka sesinden yaptığım "clang" parçası (5 kHz üstünde uzun süre tınlayan metal tonlar), (3) ok vuruşundaki ince 500-560 Hz üçgen ton ve hızlandırılmış (x1,5) yumruk, (4) yakın dövüşteki 2,5 kHz üstü "tık" gürültüsü, (5) kritik "slash" yeteneğindeki 5-6 kHz çift uğultu.
+- **Düzeltme:** tüm bu katmanlar çıkarıldı; vuruş parçalarına 3-3,6 kHz alçak geçiren filtre eklendi; kullanılmayan "clang" kaydı oyundan çıkarıldı (~16 KB azaldı).
+- **Ölçüm (3 kHz üstü enerji oranı, önce→sonra):** ok vuruşu 0,334→0,016; yakın dövüş 0,142→0,063; ağır vuruş 0,024→0,005; kritik slash 0,477→0,171. Kırpma yok.
+- **Test:** savaşta 15 örnek yüklendi, vuruş/savurma sesleri çalıyor; Arena, Yanki, Kolos, Gizli, kart silme, bekleme odası hatasız.
