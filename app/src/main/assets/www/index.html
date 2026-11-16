@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.234" />
-<title>Arena Forge Pro v3.60.234 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.235" />
+<title>Arena Forge Pro v3.60.235 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -9715,7 +9715,7 @@ function af224Art(key){
 @media (prefers-reduced-motion:reduce){#afxRoad .af228-landmark .af228-emblem.is-current{animation:none}}
 </style>
 <script id="AFP_STORY">
-/* ===== v3.60.234 · ANA HİKÂYE: «ALTINCI MÜHÜR» — 5 kitap · 25 bölüm · 250 aşama =====
+/* ===== v3.60.235 · ANA HİKÂYE: «ALTINCI MÜHÜR» — 5 kitap · 25 bölüm · 250 aşama =====
    Savaşın nedeni ve beş büyücünün geçmişi burada anlatılır. Metinler yalnız okunur; savaş kurallarına, ödüllere ve kayıt şemasına dokunmaz.
    Gösterim: bölüm giriş/yol sayfaları savaştan ÖNCE (aşama 1, 4, 7), bölüm sonu savaşından SONRA (aşama 10) bir kez gösterilir. Hikâye Defteri'nden yeniden okunur. */
 (function(){'use strict';
@@ -9775,7 +9775,7 @@ const WAR=[
 window.AFP_STORY_DATA={PROLOG,EPILOG,B,WIZ,WAR};
 })();
 
-/* ===== v3.60.234 · ANA HİKÂYE KONUŞMALARI + BÜYÜK FİNAL =====
+/* ===== v3.60.235 · ANA HİKÂYE KONUŞMALARI + BÜYÜK FİNAL =====
    Konuşmacı kodları: K Korvayn · E Elyvara · V Vaelor · S Saelith · T Theryn · M Mirael · C Sen (Çırak) · «!Ad» düşman/boss. */
 (function(){'use strict';
 const D=window.AFP_STORY_DATA;if(!D)return;
@@ -9877,7 +9877,7 @@ D.FINALE=[
 ];
 })();
 
-/* ===== v3.60.234 · ANA HİKÂYE arayüzü: hikâye penceresi + Hikâye Defteri ===== */
+/* ===== v3.60.235 · ANA HİKÂYE arayüzü: hikâye penceresi + Hikâye Defteri ===== */
 (function(){'use strict';
 const D=window.AFP_STORY_DATA;if(!D)return;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -10024,6 +10024,141 @@ function journal(tab){
 }
 window.AFPStory={before,after,open:journal,beat,dlg,finale:finalePages,state:()=>{const s=st();return {seen:Object.keys(s.seen).length,off:s.off};},_close:close};
 document.addEventListener('click',e=>{const t=e.target&&e.target.closest?e.target.closest('[data-afp-story]'):null;if(!t)return;e.preventDefault();e.stopPropagation();journal();},true);
+})();
+
+</script>
+<script id="AFP_GUIDE">
+/* ===== v3.60.235 · YENİ OYUNCU REHBERİ: ilk savaştan sonra sandık → deste → kart geliştirme → Kupa Yolu =====
+   Oyuncunun gerçek ilerlemesini izler (sandık gerçekten açıldı mı, deste gerçekten değişti mi, kart gerçekten güçlendi mi), halka ile dokunulacak düğmeyi
+   gösterir, adımları sırayla ilerletir. Atlanabilir/kapatılabilir; Menü → BAŞLANGIÇ REHBERİ ile yeniden başlatılır. Savaş kuralı/ödül tablosu değişmez. */
+(function(){'use strict';
+const host=()=>window.AFPGuideHost;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MAX_NEW_BATTLES=5, BONUS_CREDITS=300;
+function G(){const p=host().profile();let g=p.afpGuide;if(!g||typeof g!=='object'||Array.isArray(g))g=p.afpGuide={v:1,started:false,step:0,done:false,off:false,bonus:false,ok:[],skip:[],snap:{}};
+  g.step=Math.max(0,Math.min(5,Math.floor(+g.step||0)));g.ok=Array.isArray(g.ok)?g.ok.filter(n=>n>=1&&n<=4):[];g.skip=Array.isArray(g.skip)?g.skip.filter(n=>n>=1&&n<=4):[];if(!g.snap||typeof g.snap!=='object')g.snap={};return g;}
+function save(){try{host().save();}catch(_){}}
+/* ---- DOM yardımcıları (gölge DOM dahil) ---- */
+function deepAll(sel,root){root=root||document;const out=[...root.querySelectorAll(sel)];for(const e of root.querySelectorAll('*'))if(e.shadowRoot)out.push(...deepAll(sel,e.shadowRoot));return out;}
+function vis(e){if(!e)return false;const r=e.getBoundingClientRect();if(r.width<8||r.height<8||r.bottom<=0||r.top>=innerHeight||r.right<=0||r.left>=innerWidth)return false;const cs=getComputedStyle(e);return cs.visibility!=='hidden'&&cs.display!=='none'&&+cs.opacity>.05;}
+function findVis(sel,text){const l=deepAll(sel).filter(vis);return text?l.find(e=>(e.textContent||'').toLocaleUpperCase('tr-TR').includes(text)):l[0];}
+function screenId(){const c=document.documentElement.classList;
+  if(vis(document.querySelector('.af40-chest-room')))return 'packs';
+  if(c.contains('afx-deck'))return 'deck';
+  if(vis(document.querySelector('#afxRoad')))return 'road';
+  const s=document.querySelector('#af4Screen');if(s&&vis(s)&&s.dataset.screen==='minions')return 'minions';
+  if(c.contains('afx-home')&&findVis('[data-home-action="packs"]'))return 'home';
+  return 'other';}
+function overlayOpen(){for(const e of document.body.children){if(e.id==='afpGuide'||e.id==='afpGuideRing'||e.id==='stage'||e.id==='afwmWorldScreen'||e.id==='af207Mount'||e.id==='af324Shell'||e.tagName==='SCRIPT'||e.tagName==='STYLE')continue;if(!vis(e))continue;const cs=getComputedStyle(e);if(cs.position!=='fixed')continue;const r=e.getBoundingClientRect();if(r.width>innerWidth*.5&&r.height>innerHeight*.45&&(+cs.zIndex||0)>=1000)return true;}return false;}
+/* ---- adım tanımları ---- */
+const back=()=>findVis('#hmdDeckClose')||findVis('.afx-back')||findVis('button','GERİ');
+const deckSig=p=>JSON.stringify([p.preparedDeckTypes,p.preparedDeckPresets,p.activeDeckPresetIndex]);
+const upSig=p=>JSON.stringify([p.afpMG&&p.afpMG.pu,p.heroLevels]);
+const roadSig=p=>JSON.stringify([p.trophyRewardsClaimed,p.trophyHeroRewardsClaimed,p.unlocked&&Object.keys(p.unlocked).length]);
+const chestIds=p=>(Array.isArray(p.battleChests)?p.battleChests:[]).filter(Boolean).map(c=>c.id);
+function ensureChest(p){
+  /* Rehber adımı beklemeye takılmasın: hazır sandık yoksa, eldeki sandığı hazır yap; hiç sandık yoksa tek bir başlangıç sandığı ver. */
+  const slots=Array.isArray(p.battleChests)?p.battleChests.slice(0,4):[];while(slots.length<4)slots.push(null);
+  const now=Date.now(),ready=c=>c&&+c.readyAt>0&&+c.readyAt<=now;
+  if(slots.some(ready))return false;
+  const idx=slots.findIndex(Boolean);
+  if(idx>=0){slots[idx]=Object.assign({},slots[idx],{startedAt:now-3600000,readyAt:now-60000});p.battleChests=slots;return false;}
+  slots[0]={id:'afguide-'+now,type:'small',earnedAt:now,startedAt:now-3600000,readyAt:now-60000,source:'guide'};p.battleChests=slots;return true;
+}
+const STEPS={
+ 1:{name:'SANDIK AÇ',
+  start(p,g){g.snap.chests=chestIds(p);if(ensureChest(p)){g.snap.given=true;}g.snap.chests=chestIds(p);try{host().refresh();}catch(_){}},
+  done(p,g){const now=chestIds(p),was=g.snap.chests||[];return was.length>0&&was.some(id=>!now.includes(id));},
+  view(sc){
+   if(sc==='home')return {text:'İlk savaşını tamamladın! Savaşlar sandık kazandırır. SANDIKLAR\'a gir ve hazır sandığını aç.',ring:()=>findVis('[data-home-action="packs"]')};
+   if(sc==='packs')return {text:'Sandığa dokun: hazırsa SANDIĞI AÇ yazar; süre varsa SÜREYİ BAŞLAT\'a bas. İçinden kredi, parça ve rün çıkar.',ring:()=>findVis('button[data-act^="chestslot"]','SANDIĞI AÇ')||findVis('button[data-act^="chestslot"]')};
+   return {text:'GERİ ile ana ekrana dön; sandıklara oradan gireceğiz.',ring:back};}},
+ 2:{name:'DESTE KUR',
+  start(p,g){g.snap.deck=deckSig(p);},
+  done(p,g){return deckSig(p)!==g.snap.deck;},
+  manual:'DESTEM HAZIR',
+  view(sc){
+   if(sc==='home')return {text:'Şimdi savaşa hazırlan: DESTELER\'e gir. Savaşta 12 kartlık destenden oynarsın; en güçlü ve dengeli kartlarını seç.',ring:()=>findVis('[data-home-action="deck"]')};
+   if(sc==='deck')return {text:'Alttaki koleksiyondan bir kart seç ve destedeki bir kartın yerine koy. Menzilli, ön saf ve destek kartlarını karıştır. Beğendiysen DESTEM HAZIR\'a bas.',ring:null,manual:true};
+   return {text:'GERİ ile ana ekrana dön.',ring:back};}},
+ 3:{name:'KART GELİŞTİR',
+  start(p,g){g.snap.up=upSig(p);},
+  done(p,g){return upSig(p)!==g.snap.up;},
+  view(sc){
+   if(sc==='home')return {text:'Kartlar rünle güçlenir. MİNYONLAR\'a gir, bir kart seç ve GÜÇLENDİR\'e bas. 5 aşama dolunca GELİŞTİR ile seviye atlar.',ring:()=>findVis('[data-home-action="minions"]')};
+   if(sc==='minions')return {text:'Bir kart seç; sağdaki GÜÇLENDİR\'e bas (rün harcanır). Güç aşamaları dolunca GELİŞTİR kartın seviyesini artırır.',ring:()=>findVis('button','GÜÇLENDİR')};
+   return {text:'GERİ ile ana ekrana dön; MİNYONLAR oradan açılır.',ring:back};}},
+ 4:{name:'KUPA YOLU',
+  start(p,g){g.snap.road=roadSig(p);},
+  done(p,g){return roadSig(p)!==g.snap.road;},
+  manual:'ANLADIM',
+  view(sc){
+   if(sc==='home')return {text:'Kupa kazandıkça ödül kazanırsın. KUPA YOLU\'na gir: kartlar sıralı ödüllerdir.',ring:()=>findVis('[data-home-action="road"]')};
+   if(sc==='road')return {text:'ALINABİLİR kartlara dokunup ödülünü al; kilitliler kaç kupada açılacağını gösterir. Kupayı savaşlarda zaferle kazanırsın. Hazır olunca ANLADIM\'a bas.',ring:()=>findVis('.af228-reward.s-ready')||findVis('.af228-reward'),manual:true};
+   return {text:'GERİ ile ana ekrana dön; KUPA YOLU oradan açılır.',ring:back};}}
+};
+/* ---- arayüz ---- */
+let card=null,ring=null,timer=0,lastKey='';
+function css(){if(document.getElementById('afpGuideCss'))return;const s=document.createElement('style');s.id='afpGuideCss';s.textContent=`
+#afpGuide{position:fixed;left:50%;top:50px;transform:translateX(-50%);z-index:2147482000;width:min(440px,92vw);box-sizing:border-box;padding:6px 10px 7px;border:2px solid #d9b45a;border-radius:12px;background:linear-gradient(160deg,#1d1610f5,#0d0b12f5);color:#f1ead8;box-shadow:0 6px 24px #000a;font-family:inherit}
+#afpGuide[hidden]{display:none}
+#afpGuide .g-top{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+#afpGuide .g-dots{display:flex;gap:3px}#afpGuide .g-dots i{width:12px;height:4px;border-radius:2px;background:#4a3d27}#afpGuide .g-dots i.on{background:#e4b75a}#afpGuide .g-dots i.cur{background:#fff5d0}
+#afpGuide .g-t{font:700 11px/1 inherit;letter-spacing:.08em;color:#ffe2a8;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#afpGuide .g-x{appearance:none;border:1px solid #6c5a36;background:transparent;color:#bba978;font:600 10px/1 inherit;letter-spacing:.04em;cursor:pointer;padding:4px 7px;border-radius:7px;touch-action:manipulation}
+#afpGuide .g-p{margin:0;font-size:12px;line-height:1.35}
+#afpGuide .g-b{display:flex;justify-content:flex-end;margin-top:5px}
+#afpGuide .g-btn{appearance:none;border:1px solid #f0cf86;background:linear-gradient(180deg,#e4b75a,#a8782a);color:#1d1306;border-radius:8px;padding:6px 12px;font:700 11px/1 inherit;letter-spacing:.05em;cursor:pointer;touch-action:manipulation}
+#afpGuideRing{position:fixed;z-index:2147481900;pointer-events:none;border:3px solid #ffd978;border-radius:14px;box-shadow:0 0 0 3px #00000066,0 0 18px 4px #ffd97899;animation:afpGuidePulse 1.1s ease-in-out infinite}
+@keyframes afpGuidePulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.07);opacity:.75}}
+@media(max-height:430px){#afpGuide{top:48px}}
+`;document.head.appendChild(s);}
+function ensureUi(){css();if(!card){card=document.createElement('div');card.id='afpGuide';card.hidden=true;card.setAttribute('role','status');card.addEventListener('click',onClick);document.body.appendChild(card);}
+  if(!ring){ring=document.createElement('div');ring.id='afpGuideRing';ring.style.display='none';document.body.appendChild(ring);}}
+function hideUi(){if(card)card.hidden=true;if(ring)ring.style.display='none';lastKey='';}
+function placeRing(fn){if(!fn){ring.style.display='none';return;}let t=null;try{t=fn();}catch(_){}if(!t||!vis(t)){ring.style.display='none';return;}const r=t.getBoundingClientRect();const pad=4;ring.style.display='block';ring.style.left=(r.left-pad)+'px';ring.style.top=(r.top-pad)+'px';ring.style.width=(r.width+pad*2)+'px';ring.style.height=(r.height+pad*2)+'px';}
+function renderCard(g,v,stepId){
+  const dots=[1,2,3,4].map(n=>'<i class="'+(g.ok.includes(n)||g.skip.includes(n)?'on':'')+(n===stepId?' cur':'')+'"></i>').join('');
+  const manual=v.manual&&STEPS[stepId].manual;
+  const key=stepId+'|'+v.text+'|'+(manual?1:0)+'|'+g.ok.join()+'|'+g.skip.join();
+  if(key!==lastKey){lastKey=key;card.innerHTML='<div class="g-top"><div class="g-dots">'+dots+'</div><div class="g-t">'+stepId+'/4 · '+esc(STEPS[stepId].name)+'</div><button type="button" class="g-x" data-g="skip">ADIMI ATLA</button><button type="button" class="g-x" data-g="off">KAPAT</button></div><p class="g-p">'+esc(v.text)+'</p>'+(manual?'<div class="g-b"><button type="button" class="g-btn" data-g="manual">'+esc(STEPS[stepId].manual)+'</button></div>':'');}
+  card.hidden=false;
+}
+function renderDone(g){
+  const all=g.ok.length===4;const key='done|'+all;if(key!==lastKey){lastKey=key;
+  card.innerHTML='<div class="g-top"><div class="g-dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><div class="g-t">REHBER TAMAM</div></div><p class="g-p">'+(all?'Harika! Sandık açmayı, deste kurmayı, kart geliştirmeyi ve Kupa Yolu\'nu öğrendin. Başlangıç ödülün: +'+BONUS_CREDITS+' kredi.':'Rehber bitti. İstediğin zaman Menü → BAŞLANGIÇ REHBERİ ile yeniden başlatabilirsin.')+'</p><div class="g-b"><button type="button" class="g-btn" data-g="close">TAMAM</button></div>';}
+  card.hidden=false;ring.style.display='none';
+}
+/* ---- ilerleme ---- */
+function begin(stepId){const g=G(),p=host().profile();g.step=stepId;g.started=true;if(STEPS[stepId])STEPS[stepId].start(p,g);save();lastKey='';}
+function advance(stepId,how){const g=G();if(how==='ok'){if(!g.ok.includes(stepId))g.ok.push(stepId);}else if(!g.skip.includes(stepId))g.skip.push(stepId);
+  if(stepId>=4){finish();return;}begin(stepId+1);}
+function finish(){const g=G(),p=host().profile();g.step=5;g.done=true;
+  if(g.ok.length===4&&!g.bonus){g.bonus=true;p.credits=Math.min(999999,(+p.credits||0)+BONUS_CREDITS);try{host().refresh();}catch(_){}}
+  save();lastKey='';}
+function onClick(e){const t=e.target.closest&&e.target.closest('[data-g]');if(!t)return;e.stopPropagation();const g=G(),a=t.dataset.g;
+  if(a==='off'){g.off=true;save();hideUi();return;}
+  if(a==='close'){g.off=true;save();hideUi();return;}
+  if(a==='skip'&&g.step>=1&&g.step<=4){advance(g.step,'skip');tick();return;}
+  if(a==='manual'&&g.step>=1&&g.step<=4){advance(g.step,'ok');tick();return;}}
+function eligible(g,p){return !g.started&&!g.off&&!g.done&&!g.bonus&&(+p.battles||0)>=1&&(+p.battles||0)<=MAX_NEW_BATTLES;}
+function tick(){
+  try{if(!host())return;ensureUi();const p=host().profile();if(!p)return;const g=G();
+    if(host().playing()||overlayOpen()||document.querySelector('.afp-story')||document.hidden){hideUi();return;}
+    if(!g.started&&eligible(g,p)){if(!document.documentElement.classList.contains('afx-hub'))return;begin(1);}
+    if(!g.started||g.off)return hideUi();
+    if(g.done){if(g.step===5&&!g.off){renderDone(g);}return;}
+    const id=g.step;if(!STEPS[id]){hideUi();return;}
+    // gerçek ilerleme tamamlandıysa ilerle (kısa bekleme: ödül penceresi kapansın)
+    if(STEPS[id].done(p,g)){advance(id,'ok');tick();return;}
+    const sc=screenId();if(sc==='other'&&id>=1&&!document.documentElement.classList.contains('afx-hub')){hideUi();return;}
+    const v=STEPS[id].view(sc);renderCard(g,v,id);placeRing(v.ring);
+  }catch(err){console.warn('[AFP rehber]',err);}
+}
+function start(){if(timer)return;timer=setInterval(tick,600);}
+function restart(){const g=G(),p=host().profile();g.started=false;g.off=false;g.done=false;g.ok=[];g.skip=[];g.snap={};g.step=0;save();begin(1);lastKey='';tick();}
+window.AFPGuide={restart,state:()=>{const g=G();return {started:g.started,step:g.step,done:g.done,off:g.off,ok:g.ok.slice(),skip:g.skip.slice(),bonus:g.bonus};},tick};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
 
 </script>
@@ -12469,7 +12604,7 @@ function afpSeasonGrant(reward,season,level,track){
   return 'Ödül teslim edildi';
 }
 function afpSeasonRestore(snapshot){for(const k of Object.keys(profile))delete profile[k];Object.assign(profile,snapshot);}
-/* ===== v3.60.234 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
+/* ===== v3.60.235 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
    Yerel ve sunucusuz çalışır. Hedefler yalnız gerçek savaş sonucundan ilerler (hareketsiz/pes edilen maç ve antrenman sayılmaz);
    haftalık sayaçlar yalnız o haftanın günlerinde artar; her ödül sezon başına bir kez alınır; sezon dönünce sıfırlanır.
    Sezon Etkinlik Puanı (SEP) ALINAN hedeflerden türetilir (saklanmaz, kayma olmaz). Rütbe = SEP'e göre yerel rütbe.
@@ -23205,6 +23340,7 @@ const AFP_CAMPAIGN_BOOKS=[
 ];
 function afpCampaignInfo(level){level=Math.max(1,Math.min(250,Math.floor(+level||1)));const bi=Math.min(4,Math.floor((level-1)/50)),chapter=Math.floor(((level-1)%50)/10),within=(level-1)%10+1;const b=AFP_CAMPAIGN_BOOKS[bi];const objective=level%10===0?'Boss’u yen veya rakip portalını yık':level%3===2?'180 saniye boyunca kaleni koru':'Düşman portallarını yık';return {level,book:bi+1,bookName:b.name,hero:b.hero,chapter:chapter+1,chapterName:b.chapters[chapter],within,objective,boss:level%10===0};}
 window.AFPStoryHost={profile:()=>profile,save:()=>saveProfile(),state:()=>afpCampaignBattleState()};
+window.AFPGuideHost={profile:()=>profile,save:()=>saveProfile(),playing:()=>!!playing,refresh:()=>{try{updateProfileUI();}catch(_){}try{updateChestUI();}catch(_){}}};
 function afpBossInfo(level){level=Math.max(1,Math.min(82,Math.floor(+level||1)));const boss=level%5===0;return {level,name:boss?'Örümcek Kraliçe':'Örümcek Akını',stage:Math.ceil(level/5),boss};}
 function afpPveCss(){}
 function afpPvePanelHtml(){
@@ -41120,7 +41256,7 @@ window.AFPEchoEvent=Object.freeze({open,info:open,status,battleStart,updateBattl
    grid.innerHTML=button('herogrowth','KAHRAMAN GELİŞTİRME','crown','mode','Seviye, yetenek ve ekipman')+button('minions','MİNYON GELİŞTİRME','helmet','mode','Kartlar ve minyon parçaları')+button('inventory','EKİPMAN / ENVANTER','bag','mode','Kuşanma ve eşya geliştirme')+button('basegrowth','ÜS GELİŞTİRME','tower','mode','Mevcut üs geliştirmeleri');
   }else{
    $('#homeDialogTitle').textContent='DİĞER BÖLÜMLER';$('#homeDialogNote').textContent='İlerleme, koleksiyon ve topluluk';
-   grid.innerHTML=button('materials','MATERYALLER','gem','mode','Tüm kaynak ve parçalar')+button('collection','KOLEKSİYON','cards','mode','Mevcut karakter koleksiyonu')+button('history','SON SAVAŞLAR','swords','mode','Maç kayıtları')+button('rank','SIRALAMA','trophy','mode','Oyuncu sıralaması')+button('challenges','MEYDAN OKUMA','shield','mode','Görev ilerlemesi ve ödüller')+button('guild','LONCA','user','mode','Lonca ve ortak etkinlikler')+button('events','ETKİNLİKLER','gift','mode','Güncel etkinlik ekranı')+button('eventshop','ETKİNLİK MAĞAZASI','seal','mode','Etkinlik mührü ile alışveriş')+button('world','KUPA YOLU ARENALARI','globe','mode','Kupa seviyene göre açılacak arenalar');
+   grid.innerHTML=button('guide','BAŞLANGIÇ REHBERİ','crown','mode','Sandık, deste, geliştirme, Kupa Yolu')+button('materials','MATERYALLER','gem','mode','Tüm kaynak ve parçalar')+button('collection','KOLEKSİYON','cards','mode','Mevcut karakter koleksiyonu')+button('history','SON SAVAŞLAR','swords','mode','Maç kayıtları')+button('rank','SIRALAMA','trophy','mode','Oyuncu sıralaması')+button('challenges','MEYDAN OKUMA','shield','mode','Görev ilerlemesi ve ödüller')+button('guild','LONCA','user','mode','Lonca ve ortak etkinlikler')+button('events','ETKİNLİKLER','gift','mode','Güncel etkinlik ekranı')+button('eventshop','ETKİNLİK MAĞAZASI','seal','mode','Etkinlik mührü ile alışveriş')+button('world','KUPA YOLU ARENALARI','globe','mode','Kupa seviyene göre açılacak arenalar');
   }
   d.hidden=false;$('.frame').inert=true;$('.close').focus({preventScroll:true});
  }
@@ -41130,7 +41266,7 @@ window.AFPEchoEvent=Object.freeze({open,info:open,status,battleStart,updateBattl
   if(['modes','upgrade','menu'].includes(key)){dialog(key);return;}
   closeTop();const H=window.AFXHub,G=window.__AF324,R=window.__AFPHMDUI;
   if(key.startsWith('mode:')){const id=key.slice(5);if(!H.modes().some(m=>m.id===id))throw new Error('Kayıtlı olmayan mod: '+id);currentModeCover=id;if(id==='boss'){window.AFPEchoEvent.open();nativeWindow('af203Intro');}else H.openModeScreen(id);return;}
-  const routes={deck:()=>R.route('deck'),heroes:()=>G.go('heroes'),minions:()=>G.go('minions'),spells:()=>R.route('spells'),inventory:()=>G.go('inventory'),collection:()=>window.AFP36Col.open('normal'),materials:()=>H.openMats(),herogrowth:()=>H.openTab('collection'),basegrowth:()=>G.go('world|fort'),road:()=>G.go('road'),packs:()=>G.go('packs'),pass:()=>window.AFP_OpenSeasonPass_v37870(),shop:()=>G.go('shop'),daily:()=>G.go('event|missions'),events:()=>G.go('event|events'),eventshop:()=>G.go('event|shop'),weekly:()=>H.openWeekly(),achievements:()=>H.openBadges(),history:()=>H.openHistory(),profile:()=>window.AF328.openProfile(),inbox:()=>window.AF328.openInbox(),social:()=>window.AFPSocialV1.open('friends'),rank:()=>window.AFPSocialV1.open('rank'),settings:()=>window.__AF_HEROIC_REBUILD_V34201.settings(),guild:()=>window.AFPCommunityEventCenterV36026.open('guild'),guildraid:()=>window.AFPCommunityEventCenterV36026.open('raid'),lhs:()=>window.AFPCommunityEventCenterV36026.open('lhs'),onlinecolossus:()=>window.AFPCommunityEventCenterV36026.open('colossus')};
+  const routes={guide:()=>{try{window.AFPGuide&&window.AFPGuide.restart();}catch(err){console.warn('[AFP rehber]',err);}},deck:()=>R.route('deck'),heroes:()=>G.go('heroes'),minions:()=>G.go('minions'),spells:()=>R.route('spells'),inventory:()=>G.go('inventory'),collection:()=>window.AFP36Col.open('normal'),materials:()=>H.openMats(),herogrowth:()=>H.openTab('collection'),basegrowth:()=>G.go('world|fort'),road:()=>G.go('road'),packs:()=>G.go('packs'),pass:()=>window.AFP_OpenSeasonPass_v37870(),shop:()=>G.go('shop'),daily:()=>G.go('event|missions'),events:()=>G.go('event|events'),eventshop:()=>G.go('event|shop'),weekly:()=>H.openWeekly(),achievements:()=>H.openBadges(),history:()=>H.openHistory(),profile:()=>window.AF328.openProfile(),inbox:()=>window.AF328.openInbox(),social:()=>window.AFPSocialV1.open('friends'),rank:()=>window.AFPSocialV1.open('rank'),settings:()=>window.__AF_HEROIC_REBUILD_V34201.settings(),guild:()=>window.AFPCommunityEventCenterV36026.open('guild'),guildraid:()=>window.AFPCommunityEventCenterV36026.open('raid'),lhs:()=>window.AFPCommunityEventCenterV36026.open('lhs'),onlinecolossus:()=>window.AFPCommunityEventCenterV36026.open('colossus')};
   routes.challenges=()=>H.openChallenges();routes.world=()=>H.openRoadArenas();
   if(!routes[key])throw new Error('Tanımsız ana üs bağlantısı: '+key);
   routes[key]();if(['guild','guildraid','lhs','onlinecolossus'].includes(key))nativeWindow('afpce');
