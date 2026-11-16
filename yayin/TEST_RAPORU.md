@@ -365,3 +365,24 @@ Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, 
 **Güvenlik/uç durumlar:** eski hesaplarda (≥1 savaş) hiç çıkmaz; savaş başlamadan uygulama kapanırsa giriş baştan; KAPAT ile akış bırakılabilir (düşman beklemesi kalkar); QA için `localStorage afpFtueOffV1=1` akışı kapatır (test araçları varsayılan olarak kapatır).
 **Test:** giriş sahneleri sırayla (≈19,5 sn saat dahil) ve ATLA; hediye ekranı; hediye destenin ilk kartı ve el'in ilk kartı; sürükle-bırak ile kart çıkarma; portal 110→20→0 ve zafer; DEVAM → ana üs → sandık (hazır, açıldı) → deste adımı → ana üs; 800×360 ekran görüntüleri; yarıda kapanma; ana ekran rehberi, savaş içi öğretici, Arena/Kolos/Yankı/Doruk Kulesi/Hikâye hatasız.
 **Sınır:** giriş yalnız görsel+yazı (ses/animasyonlu karakter yok); ilk savaş eşleşmesiz yerel bot düellosu olduğu için kupa/sezon ödülü vermez (sandığı rehber verir); gerçek telefon dokunuşu denenmedi.
+
+## 3.60.240 — Kupa sıralaması güvenliği (sunucu otoritesi)
+
+**İstek:** Oyuncunun sıralama kupasını değiştirmesini tamamen engelleyen sunucu kontrolü eksikti.
+
+**Kök neden:** Sıralamadaki kupa istemciden geliyordu (`afp_social_me(p_trophies)`, bulut `save_data`). Yerel kayıt düzenlenerek sıralama sahtelenebilirdi.
+
+**Yapılan:**
+- `yayin/sunucu/01_kupa_otorite.sql` — yazılamaz sunucu defteri (`afp_player_trophies`, `afp_trophy_ledger`), RLS + yetki geri alma, `afp_trophy_me/seed_me/leaderboard`, yalnız `service_role` çağırabilen `afp_trophy_settle` (idempotent, eşleşme aralığı, en kısa süre, aynı rakip 24 sa/3, günlük +250, 0..20000).
+- `yayin/sunucu/03_wss_kupa_isle.js` — WSS sunucusunun iki koltuk uyuşunca çağıracağı settle; `04_…kilitle.sql` — canlı şema için şablon; `yayin/SUNUCU_KUPA_OTORITESI.md` — tasarım + kurulum adımları + sınırlar.
+- İstemci: `afp_social_me`'ye kupa artık **gönderilmez**; dünya sıralaması önce `afp_trophy_leaderboard` (sunucu defteri, 🔒), yoksa eski sıralamaya düşer; bir kerelik, sunucuda en çok 300 ile sınırlı devir (`afp_trophy_seed_me`).
+
+**Test:**
+- Yerel PostgreSQL 16, Supabase rolleri taklit: `02_kupa_otorite_test.sql` **28/28 GEÇTİ** (oyuncu UPDATE/INSERT/SELECT/DELETE ve settle çağrısı reddedilir, anon reddedilir, tohum 300 sınırı ve tek kullanım, idempotency, ters taraf reddi, aralık/süre/öz-maç/çiftçilik/günlük sınır, negatife düşmeme, sıralama sunucu kupasından, defter tutarlılığı; dosya iki kez çalıştırıldı = idempotent).
+- WSS parçası: sahte (mock) ile 3/3 (kazanan/kaybeden eşlemesi, onaysız reddi, beraberlik).
+- İstemci (sahte Supabase, headless): `p_trophies` null; profil kupası 9999 iken sunucuya kupa gitmez; sıralamada sunucu değeri (777) görünür, hileli 55555 görünmez; fonksiyon yokken eski sıralamaya düşer; tohum yalnız 1 kez; sayfa hatası yok. Açılış testi hatasız; FTUE giriş→hediye aşaması çalışıyor.
+
+**TEST EDİLEMEYEN / YAPILAMAYAN (dürüst not):**
+- Canlı Supabase ve `arena-forge-online-server` bu depoda/ortamda yok → SQL'in **canlıya uygulanması, `afp_social_me`/`afp_leaderboard`/profil tablosunun kilitlenmesi ve WSS'e settle bağlanması sahibi tarafından yapılmalı**. Yapılana kadar sıralama güvenliği fiilen sağlanmış sayılmaz.
+- `04_…kilitle.sql` canlı şemaya bakılmadan yazılmış şablondur, doğrulanmadı.
+- Çevrimdışı/yerel kupa cihazda düzenlenebilir (sıralamayı etkilemez). Anlaşmalı çevrim içi maçlar yalnızca yavaşlatılır, tamamen yok edilemez.

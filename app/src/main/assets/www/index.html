@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.239" />
-<title>Arena Forge Pro v3.60.239 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.240" />
+<title>Arena Forge Pro v3.60.240 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -39752,7 +39752,7 @@ function localProfile(){
  try{const p=window.profile;if(p&&typeof p==='object'){
   if(p.af328&&p.af328.name)out.p_nickname=String(p.af328.name).slice(0,24);
   if(Number.isFinite(+p.level))out.p_level=Math.max(1,Math.floor(+p.level));
-  if(Number.isFinite(+p.trophies))out.p_trophies=Math.max(0,Math.floor(+p.trophies));
+  /* v3.60.240: kupa ARTIK sunucuya bildirilmez (istemci kupası güvenilmez; sıralama kupası yalnız sunucu defterinden gelir) */
  }}catch(_){}
  try{const c=window.AFPOnlineBattleInternal&&window.AFPOnlineBattleInternal.commanderSnapshot();if(c&&c.heroType)out.p_hero=String(c.heroType).slice(0,40);}catch(_){}
  return out;
@@ -39772,7 +39772,14 @@ async function ensureMe(force){
  const s=readSession();if(!s)throw fail('AUTH');
  if(!force&&me&&meUid===String(s.user.id))return me;
  const r=await rpc('afp_social_me',localProfile());
- me=r;meUid=String(s.user.id);return me;
+ me=r;meUid=String(s.user.id);trophySeed(meUid);return me;
+}
+/* v3.60.240: bir kerelik, sunucuda üst sınırlı kupa devri (sunucu yoksa sessizce atlanır) */
+async function trophySeed(uid){
+ try{const k='afpTrophySeed:'+uid;if(localStorage.getItem(k))return;
+  const p=window.profile;const t=p&&Number.isFinite(+p.trophies)?Math.max(0,Math.floor(+p.trophies)):0;
+  await rpc('afp_trophy_seed_me',{p_claimed:t});localStorage.setItem(k,'1');
+ }catch(_){}
 }
 async function loadState(){state=await rpc('afp_social_state',{});return state;}
 
@@ -40136,14 +40143,16 @@ function renderRank(){
   inner.appendChild(el('span','tro','🏆 '+x.trophies));r.appendChild(inner);list.appendChild(r);
  });
  const m=d.me;foot.hidden=!m;clear(foot);
- if(m){foot.appendChild(el('span','',T.rankMe+':'));foot.appendChild(el('b','','#'+m.rank+' / '+m.total));foot.appendChild(el('span','','🏆 '+m.trophies));}
+ if(m){if(d.authoritative)foot.appendChild(el('span','','🔒'));foot.appendChild(el('span','',T.rankMe+':'));foot.appendChild(el('b','','#'+m.rank+' / '+m.total));foot.appendChild(el('span','','🏆 '+m.trophies));}
 }
 async function loadRank(force){
  const scope=rankScope;renderRankBar();
  if(!force&&rankCache[scope]&&!rankCache[scope].setup&&Date.now()-rankAt[scope]<RANK_TTL_MS){renderRank();return;}
  if(!rankCache[scope])renderRank();
  const seq=++rankSeq;
- try{const d=await rpc('afp_leaderboard',{p_scope:scope,p_limit:50});if(seq!==rankSeq&&scope!==rankScope)return;rankCache[scope]=d||{rows:[]};rankAt[scope]=Date.now();}
+ try{let d=null;
+  if(scope==='world'){try{d=await rpc('afp_trophy_leaderboard',{p_limit:50});}catch(e0){if(!(e0&&e0.code==='SETUP'))throw e0;}}
+  if(!d)d=await rpc('afp_leaderboard',{p_scope:scope,p_limit:50});if(seq!==rankSeq&&scope!==rankScope)return;rankCache[scope]=d||{rows:[]};rankAt[scope]=Date.now();}
  catch(e){
   if(e&&e.code==='SETUP'){rankCache[scope]={setup:true};rankAt[scope]=Date.now();} /* eski kurulum: yalnız bu sekme uyarır, panelin geri kalanı çalışır */
   else{showErr(e);if(!rankCache[scope])rankCache[scope]={rows:[]};}
