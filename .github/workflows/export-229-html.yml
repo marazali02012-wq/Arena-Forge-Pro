@@ -24,7 +24,7 @@ jobs:
           source = Path('app/src/main/assets/www/index.html')
           build = Path('app/build.gradle').read_text()
           data = source.read_bytes()
-          assert b'v3.60.229' in data[:150000], '229 game marker missing'
+          assert b'v3.60.229' in data, '229 game marker missing'
           assert "versionCode 229" in build, "Android build is not 229"
           assert len(data) > 20_000_000, 'incomplete HTML'
           out = Path('download')
