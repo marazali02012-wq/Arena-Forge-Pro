@@ -1,0 +1,41 @@
+name: Export Arena Forge Pro 229 HTML
+on:
+  push:
+    branches:
+      - claude/birlesmis-muzik-bekleme-odalari
+    paths:
+      - .github/workflows/export-229-html.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch exact 229 game source
+        uses: actions/checkout@v4
+      - name: Verify game build and prepare complete HTML
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          source = Path('app/src/main/assets/www/index.html')
+          build = Path('app/build.gradle').read_text()
+          data = source.read_bytes()
+          assert b'v3.60.229' in data[:150000], '229 game marker missing'
+          assert "versionCode 229" in build, "Android build is not 229"
+          assert len(data) > 20_000_000, 'incomplete HTML'
+          out = Path('download')
+          out.mkdir(exist_ok=True)
+          (out / 'ArenaForgePro_v3.60.229_TAM.html').write_bytes(data)
+          print(f'HTML: {len(data):,} bytes')
+          PY
+      - name: Upload full 229 HTML as downloadable ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: ArenaForgePro_v3.60.229_TAM_HTML
+          path: download/ArenaForgePro_v3.60.229_TAM.html
+          retention-days: 14
+          compression-level: 6
