@@ -421,3 +421,9 @@ Sunucu PR #4 (CI: başarılı, 22 sn) main'e birleştirildi (b071283); Render ot
 - Test: 29 SQL senaryosu (yerel PostgreSQL 16; yetki reddi, sınırlar, 2 sn/20 dk sohbet sınırı, susturma, rol çakışmaları, idempotent yeniden çalıştırma) + 20 API testi.
 - **Canlıya uygulanamadı:** migration'ı canlı Supabase'e uygulama adımı güvenlik denetimince engellendi; canlıda hiçbir şey değişmedi (canlıda 0 lonca/üye, geçiş riski yok). Sunucu kodu da henüz main'e birleştirilmedi.
 - Hasar hâlâ istemci bildirimi (`verified:false`); katkı ödülü/boss ödülü dağıtımı yapılmadı.
+
+### Lonca yönetimi canlıya alındı (2026-11-17)
+- Migration canlı Supabase'de doğrulandı: `afp_guild_chat` var (RLS açık; authenticated/anon erişimi yok, service_role INSERT var), rol kısıtı `leader/officer/member`, `afp_guild_write_v1` yönetim + sohbet işlemlerini içeriyor. Geri alınan canlı işlevsel test: kur → sohbet (HTML temizlendi: `btest/b mesaj`) → 2 sn sınırı `chat_rate_limited` → kendini atma `cannot_target_self` → hedefsiz `missing_target`; sonrasında 0 lonca/üye/mesaj.
+- `main` üzerinde sizin `guild_api.js` (`/api/guild`) ve `09_lonca_yonetimi_v11.sql` commit'leriniz vardı; PR #5'e iki yol da korunarak birleştirildi (24 birim + 2 uçtan uca test, CI başarılı). Not: `/api/guild/action` ucu `finish` için HMAC deneme anahtarı istemez (RPC yine de deneme/kullanıcı eşleşmesini ve hız sınırlarını denetler); oyun `/api/v1/guild/*` ucunu kullanır.
+- PR #5 birleşti (2f075f3); Render dağıtımı `live`, günlükte `3.60.103 listening`, `[anticheat-store] restored` hatasız.
+- **Test edilemeyen:** canlı `/api/v1/guild/*` uçlarına bu ortamdan erişilemedi (onrender.com proxy dışında); iki gerçek hesapla lonca testi yapılmadı. Hasar doğrulaması ve boss ödülleri yok.
