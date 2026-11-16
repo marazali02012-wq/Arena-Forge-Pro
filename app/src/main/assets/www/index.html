@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.231" />
-<title>Arena Forge Pro v3.60.231 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.232" />
+<title>Arena Forge Pro v3.60.232 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -9714,6 +9714,28 @@ function af224Art(key){
 #afxRoadInfo .af227-preview-badge .af227-emblem.is-locked{filter:grayscale(.85) brightness(.55) drop-shadow(0 3px 4px rgba(0,0,0,.6))}
 @media (prefers-reduced-motion:reduce){#afxRoad .af228-landmark .af228-emblem.is-current{animation:none}}
 </style>
+<style id="AFP_SEASON_EVENT_CSS">
+.afp-se-head{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 8px}
+.afp-se-head>div{background:rgba(8,12,22,.7);border:1px solid rgba(233,187,95,.35);border-radius:10px;padding:6px 10px;min-width:0}
+.afp-se-head small{display:block;font-size:9px;letter-spacing:.08em;color:#b9a47a}
+.afp-se-head b{display:block;font-size:14px;color:#ffe2a8;line-height:1.2}
+.afp-se-week{margin:0 0 8px;border:1px solid rgba(233,187,95,.25);border-radius:12px;background:rgba(10,14,26,.55);padding:6px 8px}
+.afp-se-week.is-active{border-color:rgba(233,187,95,.75);box-shadow:0 0 0 1px rgba(233,187,95,.25) inset}
+.afp-se-week.is-lock{opacity:.62}
+.afp-se-week>header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 4px}
+.afp-se-week>header b{font-size:13px;color:#f4dba4;letter-spacing:.04em}
+.afp-se-badge{font-size:9px;letter-spacing:.06em;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,.08);color:#cdbf9b;white-space:nowrap}
+.afp-se-badge.is-active{background:#2f6f3d;color:#eaffea}.afp-se-badge.is-lock{background:#3b2f23;color:#d5b98a}
+.afp-se-week .af4-rew{display:flex;flex-direction:column;align-items:flex-end;min-width:96px;text-align:right}
+.afp-se-week .af4-rew small{font-size:9px;color:#9fc3ff}
+.afp-se-bonus .af4-rowBody b{color:#ffd37a}
+.afp-se-dis{opacity:.55;pointer-events:none;font-style:normal;font-size:10px}
+.afp-se-ranks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.afp-se-rank{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;padding:6px 4px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.afp-se-rank.is-reached{border-color:rgba(233,187,95,.5)}.afp-se-rank.is-current{background:rgba(233,187,95,.14);border-color:#e9bb5f}
+.afp-se-rank b{font-size:10px;color:#f4dba4}.afp-se-rank small{font-size:9px;color:#b9a47a}.afp-se-rank span{font-size:10px;min-height:24px;color:#e7e1d0}
+@media(max-width:760px){.afp-se-ranks{grid-template-columns:repeat(3,minmax(0,1fr))}.afp-se-head b{font-size:12px}}
+</style>
 <style id="AFP_NO_HOST_BADGE">
 /* Barındırma sitesinin (Netlify vb.) oyun dışı rozet/çekmece/tanıtım öğeleri oyun ekranında hiç görünmez. */
 #netlify-drawer,#netlify-badge,#netlify-deploy-preview-banner,[id^="netlify-"],[class*="netlify-drawer"],[class*="netlify-badge"],iframe[src*="netlify"],a[href*="netlify.com"][target]:not([data-afp]){display:none!important;visibility:hidden!important;pointer-events:none!important}
@@ -12134,6 +12156,123 @@ function afpSeasonGrant(reward,season,level,track){
   return 'Ödül teslim edildi';
 }
 function afpSeasonRestore(snapshot){for(const k of Object.keys(profile))delete profile[k];Object.assign(profile,snapshot);}
+/* ===== v3.60.232 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
+   Yerel ve sunucusuz çalışır. Hedefler yalnız gerçek savaş sonucundan ilerler (hareketsiz/pes edilen maç ve antrenman sayılmaz);
+   haftalık sayaçlar yalnız o haftanın günlerinde artar; her ödül sezon başına bir kez alınır; sezon dönünce sıfırlanır.
+   Sezon Etkinlik Puanı (SEP) ALINAN hedeflerden türetilir (saklanmaz, kayma olmaz). Rütbe = SEP'e göre yerel rütbe.
+   Oyuncular arası gerçek sıralama sunucu doğrulamalı sonuç sistemi ister; burada gösterilmez/vaat edilmez. */
+const AFP_SE_WEEKS=Object.freeze([
+ {w:1,name:'ARENA ISINMASI',goals:[
+  {id:'w1a',key:'battles',n:5,label:'5 savaş tamamla',pts:100,reward:{kind:'credits',amount:150}},
+  {id:'w1b',key:'wins',n:3,label:'3 zafer kazan',pts:100,reward:{kind:'seal',amount:20}},
+  {id:'w1c',key:'deployed',n:25,label:'25 birlik sahaya gönder',pts:100,reward:{kind:'shard',unit:'af37_kilicli_asker',amount:3}}],
+  bonus:{id:'w1x',pts:200,reward:{kind:'chest',type:'small',label:'Basit Sandık'}}},
+ {w:2,name:'MOD GEZGİNİ',goals:[
+  {id:'w2a',key:'modes',n:3,label:'3 farklı modda savaş oyna',pts:100,reward:{kind:'credits',amount:200}},
+  {id:'w2b',key:'wins',n:5,label:'5 zafer kazan',pts:100,reward:{kind:'seal',amount:25}},
+  {id:'w2c',key:'kills',n:30,label:'30 düşman birliği yok et',pts:100,reward:{kind:'dust',amount:1}}],
+  bonus:{id:'w2x',pts:200,reward:{kind:'chest',type:'battle',label:'Usta Sandık'}}},
+ {w:3,name:'BÜYÜ USTASI',goals:[
+  {id:'w3a',key:'spells',n:15,label:'15 büyü kullan',pts:100,reward:{kind:'credits',amount:250}},
+  {id:'w3b',key:'pveWins',n:2,label:'Kule/Sefer/Boss gibi tek kişilik modlarda 2 zafer kazan',pts:100,reward:{kind:'shard',unit:'af37_orman_okcu',amount:3}},
+  {id:'w3c',key:'battles',n:8,label:'8 savaş tamamla',pts:100,reward:{kind:'seal',amount:25}}],
+  bonus:{id:'w3x',pts:200,reward:{kind:'dust',amount:2}}},
+ {w:4,name:'SEZON FİNALİ',goals:[
+  {id:'w4a',key:'wins',n:8,label:'8 zafer kazan',pts:100,reward:{kind:'credits',amount:300}},
+  {id:'w4b',key:'deployed',n:60,label:'60 birlik sahaya gönder',pts:100,reward:{kind:'seal',amount:30}},
+  {id:'w4c',key:'modes',n:4,label:'4 farklı modda savaş oyna',pts:100,reward:{kind:'shard',unit:'af37_isik_sifacisi',amount:3}}],
+  bonus:{id:'w4x',pts:200,reward:{kind:'chest',type:'epic',label:'Delüks Sandık'}}}
+]);
+const AFP_SE_RANKS=Object.freeze([
+ {id:'r0',name:'BRONZ RÜTBE',min:0,reward:null},
+ {id:'r1',name:'GÜMÜŞ RÜTBE',min:250,reward:{kind:'credits',amount:250}},
+ {id:'r2',name:'ALTIN RÜTBE',min:600,reward:{kind:'chest',type:'battle',label:'Usta Sandık'}},
+ {id:'r3',name:'KRİSTAL RÜTBE',min:1000,reward:{kind:'dust',amount:3}},
+ {id:'r4',name:'USTA RÜTBE',min:1500,reward:{kind:'credits',amount:500}},
+ {id:'r5',name:'EFSANE RÜTBE',min:2000,reward:{kind:'chest',type:'epic',label:'Delüks Sandık'}}
+]);
+const AFP_SE_ALL=(()=>{const m={};for(const W of AFP_SE_WEEKS){for(const g of W.goals)m[g.id]={w:W.w,pts:g.pts,goal:g,reward:g.reward};m[W.bonus.id]={w:W.w,pts:W.bonus.pts,bonus:true,reward:W.bonus.reward};}return m;})();
+function afpSeLabel(r){
+  if(r.label)return r.label;
+  if(r.kind==='credits')return r.amount+' Kredi';
+  if(r.kind==='dust')return r.amount+' Yadigâr Tozu';
+  if(r.kind==='seal')return r.amount+' Etkinlik Mührü';
+  if(r.kind==='shard'){const i=HERO_INFO[r.unit];return r.amount+' '+(i?i.name:'Minyon')+' Parçası';}
+  return 'Ödül';
+}
+function afpSeTimeline(now=Date.now()){
+  const sp=profile.seasonPass||{},start=+sp.startedAt||now;
+  const day=Math.max(1,Math.min(28,Math.floor((now-start)/86400000)+1));
+  return {season:+sp.season||8,day,week:Math.min(4,Math.ceil(day/7)),daysToNextWeek:Math.max(0,Math.min(28,Math.ceil(day/7)*7)-day+1)};
+}
+function afpSeNormalize(){
+  afpSeasonPassState(); // sezon dönüşünü (28 gün) önce işler
+  const T=afpSeTimeline(),raw=profile.afpSeasonEv;
+  let o=raw&&typeof raw==='object'&&!Array.isArray(raw)&&raw.season===T.season?raw:{season:T.season,weeks:{},claimed:[],rank:[]};
+  if(!o.weeks||typeof o.weeks!=='object'||Array.isArray(o.weeks))o.weeks={};
+  for(let w=1;w<=4;w++){const r=o.weeks[w]&&typeof o.weeks[w]==='object'?o.weeks[w]:{};
+    o.weeks[w]={battles:Math.max(0,Math.min(999,Math.floor(+r.battles||0))),wins:Math.max(0,Math.min(999,Math.floor(+r.wins||0))),deployed:Math.max(0,Math.min(9999,Math.floor(+r.deployed||0))),kills:Math.max(0,Math.min(9999,Math.floor(+r.kills||0))),spells:Math.max(0,Math.min(999,Math.floor(+r.spells||0))),pveWins:Math.max(0,Math.min(999,Math.floor(+r.pveWins||0))),modes:Array.isArray(r.modes)?[...new Set(r.modes.map(String))].slice(0,20):[]};}
+  o.claimed=(Array.isArray(o.claimed)?o.claimed:[]).filter(id=>AFP_SE_ALL[id]).filter((id,i,a)=>a.indexOf(id)===i);
+  o.rank=(Array.isArray(o.rank)?o.rank:[]).filter(id=>AFP_SE_RANKS.some(r=>r.id===id&&r.reward)).filter((id,i,a)=>a.indexOf(id)===i);
+  profile.afpSeasonEv=o;return o;
+}
+function afpSeProgress(g,o){const r=o.weeks[AFP_SE_ALL[g.id].w];return g.key==='modes'?r.modes.length:(+r[g.key]||0);}
+function afpSePoints(o){return o.claimed.reduce((a,id)=>a+(AFP_SE_ALL[id]?AFP_SE_ALL[id].pts:0),0);}
+function afpSeState(){
+  const o=afpSeNormalize(),T=afpSeTimeline(),pts=afpSePoints(o);
+  const weeks=AFP_SE_WEEKS.map(W=>{
+    const status=W.w<T.week?'past':W.w===T.week?'active':'locked';
+    const goals=W.goals.map(g=>{const n=Math.min(g.n,afpSeProgress(g,o)),claimed=o.claimed.includes(g.id);return {id:g.id,label:g.label,n,goal:g.n,pts:g.pts,reward:afpSeLabel(g.reward),claimed,ready:status!=='locked'&&n>=g.n&&!claimed};});
+    const done=goals.every(g=>g.claimed),bonusClaimed=o.claimed.includes(W.bonus.id);
+    return {w:W.w,name:W.name,status,goals,bonus:{id:W.bonus.id,pts:W.bonus.pts,reward:afpSeLabel(W.bonus.reward),claimed:bonusClaimed,ready:status!=='locked'&&done&&!bonusClaimed}};
+  });
+  const idx=AFP_SE_RANKS.reduce((b,r,i)=>pts>=r.min?i:b,0),next=AFP_SE_RANKS[idx+1]||null;
+  const ranks=AFP_SE_RANKS.map((r,i)=>({id:r.id,name:r.name,min:r.min,reward:r.reward?afpSeLabel(r.reward):'',claimed:o.rank.includes(r.id),ready:!!r.reward&&pts>=r.min&&!o.rank.includes(r.id),reached:pts>=r.min,current:i===idx}));
+  return {season:T.season,day:T.day,week:T.week,daysToNextWeek:T.daysToNextWeek,pts,maxPts:Object.values(AFP_SE_ALL).reduce((a,x)=>a+x.pts,0),rank:AFP_SE_RANKS[idx].name,next:next?{name:next.name,need:next.min-pts}:null,weeks,ranks};
+}
+function afpSeRecord(won,isDraw,mode,skip){
+  if(skip||mode==='training'||mode==='tutorial')return false;
+  const o=afpSeNormalize(),T=afpSeTimeline(),r=o.weeks[T.week];
+  r.battles=Math.min(999,r.battles+1);if(won===true)r.wins=Math.min(999,r.wins+1);
+  r.deployed=Math.min(9999,r.deployed+Math.max(0,Math.floor(+matchStats.deployed||0)));
+  r.kills=Math.min(9999,r.kills+Math.max(0,Math.floor(+matchStats.kills||0)));
+  r.spells=Math.min(999,r.spells+Math.max(0,Math.floor(+matchStats.spells||0)));
+  if(won===true&&mode!=='duel'&&mode!=='arena')r.pveWins=Math.min(999,r.pveWins+1);
+  if(mode&&!r.modes.includes(String(mode)))r.modes.push(String(mode));
+  saveProfile();return true;
+}
+function afpSeGrant(reward,key){
+  if(reward.kind==='seal'){const e=ensureLiveEvent();e.tokens=Math.min(999999,(+e.tokens||0)+reward.amount);return afpSeLabel(reward);}
+  const msg=afpSeasonGrant(Object.assign({label:afpSeLabel(reward)},reward),profile.seasonPass.season,key,'event');
+  return msg;
+}
+function afpSeClaim(id){
+  const o=afpSeNormalize(),T=afpSeTimeline(),def=AFP_SE_ALL[id];
+  if(!def)return {ok:false,message:'Geçersiz etkinlik ödülü.'};
+  if(def.w>T.week)return {ok:false,message:'Bu hafta henüz başlamadı.'};
+  if(o.claimed.includes(id))return {ok:false,message:'Bu ödülü zaten aldın.'};
+  if(def.bonus){const W=AFP_SE_WEEKS[def.w-1];if(!W.goals.every(g=>o.claimed.includes(g.id)))return {ok:false,message:'Önce bu haftanın üç hedefini tamamlayıp ödüllerini al.'};}
+  else if(afpSeProgress(def.goal,o)<def.goal.n)return {ok:false,message:'Hedefe henüz ulaşılmadı.'};
+  const snapshot=JSON.parse(JSON.stringify(profile));
+  try{const got=afpSeGrant(def.reward,'se-'+id);profile.afpSeasonEv.claimed.push(id);
+    if(!saveProfile()){afpSeasonRestore(snapshot);return {ok:false,message:'Kayıt başarısız; ödül geri alındı.'};}
+    try{updateProfileUI();updateChestUI();}catch(_){}
+    return {ok:true,message:got+' alındı · +'+def.pts+' SEP',reward:got,pts:def.pts};
+  }catch(e){afpSeasonRestore(snapshot);return {ok:false,message:'Ödül teslim edilemedi; profil korunuyor.'};}
+}
+function afpSeClaimRank(id){
+  const o=afpSeNormalize(),r=AFP_SE_RANKS.find(x=>x.id===id);
+  if(!r||!r.reward)return {ok:false,message:'Geçersiz rütbe ödülü.'};
+  if(afpSePoints(o)<r.min)return {ok:false,message:'Bu rütbeye henüz ulaşmadın.'};
+  if(o.rank.includes(id))return {ok:false,message:'Bu rütbe ödülünü zaten aldın.'};
+  const snapshot=JSON.parse(JSON.stringify(profile));
+  try{const got=afpSeGrant(r.reward,'se-'+id);profile.afpSeasonEv.rank.push(id);
+    if(!saveProfile()){afpSeasonRestore(snapshot);return {ok:false,message:'Kayıt başarısız; ödül geri alındı.'};}
+    try{updateProfileUI();updateChestUI();}catch(_){}
+    return {ok:true,message:r.name+' ödülü: '+got+' alındı.',reward:got};
+  }catch(e){afpSeasonRestore(snapshot);return {ok:false,message:'Ödül teslim edilemedi; profil korunuyor.'};}
+}
+window.AFPSeasonEvents={state:afpSeState,claim:afpSeClaim,claimRank:afpSeClaimRank,record:afpSeRecord};
 function afpSeasonPassClaim(track,level){
   const p=afpSeasonPassState(),n=Math.floor(+level||0);
   if(!['free','premium'].includes(track)||n<1||n>30)return {ok:false,message:'Geçersiz sezon bileti ödülü.'};
@@ -16428,7 +16567,7 @@ function endGame(v,customText='',options={}){
     const rewardLine=$('rewardLine');
     if(rewardLine)rewardLine.textContent=options.__rewardNote||'ÖDÜL YOK';
   }
-  const reward=options.suppressRewards?{cupText:'ÖDÜL YOK',creditGain:0,gain:0}:grantProgression(isDraw?null:won);if(!options.suppressRewards){af328AfterRewards();af328Badge();}if(!options.suppressRewards&&!options.forfeit)afpSeasonPassAward(isDraw?null:won,gameMode,!!options.forfeit||afIsAfkLoss(won,isDraw));
+  const reward=options.suppressRewards?{cupText:'ÖDÜL YOK',creditGain:0,gain:0}:grantProgression(isDraw?null:won);if(!options.suppressRewards){af328AfterRewards();af328Badge();}if(!options.suppressRewards&&!options.forfeit)afpSeasonPassAward(isDraw?null:won,gameMode,!!options.forfeit||afIsAfkLoss(won,isDraw));try{afpSeRecord(isDraw?null:won,isDraw,gameMode,!!options.forfeit||afIsAfkLoss(won,isDraw));}catch(seErr){console.warn('[AFP sezon etkinliği] kayıt',seErr);}
   // v2.75: grantProgression writes the result line for wins, losses, draws and tower matches.
   try{const oe=$('end');oe.dataset.afpOpp=String(window.__AFPMatchOpponent||'');oe.dataset.afpOnline=String(options.__afpOnlineState||'');}catch(_){} /* v3.60.68: BOT / çevrim içi test etiketi */
   $('end').classList.remove('hide');$('endIcon').textContent=isDraw?'⚖️':(won?'🏆':'🛡️');
@@ -21666,8 +21805,11 @@ var AF324=null;
   shopCreditGuide:()=>shopCreditGuide(),
   seasonPass:()=>window.AFP_OpenSeasonPass_v37870?.(),
   eventTab:t=>{A4.eventTab=t;renderNow(true);},
+  seasonEvOpen:()=>{A4.eventTab='season';go('event');},
+  seasonEv:arg=>{const [k,id]=String(arg).split('|');const S=window.AFPSeasonEvents;if(!S){hubToast('Sezon etkinliği henüz yüklenmedi.');return;}const r=k==='rank'?S.claimRank(id):S.claim(id);hubToast(r.message);renderNow(true);},
   scroll:arg=>{const [sel,dir]=arg.split('|');const el=shell.querySelector(sel);if(el)el.scrollBy({left:(+dir||1)*el.clientWidth*.8,behavior:'smooth'});}
  };
+ window.AFP_OpenSeasonEvents=()=>{A4.eventTab='season';try{go('event');}catch(e){console.warn('[AFP sezon etkinliği] açılamadı',e);}};
  function afterHeroAction(commanderChanged){if(deckApi){try{if(typeof deckApi.renderAll==='function')deckApi.renderAll();if(commanderChanged&&typeof deckApi.renderCommander==='function')deckApi.renderCommander();}catch(e){console.warn('[v3.24] Deste görünümü yenilenemedi',e);}}markDirty();}
  // ---------- gezinme ----------
  const SCREENS={home:scrHome,heroes:()=>af332ScrHeroes(),inventory:()=>af332ScrInventory(),minions:scrHeroes,road:scrRoad,world:scrWorld,shop:scrShop,event:scrEvent,packs:scrPacks};
@@ -22264,16 +22406,31 @@ function liveRows(e){
    return '<article class="af4-item af4-chal'+(claimed?' is-claimed':done?' is-done':'')+'"><b>'+ico('star')+esc(c[1])+'</b><small>'+esc(c[3])+'</small><span class="af4-bar af4-barBlue"><i style="width:'+pct(v,c[2])+'%"></i><span>'+fmt(Math.min(v,c[2]))+'/'+fmt(c[2])+'</span></span>'+
     (claimed?'<span class="af4-done">'+ico('check')+'ALINDI</span>':'<button type="button" class="af4-btn '+(done?'af4-btnGreen':'af4-btnDim')+' af4-sm" data-act="af297:challenge|'+i+'"'+btnAttrs(done?'':'Hedefe henüz ulaşılmadı.')+'>'+(done?'ÖDÜLÜ AL':'DEVAM ET')+'<span class="af4-price">'+afpStockIcon('coin',ico('coin'))+fmt(reward)+'</span></button>')+'</article>';}).join('');
  }
+ function seasonEvHtml(){
+  const S=window.AFPSeasonEvents;if(!S)return '<div class="af4-empty af4-emptySm"><b>Sezon etkinliği yükleniyor…</b></div>';
+  let st;try{st=S.state();}catch(e){console.warn('[AFP sezon etkinliği]',e);return '<div class="af4-empty af4-emptySm"><b>Sezon etkinliği okunamadı.</b></div>';}
+  const head='<div class="afp-se-head"><div><small>SEZON '+st.season+' · GÜN '+st.day+'/28 · HAFTA '+st.week+'/4</small><b>'+esc(st.rank)+'</b></div><div><small>SEZON ETKİNLİK PUANI</small><b>'+fmt(st.pts)+' / '+fmt(st.maxPts)+' SEP</b></div><div><small>SONRAKİ RÜTBE</small><b>'+(st.next?esc(st.next.name)+' · '+fmt(st.next.need)+' SEP':'EN YÜKSEK RÜTBE')+'</b></div></div>';
+  const btn=(id,ready,claimed,locked,kind)=>claimed?'<span class="af4-done">'+ico('check')+'ALINDI</span>':ready?'<button type="button" class="af4-btn af4-btnGreen af4-sm" data-act="seasonEv:'+kind+'|'+id+'">AL</button>':locked?'<span class="af4-btn af4-btnDim af4-sm afp-se-dis">KİLİTLİ</span>':'<button type="button" class="af4-btn af4-sm" data-act="battle">GİT</button>';
+  const weeks=st.weeks.map(W=>{
+    const locked=W.status==='locked',opens=(W.w-1)*7+1-st.day;
+    const badge=W.status==='active'?'<span class="afp-se-badge is-active">BU HAFTA · '+st.daysToNextWeek+' GÜN KALDI</span>':W.status==='past'?'<span class="afp-se-badge">GEÇEN HAFTA</span>':'<span class="afp-se-badge is-lock">'+opens+' GÜN SONRA AÇILIR</span>';
+    const rows=W.goals.map(g=>'<li class="af4-row af4-trackRow'+(g.claimed?' is-claimed':g.ready?' is-done':'')+'"><div class="af4-rowBody"><b>'+esc(g.label)+'</b><span class="af4-bar af4-barBlue"><i style="width:'+pct(g.n,g.goal)+'%"></i><span>'+fmt(g.n)+'/'+fmt(g.goal)+'</span></span></div><span class="af4-rew"><b>'+esc(g.reward)+'</b><small>+'+g.pts+' SEP</small></span>'+btn(g.id,g.ready,g.claimed,locked,'goal')+'</li>').join('');
+    const b=W.bonus,bonus='<li class="af4-row af4-trackRow afp-se-bonus'+(b.claimed?' is-claimed':b.ready?' is-done':'')+'"><div class="af4-rowBody"><b>HAFTA BONUSU · üç hedefi de tamamla</b></div><span class="af4-rew"><b>'+esc(b.reward)+'</b><small>+'+b.pts+' SEP</small></span>'+btn(b.id,b.ready,b.claimed,locked,'goal')+'</li>';
+    return '<section class="afp-se-week'+(W.status==='active'?' is-active':'')+(locked?' is-lock':'')+'"><header><b>HAFTA '+W.w+' · '+esc(W.name)+'</b>'+badge+'</header><ul class="af4-rows">'+rows+bonus+'</ul></section>';
+  }).join('');
+  const ranks='<section class="afp-se-week"><header><b>SEZON RÜTBE ÖDÜLLERİ</b><span class="afp-se-badge">'+fmt(st.pts)+' SEP</span></header><div class="afp-se-ranks">'+st.ranks.map(r=>'<div class="afp-se-rank'+(r.current?' is-current':'')+(r.reached?' is-reached':'')+'"><b>'+esc(r.name)+'</b><small>'+(r.min?fmt(r.min)+' SEP':'BAŞLANGIÇ')+'</small><span>'+(r.reward?esc(r.reward):'—')+'</span>'+(r.reward?(r.claimed?'<em class="af4-done">ALINDI</em>':r.ready?'<button type="button" class="af4-btn af4-btnGreen af4-sm" data-act="seasonEv:rank|'+r.id+'">AL</button>':'<em class="afp-se-dis">'+(r.reached?'':fmt(Math.max(0,r.min-st.pts))+' SEP kaldı')+'</em>'):'')+'</div>').join('')+'</div></section>';
+  return head+weeks+ranks+'<p class="af4-note">Hedefler gerçek savaş sonuçlarından ilerler (hareketsiz ve pes edilen maçlar sayılmaz); haftalık sayaçlar yalnız o haftanın günlerinde artar. Rütbe, bu cihazdaki sezon etkinlik puanına (SEP) göre belirlenir ve sezon dönünce sıfırlanır. Oyuncular arası gerçek sıralama ödülleri sunucu doğrulamalı sonuç sistemi gerektirir ve henüz açık değildir.</p>';
+ }
  function scrEvent(){
   const e=ensureLiveEvent(),A=af297();
   const missions='<div class="af4-cols2"><section class="af4-panel af4-col"><header class="af4-ph">'+ico('calendar')+'<h2>GÜNLÜK GÖREVLER</h2><span class="af4-phR">Yenilenme: <b data-af4-reset>'+formatRemaining(msToMidnight())+'</b></span></header><ul class="af4-rows">'+missionRows()+'</ul></section><section class="af4-panel af4-col"><header class="af4-ph">'+ico('seal')+'<h2>ETKİNLİK GÖREVLERİ</h2><span class="af4-phR">Ödül: etkinlik mührü</span></header><ul class="af4-rows">'+liveRows(e)+'</ul></section></div>';
   const events=A?'<ul class="af4-rows af4-rowsTrack">'+af297Rows(A)+'</ul><p class="af4-note">İlerleme gerçek profil istatistiklerinden okunur; her ödül bir kez alınır.</p>':'<div class="af4-empty af4-emptySm"><b>Sefer etkinlikleri yükleniyor…</b></div>';
   const challenges=A?'<div class="af4-grid4 af4-chalGrid">'+challengeCards(A)+'</div>':'<div class="af4-empty af4-emptySm"><b>Meydan okumalar yükleniyor…</b></div>';
   const section=(key,title,icon,body)=>'<section class="af4-panel af4-eventSection" data-event-section="'+key+'"><header class="af4-ph">'+ico(icon)+'<h2>'+title+'</h2></header><div class="af4-eventSectionBody">'+body+'</div></section>';
-  const tabs=[['missions','GÖREVLER','calendar'],['events','SEFER ETKİNLİKLERİ','flag'],['challenges','MEYDAN OKUMA','swords'],['shop','ETKİNLİK MAĞAZASI','seal']];
+  const tabs=[['missions','GÖREVLER','calendar'],['events','SEFER ETKİNLİKLERİ','flag'],['challenges','MEYDAN OKUMA','swords'],['season','SEZON ETKİNLİĞİ','flag'],['shop','ETKİNLİK MAĞAZASI','seal']];
   const active=tabs.some(t=>t[0]===A4.eventTab)?A4.eventTab:'missions';
   const tabbar='<nav class="af4-tabs af4-eventTabs" role="tablist" aria-label="Etkinlik kategorileri">'+tabs.map(([k,label,icon])=>'<button type="button" role="tab" aria-selected="'+(active===k?'true':'false')+'" class="af4-tab '+(active===k?'is-on':'')+'" data-act="eventTab:'+k+'">'+ico(icon)+label+'</button>').join('')+'</nav>';
-  const panel=active==='missions'?section('missions','GÖREVLER','calendar',missions):active==='events'?section('events','SEFER ETKİNLİKLERİ','flag',events):active==='challenges'?section('challenges','MEYDAN OKUMALAR','swords',challenges):section('shop','ETKİNLİK MAĞAZASI','seal',eventShopHtml());
+  const panel=active==='missions'?section('missions','GÖREVLER','calendar',missions):active==='events'?section('events','SEFER ETKİNLİKLERİ','flag',events):active==='challenges'?section('challenges','MEYDAN OKUMALAR','swords',challenges):active==='season'?section('season','SEZON ETKİNLİĞİ','calendar',seasonEvHtml()):section('shop','ETKİNLİK MAĞAZASI','seal',eventShopHtml());
   return '<div class="af4-event af4-screenSections">'+banner('event','KÖKLERİN CANLANMASI','Yerel etkinlik · arena savaşlarıyla mühür kazan, etkinlik mağazasında harca. Süre sınırı yok.',afpStock('seal','Etkinlik mührü',fmt(e.tokens),ico('seal')))+tabbar+panel+'</div>';
 }
 function scrPacks(){
@@ -34408,7 +34565,7 @@ html.af324-on #af324Shell #battlePrepOverlay.battlePrepOverlay.hmdDeckOverlay.af
   const pct=r.boss_max_hp?Math.max(0,Math.min(100,r.boss_hp/r.boss_max_hp*100)):0;
   return '<section class="afpce-card"><div class="afpce-row"><div style="flex:1"><h3>'+esc(cfg.boss_name)+' · '+esc(cfg.archetype).toUpperCase()+'</h3><p>Sezon '+esc(r.season_no)+' · Kademe '+esc(r.level)+' / 40</p></div><b style="color:#f2d18e">'+(r.cleared?'TAMAMLANDI':'AÇIK')+'</b></div><div class="afpce-hp"><i style="width:'+pct+'%"></i></div><div class="afpce-kv"><div><b>'+Number(r.boss_hp).toLocaleString('tr-TR')+'</b><small>ORTAK BOSS HP</small></div><div><b>'+Number(r.boss_max_hp).toLocaleString('tr-TR')+'</b><small>AZAMİ HP</small></div><div><b>'+Number(r.total_damage||0).toLocaleString('tr-TR')+'</b><small>TOPLAM HASAR</small></div></div><p class="afpce-muted">'+esc(cfg.special_rule||'Üç aşamalı boss savaşı')+'. Her deneme gerçek Örümcek Akını savaş motorunu kullanır; 40 aşama ayrı boss profiline bağlıdır.</p><p class="afpce-banner">ÖNEMLİ: Bu sürümde hasar istemcide hesaplanır ve sunucuya tek kullanımlık deneme anahtarıyla gönderilir. Sunucu katkı/HP ilerlemesini idempotent işler; savaş hasarını henüz deterministik olarak doğrulamaz. Kupa ve ödül kapalıdır.</p><button class="afpce-action" data-act="raid-start" '+(r.cleared?'disabled':'')+'>BU BOSS’A SALDIR</button></section><section class="afpce-card"><h3>ÜYE KATKILARI · KADEME '+esc(r.level)+'</h3><div class="afpce-list">'+(community.contributions||[]).map((x,i)=>'<div class="afpce-member"><span>'+(i+1)+'. '+esc(x.user_id===community.userId?'Sen':x.user_id.slice(0,8)+'…')+'</span><b>'+Number(x.damage||0).toLocaleString('tr-TR')+' '+(x.verified?'':'· DOĞRULANMADI')+'</b></div>').join('')+'</div></section><div class="afpce-status"></div>';
  }
- function seasonMarkup(){const s=season||{};const ev=s.events||[];return '<div class="afpce-banner">Arena Forge 28 günlük sezon ve haftalık etkinlik takvimi. Bu ekran takvimi gösterir; sıralama ödülleri ancak sunucu doğrulamalı sonuç sistemi tamamlandığında açılacak.</div><section class="afpce-card"><h3>SEZON '+esc(s.seasonNo||'—')+'</h3><div class="afpce-kv"><div><b>'+esc(s.day||'—')+'/28</b><small>SEZON GÜNÜ</small></div><div><b>'+esc(s.week||'—')+'/4</b><small>HAFTA</small></div><div><b>'+esc(s.daysRemaining||'—')+'</b><small>KALAN GÜN</small></div></div><div class="afpce-week">'+[1,2,3,4].map((w)=>{const a=ev.filter(e=>e.week===w).map(e=>e.label).join(' · ');return '<div><b>HAFTA '+w+'</b><span>'+esc(a||'Sezon ilerlemesi')+'</span></div>';}).join('')+'</div></section><section class="afpce-card"><h3>SEZON BİLETİ</h3><p>Mevcut 30 seviyeli ücretsiz/premium sezon bileti korunuyor. 28 günlük sezon rotasyonu bunun üzerine ayrı takvim olarak ekleniyor; henüz kupa/ödül doğrulaması açılmıyor.</p><button class="afpce-action secondary" data-act="pass">SEZON BİLETİNİ AÇ</button></section>';
+ function seasonMarkup(){const s=season||{};const ev=s.events||[];return '<div class="afpce-banner">Arena Forge 28 günlük sezon ve haftalık etkinlik takvimi. Haftalık hedefler ve sezon rütbe ödülleri cihazdaki SEZON ETKİNLİĞİ sekmesinde (Görev ve Etkinlik ekranı) gerçek savaş sonuçlarıyla ilerler. Oyuncular arası sıralama ödülleri ise sunucu doğrulamalı sonuç sistemi tamamlandığında açılacak.</div><section class="afpce-card"><button class="afpce-action" data-act="seasonev">SEZON ETKİNLİĞİNİ AÇ</button></section><section class="afpce-card"><h3>SEZON '+esc(s.seasonNo||'—')+'</h3><div class="afpce-kv"><div><b>'+esc(s.day||'—')+'/28</b><small>SEZON GÜNÜ</small></div><div><b>'+esc(s.week||'—')+'/4</b><small>HAFTA</small></div><div><b>'+esc(s.daysRemaining||'—')+'</b><small>KALAN GÜN</small></div></div><div class="afpce-week">'+[1,2,3,4].map((w)=>{const a=ev.filter(e=>e.week===w).map(e=>e.label).join(' · ');return '<div><b>HAFTA '+w+'</b><span>'+esc(a||'Sezon ilerlemesi')+'</span></div>';}).join('')+'</div></section><section class="afpce-card"><h3>SEZON BİLETİ</h3><p>Mevcut 30 seviyeli ücretsiz/premium sezon bileti korunuyor. 28 günlük sezon rotasyonu bunun üzerine ayrı takvim olarak ekleniyor; henüz kupa/ödül doğrulaması açılmıyor.</p><button class="afpce-action secondary" data-act="pass">SEZON BİLETİNİ AÇ</button></section>';
  }
  function featureMarkup(which){
   if(which==='colossus')return '<section class="afpce-card"><h3>KRİSTAL KOLOS SINAVI · İKİ GERÇEK OYUNCU</h3><p>Birliklerinle merkezdeki Kolosus kristalini ele geçir. 100 kontrol puanına ilk ulaşan taraf kazanır.</p><div class="afpce-banner">İki oyunculu deneme karşılaşması. Bu modda kupa ve ödül dağıtımı kapalı.</div><button class="afpce-action" data-act="colossus-start">İKİ OYUNCULU KOLOSUS MAÇI ARA</button><div class="afpce-status"></div></section>';
@@ -34458,7 +34615,7 @@ html.af324-on #af324Shell #battlePrepOverlay.battlePrepOverlay.hmdDeckOverlay.af
   catch(err){window.__AFPCommunityGuildRaidActive=false;window.__AFPGuildRaidBattleContext.active=false;restorePersonalRaidState(window.__AFPGuildRaidBattleContext);throw err;}
   finally{window.__afVsPass=oldVs;if(window.__AFPGuildRaidBattleContext)window.__AFPGuildRaidBattleContext.launching=false;}
   return;
-}if(act==='pass'){close();if(window.AFP_OpenSeasonPass_v37870)window.AFP_OpenSeasonPass_v37870();return;}}catch(err){status(err.message);}}
+}if(act==='seasonev'){close();if(window.AFP_OpenSeasonEvents)window.AFP_OpenSeasonEvents();return;}if(act==='pass'){close();if(window.AFP_OpenSeasonPass_v37870)window.AFP_OpenSeasonPass_v37870();return;}}catch(err){status(err.message);}}
  /* v3.60.128: APK WebView / file:// ortamında navigator.clipboard ya da crypto.randomUUID bulunmayabilir; ikisi için de yedek yol. */
  async function copyText(text){
   text=String(text==null?'':text);

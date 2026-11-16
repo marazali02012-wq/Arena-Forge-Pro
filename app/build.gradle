@@ -11,8 +11,8 @@ android {
         applicationId 'com.arenaforgepro.game'
         minSdk 24
         targetSdk 36
-        versionCode 231
-        versionName '3.60.231'
+        versionCode 232
+        versionName '3.60.232'
     }
 
     compileOptions {
