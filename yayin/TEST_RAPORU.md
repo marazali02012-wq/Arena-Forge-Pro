@@ -386,3 +386,13 @@ Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, 
 - Canlı Supabase ve `arena-forge-online-server` bu depoda/ortamda yok → SQL'in **canlıya uygulanması, `afp_social_me`/`afp_leaderboard`/profil tablosunun kilitlenmesi ve WSS'e settle bağlanması sahibi tarafından yapılmalı**. Yapılana kadar sıralama güvenliği fiilen sağlanmış sayılmaz.
 - `04_…kilitle.sql` canlı şemaya bakılmadan yazılmış şablondur, doğrulanmadı.
 - Çevrimdışı/yerel kupa cihazda düzenlenebilir (sıralamayı etkilemez). Anlaşmalı çevrim içi maçlar yalnızca yavaşlatılır, tamamen yok edilemez.
+
+## 3.60.241 — Sunucu kupa kararını istemciye işleme + kalıcı hile kaydı (sunucu 3.60.103)
+
+**Oyun (bu depo):** çevrim içi maç sonunda sunucudan gelen `trophy_update` işlenir. Sunucu kupa yazdıysa yerel tahmin yerine sunucunun `after` değeri (0–20000) yazılır; sunucu yazmadıysa (`ok:false`) yerel tahmin geri alınır; başka odanın, `authoritative` işaretsiz veya geçersiz mesajlar yok sayılır; sonuç ekranı yazılmadan gelen karar bekletilir. `battle_result.trophyPending` true ise bağlantı karar gelene kadar (en çok 6,5 sn) açık tutulur.
+- Test (headless, 9/9): sunucu kupası yereli ezer (520→480), ret → geri al (520→500), yabancı oda/işaretsiz/geçersiz yok sayılır, erken gelen bekletilir, üst/alt sınır, sayfa hatası yok. Açılış hatasız; v240 kupa-güvenliği testi (18/18) yine geçti.
+
+**Sunucu (`arena-forge-online-server`, dal `claude/trophy-client-and-persistent-anticheat`, commit 61a688e, PR açılmadı):** `anticheat_store.js` + `sunucu/05_antihile_kayit.sql` (ödül/şüpheli kaydı kalıcı, açılışta 24 sa geri yükleme, DB yoksa bellek moduna düşer), `battle_result.trophyPending`, CI güncellendi.
+- Test: `npm test` 8 birim (eşleşme 4 + kalıcı kayıt 4) + gerçek WebSocket + sahte Supabase uçtan uca (yetki AÇIK: iki oyuncu eşleşir, rakip pes eder, sonuçlar uyuşur → `trophyPending:true`, `trophy_update` +25/125 ve −20/80, tek `afp_trophy_settle` çağrısı, ödül kaydı yazıldı; yetki KAPALI: `trophyPending:false`, settle çağrılmaz). Mutasyon denemesi: `trophyPending` bozulunca test **kaldı**.
+
+**Test edilemeyen:** canlı Supabase/Render (SQL uygulanmadı, bayrak kapalı), iki gerçek cihaz, gerçek ağ gecikmesinde 6,5 sn bekleme penceresi. Savaş hasarının sunucuda hesaplanması yapılmadı. Ayrıntılı madde durumu: `yayin/EKSIK_OZELLIK_DURUMU.md`.

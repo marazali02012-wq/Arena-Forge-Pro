@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.240" />
-<title>Arena Forge Pro v3.60.240 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.241" />
+<title>Arena Forge Pro v3.60.241 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -37685,10 +37685,28 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
  function finish(outcome,text,state,extra){
   const c=ctx(),e=engine();if(!c||c.resultApplied)return false;
   c.resultApplied=true;stopTimers(c);dismiss();
+  try{c.trophiesBefore=Math.max(0,Math.floor(+(window.profile&&window.profile.trophies)||0));}catch(_){c.trophiesBefore=null;}
   note('finish',{matchId:short(c.matchId),seat:c.seat,outcome,state,suspect:c.suspect||null,block:extra&&extra.block||null});
   try{if(e&&typeof e.finishAuthoritativeResult==='function')e.finishAuthoritativeResult(outcome,text,Object.assign({state},extra||{}));}catch(err){console.warn('[AFP online] sonuç yazılamadı',err);}
-  c.active=false;window.__AFPUseModeNetworkV1=false;clearMarker();leaveSoon(400);
+  c.active=false;window.__AFPUseModeNetworkV1=false;clearMarker();leaveSoon(c.trophyPending?6500:400);
+  try{if(c.trophyStash){const t=c.trophyStash;c.trophyStash=null;applyTrophyUpdate(c,t);}}catch(_){}
   return true;
+ }
+ /* v3.60.241: sunucu kupa otoritesi — sunucunun kararı yerel hesabın üstündedir */
+ function applyTrophyUpdate(c,x){
+  const p=window.profile;if(!p||!c||!x)return false;
+  if(x.ok===true&&Number.isFinite(+x.after)){p.trophies=Math.max(0,Math.min(20000,Math.floor(+x.after)));}
+  else if(x.ok===false&&Number.isFinite(c.trophiesBefore)){p.trophies=Math.max(0,c.trophiesBefore);} /* sunucu bu maça kupa yazmadı: yerel tahmini geri al */
+  else return false;
+  try{const H=window.AFPGuideHost;if(H){H.save();if(typeof H.refresh==='function')H.refresh();}}catch(_){}
+  note('trophy-authority',{ok:x.ok===true,after:p.trophies,delta:x.delta===undefined?null:Number(x.delta)});return true;
+ }
+ function onTrophyUpdate(x){
+  const c=ctx();if(!c||!x)return false;
+  const room=String(x.roomId||x.matchId||'');if(!room||room!==String(c.matchId))return false;
+  if(x.authoritative!==true)return false;
+  if(!c.resultApplied){c.trophyStash=x;return true;}
+  return applyTrophyUpdate(c,x);
  }
  const finishUnverified=text=>finish('draw',text,'unverified');
  const finishVoid=text=>finish('draw',text,'void');
@@ -37728,6 +37746,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
   const c=ctx();if(!c||!x)return;
   const room=String(x.roomId||x.matchId||'');if(!room||room!==String(c.matchId)){note('result-foreign-or-missing',{});return;}
   if(c.resultApplied){note('result-duplicate',{});return;}
+  c.trophyPending=x.trophyPending===true;
   if(x.confirmed===false){finishUnverified('Sunucu iki cihazın sonucunu eşleştiremedi. Sonuç geçersiz; kupa/ödül yok.');return;}
   if(x.confirmed!==true){note('result-unconfirmed-ignored',{});return;}
   let ws=null;
@@ -37850,7 +37869,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
  window.AFPOnlineSyncV68=Object.freeze({
   netRev:NET_REV,outcomeForSeat,winnerSeatFor,selfUserId,serverNow,localTime,onPong,enterArenaQueue,enterFlagQueue,
   noteSetup,sentCommander:getSentCommander,acceptStart,afterStart,abortStart,acceptAction,acceptState,afterState,
-  endGate,onServerResult,onDisputed,onPeerLeft,onConnectionLost,onOpponentConcede,
+  endGate,onServerResult,onTrophyUpdate,onDisputed,onPeerLeft,onConnectionLost,onOpponentConcede,
   journal:()=>journal.slice(),
   status:()=>{const c=ctx();return c?{active:!!c.active,matchId:short(c.matchId),seat:c.seat,authority:!!c.authority,modeId:c.modeId,final:c.final?{winnerSeat:c.final.winnerSeat,reason:c.final.resultReason}:null,resultApplied:!!c.resultApplied,clockOffset:Math.round(clockOffset),rtt:Number.isFinite(bestRtt)?bestRtt:null}:null;}
  });
@@ -38156,6 +38175,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
   c.on('battle_action',x=>{const ctx=window.__AFPOnlineContext,engine=window.AFPOnlineBattleInternal,S=window.AFPOnlineSyncV68;if(!ctx||!ctx.active||ctx.matchId!==x.roomId||!engine)return;if(S&&!S.acceptAction(x))return;const r=engine.applyRemoteCommand({type:x.actionType,payload:x.payload||{},seq:x.seq});if(!r||!r.ok)try{if(typeof window.showNotice==='function')window.showNotice('Rakip hamlesi uygulanamadı: '+(r&&r.reason||'geçersiz hamle'));}catch(_){} });
   c.on('battle_state',x=>{const ctx=window.__AFPOnlineContext,engine=window.AFPOnlineBattleInternal,S=window.AFPOnlineSyncV68;if(!ctx||!ctx.active||ctx.matchId!==x.roomId||ctx.authority||!engine||typeof engine.applyOnlineSnapshot!=='function')return;if(S&&!S.acceptState(x))return;try{engine.applyOnlineSnapshot(x.state,x.snapshotSeq);}catch(err){console.warn('[AFP online] snapshot apply failed',err);}if(S)S.afterState(x);});
   c.on('battle_result',x=>{const S=window.AFPOnlineSyncV68;if(S){S.onServerResult(x);return;}const ctx=window.__AFPOnlineContext;if(ctx&&ctx.matchId===x.roomId){ctx.active=false;window.__AFPUseModeNetworkV1=false;}});
+  c.on('trophy_update',x=>{const S=window.AFPOnlineSyncV68;if(S&&typeof S.onTrophyUpdate==='function')S.onTrophyUpdate(x);});
   c.on('battle_disputed',x=>{const S=window.AFPOnlineSyncV68;if(S){S.onDisputed(x);return;}const ctx=window.__AFPOnlineContext,engine=window.AFPOnlineBattleInternal;if(ctx&&ctx.matchId===x.roomId){if(engine&&engine.status&&engine.status().playing&&typeof engine.finishAuthoritativeResult==='function')engine.finishAuthoritativeResult('draw','Maç sonucu doğrulanamadı. Test maçı kapatıldı; ödül yok.',{state:'unverified'});ctx.active=false;window.__AFPUseModeNetworkV1=false;}});
   c.on('queue_expired',x=>{
    if(terminal||battleStarted)return;terminal=true;stopClock();
