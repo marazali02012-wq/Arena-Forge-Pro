@@ -217,3 +217,16 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 - **Yerleştirilen ekranlar:** (1) Ana ekran üst çubuğu ve "Kupa Yolu" kartı, (2) diğer ekranlardaki üst kupa çipi, (3) Kupa Yolu başlığı (büyük rozet + lig çipi), (4) her lig eşiği kartı (ulaşılanlar canlı, kilitliler soluk, şu anki lig parlıyor ve altın çerçeveli), (5) etap önizleme penceresi, (6) "Ligler ve Arenalar" listesi.
 - **Test:** 12 kupa değerinde (0…10.000) Kupa Yolu ekran görüntüsüyle her rozetin doğru ligde olduğu doğrulandı; 854×393, 800×360, 915×412 boyutlarında taşma yok; Arena, Yanki, Kolos, Gizli, kart silme, bekleme odası ve tam ekran taraması (31 ekran) hatasız.
 - **Yapılmadı:** savaş sonucu ekranındaki kupa satırı ve profil penceresi metin tabanlı olduğu için değiştirilmedi.
+
+## Kupa Yolu önizleme pencerelerinde kesilme ve taşma düzeltmeleri
+- **Referans araştırması:** "Heroic - Magic Duel" için web araması yapıldı; yalnızca fandom wiki sayfalarının (Battle Arenas, Badges and Titles vb.) varlığı ve kupa/arena kuralları göründü. Sayfaların kendisine bu oturumun ağ izni olmadığı için ekran düzenine bakılamadı (heroic-magic-duel.fandom.com erişilemedi). Düzen, bilinen mobil lig/kupa yolu pratiklerine göre kuruldu: ekrana sığan pencere, kaydırılan içerik, hep görünür düğmeler, kayan listede kenar solması.
+- **Ölçüm:** 854×393, 800×360, 915×412 ve 740×360'ta Kupa Yolu ve pencereler otomatik tarandı (kesik metin, dikey/yatay taşma, ekran dışına çıkan öğe).
+- **Bulunan ve düzeltilenler:**
+  1. **Etap önizlemesi ekranı aşıyordu:** pencere 373 px, içerik 380 px, alttaki KAPAT / SONRAKİ LİG düğmeleri ekranın dışında (y=452–488, ekran 393) ve alt ödül kartları kesikti. Pencere artık ekrana sığıyor, içerik kendi içinde kayıyor, düğmeler hep görünür. Yatay telefonda geniş iki sütunlu düzen: solda "bu eşikte alınanlar", sağda "etaptaki sonraki ödüller" (kayan listede sağ kenar solarak devam ettiğini gösteriyor).
+  2. **Pencere kurdelesi (başlık) üstten kesiliyordu:** düzeltildi.
+  3. **Önizleme ödül görselleri kırpılıyordu:** görsel kutusu 44 px, görsel 125 px; artık sığdırılıyor (contain).
+  4. **Yol kartlarında yazılar "…" ile kesiliyordu** (ORMAN R…, KIZIL DÜELL…, +3 GELİŞTİRM…, MİNYON KARTI · E…): adlar 2 satıra iniyor, alt yazılar kısaltıldı (minyon: yalnızca nadirlik; ana kahraman: yalnızca element; parça: "+3 PARÇA"; ayrıntı pencerelerde tam yazı).
+  5. **Ö, Ü, Ğ, İ noktaları kesiliyordu** ("ÖDÜLÜ AL" → "ODULU AL"): satır yüksekliği düzeltildi.
+  6. **Üst kupa çipi küçük ekranda "1.00…" diye kesiliyordu:** çip içeriğe göre genişliyor.
+  7. **Kural, Geçmiş ve Ödül pencereleri** de aynı sığdırma kuralından yararlanıyor (kurdele ve düğmeler her boyutta görünür).
+- **Son tarama:** kesik metin ve satır kesilmesi kalmadı; geriye yalnızca kayan zaman çizgisinin bilinçli olarak ekran dışına uzanan parçaları kaldı. Arena, Yanki, Kolos, Gizli, kart silme ve bekleme odası testleri hatasız.

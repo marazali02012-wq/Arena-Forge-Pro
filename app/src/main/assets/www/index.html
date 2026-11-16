@@ -9714,6 +9714,55 @@ function af224Art(key){
 #afxRoadInfo .af227-preview-badge .af227-emblem.is-locked{filter:grayscale(.85) brightness(.55) drop-shadow(0 3px 4px rgba(0,0,0,.6))}
 @media (prefers-reduced-motion:reduce){#afxRoad .af228-landmark .af228-emblem.is-current{animation:none}}
 </style>
+<style id="AFP_PREVIEW_FIT_CSS">
+/* Kupa Yolu önizleme pencereleri: ekrana sığar, içerik kendi içinde kayar, düğmeler hep görünür; kart yazıları kesilmez (2 satıra iner). */
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo:not(.afx-pass-modal) .afx-winPanel{display:flex!important;flex-direction:column!important;box-sizing:border-box!important;max-height:calc(100vh - 12px)!important;max-height:calc(100dvh - 12px)!important;overflow:visible!important}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo:not(.afx-pass-modal) .afx-winHead,html:not(#_a):not(#_b):not(#_c) #afxRoadInfo:not(.afx-pass-modal) .afx-winActs{flex:0 0 auto!important}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo:not(.afx-pass-modal) .afx-rdInfoBody{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:thin;padding-right:3px!important;box-sizing:border-box}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo:not(.afx-pass-modal) .afx-winActs{flex-wrap:wrap!important;justify-content:center;gap:6px!important;padding-top:6px}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo:not(.afx-pass-modal) .afx-winActs .afx-btn{white-space:normal!important;max-width:100%;text-align:center}
+/* kart yazıları: tek satır + üç nokta yerine en çok 2 satır */
+html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-reward>b,html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward>b{display:-webkit-box!important;white-space:normal!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden!important;text-overflow:clip!important;overflow-wrap:anywhere;word-break:normal;text-align:center;line-height:1.12!important;max-height:2.3em}
+html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-reward>small,html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward>small{display:-webkit-box!important;white-space:normal!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden!important;text-overflow:clip!important;overflow-wrap:anywhere;text-align:center;line-height:1.15!important;max-height:2.4em}
+html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-reward>span:last-child,html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward>span:last-child{white-space:normal!important;text-overflow:clip!important;text-align:center;justify-content:center}
+html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-landmark>b,html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-landmark>em{white-space:normal;overflow-wrap:anywhere;max-width:100%}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward .afx-rdArt{grid-template-rows:minmax(0,1fr)!important;grid-template-columns:minmax(0,1fr)!important;overflow:hidden}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward .afx-rdArt>img,html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward .afx-rdArt>*{min-height:0!important;min-width:0!important;max-width:100%;max-height:100%}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward .afx-rdArt>img{width:100%!important;height:100%!important;object-fit:contain!important}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward .afx-rdArt.k-cmd>*,html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward .afx-rdArt .afx-ico{max-height:100%}
+#afxRoadInfo .af227-preview-rail{padding-bottom:6px}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward>span:last-child{overflow:visible!important;line-height:1.35!important;padding-top:1px}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward>b{padding-top:.14em;max-height:2.5em}
+html:not(#_a):not(#_b):not(#_c) #afxRoadInfo .af227-preview-reward>small{-webkit-line-clamp:3!important;line-clamp:3;max-height:3.7em!important;padding-top:.1em}
+html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-reward>span:last-child{overflow:visible!important;line-height:1.3!important}
+html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-reward>b,html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-reward>small,html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-reward>span:last-child{flex:0 0 auto!important}
+html:not(#_a):not(#_b):not(#_c) #afxRoad .af228-reward .afx-rdArt{min-height:34px!important}
+/* üst kupa çipi küçük ekranda daralıp "1.00…" diye kesilmesin */
+html.afx369.afx-hub:not(#_1):not(#_2):not(#_3) #af324Shell .af4-top .af4-chipCup,html.af324-on:not(#_1):not(#_2) #af324Shell .af4-top .af4-chipCup{flex:0 0 auto!important;min-width:0!important;max-width:none!important;width:auto!important;overflow:visible!important}
+html:not(#_1):not(#_2):not(#_3) #af324Shell .af4-chipCup>.af4-chipTxt{min-width:max-content!important;overflow:visible!important}
+html:not(#_1):not(#_2):not(#_3) #af324Shell .af4-chipCup #af4Cups,html:not(#_1):not(#_2):not(#_3) #af324Shell .af4-chipCup #af4League{overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important;max-width:none!important}
+#afxRoadInfo .af227-preview-rail.is-scroll{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 34px),transparent)}
+/* yatay telefon: etap önizlemesi geniş pencere, iki sütun (sol: bu eşikte alınanlar, sağ: etaptaki sonraki ödüller) */
+@media (min-width:600px) and (max-height:520px){
+ html:not(#_a):not(#_b):not(#_c) #afxRoadInfo[data-mode="gate"] .afx-winPanel{width:min(800px,94vw)!important;max-width:94vw!important}
+ #afxRoadInfo[data-mode="gate"] .af227-preview{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:12px!important;row-gap:5px!important;align-content:start}
+ #afxRoadInfo[data-mode="gate"] .af227-preview>header,#afxRoadInfo[data-mode="gate"] .af227-preview>.af227-preview-unlocks{grid-column:1/-1}
+ #afxRoadInfo[data-mode="gate"] .af227-preview>.af227-preview-label:nth-child(3){grid-column:1;grid-row:3}
+ #afxRoadInfo[data-mode="gate"] .af227-preview>.af227-preview-rail:nth-child(4){grid-column:1;grid-row:4}
+ #afxRoadInfo[data-mode="gate"] .af227-preview>.af227-preview-label:nth-child(5){grid-column:2;grid-row:3}
+ #afxRoadInfo[data-mode="gate"] .af227-preview>.af227-preview-rail:nth-child(6){grid-column:2;grid-row:4}
+}
+#afxRoadInfo .af227-preview-reward{flex-basis:clamp(100px,17vw,150px)}
+@media (max-height:430px){
+ #afxRoadInfo .af228-preview-header{min-height:54px!important;padding:5px 8px!important}
+ #afxRoadInfo .af227-preview-badge.has-emblem{width:clamp(44px,8vw,64px)!important;height:clamp(48px,9vw,70px)!important}
+ #afxRoadInfo .af227-preview>header h3{font-size:clamp(14px,2.2vw,20px)!important;margin:2px 0!important}
+ #afxRoadInfo .af227-preview-reward .afx-rdArt{height:clamp(26px,9vh,46px)!important}
+ #afxRoadInfo .af227-preview{gap:4px!important}
+ #afxRoadInfo .af227-preview-unlocks span{padding:2px 5px!important;font-size:9.5px!important}
+ #afxRoadInfo .afx-winHead{min-height:0!important}
+}
+</style>
 </head>
 <!-- v3.34.73: exact duplicate embedded ar
 <style id="afp-v36031-empty-image-guard">
@@ -29011,7 +29060,7 @@ window.__AFColossusArtV1=Object.freeze({"art":"data:image/webp;base64,UklGRkJwAA
   const coin=n.kind==='credits'||n.kind==='inf';
   return '<button type="button" class="af228-reward s-'+n.st+'" data-afx-rd="'+esc(n.key)+'" aria-label="'+esc(n.title+' · '+n.sub+' · '+fmt(n.cups)+' kupa · '+state)+'">'+
    (coin?'<span class="af228-credit" aria-hidden="true"></span>':rdArt(n,false))+
-   '<b>'+esc(coin?'+'+fmt(n.credits)+' KREDİ':n.title)+'</b>'+(coin?'':'<small>'+esc(n.kind==='parts'?'+3 GELİŞTİRME PARÇASI':n.sub)+'</small>')+'<span>'+state+'</span></button>';
+   '<b>'+esc(coin?'+'+fmt(n.credits)+' KREDİ':n.title)+'</b>'+(coin?'':'<small>'+esc(n.kind==='parts'?'+3 PARÇA':n.kind==='minion'?String(n.sub).replace(/^MİNYON KARTI\s*·\s*/,'')||'MİNYON':n.kind==='cmd'?(String(n.sub).split('·').slice(1).join('·').trim()||'ANA KAHRAMAN'):n.sub)+'</small>')+'<span>'+state+'</span></button>';
  }
  function rdStation(st,d){
   const g=st.gate,hit=d.cups>=st.cups,arena=g?.arenas[0],n=st.rewards.length;
@@ -29050,6 +29099,7 @@ window.__AFColossusArtV1=Object.freeze({"art":"data:image/webp;base64,UklGRkJwAA
    '</section>';
   w.querySelector('.afx-winActs').innerHTML='<button type="button" class="afx-btn afx-btnSteel" data-afx-rdx="close">KAPAT</button>'+nextButton;
   w.hidden=false;
+  requestAnimationFrame(()=>{try{w.querySelectorAll('.af227-preview-rail').forEach(r=>r.classList.toggle('is-scroll',r.scrollWidth>r.clientWidth+2));}catch(_){}});
  }
  function rdBoosts(a){const b=[];if(a.hp&&a.hp!==1)b.push((a.hp>1?'+':'')+Math.round((a.hp-1)*100)+'% can');if(a.atk&&a.atk!==1)b.push((a.atk>1?'+':'')+Math.round((a.atk-1)*100)+'% saldırı');if(a.speed&&a.speed!==1)b.push((a.speed>1?'+':'')+Math.round((a.speed-1)*100)+'% hız');if(a.interval&&a.interval!==1)b.push((a.interval<1?'+':'')+Math.round((1/a.interval-1)*100)+'% saldırı sıklığı');return b.length?b.join(' · '):'Etki yok (dengeli arena)';}
  function rdPanels(d){
