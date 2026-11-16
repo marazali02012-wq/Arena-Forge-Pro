@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.242" />
-<title>Arena Forge Pro v3.60.242 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.243" />
+<title>Arena Forge Pro v3.60.243 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -37521,21 +37521,24 @@ html.afx369:not(#_1):not(#_2):not(#_3) .afx-rdArt.afq-rd-chest[data-afq-tier="le
     if(!serverUrl)throw new Error('Çevrim içi sunucu adresi henüz yapılandırılmadı.');
     if(typeof WebSocket!=='function')throw new Error('Bu tarayıcı WebSocket desteklemiyor.');
     const hello=createHandshake(modeId,options);
-    const ws=(window.__AFPFriendSocket&&window.__AFPFriendSocket.active())?window.__AFPFriendSocket.create(serverUrl):new WebSocket(serverUrl); /* v3.60.131 dostluk maçı */
+    let ws=(window.__AFPFriendSocket&&window.__AFPFriendSocket.active())?window.__AFPFriendSocket.create(serverUrl):new WebSocket(serverUrl); /* v3.60.131 dostluk maçı */
     const listeners=new Map();
-    let settled=false,closed=false,resolveReady,rejectReady,keepAliveTimer=null;
+    let settled=false,closed=false,resolveReady,rejectReady,keepAliveTimer=null,intentional=false,reconnecting=null;
+    const isFriendMock=!!(window.__AFPFriendSocket&&window.__AFPFriendSocket.active());
+    const REJOIN_WINDOW_MS=22000; /* v3.60.242: sunucu 25 sn bekler; istemci 22 sn içinde aynı koltuğa dönmeyi dener */
     const ready=new Promise((resolve,reject)=>{resolveReady=resolve;rejectReady=reject;});
     const timeout=setTimeout(()=>{if(!settled){settled=true;rejectReady(new Error('Sunucu el sıkışması zaman aşımına uğradı.'));try{ws.close();}catch(_){}}},12000);
     function emit(type,payload){for(const fn of listeners.get(type)||[]){try{fn(payload);}catch(e){console.warn('[AFP network listener]',e);}}}
     ws.addEventListener('open',()=>{try{ws.send(JSON.stringify(hello));keepAliveTimer=setInterval(()=>{if(ws.readyState===WebSocket.OPEN){try{send('ping',{clientTime:Date.now()});}catch(_){}}},2500);}catch(e){if(!settled){settled=true;clearTimeout(timeout);rejectReady(e);}}});
-    ws.addEventListener('message',event=>{
+    const onMessage=event=>{
       try{
         const msg=parseFrame(event.data,modeId);
         emit(msg.type,msg);
         window.dispatchEvent(new CustomEvent('afp:mode-network',{detail:msg}));
         if(['queue_waiting','match_found'].includes(msg.type)&&!settled){settled=true;clearTimeout(timeout);resolveReady(msg);}
       }catch(e){emit('protocol_error',{message:e.message});}
-    });
+    };
+    ws.addEventListener('message',onMessage);
     ws.addEventListener('error',()=>{if(!settled){settled=true;clearTimeout(timeout);rejectReady(new Error('Çevrim içi sunucuya bağlantı kurulamadı.'));}});
     let backgroundTimer=null;
     // Android notification/app-switch: a brief hidden tab does not instantly concede.
@@ -37547,11 +37550,54 @@ html.afx369:not(#_1):not(#_2):not(#_3) .afx-rdArt.afq-rd-chest[data-afq-tier="le
     };
     if(typeof document!=='undefined')document.addEventListener('visibilitychange',closeWhenHidden);
     if(typeof window!=='undefined')window.addEventListener('pagehide',closeWhenHidden,{once:true});
-    ws.addEventListener('close',event=>{
+    const finalClose=event=>{
       closed=true;if(backgroundTimer){clearTimeout(backgroundTimer);backgroundTimer=null;}if(keepAliveTimer){clearInterval(keepAliveTimer);keepAliveTimer=null;}if(typeof document!=='undefined')document.removeEventListener('visibilitychange',closeWhenHidden);if(typeof window!=='undefined')window.removeEventListener('pagehide',closeWhenHidden);activeConnections.delete(api);
       if(!settled){settled=true;clearTimeout(timeout);rejectReady(new Error('Sunucu bağlantısı kapandı ('+event.code+').'));}
       emit('close',{code:event.code,reason:event.reason||''});
-    });
+    };
+    /* ---- v3.60.242: maça geri katılma. Maç sürerken beklenmedik kopma → sessizce yeniden bağlan, sunucuya {type:'rejoin'} gönder. ---- */
+    function matchResumable(){
+      if(isFriendMock||intentional)return null;
+      const c=window.__AFPOnlineContext;
+      return c&&c.active&&c.matchId&&!c.resultApplied?String(c.matchId):null;
+    }
+    function startKeepAlive(){if(keepAliveTimer)clearInterval(keepAliveTimer);keepAliveTimer=setInterval(()=>{if(ws.readyState===WebSocket.OPEN){try{send('ping',{clientTime:Date.now()});}catch(_){}}},2500);}
+    function stopReconnect(){if(reconnecting){clearTimeout(reconnecting.timer);try{reconnecting.sock&&reconnecting.sock.close();}catch(_){}reconnecting=null;}}
+    function giveUp(code,reason){stopReconnect();finalClose({code:code||4000,reason:reason||'reconnect failed'});}
+    function attemptRejoin(){
+      const r=reconnecting;if(!r)return;
+      if(Date.now()>=r.deadline){giveUp(4000,'reconnect window over');return;}
+      let ns,done=false;
+      try{ns=new WebSocket(serverUrl);}catch(_){r.timer=setTimeout(attemptRejoin,1500);return;}
+      r.sock=ns;
+      const retry=()=>{if(done)return;done=true;try{ns.close();}catch(_){}if(reconnecting===r)r.timer=setTimeout(attemptRejoin,1200);};
+      ns.addEventListener('open',()=>{try{ns.send(JSON.stringify({type:'rejoin',protocolVersion:PROTOCOL_VERSION,buildId:BUILD_ID,accessToken:getSessionToken()||hello.accessToken,roomId:r.roomId}));}catch(_){retry();}});
+      ns.addEventListener('message',ev=>{
+        if(done)return;let msg;try{msg=parseFrame(ev.data,modeId);}catch(_){return;}
+        if(msg.type==='rejoin_ok'){
+          done=true;if(reconnecting!==r){try{ns.close();}catch(_){}return;}
+          reconnecting=null;ws=ns;closed=false;
+          ns.addEventListener('message',onMessage);ns.addEventListener('close',onClose);
+          startKeepAlive();emit('rejoin_ok',msg);
+        }else if(msg.type==='server_error'){
+          if(/rejoin_not_available|rejoin_disabled|build_mismatch|protocol_mismatch/.test(String(msg.code))){done=true;try{ns.close();}catch(_){}giveUp(4001,String(msg.code));}
+          else retry();
+        }
+      });
+      ns.addEventListener('close',retry);ns.addEventListener('error',()=>{});
+    }
+    function maybeReconnect(event){
+      if(reconnecting)return true;
+      const roomId=matchResumable();if(!roomId||!settled)return false;
+      if(event&&event.code===1000&&!/backgrounded/.test(String(event.reason||'')))return false;
+      if(keepAliveTimer){clearInterval(keepAliveTimer);keepAliveTimer=null;}
+      reconnecting={roomId,deadline:Date.now()+REJOIN_WINDOW_MS,timer:null,sock:null};
+      emit('reconnecting',{roomId,windowMs:REJOIN_WINDOW_MS,code:event&&event.code});
+      reconnecting.timer=setTimeout(attemptRejoin,400);
+      return true;
+    }
+    const onClose=event=>{if(maybeReconnect(event))return;finalClose(event);};
+    ws.addEventListener('close',onClose);
     function send(type,body={}){
       if(closed||ws.readyState!==WebSocket.OPEN)throw new Error('Çevrim içi bağlantı açık değil.');
       ws.send(JSON.stringify({type,...body}));
@@ -37566,8 +37612,8 @@ html.afx369:not(#_1):not(#_2):not(#_3) .afx-rdArt.afq-rd-chest[data-afq-tier="le
       sendBattleResult(result,text,extra){const x=extra&&typeof extra==='object'?extra:{};send('battle_result',Object.assign({},x,{result,text:String(text||'').slice(0,180)}));}, /* v3.60.68: winnerSeat/matchId/resultId */
       ping(){send('ping',{clientTime:Date.now()});},
       cancelQueue(){send('cancel_queue');},
-      leave(){if(closed)return;try{send('leave');}finally{ws.close(1000,'client leave');}},
-      close(){if(!closed)ws.close(1000,'client close');},
+      leave(){intentional=true;if(reconnecting){giveUp(1000,'client leave');return;}if(closed)return;try{send('leave');}finally{ws.close(1000,'client leave');}},
+      close(){intentional=true;if(reconnecting){giveUp(1000,'client close');return;}if(!closed)ws.close(1000,'client close');},
       sendResult(){throw new Error('Maç sonucu istemciden kabul edilmez; sunucu doğrulaması henüz kurulmadı.');},
       getSocketState(){return ws.readyState;}
     };
@@ -37752,7 +37798,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
   const c=ctx(),k=conn();if(!c||!k||c.resultReported)return;c.resultReported=true;
   const mine=outcomeForSeat(final.winnerSeat,c.seat);
   try{k.sendBattleResult(mine,final.text||'',{matchId:final.matchId,resultId:final.resultId,seat:c.seat,userId:c.selfUserId||null,winnerSeat:final.winnerSeat,winnerUserId:final.winnerUserId||null,resultReason:final.resultReason,finalSnapshotSeq:final.finalSnapshotSeq,finalStateHash:final.finalStateHash,endedAt:final.endedAt,suspect:!!c.suspect,suspectReason:c.suspect||undefined});note('report',{seat:c.seat,result:mine,winnerSeat:final.winnerSeat});}
-  catch(err){note('report-failed',{m:String(err&&err.message||err).slice(0,80)});}
+  catch(err){c.resultReported=false;note('report-failed',{m:String(err&&err.message||err).slice(0,80)});}
  }
  /* Bitiş kararı bu cihazda verildi (seat 1 otorite; ya da rakip savaştan çıktı). */
  function beginFinal(winnerSeat,reason,text){
@@ -37807,6 +37853,11 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
   if(c.final&&!finalSaysLoss&&c.resultReported){finish(outcomeForSeat(c.final.winnerSeat,c.seat),'Rakip sonuç doğrulanmadan ayrıldı. Sonuç sunucu tarafından onaylanmadı; kupa/ödül yok.','unverified');return true;}
   finishVoid('Rakip bağlantısı koptu ve sunucu hükmen sonuç bildirmedi. MAÇ SONUÇSUZ; kupa/ödül yok.');return true;
  }
+ /* v3.60.242: kopma → otomatik geri katılma; durum penceresi ve sayaçlar */
+ function onReconnecting(){const c=ctx();if(!c||!c.active||c.resultApplied)return;c.reconnecting=true;note('reconnecting',{});status('Bağlantı koptu. Aynı maça yeniden bağlanılıyor…','BAĞLANTI KOPTU','reconnect');}
+ function onRejoined(){const c=ctx();if(!c)return;c.reconnecting=false;c.lastStateAt=Date.now();dismiss();note('rejoined',{});try{if(c.final&&!c.resultApplied&&!c.resultReported)reportResult(c.final);}catch(_){}}
+ function onPeerReconnecting(x){const c=ctx();if(!c||!c.active||c.resultApplied)return;const g=Math.max(5000,Math.min(60000,Number(x&&x.graceMs)||25000));c.peerReconnectUntil=Date.now()+g;note('peer-reconnecting',{});status('Rakibin bağlantısı koptu. Geri dönmesi bekleniyor…','RAKİP BAĞLANIYOR','reconnect');}
+ function onPeerRejoined(){const c=ctx();if(!c)return;c.peerReconnectUntil=0;c.lastStateAt=Date.now();dismiss();note('peer-rejoined',{});}
  function onConnectionLost(reason){const c=ctx();if(!c||!c.active||c.resultApplied)return false;finishUnverified((reason||'Sunucu bağlantısı koptu.')+' Sonuç doğrulanamadı; bu cihazda zafer yazılmadı, kupa/ödül yok.');return true;}
  function onOpponentConcede(){const c=ctx();if(!c||!c.active||c.final||c.resultApplied)return {ok:true,ignored:true};beginFinal(Number(c.seat),'opponent-concede','Rakip savaştan çıktı.');return {ok:true};}
  function concede(options){
@@ -37850,7 +37901,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
   window.__AFPLastOnlineMode=String(c.modeId||'');
   setMarker(c);note('start',{matchId:short(c.matchId),seat:c.seat,modeId:c.modeId,self:c.selfUserId,opp:c.opponentUserId});
   if(stallTimer)clearInterval(stallTimer);
-  stallTimer=setInterval(()=>{const k=ctx();if(!k||!k.active||k.resultApplied){clearInterval(stallTimer);stallTimer=null;return;}if(!k.authority&&!k.final&&Date.now()-(k.lastStateAt||0)>STALL_MS)onConnectionLost('Rakip cihazdan '+(STALL_MS/1000)+' saniye boyunca savaş durumu alınamadı.');},1000);
+  stallTimer=setInterval(()=>{const k=ctx();if(!k||!k.active||k.resultApplied){clearInterval(stallTimer);stallTimer=null;return;}if(!k.authority&&!k.final&&!k.reconnecting&&!(k.peerReconnectUntil&&Date.now()<k.peerReconnectUntil)&&Date.now()-(k.lastStateAt||0)>STALL_MS)onConnectionLost('Rakip cihazdan '+(STALL_MS/1000)+' saniye boyunca savaş durumu alınamadı.');},1000);
  }
  function abortStart(err){const c=ctx();if(c&&!c.resultApplied){c.active=false;c.starting=false;}window.__AFPUseModeNetworkV1=false;note('start-aborted',{m:String(err&&err.message||err).slice(0,120)});}
  function acceptAction(x){
@@ -37905,7 +37956,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
  window.AFPOnlineSyncV68=Object.freeze({
   netRev:NET_REV,outcomeForSeat,winnerSeatFor,selfUserId,serverNow,localTime,onPong,enterArenaQueue,enterFlagQueue,
   noteSetup,sentCommander:getSentCommander,acceptStart,afterStart,abortStart,acceptAction,acceptState,afterState,
-  endGate,onServerResult,onTrophyUpdate,onDisputed,onPeerLeft,onConnectionLost,onOpponentConcede,
+  endGate,onServerResult,onTrophyUpdate,onReconnecting,onRejoined,onPeerReconnecting,onPeerRejoined,onDisputed,onPeerLeft,onConnectionLost,onOpponentConcede,
   journal:()=>journal.slice(),
   status:()=>{const c=ctx();return c?{active:!!c.active,matchId:short(c.matchId),seat:c.seat,authority:!!c.authority,modeId:c.modeId,final:c.final?{winnerSeat:c.final.winnerSeat,reason:c.final.resultReason}:null,resultApplied:!!c.resultApplied,clockOffset:Math.round(clockOffset),rtt:Number.isFinite(bestRtt)?bestRtt:null}:null;}
  });
@@ -38211,6 +38262,10 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
   c.on('battle_action',x=>{const ctx=window.__AFPOnlineContext,engine=window.AFPOnlineBattleInternal,S=window.AFPOnlineSyncV68;if(!ctx||!ctx.active||ctx.matchId!==x.roomId||!engine)return;if(S&&!S.acceptAction(x))return;const r=engine.applyRemoteCommand({type:x.actionType,payload:x.payload||{},seq:x.seq});if(!r||!r.ok)try{if(typeof window.showNotice==='function')window.showNotice('Rakip hamlesi uygulanamadı: '+(r&&r.reason||'geçersiz hamle'));}catch(_){} });
   c.on('battle_state',x=>{const ctx=window.__AFPOnlineContext,engine=window.AFPOnlineBattleInternal,S=window.AFPOnlineSyncV68;if(!ctx||!ctx.active||ctx.matchId!==x.roomId||ctx.authority||!engine||typeof engine.applyOnlineSnapshot!=='function')return;if(S&&!S.acceptState(x))return;try{engine.applyOnlineSnapshot(x.state,x.snapshotSeq);}catch(err){console.warn('[AFP online] snapshot apply failed',err);}if(S)S.afterState(x);});
   c.on('battle_result',x=>{const S=window.AFPOnlineSyncV68;if(S){S.onServerResult(x);return;}const ctx=window.__AFPOnlineContext;if(ctx&&ctx.matchId===x.roomId){ctx.active=false;window.__AFPUseModeNetworkV1=false;}});
+  c.on('reconnecting',x=>{const S=window.AFPOnlineSyncV68;if(S)S.onReconnecting(x);});
+  c.on('rejoin_ok',x=>{const S=window.AFPOnlineSyncV68;if(S)S.onRejoined(x);});
+  c.on('peer_reconnecting',x=>{const S=window.AFPOnlineSyncV68;if(S)S.onPeerReconnecting(x);});
+  c.on('peer_rejoined',x=>{const S=window.AFPOnlineSyncV68;if(S)S.onPeerRejoined(x);});
   c.on('trophy_update',x=>{const S=window.AFPOnlineSyncV68;if(S&&typeof S.onTrophyUpdate==='function')S.onTrophyUpdate(x);});
   c.on('battle_disputed',x=>{const S=window.AFPOnlineSyncV68;if(S){S.onDisputed(x);return;}const ctx=window.__AFPOnlineContext,engine=window.AFPOnlineBattleInternal;if(ctx&&ctx.matchId===x.roomId){if(engine&&engine.status&&engine.status().playing&&typeof engine.finishAuthoritativeResult==='function')engine.finishAuthoritativeResult('draw','Maç sonucu doğrulanamadı. Test maçı kapatıldı; ödül yok.',{state:'unverified'});ctx.active=false;window.__AFPUseModeNetworkV1=false;}});
   c.on('queue_expired',x=>{
