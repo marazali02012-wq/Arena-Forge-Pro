@@ -203,3 +203,9 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 - **Uyarlanır 30 FPS sınırı:** her sunulan karenin iş süresi (JS + çizim) ölçülür; 60 FPS bütçesi (≈17 ms) uzun süre aşılırsa çizim otomatik 30 FPS'e sabitlenir (aktarım yarıya iner, kare aralığı dengeli olur), bol pay kalınca (<9 ms) geri döner. Oyun hızı/ simülasyon zamana bağlı olduğu için değişmez. Düşük güç cihazlar zaten 30 FPS'te.
 - **FPS göstergesi:** Ayarlar → Görüntü ve erişilebilirlik → "FPS göstergesi". Savaşta sol üstte FPS, iş süresi (ms), en uzun kare (ms), düşük güç / 30 FPS sınırı / efekt seviyesi görünür. Telefondaki gerçek değerleri görmek için.
 - **Test:** göstergenin ve ayar satırının çalıştığı, yavaş test ortamında sınırın devreye girdiği doğrulandı; Arena, Yanki, Kolos, Gizli, kart silme, bekleme odası testleri hatasız. Gerçek telefonda ölçülmedi.
+
+## Kupa dengeli eşleşme (bot) ve çevrim içi kuralı
+- **Kural:** pay = max(5, ⌊kupa × %20⌋); 100 kupa ↔ en fazla 120 (en az 80); 0 kupa ↔ 0–5; 1000 kupa ↔ 800–1200.
+- **Bot (istemci, yapıldı):** süre dolunca rakip gibi görünen bot artık oyuncunun kupasına göre kurulur: rastgele bir "rakip kupası" seçilir (band içinde), rakip kademesi/zorluğu (`enemyDifficulty`), rakip kahraman kademesi (`af327EnemyTier`) ve rakip kart havuzunun nadirlik kapıları (Epik ≥150, Efsanevi ≥600, Platin ≥1500) bu değere göre belirlenir. Önceden bunlar oyuncunun kendi kupasına bakıyordu ve kademeler arasında geçiş sertti.
+- **Test:** 0/3/50/100/250/500/1000/5000 kupada 4000'er seçim hep band içinde; 100 kupalı oyuncuda gerçek kuyruk→bot akışında 3 denemede rakip kupası 83, 88, 85 (hepsi 80–120); sayfa hatası yok.
+- **Gerçek çevrim içi rakipler (YAPILAMADI):** eşleşme kararı sunucuda (`arena-forge-online-server`); sunucu kodu bu repoda yok ve istemciden kupa göndermek hileye açık + protokolü bozabilir. Sunucu geliştiricisi için kural ve notlar: `yayin/SUNUCU_KUPA_ESLESME.md`.

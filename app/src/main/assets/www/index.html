@@ -15623,8 +15623,14 @@ function draw(dt=1/60){const af321T0=performance.now();if(af3711ResizePending){a
     }
   };
 })();
+/* Kupa dengesi: otomatik eşleşen (bot) rakibin gücü, oyuncunun kupasının en fazla %20 yukarısı/aşağısındaki bir kupaya göre kurulur
+   (örn. 100 kupa -> rakip 80-120 kupa denkliği). En az ±5 pay verilir; sıfır kupalı yeni oyuncu 0-5 kupalı rakiple eşleşir. */
+function afpBotCupBand(T){T=Math.max(0,Math.floor(+T||0));const m=Math.max(5,Math.floor(T*.2));return [Math.max(0,T-m),T+m];}
+function afpPickBotCups(){const T=Math.max(0,+profile.trophies||0),[lo,hi]=afpBotCupBand(T),v=lo+Math.floor(Math.random()*(hi-lo+1));window.__AFPBotCups=v;return v;}
+window.afpPickBotCups=afpPickBotCups;window.afpBotCupBand=afpBotCupBand;
+function afEffCups(){const b=window.__AFPBotCups;if(b!=null&&window.__AFPDisguisedMatchActive)return Math.max(0,+b||0);return Math.max(0,+profile.trophies||0);}
 function enemyDifficulty(){
-  const cups=Math.max(0,+profile.trophies||0);
+  const cups=afEffCups();
   let d;
   if(cups<100)d={name:'BRONZ',hp:1,atk:1,speed:1,interval:4.5};
   else if(cups<250)d={name:'GÜMÜŞ',hp:1.12,atk:1.08,speed:1.04,interval:4.2};
@@ -16226,7 +16232,7 @@ function endGame(v,customText='',options={}){
     r.active=false;r.settlement=af203Settlement;
     window.AFPEchoEvent?.battleEnd?.(r,af203Settlement,v===true&&!options.forfeit);
   }
-  af362ClearOpenMatch();window.__AFPDisguisedMatchActive=false;window.__AFPDisguisedArena=false; /* v3.60.71 / v3.60.72 */
+  af362ClearOpenMatch();window.__AFPDisguisedMatchActive=false;window.__AFPDisguisedArena=false;window.__AFPBotCups=null; /* v3.60.71 / v3.60.72 */
   // Stop the battle and discard every remaining live/death/effect sprite.
   // matchStats stays intact for the report; it contains all counts collected during combat.
   try{AFX.clear();}catch(_){}units=[];shots=[];particles=[];combatTexts=[];fallenUnits=[];af323Shots=[];af323Resolved=[];af321Flashes=[];af321Heals=[];
@@ -18063,7 +18069,7 @@ function af327SpawnCommander(lane,side){
  return true;
 }
 function af327EnemyTier(){
- const cups=Math.max(0,+profile.trophies||0);let t=AF327_ENEMY_TIERS[0];for(const x of AF327_ENEMY_TIERS)if(cups>=x.min)t=x;t=Object.assign({},t); // tablo kopyalanır, asla değiştirilmez
+ const cups=afEffCups();let t=AF327_ENEMY_TIERS[0];for(const x of AF327_ENEMY_TIERS)if(cups>=x.min)t=x;t=Object.assign({},t); // tablo kopyalanır, asla değiştirilmez
  if(gameMode==='duel')return af329DuelTier();
  if(gameMode==='tower'){const f=Math.min(100,Math.max(1,+profile.towerFloor||1));t=Object.assign({},t,{lv:Math.min(30,1+Math.floor(f/5)),abil:f>=10?2:f>=4?1:0,think:Math.max(.7,1.5-f*.01),name:'Kule kat '+f});}
  if(gameMode==='campaign'){const c=afpCampaignBattleState(),lv=Math.max(1,Math.min(250,+c.activeLevel||+c.level||1));t=Object.assign({},t,{lv:Math.min(30,2+Math.floor((lv-1)/8)),abil:lv>=8?2:lv>=3?1:0,think:Math.max(.58,1.15-lv*.002),name:'Sefer aşama '+lv});}
@@ -18790,7 +18796,7 @@ function af329Stats(type,lv){
    oyuncunun açtığı kartlar + henüz açmadığı 2-4 kart (kupa seviyesine uygun nadirlik). Kart seviyesi oyuncunun ortalaması (af329.lv). */
 function af372BotPool(rng){
  const all=PREP_HERO_TYPES.filter(t=>HERO_INFO[t]);
- const cups=Math.max(0,+profile.trophies||0),un=profile.unlocked&&typeof profile.unlocked==='object'?profile.unlocked:{};
+ const cups=afEffCups(),un=profile.unlocked&&typeof profile.unlocked==='object'?profile.unlocked:{};
  const rar=t=>String((HERO_INFO[t]||{}).rarity||'');
  const ok=t=>{const r=rar(t);if(r==='Platin')return cups>=1500;if(r==='Efsanevi')return cups>=600;if(r==='Epik')return cups>=150||!!un[t];return true;};
  const own=all.filter(t=>un[t]),extra=all.filter(t=>!un[t]&&ok(t)),pool=own.slice();
@@ -36894,6 +36900,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4) #end.af39-res[data-afp-online="unverifi
  function runLocalBotFallback(id,requestedEngine,reason,disguise){
   const priorQueue=window.__AFPQueueFallbackBypass,priorVs=window.__afVsPass;
   window.__AFPMatchDisguise=disguise?{name:String(disguise.name||''),at:Date.now(),modeId:id}:null;window.__AFPDisguisedMatchActive=!!disguise;window.__AFPDisguisedArena=false; /* v3.60.71 */
+  try{if(disguise&&typeof window.afpPickBotCups==='function')window.afpPickBotCups();else window.__AFPBotCups=null;}catch(_){window.__AFPBotCups=null;}
   try{
    if(window.__AFPOnlineContext&&!window.__AFPOnlineContext.localBot)window.__AFPOnlineContext=null; /* v3.60.68: bot maçı çevrim içi bağlam taşımaz */
    window.__AFPQueueFallbackBypass=true;window.__afVsPass=true;window.__AFPOnlineQueuedMode=null;window.__AFPUseModeNetworkV1=false;window.__AFPBotMatchReason=String(reason||'');
