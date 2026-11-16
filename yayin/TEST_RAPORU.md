@@ -444,3 +444,14 @@ Sunucu PR #4 (CI: başarılı, 22 sn) main'e birleştirildi (b071283); Render ot
 - Test: sunucu uçtan uca 8/8 (yeni: eski istemci iki yönde → anında hükmen, `peer_reconnecting` yok; kapı bozulunca test düştü); `npm test` 24+2+8 geçti, CI başarılı. Oyun: `hello` testi, geri katılma 17/17, kupa 9/9 ve 18/18, lonca ekranı 14/14, açılış hatasız.
 - **Yayın:** sunucu PR #6 `main`'e birleşti (8d20265); Render `main`'den otomatik yayınlar. Render anahtarı sonradan geçersiz kaldığı (401) için dağıtım durumu bu ortamdan **doğrulanamadı**; Render panelinde son dağıtımın `live` ve günlükte `3.60.104 listening` olduğunu kontrol edin.
 - Test edilemeyen: gerçek iki cihazla ağ kopması; gerçek mobil ağ geçişi.
+
+## Hesap değiştirince ilerlemenin korunması (3.60.244, kod değişikliği YOK — doğrulama)
+Madde 23 ("yerel kayıt ile bulut kaydının güvenli birleşmesi") için mevcut kod incelendi ve sahte Supabase ile 12 senaryo sınandı. **Hepsi geçti:**
+- Misafir 7/900 → hesaba giriş: kopyalama sorusu çıktı; kabul → hesap 7/900 ile başlar, misafir yuvası 7/900 kalır; hesapta 9/1500'e çıkınca çıkışta misafir 7/900'e döner, hesap ilerlemesi misafire sızmaz.
+- Kopyalama reddedilirse hesap temiz (1/250) başlar, misafir ilerlemesi eksiksiz geri gelir.
+- İki hesap arası (U1→U2→U1): her hesabın ilerlemesi ayrı yuvada korunur (9/1500, 3/111), misafir 7/900.
+- Bozuk hedef yuva: geçiş "güvenli geçiş durduruldu" hatasıyla reddedilir, mevcut ilerleme kaybolmaz, bozuk yuva boş profille ezilmez.
+- Yazma hatası (kota): geçiş geri alınır, ilerleme kaybolmaz.
+- Not (gözlem, hata değil): bu iki başarısız geçişte oturum kapalı kalıyor (giriş yapılmamış görünür); oyuncu hata mesajını görür, ilerlemesi güvende. Bu davranış korunmuştur.
+- Bulut yedeği/geri yükleme akışı (`backupCloud`/`restoreCloud`) kod incelemesiyle doğrulandı: otomatik birleştirme yok; bulut daha ileriyse sorulur, geri yüklemeden önce yerel kayıt yedeklenir, bulut kaydı doğrulamadan geçmezse yerel kayıt değişmez, ağ hatası "boş bulut" sayılmaz. Bu akışın uçtan uca testi, sayfanın giriş kapısı/yeniden yükleme sırası nedeniyle bu turda yapılamadı.
+- Test edilemeyen: canlı Supabase ile gerçek iki hesap.

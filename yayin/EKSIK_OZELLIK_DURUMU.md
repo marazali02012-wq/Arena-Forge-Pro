@@ -18,7 +18,7 @@ Dış kaynaklı 25+5 maddelik listeyi hem oyun deposunda hem `arena-forge-online
 | 20 | Maça geri katılma | **Yapıldı (oyun 3.60.244 + sunucu 3.60.104)**: kopan oyuncu 25 sn içinde aynı koltukla döner, kaçırdığı hamleler yeniden oynatılır, rakip bekler. Sunucu PR #6 ile `main`'e birleşti (Render otomatik yayınlar, dağıtım doğrulanamadı); yalnızca **iki oyuncu da oyun 3.60.244+ ise** açılır, 4 PvP kuyruğunu kapsar. Gerçek iki cihazla ağ kopma testi yapılmadı. |
 | 21 | Sohbet güvenliği | **Kısmen var:** engelleme ve şikâyet kodu mevcut; moderasyon paneli yok. |
 | 22 | Arkadaşlık maçı | Yerel/mock akış var (`friendly`); gerçek davet/özel oda sunucusu yok. |
-| 23 | Hesap değişince ilerleme | Bulut birleştirme kodu var (`mergeProfile`); canlı iki hesapla test **edilmedi**. |
+| 23 | Hesap değişince ilerleme | **Doğrulandı, kod değişikliği gerekmedi (3.60.244).** Her hesabın (ve misafirin) ayrı yerel yuvası var; geçişte kaynak önce yazılıp doğrulanır, hata olursa geri alınır; bulut kayıtları otomatik birleştirilmez, üzerine yazmadan önce sorulur. 12 senaryo test edildi (aşağıda). Canlı bulutla gerçek iki hesap testi yapılmadı. |
 | 24 | Sezon sonu işlemleri | İstemci tarafı sezon etkinliği var; **sunucu tarafı sezon sonu dağıtımı yok.** |
 | 25 | Ekonomi güvenliği | Yerel mühür (`arenaForgeProSealV1`) var; sunucu otoriteli ekonomi **yok** (kredi/sandık cihazda). |
 | Play | Gizlilik/hesap silme sayfaları | `yayin/web/*.html` içinde `[DESTEK E-POSTASI]` vb. yer tutucular var — **Sahibi** doldurmalı; yayımlama ve geliştirici kimlik doğrulaması da sahibi. |
