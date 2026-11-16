@@ -246,3 +246,25 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 - **Zaman aşımı kuralı gerçekten tetiklenerek doğrulandı** (Arena, 180 sn sınırı; portal canı kontrollü ayarlanarak): öndeyken "SÜRE BİTTİ · ZAFER" (+25 kupa, +275 kredi), gerideyken "SÜRE BİTTİ · MAĞLUBİYET", eşitlikte 30 sn "UZATMA" başlıyor ve ilk portal hasarı sonucu belirliyor (testte "UZATMA · MAĞLUBİYET"). Sayfa hatası yok.
 - **Kahramanlar/Büyüler ekranındaki kısalan büyü açıklamaları:** kartlar sabit yükseklikte olduğundan 3 satırda "…" ile kısalıyor; tam metin her büyünün ÖNİZLE penceresinde okunuyor. Bilerek değiştirilmedi.
 - **Test:** Arena, Kolos, Gizli, Doruk Kulesi (aktif oynanan, ödüllü), Yankı (oynanan: ödüllü, boş: ödülsüz), kart silme ve bekleme odası testleri hatasız.
+
+## Sürüm 3.60.230 — Görsel hata tarama ve toplu onarım
+**Kaynak:** 229 + kullanıcının LONCA_MAGAZA_DENGE paketi (mağaza fiyatları, sezon kredi ödülleri, lonca hata mesajları; commit e64eca4). Netlify sitesine sandbox'tan erişilemedi, karşılaştırma yapılmadı; onarım güncel kaynakta yapıldı, hiçbir özellik silinmedi.
+
+### Düzeltilenler
+1. **Kupa Yolu komutan portreleri yoktu** (Vaelor 150, Theryn 400, Elyvara 700, Saelith 1.000 kupa): `af332Svg` ana betikte kapalıydı, `rdArt` bulamayınca portresiz kalıyordu. Kök neden: `af332Svg/af332DataUrl` pencereye açıldı.
+2. **Minyon bulanıklığı:** 57 çekirdek minyon görseli yalnız 256 px, 6'sı 208 px idi; 209 css px'lik kartta (2× ekranda) 1,6–1,8× büyütülüyordu. Hepsi Lanczos + hafif keskinleştirmeyle 512/416 px'e çıkarıldı (HTML +~0,8 MB). Orijinal yüksek çözünürlüklü dosya depoda yok; gerçek detay eklenemez, yalnız kenar keskinliği artar. Tarama: bulanıklık uyarısı kalmadı.
+3. **Kahramanlar > Ekipman (740×360 ve 667×375):** sekme çubuğu 2 satıra sarıp "Ekipman yüklemesi" başlığının üstüne biniyordu (kök neden: `afx369` kuralı `flex-wrap:wrap` + 13 px yazı). Tek satır, küçülen yazı. 667'de yuva adları "ANA…/BOŞ…" diye kesiliyordu; dar ekranda simge gizlenip ad tam yazılıyor.
+4. **Netlify rozeti:** oyunun kendi kodunda yok (barındırma sitesi ekliyor). Bu tür rozet/çekmece öğelerini gizleyen CSS eklendi.
+
+### Doğrulanan (hata bulunmayan) alanlar
+- **Kupa Yolu:** 0 kupada 92 ödül + 13 kapı = 105 düğüm (106 sayısını bulamadım; 106. düğüm bu sürümde yok). Hepsi kilitli, alınmış ödül listesi boş; 150/350 "alındı" hatası bu sürümde üretilemedi. 1.100 kupada alma +925 kredi (beklenen 925), 10.300'de toplam kredi ödülü beklenenle birebir; ikinci alma değişiklik yapmıyor, kupa 300'e düşünce alınmışlar korunuyor, çift kayıt yok. Minyon kartı alma tekil. Son düğümler: 10.000 (+200) ve 10.200 (+50 sonsuz).
+- **Sezon Bileti:** 30 seviye × (ücretsiz + premium), adlar Türkçe (teknik ad yok), kilitli seviye ve premiumsuz alma reddediliyor, çift/toplu alma tekil, 5.000 kredi fiyatı değişmedi, premium minyonlar yalnız seviye 5/15/25'te.
+- **Mağaza:** Öne çıkan, Görünümler, Yadigârlar, Etkinlik, Sandıklar sekmeleri; her satın almada düşüş = etiket fiyatı, tek teslim; yetersiz bakiye/mühür uyarısı çıkıyor ve profil değişmiyor. Sandık süre başlat/aç ve ödül ekranı çalışıyor (4 sandıkta tek teslim).
+- **Dokuz mod (bot oynadı, 854×393):** Arena, Doruk Kulesi, Yankı İstilası, Kristal Kolos, Hikâye, Gökyüzü, Sancak, Karanlık Geçit, Gizli Bölge hepsi açıldı, savaş bitti, sonuç/ödül ekranı geldi, sayfa hatası yok. DEVAM/Moda Dön sonrası siyah ekran yok (mod ekranı/menü görünüyor). Yankı İstilası adı doğru. Kolay/Normal/Zor geri eklenmedi.
+- **3 boyut taraması (800×360, 740×360, 667×375):** kırık görsel yok, "GÖRSEL YOK" yok, teknik isim sızıntısı yok.
+
+### Kalan küçük kesilmeler (667×375)
+Büyü açıklaması 3 satırda "…" (tam metin ayrıntıda), Günlük görev başlığı "Savaş meydanın…", Kolos ekranında "Korvayn · SV 1" kısalıyor.
+
+### Yapılamayanlar
+Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, Netlify karşılaştırması, gerçek telefonda performans, sunucu taraflı kupa eşleşmesi.
