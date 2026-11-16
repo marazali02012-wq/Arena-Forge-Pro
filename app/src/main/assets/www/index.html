@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.236" />
-<title>Arena Forge Pro v3.60.236 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.237" />
+<title>Arena Forge Pro v3.60.237 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -9715,7 +9715,7 @@ function af224Art(key){
 @media (prefers-reduced-motion:reduce){#afxRoad .af228-landmark .af228-emblem.is-current{animation:none}}
 </style>
 <script id="AFP_STORY">
-/* ===== v3.60.236 · ANA HİKÂYE: «ALTINCI MÜHÜR» — 5 kitap · 25 bölüm · 250 aşama =====
+/* ===== v3.60.237 · ANA HİKÂYE: «ALTINCI MÜHÜR» — 5 kitap · 25 bölüm · 250 aşama =====
    Savaşın nedeni ve beş büyücünün geçmişi burada anlatılır. Metinler yalnız okunur; savaş kurallarına, ödüllere ve kayıt şemasına dokunmaz.
    Gösterim: bölüm giriş/yol sayfaları savaştan ÖNCE (aşama 1, 4, 7), bölüm sonu savaşından SONRA (aşama 10) bir kez gösterilir. Hikâye Defteri'nden yeniden okunur. */
 (function(){'use strict';
@@ -9775,7 +9775,7 @@ const WAR=[
 window.AFP_STORY_DATA={PROLOG,EPILOG,B,WIZ,WAR};
 })();
 
-/* ===== v3.60.236 · ANA HİKÂYE KONUŞMALARI + BÜYÜK FİNAL =====
+/* ===== v3.60.237 · ANA HİKÂYE KONUŞMALARI + BÜYÜK FİNAL =====
    Konuşmacı kodları: K Korvayn · E Elyvara · V Vaelor · S Saelith · T Theryn · M Mirael · C Sen (Çırak) · «!Ad» düşman/boss. */
 (function(){'use strict';
 const D=window.AFP_STORY_DATA;if(!D)return;
@@ -9877,7 +9877,7 @@ D.FINALE=[
 ];
 })();
 
-/* ===== v3.60.236 · ANA HİKÂYE arayüzü: hikâye penceresi + Hikâye Defteri ===== */
+/* ===== v3.60.237 · ANA HİKÂYE arayüzü: hikâye penceresi + Hikâye Defteri ===== */
 (function(){'use strict';
 const D=window.AFP_STORY_DATA;if(!D)return;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -10028,7 +10028,7 @@ document.addEventListener('click',e=>{const t=e.target&&e.target.closest?e.targe
 
 </script>
 <script id="AFP_GUIDE">
-/* ===== v3.60.236 · YENİ OYUNCU REHBERİ: ilk savaştan sonra sandık → deste → kart geliştirme → Kupa Yolu =====
+/* ===== v3.60.237 · YENİ OYUNCU REHBERİ: ilk savaştan sonra sandık → deste → kart geliştirme → Kupa Yolu =====
    Oyuncunun gerçek ilerlemesini izler (sandık gerçekten açıldı mı, deste gerçekten değişti mi, kart gerçekten güçlendi mi), halka ile dokunulacak düğmeyi
    gösterir, adımları sırayla ilerletir. Atlanabilir/kapatılabilir; Menü → BAŞLANGIÇ REHBERİ ile yeniden başlatılır. Savaş kuralı/ödül tablosu değişmez. */
 (function(){'use strict';
@@ -10059,7 +10059,7 @@ const chestIds=p=>(Array.isArray(p.battleChests)?p.battleChests:[]).filter(Boole
 function ensureChest(p){
   /* Rehber adımı beklemeye takılmasın: hazır sandık yoksa, eldeki sandığı hazır yap; hiç sandık yoksa tek bir başlangıç sandığı ver. */
   const slots=Array.isArray(p.battleChests)?p.battleChests.slice(0,4):[];while(slots.length<4)slots.push(null);
-  const now=Date.now(),ready=c=>c&&+c.readyAt>0&&+c.readyAt<=now;
+  const now=host().now?host().now():Date.now(),ready=c=>c&&+c.readyAt>0&&+c.readyAt<=now;
   if(slots.some(ready))return false;
   const idx=slots.findIndex(Boolean);
   if(idx>=0){slots[idx]=Object.assign({},slots[idx],{startedAt:now-3600000,readyAt:now-60000});p.battleChests=slots;return false;}
@@ -11459,6 +11459,7 @@ function trustedNow(){
   }catch(e){console.warn('Saat koruması kaydedilemedi',e)}
   return effective;
 }
+try{window.__afpTrustedNow=trustedNow;}catch(_){} /* sandık sayaçları tüm modüllerde AYNI güvenilir saati kullanır */
 let af3259ProfileWriteLocked=false; // v3.25.9: set by reset/import right before reload; blocks stale in-memory profile writes
 let battlePaused=false, pauseBeforeHide=false, energyLockTimer=0, audioCtx=null, audioLastHitAt=0, tutorialStep=0, tutorialActive=false;
 var af35ForcedKind=null,af35AfterMatchRef=null;var af35Training=false,af35MatchKind='ranked',af35MatchDiff='normal',af35ForcedDiff=null,af35DiffRestore=null,af35ForcedPrev=null; /* v3.35.0 */ // v2.75: limit rapid hit beeps on crowded mobile battles.
@@ -12664,7 +12665,7 @@ function afpSeasonGrant(reward,season,level,track){
   return 'Ödül teslim edildi';
 }
 function afpSeasonRestore(snapshot){for(const k of Object.keys(profile))delete profile[k];Object.assign(profile,snapshot);}
-/* ===== v3.60.236 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
+/* ===== v3.60.237 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
    Yerel ve sunucusuz çalışır. Hedefler yalnız gerçek savaş sonucundan ilerler (hareketsiz/pes edilen maç ve antrenman sayılmaz);
    haftalık sayaçlar yalnız o haftanın günlerinde artar; her ödül sezon başına bir kez alınır; sezon dönünce sıfırlanır.
    Sezon Etkinlik Puanı (SEP) ALINAN hedeflerden türetilir (saklanmaz, kayma olmaz). Rütbe = SEP'e göre yerel rütbe.
@@ -23400,7 +23401,7 @@ const AFP_CAMPAIGN_BOOKS=[
 ];
 function afpCampaignInfo(level){level=Math.max(1,Math.min(250,Math.floor(+level||1)));const bi=Math.min(4,Math.floor((level-1)/50)),chapter=Math.floor(((level-1)%50)/10),within=(level-1)%10+1;const b=AFP_CAMPAIGN_BOOKS[bi];const objective=level%10===0?'Boss’u yen veya rakip portalını yık':level%3===2?'180 saniye boyunca kaleni koru':'Düşman portallarını yık';return {level,book:bi+1,bookName:b.name,hero:b.hero,chapter:chapter+1,chapterName:b.chapters[chapter],within,objective,boss:level%10===0};}
 window.AFPStoryHost={profile:()=>profile,save:()=>saveProfile(),state:()=>afpCampaignBattleState()};
-window.AFPGuideHost={profile:()=>profile,save:()=>saveProfile(),playing:()=>!!playing,battle:()=>({deployed:Math.max(0,+(matchStats&&matchStats.deployed)||0),spells:Math.max(0,+(matchStats&&matchStats.spells)||0),mode:gameMode,online:!!(window.__AFPOnlineContext&&window.__AFPOnlineContext.active)}),refresh:()=>{try{updateProfileUI();}catch(_){}try{updateChestUI();}catch(_){}}};
+window.AFPGuideHost={profile:()=>profile,save:()=>saveProfile(),now:()=>trustedNow(),playing:()=>!!playing,battle:()=>({deployed:Math.max(0,+(matchStats&&matchStats.deployed)||0),spells:Math.max(0,+(matchStats&&matchStats.spells)||0),mode:gameMode,online:!!(window.__AFPOnlineContext&&window.__AFPOnlineContext.active)}),refresh:()=>{try{updateProfileUI();}catch(_){}try{updateChestUI();}catch(_){}}};
 function afpBossInfo(level){level=Math.max(1,Math.min(82,Math.floor(+level||1)));const boss=level%5===0;return {level,name:boss?'Örümcek Kraliçe':'Örümcek Akını',stage:Math.ceil(level/5),boss};}
 function afpPveCss(){}
 function afpPvePanelHtml(){
@@ -28837,7 +28838,7 @@ window.__AFColossusArtV1=Object.freeze({"art":"data:image/webp;base64,UklGRkJwAA
   return {event:n('event'),packs:n('packs'),shop:n('shop'),heroes:n('heroes'),minions:n('minions'),road:n('road')};
  }
  function setBadge(el,v){if(!el)return;const t=v>0?(v>9?'9+':String(v)):'';if(el.textContent!==t)el.textContent=t;el.hidden=!t;}
- function chestsReady(){const p=P(),now=Date.now();return (Array.isArray(p.battleChests)?p.battleChests:[]).filter(c=>c&&c.startedAt&&now>=c.readyAt).length;}
+ function chestsReady(){const p=P(),now=(typeof window.__afpTrustedNow==='function'?window.__afpTrustedNow():Date.now());return (Array.isArray(p.battleChests)?p.battleChests:[]).filter(c=>c&&c.startedAt&&now>=c.readyAt).length;}
  function challengesReady(){try{const A=window.ArenaForge297,a=P().af297;if(!A||!a||!Array.isArray(A.CHALLENGE_TYPES))return 0;const cl=new Set(a.challengeClaims||[]),pr=a.challengeProgress||{};return A.CHALLENGE_TYPES.filter(c=>(+pr[c[0]]||0)>=c[2]&&!cl.has(c[4]||c[0])).length;}catch(_){return 0;}}
  function renderRail(cur){
   if(!railEl)return;
@@ -28886,7 +28887,7 @@ window.__AFColossusArtV1=Object.freeze({"art":"data:image/webp;base64,UklGRkJwAA
  }
  function chestHtml(compact=false){
   const p=P();const slots=Array.isArray(p.battleChests)?p.battleChests.slice(0,4):[];while(slots.length<4)slots.push(null);
-  const NAME={small:'BASİT',battle:'USTA',epic:'DELÜKS'};const now=Date.now();
+  const NAME={small:'BASİT',battle:'USTA',epic:'DELÜKS'};const now=(typeof window.__afpTrustedNow==='function'?window.__afpTrustedNow():Date.now());
   return slots.map((c,i)=>{
    if(!c||!NAME[c.type])return '<button type="button" class="afx-chest is-empty" data-afx-chest="'+i+'" aria-label="Boş sandık yuvası '+(i+1)+'"><span class="afx-chestSlot"></span><b>'+(compact?'BOŞ':'BOŞ YUVA')+'</b>'+(compact?'':'<small>Zaferle kazan</small>')+'</button>';
    const ready=c.startedAt&&now>=c.readyAt,running=c.startedAt&&!ready;
@@ -39471,9 +39472,9 @@ function dayKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,
 function plan(){
  if(!nat()||!enabled())return 0;
  call('cancelAll');
- const now=Date.now(),p=window.profile||{},list=[];
+ const now=Date.now(),tnow=(typeof window.__afpTrustedNow==='function'?window.__afpTrustedNow():Date.now()),p=window.profile||{},list=[];
  const chests=(Array.isArray(p.battleChests)?p.battleChests:[]).map((c,i)=>['chest'+i,c]);if(p.chest)chests.push(['chestFree',p.chest]);
- let soonest=0;for(const [id,c] of chests){if(c&&+c.readyAt>now&&(+c.startedAt>0||id==='chestFree')){const s=Math.ceil((+c.readyAt-now)/1000);list.push([id,T.chestT,T.chestB,s]);if(!soonest||s<soonest)soonest=s;}}
+ let soonest=0;for(const [id,c] of chests){if(c&&+c.readyAt>tnow&&(+c.startedAt>0||id==='chestFree')){const s=Math.ceil((+c.readyAt-tnow)/1000);list.push([id,T.chestT,T.chestB,s]);if(!soonest||s<soonest)soonest=s;}}
  const d=new Date(),claimed=p.lastDailyReward===dayKey(d);
  if(claimed){const t=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1,10,0,0);list.push(['daily',T.dailyT,T.dailyB,Math.ceil((t-d)/1000)]);}
  else list.push(['daily',T.dailyT,T.dailyB,4*3600]);
@@ -41354,8 +41355,8 @@ window.AFPEchoEvent=Object.freeze({open,info:open,status,battleStart,updateBattl
   if(roadMeter.firstElementChild.style.width!==roadPercent)roadMeter.firstElementChild.style.width=roadPercent;
   if(roadMeter.getAttribute('aria-valuenow')!==String(position))roadMeter.setAttribute('aria-valuenow',position);
   if(window.AFPSeasonPass){const s=window.AFPSeasonPass.state();text('[data-live="pass"]','SEZON '+s.season+' · SV '+s.level);}
-  const chests=(P.battleChests||[]).filter(Boolean),ready=chests.filter(c=>c.startedAt&&Number(c.readyAt)<=Date.now()).length;text('[data-live="packs"]',chests.length+' / 4 YUVA');badge('packs',ready);
-  const topChest=chests.find(c=>c.startedAt&&Number(c.readyAt)<=Date.now())||chests[0];
+  const tNow=(typeof window.__afpTrustedNow==='function'?window.__afpTrustedNow():Date.now()),chests=(P.battleChests||[]).filter(Boolean),ready=chests.filter(c=>c.startedAt&&Number(c.readyAt)<=tNow).length;text('[data-live="packs"]',chests.length+' / 4 YUVA');badge('packs',ready);
+  const topChest=chests.find(c=>c.startedAt&&Number(c.readyAt)<=tNow)||chests[0];
   const chestSrc=window.AFQChestArt(topChest?.type||'battle'),chestImg=$('[data-home-chest]');
   if(chestImg.getAttribute('src')!==chestSrc)chestImg.src=chestSrc;
   const col=window.AFXHub.modes().find(m=>m.id==='colossus');const sub=$('[data-home-action="mode:colossus"] .copy');if(col){let s=sub.querySelector('small');if(!s){s=document.createElement('small');sub.appendChild(s);}if(s.textContent!==col.sub)s.textContent=col.sub;}
