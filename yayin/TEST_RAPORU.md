@@ -188,3 +188,12 @@ Oyunda dışarıdan yüklenen görsel yok (hepsi dosyaya gömülü). Ana üsttek
 - **Düzeltme:** tüm bu katmanlar çıkarıldı; vuruş parçalarına 3-3,6 kHz alçak geçiren filtre eklendi; kullanılmayan "clang" kaydı oyundan çıkarıldı (~16 KB azaldı).
 - **Ölçüm (3 kHz üstü enerji oranı, önce→sonra):** ok vuruşu 0,334→0,016; yakın dövüş 0,142→0,063; ağır vuruş 0,024→0,005; kritik slash 0,477→0,171. Kırpma yok.
 - **Test:** savaşta 15 örnek yüklendi, vuruş/savurma sesleri çalıyor; Arena, Yanki, Kolos, Gizli, kart silme, bekleme odası hatasız.
+
+## FPS / ağırlık incelemesi
+- **Yöntem:** aynı bot savaşı 6 farklı sürümde (eklemelerden önce → şimdiki) çalıştırıldı; CDP profilleyicisiyle oyun JS süresi, GC ve WebGL→2B aktarım süresi sanal saniye başına ölçüldü.
+- **Bulgu 1 (regresyon yok):** oyun JS maliyeti sürümler arasında aynı bandın içinde (≈30–47 ms/sn, ölçüm gürültüsü ±%30; tekrar ölçümde şimdiki sürüm ≈36 ms/sn). Yani son eklenen efekt, ses ve ışınlanma değişiklikleri ölçülebilir bir yavaşlatma yapmıyor.
+- **Bulgu 2 (ses):** 58 sn'lik savaşta 180 ses çağrısı toplam 11,5 ms sürdü (en uzun tek çağrı 1 ms); saniyede ~42 ses düğümü yaratılıyor. Ana iş parçacığını yormuyor.
+- **Bulgu 3 (efektler):** aynı karede 20 farklı yetenek efektinin çizimi <1 ms.
+- **Bulgu 4 (asıl yük):** süre çoğunlukla oyunun kendi WebGL sprite çiziminin 2B tuvale aktarımında (`flush`→`drawImage`, test ortamında yazılımla çizildiği için abartılı) ve birim can çubuğu/yazı çiziminde (`af320DrawHud`, ~15 ms/sn). Bunlar bu çalışmadan önce de vardı. Gerçek telefondaki GPU davranışı burada ölçülemedi.
+- **Yapılanlar:** (1) Can çubuğu gradyanları önbelleğe alındı (görüntü aynı); (2) efekt parlama/diskleri önceden çizilmiş sprite'lardan çiziliyor; (3) **hız koruyucu:** kare süresi uzun süre 38 ms'nin üstünde (≈26 FPS altı) kalırsa yetenek efektleri otomatik sadeleşir (parçacık sayısı yarıya, gölge/parlama blur'ü kapanır, 2. seviyede yalnızca temel efektler çizilir), 28 ms altına dönünce geri gelir. Yavaş test ortamında birkaç saniyede devreye girdi.
+- **Sınır:** Gerçek telefonda FPS ölçülmedi. Hâlâ ağır hissedilirse Ayarlar'dan kaliteyi "Düşük" yapmak oyunun kendi düşük-güç modunu açar (en etkili yol).
