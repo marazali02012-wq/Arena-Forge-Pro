@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.244" />
-<title>Arena Forge Pro v3.60.244 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.245" />
+<title>Arena Forge Pro v3.60.245 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -9545,7 +9545,7 @@ function afpStock(kind,label,value,fallback){
  'use strict';
  if(window.AFPPlayBillingV175)return;
  const RELEASE_ENABLED=false; // Play Console + native Billing + güvenli sunucu + RTDN doğrulanmadan true YAPMA.
- const FN='https://lvjivtnnclaotayncavj.supabase.co/functions/v1/afp-play-billing';
+ const FN='https://arena-forge-online-server.onrender.com/api/v1/store/play'; /* v3.60.245: doğrulama artık Render sunucusunda (Google Play Developer API) */
  const PUBLISHABLE='sb_publishable_0KrAa9rX_l82wV2HsaduDw_C9talJ7o';
  const SESSION='afpSupabaseSessionV1';
  const CATALOG=Object.freeze([
@@ -9602,6 +9602,10 @@ function afpStock(kind,label,value,fallback){
   }catch(_){if(account()?.id===a.id)status('Satın alma doğrulanamadı. Tekrar dene veya geri yükle.');return false;}
   finally{requestBusy=false;paint();}
  }
+ /* v3.60.245: geri yüklemede birden çok satın alım gelir; önceki sürüm yalnızca ilkini doğruluyordu (diğerleri "meşgul" diye düşüyordu). Sırayla işlenir. */
+ const vq=[],vqSeen=new Set();let vqRun=false;
+ function enqueueVerify(id,tok){if(!IDS.has(id)||typeof tok!=='string'||vqSeen.has(tok))return;vqSeen.add(tok);vq.push([id,tok]);drainVerify();}
+ async function drainVerify(){if(vqRun)return;vqRun=true;try{while(vq.length){const x=vq.shift();while(requestBusy)await new Promise(r=>setTimeout(r,150));try{await verify(x[0],x[1]);}finally{vqSeen.delete(x[1]);}}}finally{vqRun=false;}}
  function buy(id){
   if(!IDS.has(id))return status('Ürün tanınmadı.');
   if(!ready())return status('Google Play ödemeleri henüz etkin değil.');
@@ -9628,7 +9632,7 @@ function afpStock(kind,label,value,fallback){
     paint();
    }else if(evt.type==='purchase'&&IDS.has(evt.productId)&&typeof evt.token==='string'){
     // Android olayı HAK VERMEZ; satın alma Google API ile sunucuda doğrulanır.
-    verify(evt.productId,evt.token);
+    enqueueVerify(evt.productId,evt.token);
    }else if(evt.type==='pending')status('Ödeme beklemede; ürün teslim edilmedi.');
    else if(evt.type==='cancelled')status('İşlem iptal edildi.');
    else if(evt.type==='error')status('Google Play hatası.');
