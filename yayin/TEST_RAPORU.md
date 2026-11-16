@@ -396,3 +396,9 @@ Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, 
 - Test: `npm test` 8 birim (eşleşme 4 + kalıcı kayıt 4) + gerçek WebSocket + sahte Supabase uçtan uca (yetki AÇIK: iki oyuncu eşleşir, rakip pes eder, sonuçlar uyuşur → `trophyPending:true`, `trophy_update` +25/125 ve −20/80, tek `afp_trophy_settle` çağrısı, ödül kaydı yazıldı; yetki KAPALI: `trophyPending:false`, settle çağrılmaz). Mutasyon denemesi: `trophyPending` bozulunca test **kaldı**.
 
 **Test edilemeyen:** canlı Supabase/Render (SQL uygulanmadı, bayrak kapalı), iki gerçek cihaz, gerçek ağ gecikmesinde 6,5 sn bekleme penceresi. Savaş hasarının sunucuda hesaplanması yapılmadı. Ayrıntılı madde durumu: `yayin/EKSIK_OZELLIK_DURUMU.md`.
+
+## Kupa otoritesi — canlı şema entegrasyonu (SQL/dokümantasyon, oyun HTML'i değişmedi, sürüm 3.60.241 kaldı)
+- Canlı Supabase salt-okunur incelendi: `afp_players.trophies` istemciden yazılabiliyor, `afp_leaderboard` ondan sıralıyor; yeni kupa nesneleri yok.
+- `sunucu/06_canli_entegrasyon.sql` (afp_social_me kupayı yok sayar, afp_leaderboard defterden sıralar, tetikleyici ile yansıtma, mevcut oyuncuları 300 sınırıyla deftere alma) + `08_geri_alma.sql` yedeği.
+- Yerel PostgreSQL 16, canlı şemayı taklit eden test: **15/15** (07) + 01 testi **28/28** (02). Sahte 999999 kupa 300'e sınırlandı, `afp_social_me(p_trophies=1000000)` kupayı değiştirmedi, yasaklı oyuncu sıralamada yok, settle sonrası `afp_players.trophies` yansıdı.
+- **CANLIYA UYGULANAMADI:** verilen anahtar salt-okunur (`cannot execute CREATE TABLE in a read-only transaction`). Canlı veritabanında hiçbir değişiklik yapılmadı.
