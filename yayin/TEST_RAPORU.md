@@ -268,3 +268,18 @@ Büyü açıklaması 3 satırda "…" (tam metin ayrıntıda), Günlük görev b
 
 ### Yapılamayanlar
 Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, Netlify karşılaştırması, gerçek telefonda performans, sunucu taraflı kupa eşleşmesi.
+
+## Tüm minyonların savaşta tek tek sınanması (3.60.230)
+**Yöntem:** Arena savaşında (başsız Chromium, 854×393) `HERO_INFO` içindeki 152 birim türünün hepsi (aktif 101 koleksiyon minyonu + 51 emekli/eski kayıt) tek tek sınandı: müttefik olarak sahaya çıkarma, ilerleme, hedefe saldırı (hasar ölçümü), canı sıfırlanınca ölüm/kalkış, düşman olarak (`af329Command`) sahaya çıkma, NaN/sayfa hatası denetimi. Gruplu kartlar (Kılıçlı Asker 2, Orman Okçusu 2, İskelet Savaşçı 3) gerçek grup yolundan (`af214SpawnSquad`) sınandı. Şifacı/özel yetenekli birimler ayrıca elle sınandı.
+
+**Sonuç:** 152/152 birim sahaya çıktı, hareket etti ve ölüm yolunda hata vermedi; sayfa hatası ve NaN yok; 152/152 düşman olarak çıktı. İlk turda 27 birim "işaretli" çıktı, hepsi ölçüm sınırı ya da tasarım gereği olduğu için yeniden, adil koşullarla (taze savaş, yakın hedef, 22 sn) sınandı:
+- 24 birim yeniden sınamada hasar verdi (yavaş birimler 9 sn'de hedefe ulaşamıyordu; Ay Okçusu ve Orman Okçusu menzilden vurduğu için ilerlemiyor).
+- **Lav Kıskacı:** "yer altına dalıp rakip portalının önünde çıkar" yeteneği gereği hedefi geçip x≈0,90'a ışınlanıyor (tasarım).
+- **Platinyum Işık İmparatoru, Kemik Şövalye, İskelet Savaşçı:** canı sıfırlanınca tek seferlik diriliş (tasarım); ikinci ölümde kalkıyor.
+- **Gruplu kartlar:** ilk ölçüm tek birimlik yolu kullandığı için 1/2 ve 1/3 gösterdi; gerçek yoldan 2/2, 2/2 ve 3/3 çıkıyor.
+- **Kristal Şifacı:** emekli kayıt (aktif koleksiyonda yok), iyileştirme yeteneği tanımlı değil, dengeli saldırgan; adı yanıltıcı.
+- **Işık Şifacısı:** yaralı dosta can veriyor (doğrulandı).
+- **Özel yetenekler:** Alize Bıçaklı geri itme (düşman her vuruşta ilerisine itiliyor), Kül Mandası yutma (içerideki düşmanın canı sürekli azalıyor), Ayaz Kalkanlısı siperde yerinden oynamıyor ve hasar almıyor, Lav Kıskacı ışınlanma: çalışıyor.
+- **Görseller:** koleksiyon listesinde 100 görsel, hepsi yüklendi (bozuk 0, teknik ad yok); 152 birimin savaş çizimi alındı. 51 eski kayıt türünün 19'unda özel savaş çizimi yok ve genel mavi şövalye çizimiyle sahaya çıkıyor; bu türler `AF3406_RETIRED_CARD_IDS` ile oyuncu destesinden/koleksiyondan çıkarılmış, yalnızca eski kayıt uyumluluğu için duruyor.
+
+**Sınırlar:** her yeteneğin görsel/ses efekti ayrı ayrı gözle incelenmedi (önceki turlarda yapıldı); testler bot/komut tabanlıdır, gerçek dokunmatik oyun değildir.
