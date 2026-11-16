@@ -283,3 +283,7 @@ Gerçek para/Play Faturalandırma, iki cihazlı çevrim içi test, imzalı AAB, 
 - **Görseller:** koleksiyon listesinde 100 görsel, hepsi yüklendi (bozuk 0, teknik ad yok); 152 birimin savaş çizimi alındı. 51 eski kayıt türünün 19'unda özel savaş çizimi yok ve genel mavi şövalye çizimiyle sahaya çıkıyor; bu türler `AF3406_RETIRED_CARD_IDS` ile oyuncu destesinden/koleksiyondan çıkarılmış, yalnızca eski kayıt uyumluluğu için duruyor.
 
 **Sınırlar:** her yeteneğin görsel/ses efekti ayrı ayrı gözle incelenmedi (önceki turlarda yapıldı); testler bot/komut tabanlıdır, gerçek dokunmatik oyun değildir.
+
+## Sürüm 3.60.231 — Kupa Yolu komutan portreleri Kahramanlar ekranıyla aynı boyalı görsel
+**Sorun (kullanıcı ekran görüntüsü):** Kupa Yolu'ndaki Vaelor/Theryn kartı ve "Kilitli ödül" penceresi eski düz vektör çizimi gösteriyordu; Kahramanlar ekranı ise boyalı yeni portreyi (`commander.portrait.<id>`) kullanıyor. 3.60.230'daki "portre yok" onarımı `af332Svg` (eski vektör) fonksiyonunu açmıştı.
+**Kök neden/düzeltme:** `rdArt` artık önce Kahramanlar ekranıyla aynı kaynaktan (`AFArt.get('commander.portrait.'+id)`) boyalı görseli alıyor; yalnız bulunamazsa vektör çizime düşüyor. Kart ve önizleme penceresinde doğrulandı (IMG). Kupa Yolu alma/çift teslim testi, 105 düğüm, Arena ve Kolos savaşı yeniden koşuldu: sorun yok.
