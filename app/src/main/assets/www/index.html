@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.233" />
-<title>Arena Forge Pro v3.60.233 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.234" />
+<title>Arena Forge Pro v3.60.234 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -9715,7 +9715,7 @@ function af224Art(key){
 @media (prefers-reduced-motion:reduce){#afxRoad .af228-landmark .af228-emblem.is-current{animation:none}}
 </style>
 <script id="AFP_STORY">
-/* ===== v3.60.233 · ANA HİKÂYE: «ALTINCI MÜHÜR» — 5 kitap · 25 bölüm · 250 aşama =====
+/* ===== v3.60.234 · ANA HİKÂYE: «ALTINCI MÜHÜR» — 5 kitap · 25 bölüm · 250 aşama =====
    Savaşın nedeni ve beş büyücünün geçmişi burada anlatılır. Metinler yalnız okunur; savaş kurallarına, ödüllere ve kayıt şemasına dokunmaz.
    Gösterim: bölüm giriş/yol sayfaları savaştan ÖNCE (aşama 1, 4, 7), bölüm sonu savaşından SONRA (aşama 10) bir kez gösterilir. Hikâye Defteri'nden yeniden okunur. */
 (function(){'use strict';
@@ -9775,7 +9775,109 @@ const WAR=[
 window.AFP_STORY_DATA={PROLOG,EPILOG,B,WIZ,WAR};
 })();
 
-/* ===== v3.60.233 · ANA HİKÂYE arayüzü: hikâye penceresi + Hikâye Defteri ===== */
+/* ===== v3.60.234 · ANA HİKÂYE KONUŞMALARI + BÜYÜK FİNAL =====
+   Konuşmacı kodları: K Korvayn · E Elyvara · V Vaelor · S Saelith · T Theryn · M Mirael · C Sen (Çırak) · «!Ad» düşman/boss. */
+(function(){'use strict';
+const D=window.AFP_STORY_DATA;if(!D)return;
+D.SP={K:{n:"Korvayn",art:"ruul",c:"#ff9a5a"},E:{n:"Elyvara",art:"noella",c:"#9fd8ff"},V:{n:"Vaelor",art:"valen",c:"#c9d6ff"},S:{n:"Saelith",art:"alayna",c:"#c9a3ff"},T:{n:"Theryn",art:"terrin",c:"#8fe08f"},M:{n:"Mirael",art:"",c:"#ffe58a"},C:{n:"Sen",art:"",c:"#ffffff"}};
+D.DLG=[
+/* ===== KİTAP 1 · KOR VADİSİ ===== */
+{d:[["K","Çırak, küle dikkatli bas. Bu yol benim askerlerimin mezarı."],["C","Şu yüzler… hepsi ölü nöbetçilere benziyor."],["K","Benziyor değil, onlar. Bin yıldır uyumayan nöbetçiler. Neden döndüklerini bilmiyorum."],["K","Ama şunu biliyorum: bu savaşı kazanmak için önce onları dinlemeyi öğreneceksin."]],
+ b:{n:"Kül Nöbetçisi",l:[["!Kül Nöbetçisi","Nöbet… bitmedi. Emir… gelmedi."],["K","Kaptan, ben geldim. Vadiyi bırakabilirsin."],["!Kül Nöbetçisi","Adsız emir olmaz. Ad… ad nerede?"],["C","Hangi addan söz ediyor?"],["K","Bilmiyorum. Ya da bilmek istemiyorum. Savaş, çırak!"]]},
+ e:[["K","Duydun mu? «Hatırla.» Bu kelimeyi bin yıldır kimse bana söylememişti."],["C","Neyi hatırlamamızı istiyor?"],["K","Bir adı. Bir yüzü. Şimdilik yalnızca Kırık Burç'a yürümek istiyorum."],["K","Orada cevaplar var. Ya da en azından kırıntıları."]]},
+{d:[["K","Burası benim eski karargâhım. Duvardaki boş çerçeveye bakma."],["C","Neden bakmayayım? Orada bir portre vardı, değil mi?"],["K","Vardı. Sonra yoktu. Çerçeveyi kimse kaldırmadı; çünkü neyin asılı olduğunu kimse hatırlamıyor."],["K","Masada beş sandalye var. Oysa bu salon hep altı kişilikti."]],
+ b:{n:"Burç Kaptanı",l:[["!Burç Kaptanı","Altı… altı koltuk. Beşi dolu. Altıncısı kimin?"],["K","Kaptan, sen de mi hatırlamıyorsun?"],["!Burç Kaptanı","Hatırlayan susturulur. Susturulan Yankı olur!"],["C","Burç'u tutmalıyız!"]]},
+ e:[["K","Altıncı üye. Mirael. Adı bin yıl dilimin ucundaydı; her seferinde yutkundum."],["C","Neden söylemedin?"],["K","Çünkü söylersem anlatmam gerekecekti: neden unuttuğumuzu."],["K","Kor Geçidi'ne gidiyoruz. Orada yalnızca kılıçla değil, yürekle de savaşacağız."]]},
+{d:[["K","Geçit tek yol. Burayı kaybedersek Yankılar vadiden dünyaya taşar."],["C","Kaç kişiyiz?"],["K","Sen, ben ve yemin eden her asker. Yeterli olmalı."],["K","Ve çırak, vurmadan önce yüzlerine bak. Bazıları bizi kurtarmaya gelmiş olabilir."]],
+ b:{n:"Yankı Komutanı",l:[["!Yankı Komutanı","Geçidi aç. Kapı kapanmadan cümle bitmeli."],["K","Hangi cümle?"],["!Yankı Komutanı","«Kapatmaya geldim…» Gerisini kim bilir?"],["K","Mirael'in sözü bu. Çırak, komutanı yen ama sözüne saygı göster."]]},
+ e:[["!Yankı Komutanı","Kapatmaya gitmişti… yakmaya değil."],["K","Biliyorum. Bunu ilk günden biliyordum."],["C","O hâlde neden…"],["K","Çünkü korkuyla bilmek, bilmemekten kolaydır. Devam edelim. Ateş Muhafızı bekliyor."]]},
+{d:[["K","Önümüzdeki kapının bekçisi eski kaptanım Torhan. Bin yıl önce emrimi sorgulayan tek askerdi."],["C","Ne emriydi o?"],["K","Kardeşim gibi sevdiğim dostumu Kapı'ya mühürleme emri."],["K","Ona bakamayacağım. Ama savaşmak zorundayım."]],
+ b:{n:"Ateş Muhafızı",l:[["!Ateş Muhafızı","Lordum… hâlâ nöbetteyim. Emrinizi bin yıl sakladım."],["K","Torhan… emri geri alıyorum."],["!Ateş Muhafızı","Geri alınmayan emir yanar. Ben, yanan emrinizim!"],["C","Korvayn, seni dinlemiyor!"],["K","Biliyorum. Önce yenelim, sonra konuşuruz."]]},
+ e:[["!Ateş Muhafızı","Mirael oylamada ağladı. Kimse görmedi."],["K","Ben gördüm. Ve ateşimi ona çevirdim."],["C","Korvayn…"],["K","Kızıl Taht'a gidiyoruz. Orada her şeyi anlatacağım. Sözüm olsun."]]},
+{d:[["K","Bu taht benim değil. Bu tahtı Mirael'e verecektik: Ocak'ın ilk bekçisi olarak."],["C","Altıncı mührün sahibi…"],["K","Evet. Altıncı Mühür. Ona hiç verilmedi."],["K","Çekirdeğin bu parçası hâlâ yanıyor. Belki bir işaret."]],
+ b:{n:"Taht Yankısı",l:[["!Taht Yankısı","Korvayn! Yüzüne baktığın dostunun adını söyle!"],["K","…"],["!Taht Yankısı","Söyle! Bin yıldır yüksek sesle söyleyemedin!"],["K","…Mirael. Mirael! Evet, Mirael!"],["C","Yankı sarsılıyor!"]]},
+ e:[["K","Ona ateşimi ben uzattım. Kapı'ya ben ittim. Bunu artık saklamayacağım."],["C","Pişmanlık bir şeyi geri getirmez."],["K","Belki. Ama sana Kor Mührü'nün ilk parçasını verebilirim. Götür."],["K","Adı silen el Elyvara'nın eli. Ona git; benden af dile. Yargılamadan önce dinle."]]},
+/* ===== KİTAP 2 · DONMUŞ TAHT ===== */
+{d:[["E","Çırak. Seni bekliyordum. Üzerinde Korvayn'in küllü yemini var."],["C","Sizi o gönderdi. Af diliyor."],["E","Af dilemek kolay. Unutmayı kabul etmek zor. Yolda konuşuruz."],["E","Bu orman sesleri yutar. Kendi adını sık tekrar et; yoksa yürüyüşün ortasında sen de unutursun."]],
+ b:{n:"Orman Bekçisi",l:[["!Orman Bekçisi","…"],["E","Konuş. Burada kimse seni cezalandırmayacak."],["!Orman Bekçisi","Adım… ad… Mi… ra…"],["E","Çırak, dikkat! Sesini kesmeden, yalnızca durdurarak yenmeliyiz."]]},
+ e:[["E","Duydun mu? Yarım bir ad, ama bin yıl sonra bir ağızdan çıktı."],["C","Sessizlik bozuldu."],["E","Sessizlik bozulunca hatırlamak başlar. Hazır ol: Buz Köprüsü'nde zaman ters akar."],["E","Adımlarını say."]]},
+{d:[["E","Köprü zamanın buzundan yapılmış. Her adım seni bir an geriye götürür."],["C","Ya düşersem?"],["E","Düşenler hatıraya dönüşür. Güzel hatıralara. Ama hatıra olmak yaşamak değildir."],["E","Yanımdan ayrılma. Kum saatinin taneleri bende."]],
+ b:{n:"Köprü Bekçisi",l:[["!Köprü Bekçisi","Geçemezsin. Geçmiş geçilmez."],["E","Ben geçmişi dokurum, bekçi. Geçmeye hakkım var."],["!Köprü Bekçisi","Dokuduğun ipi sen kestin!"],["E","…Evet. Kestim. Şimdi onu bağlamaya geldim."]]},
+ e:[["E","M-İ-R-A-E… Beş harf. Köprü beş düşüşte beş harfi çizdi."],["C","Sonuncusu eksik: L."],["E","Gördün mü? İlk günde tamamladın. Ben bin yılda yapamadım."],["E","Cam Mağara'ya geliyoruz. Orası benim utancım."]]},
+{d:[["E","Silinen her şey bu camın içine düşer. Ben bunları burada sakladım; kimse görmesin diye."],["C","Silmek yerine korumuşsun."],["E","Yarısı doğru. Silerken çatlayanları cama tutturdum. Yani hepsini yarım sildim."],["E","Bu ışığa uzun bakma; hatıralar gözünü yakar."]],
+ b:{n:"Cam Bekçisi",l:[["!Cam Bekçisi","Arşivci! Beni sen yarattın: silinenlerin bekçisi."],["E","Biliyorum. Sana tek görev verdim: kimse bakmasın."],["!Cam Bekçisi","Kimse bakmadı! Bin yıl! Kimse!"],["C","Biz bakacağız. Hepsini okuyacağız."]]},
+ e:[["E","Meclis kararı. İmzalar. Benim imzam da var."],["C","Altıncı satır silinmiş: «Karşı oy: —»"],["E","Mirael oy kullanmadı; oyunu yazamadan susturuldu."],["E","Fırtına Sırtı'nda Vaelor'un izlerini bulacağız. Kapı'yı o mühürledi."]]},
+{d:[["E","Bu sırt donmuş kasırgalardan oluşuyor. Zamanı yavaşlatmazsam tek bir rüzgâr bizi bin yıl geriye atar."],["C","Vaelor neden buradan geçmiş?"],["E","Kapı'ya gitmek için. İzlerini görüyor musun? Yıldırım şeritleri."],["E","Hazırlan. Burada her gölge bir an fazla yaşar."]],
+ b:{n:"Sırt Nöbetçisi",l:[["!Sırt Nöbetçisi","Yolu kapatıyorum! Beni sen silmedin; ama adımı yazdırmadın!"],["E","Seni… hatırlamıyorum."],["!Sırt Nöbetçisi","Bu yüzden buradayım!"],["C","Bu da senin kendi Yankı'n mı?"],["E","Evet. Sildiğim her şeyin gölgesi."]]},
+ e:[["E","Unutulan ölmez, çırak. Yankılanır. Bunu tahtaya bin kez yazsam yine de anlamazdım."],["C","Şimdi anlıyorsun."],["E","Şimdi anlıyorum. Donmuş Salon'a, Meclis'in masasına gidiyoruz."],["E","Ayna Celladı orada. Ona kopyalayamayacağı bir şeyle karşılık vermeliyiz."]]},
+{d:[["E","Altı koltuk. Beşi boş. Bu salonun tek kuralı vardı: kimse masadan kalkmadan karar vermez."],["C","Peki Mirael?"],["E","Mirael kalktı, karar verdi. Biz kalkmadık."],["E","Ben ise oturdum. Yazdım. Ve sildim."]],
+ b:{n:"Ayna Celladı",l:[["!Ayna Celladı","Yansırım. Kopyalarım. Hangi sözü söyleyeceksen, ben söylemişimdir."],["E","Dene, Cellat. Şu sözü kopyala: «Mirael.»"],["!Ayna Celladı","Mirael… Mirael… ya da… hayır…"],["C","Kopyalayamıyor! Çünkü içten söylüyoruz!"]]},
+ e:[["E","Adı ben sildim, geri veremem. Ama sana bir mekik veriyorum."],["C","Zaman Mekiği…"],["E","Ucuna adı dokuduğunda Kapı'yı ancak ad açar. Vaelor bunu bilir."],["E","Ona yargısız git, çırak. O bin yıl tek başına bir kapıyı sırtlamış."]]},
+/* ===== KİTAP 3 · BOŞLUK YARIĞI ===== */
+{d:[["V","Elyvara seni gönderdi mi? Yıldırım izlerimi hâlâ bulabilen biri var demek."],["C","Mirael'i arıyoruz."],["V","O adı burada yüksek sesle söyleme. Kapı duyar."],["V","Neyse. Biraz yürü; ateşin yanında konuşuruz."]],
+ b:{n:"İz Bekçisi",l:[["!İz Bekçisi","Bu yoldan geçen herkes Kapı'ya yürür. Kapıyı kimse açamaz!"],["V","Ben açabilirim. Ama açmıyorum."],["C","Neden?"],["V","Yemin. Hep yemin."]]},
+ e:[["V","Elyvara seni gönderdi… Bin yıldır bu sözü bekledim ama gelmesini istemedim."],["C","Kapı'yı sen mühürledin."],["V","Evet. Ve her gece bir kalp atışı dinledim."],["V","Gel, ateşin başına oturalım. Sana Kapı'nın öbür yüzünü anlatayım."]]},
+{d:[["V","Bu ova Kapı Muhafızlarımın mezarı. Yankı oldular; beni bekliyorlar."],["C","Onlarla savaşacak mıyız?"],["V","Savaşacağız. Ama kılıcı kaldırmadan önce adlarını söyleyeceğim."],["V","Her birinin adını biliyorum. Bu da bir yemin."]],
+ b:{n:"Ova Muhafızı",l:[["!Ova Muhafızı","Komutan… neden geç kaldın?"],["V","Seraphin… seni Kapı'dan çağırmak için geç kaldım."],["!Ova Muhafızı","Yeminini bozdun mu?"],["V","Bozmadım. Yeniledim. Dinle beni."]]},
+ e:[["V","Barıştı. İlk kez bir Yankı bana «teşekkürler» dedi."],["C","Ben de duydum."],["V","Mühürdar'ın görevi kapıyı açmamaktır. Ama kapıyı dinlemek yasak değildir."],["V","Unutulmuş Kapı'ya gidiyoruz."]]},
+{d:[["V","Bin yıl bu kemerin önünde diz çöktüm. Her gün aynı yemini ettim."],["C","Kapı'nın içinde ne var?"],["V","Ocak'ın çatlağı… ve Mirael."],["V","Anahtar silinen addır. Onu ben seçtim."]],
+ b:{n:"Kapı Yankısı",l:[["!Kapı Yankısı","Ad… kim? Ad… söyle!"],["V","Mirael."],["!Kapı Yankısı","Eksik! Tam adı söyle!"],["C","Tam adı bilmiyoruz!"],["V","Biliyorum… Mührü atarken unuttum. Ama yeniden bulacağız."]]},
+ e:[["M","…Çatlak kapanmadı. Tamamlamama izin verin."],["V","Mirael… bin yıl seni duydum."],["M","Biliyorum. Duyduğunu duydum. Bu bana yetti."],["V","Yemin ettim. Şimdi o yemini yenilemek istiyorum."]]},
+{d:[["V","Gece iniyor. Yankılar Kapı'ya yürüyor; hepsi aynı söz üzerinde."],["C","Hangi söz?"],["V","«Tamamlansın.» Bu yüzden Kapı titriyor."],["V","Kimse düşmeyecek. Bu gece, kimse."]],
+ b:{n:"Akın Komutanı",l:[["!Akın Komutanı","Kapıyı yık! Söz tamamlansın!"],["V","Yıkarsan söz tamamlanmaz; parçalanır!"],["!Akın Komutanı","Parçalansın! Ama bitsin!"],["C","Vaelor, çaresizler!"],["V","Biliyorum. Hattı tut, çırak!"]]},
+ e:[["V","Kapı titriyor ama ayakta. Mirael hâlâ orada."],["C","Kapıyı korumak için mi savaştık, açmak için mi?"],["V","İkisi için de. Bunu anlamam bin yıl sürdü."],["V","Hiçlik Mabedi'ne gidiyoruz. Orada kendi sözümle yüzleşeceğim."]]},
+{d:[["V","Bu mabet bir yemin müzesi. Duvarlardaki her taş, kırık bir sözün adıdır."],["C","Ortadaki boşluk…"],["V","Mirael'in yemini. Onu hiçbir zaman ben kazımadım; silinmiş buldum."],["V","Belki de sildirdim. Bilmiyorum."]],
+ b:{n:"Hiçlik Biçicisi",l:[["!Hiçlik Biçicisi","Yeminleri biçerim. En çok seninkini, Mühürdar."],["V","Yeminim sensin. Ve seni yenmek için yeniden yemin edeceğim."],["!Hiçlik Biçicisi","Hangi yemin?"],["V","Kapı'yı mühürlemeyeceğim; koruyacağım. Mirael'i yargılamadan duyacağım."]]},
+ e:[["V","Gök Zırhı'nı al, çırak. Kemerindeki dişli, Kapı'nın anahtarının bir parçası."],["C","Ben hak etmiyorum."],["V","Bin yıl önce hak edenler kapıyı kapadı. Şimdi hak edenler açar."],["V","Saelith'e git. Fırtına Kıyısı'ndaki gölgeler Kapı'nın öteki yüzünü bilir."]]},
+/* ===== KİTAP 4 · FIRTINA KIYISI ===== */
+{d:[["S","Yaklaş. Gölgeni ışığa çevirme; seni tanıyamazlar."],["C","Vaelor beni sana yönlendirdi."],["S","Biliyorum. Kuzgunlarım dün gece haber verdi: «Çırak geliyor; elinde bir zırh, gözünde bir soru.»"],["S","Önce Yankıları dinlemeyi öğreteceğim. Dilleri bizimkinden farklıdır."]],
+ b:{n:"Kıyı Bekçisi",l:[["!Kıyı Bekçisi","Söz… söz… söz…"],["S","Evet, söz. Hangi sözün?"],["!Kıyı Bekçisi","Tamamlanmamış… dalga gibi… geri çekilen… gelen…"],["C","Bir çağrı bu."],["S","Evet. Cevap veremezsek kıyıyı yutacak."]]},
+ e:[["S","Bu kabuğu al. Dalgalar bıraktı. İçinde Mirael'in sesi var."],["C","Bir kanıt mı?"],["S","Hayır. Bir veda. Beşler'den yalnızca ben dinledim; ve yine de sustum."],["S","Gök Gürültüsü'ne gidiyoruz. Orada sesi tamamlamak mümkün."]]},
+{d:[["S","Her şimşekte gölgem başka biri gibi görünüyor. Bu fırtına, bin yıl önce Mirael'in son sözünü taşıdı."],["C","Ne dedi?"],["S","Duymak için gök gürültüsünün aralarını dinlemelisin."],["S","Sessizlik, söylenmemiş şeyin kendisidir."]],
+ b:{n:"Gök Bekçisi",l:[["!Gök Bekçisi","Kimse dinlemedi… Gök gürledi, kimse!"],["S","Ben dinledim. Ama sustum."],["!Gök Bekçisi","Suçlusun!"],["S","Evet. Kabul ediyorum. Şimdi savaş; sonra söz."]]},
+ e:[["S","Meclis'in hükmü yanlış okumaydı. Mirael Çekirdeği çalmıyordu; ona canını veriyordu."],["C","Neden o gün söylemedin?"],["S","Kimse benim sesimi gölge sesinden ayırt etmedi. Ben de alıştım."],["S","Yıldırım Yolu'na. Gölgenle yarışma."]]},
+{d:[["S","Bu yolda herkesin gölgesi öne geçer. Korkma."],["C","Ya benimki beni terk ederse?"],["S","Terk etmez. Yankı bile sahibini terk etmez; yalnızca ona yetişmek ister."],["S","Yanımdan ayrılma."]],
+ b:{n:"Yol Bekçisi",l:[["!Yol Bekçisi","Gölgeni bırak! Yolum açılsın!"],["S","Gölgem bana ait. Bin yıl önce senin de bir gölgen vardı."],["!Yol Bekçisi","Vardı. Adı… Mirael."],["C","O da onun gölgesi mi?"],["S","Hayır. Onun yarım kalmış sözü. Savaş!"]]},
+ e:[["S","Fenere varınca ne görürsen gör, yüzünü çevirme."],["C","Neyi göreceğim?"],["S","Çatlağı. Ocak'ın soğuyan nefesini."],["S","Cesaretin yetecek, çırak. Bu yüzden seni seçtik."]]},
+{d:[["S","Çatlak Fener. Bin yıldır gökyüzünün yarığına bakan tek kule."],["C","Isı gittikçe azalıyor."],["S","Evet. Bu savaşın nedeni bir çatlak, çırak. Çatlak kapanmayınca Ocak soğur."],["S","Çıkalım. Tepeden dünyaya bak."]],
+ b:{n:"Fener Nöbetçisi",l:[["!Fener Nöbetçisi","Işığı söndüreceğim! Soğuk her şeyi susturur!"],["S","Soğuk susturmaz, unutturur. Bunu öğrendim."],["C","Ya fener sönerse?"],["S","Sönmesine izin vermeyeceğiz. Ruhlar, bana yardım edin!"]]},
+ e:[["M","…Yorulmadım. Kızmadım. Yalnızca bitirmek istedim."],["S","Mirael…"],["M","Kuzgun, gölgem, dostum. Bir bin yıl daha tutma beni. Yankılar yorulmadan ben yorulmam."],["S","Duydum. Fırtına Tacı'na gidiyoruz."]]},
+{d:[["S","Tacı yok etmek için değil, anlamak için çıkıyoruz."],["C","Yankı'nın en güçlüsü orada mı?"],["S","Evet. Dört büyücünün gölgesini taşıyor. Bizim yaptıklarımızın toplamı."],["S","Korkma. O bizim aynamız."]],
+ b:{n:"Taç Yankısı",l:[["!Taç Yankısı","Dört gölge, bir taç. Beni siz yaptınız."],["S","Evet. Biz yaptık."],["!Taç Yankısı","O hâlde taşıyın beni!"],["C","Ağırlığını paylaşacağız. Ama yenilmeyeceğiz."]]},
+ e:[["S","Gerçeğin tamamını anlattım: Sönme Gecesi, oylama, mühür, silinen ad."],["C","Beşler'in suçu kötülük değil, korkuydu."],["S","Evet. Şimdi korkuyu aşma zamanı. Theryn, Göksel Eşik'te bekliyor."],["S","Bu kabuğu yanında taşı. Mirael'in sesi yoldaşın olsun."]]},
+/* ===== KİTAP 5 · YÜKSELİŞ ===== */
+{d:[["T","Hoş geldin, çırak. Beşler'in en küçüğüyüm; bunu söylediğimde kimse gülmez."],["C","Yankılar basamakları çıkıyor."],["T","Hepsi Eşik'e gidiyor. Onları durdurmayacağız; yolu hazırlayacağız."],["T","Her yaprağın adını bilirim, ama bir adı hiç öğrenmedim. Bunun utancını her sabah taşıyorum."]],
+ b:{n:"Basamak Bekçisi",l:[["!Basamak Bekçisi","Yukarı çıkamazsınız! Orada tamamlanmamış bir söz var!"],["T","Biliyoruz. Onu tamamlamaya geldik."],["!Basamak Bekçisi","Yalan! Siz unutursunuz!"],["T","Haklısın. Ama bu kez unutmayacağız."]]},
+ e:[["T","Öğretmenimi Kök Mührü'yle beslemişim. Kapı'yı canlı tutarak onu hapsetmişim."],["C","Bilmeden."],["T","Bilmemek masumiyet değil, çırak. Sorumluluğu azaltır ama kaldırmaz."],["T","Yukarıda dört dostumu bulacağız."]]},
+{d:[["K","Theryn! Gençliğin ne zaman bu kadar ağırlaştı?"],["T","Bin yıl, Korvayn. Bin yıl."],["E","Çırak. Vaelor, Saelith… hepimiz buradayız."],["V","Altı koltuk. Birini boş bıraktık. Bu kez sandalyeyi dolduracağız."]],
+ b:{n:"Merdiven Muhafızı",l:[["!Merdiven Muhafızı","Kavga ediyorsunuz! Hep kavga ettiniz!"],["K","Doğru. Ama bu sefer aynı tarafta."],["E","Aynı masada."],["V","Ve aynı yeminde."],["S","Çırak, başla."]]},
+ e:[["K","Bin yıl sonra hâlâ kavga ediyoruz."],["E","Evet. Ama bu kez birbirimize kılıçla değil, hatalarımızla."],["V","Altı koltuğu dolduracağız. Mirael'in koltuğunu."],["T","Yüksek Geçit'e. Hep birlikte."]]},
+{d:[["K","Çırak, sen artık çırak değilsin."],["E","Altıncı mührün taşıyıcısı."],["C","Ben mi? Ben yalnızca…"],["S","…yalnızca bin yıldır kimsenin söyleyemediği adı yüksek sesle söyleyen kişisin."]],
+ b:{n:"Geçit Komutanı",l:[["!Geçit Komutanı","Altı! Altı! Altı!"],["V","Altı mı? Evet! Altı Mühür!"],["!Geçit Komutanı","O hâlde altıncısını getirin!"],["T","Getireceğiz. Ama önce sizi geçeceğiz."]]},
+ e:[["T","Geçit kırıldı. Yankılar bize yol verdi."],["S","Çırak, bu bir geçit değil. Bir kabullenme."],["K","Önümüzde Son Siper var."],["E","Ve ardında Göksel Eşik. Hazır mısın?"]]},
+{d:[["T","Burası son savunma. Karşımızda Meclis'in gölgeleri duruyor."],["K","Kendi gölgemi görüyorum. Yüzü kararmış."],["E","Benimkinin yüzü yok; hiçbir şey yazmıyor."],["V","Benimki yeminlerimi kırıyor. Hazırlanalım."]],
+ b:{n:"Siper Muhafızı",l:[["!Siper Muhafızı","Beşinizin suçunu burada topladım. Kim ilk karşılaşır?"],["K","Ben."],["!Siper Muhafızı","Ateşin neden Mirael'e döndü, Korvayn?"],["K","Çünkü korktum. Ve özür dilerim."]]},
+ e:[["T","Her biri suçunu kabul etti; Yankı zayıfladı."],["S","Yankı suçtan beslenir. Kabulle çözülür."],["C","Eşik açıldı."],["T","Evet. Mirael bizi bekliyor. Gidelim, çırak."]]},
+{d:[["T","Göksel Eşik. Dünyanın en yüksek taşı."],["K","Ve altımızda Ocak'ın kırık kalbi."],["V","Platformda tek bir figür var."],["S","Mirael'in yüzü; bin yılın öfkesi."]],
+ b:{n:"Yankı Hükümdarı",l:[["!Yankı Hükümdarı","Sonunda… Beşler! Ve yeni bir ses."],["C","Mirael! Seni hatırlıyoruz!"],["!Yankı Hükümdarı","Hatırlamak yetmez! Tamamlamak zorundayım!"],["K","Tamamlayacağız. Birlikte."],["!Yankı Hükümdarı","Ya kendime… ya hepinizle!"]]},
+ e:[["M","…Adım. Biri benim adımı söyledi."],["C","Mirael."],["M","Sen söyledin, çırak. Ve diğerleri… hepsi."],["K","Özür dilerim, dostum."]]}
+];
+/* ===== BÜYÜK FİNAL: «ALTI MÜHÜR» — beş kitabı birbirine bağlar ===== */
+D.FINALE=[
+ {k:"BÜYÜK FİNAL · 1 / 10",t:"Beş Parça",x:"Göksel Eşik'te beş parça aynı anda ışıldıyor: Kor Vadisi'nde Korvayn'in verdiği Kor Mührü, Donmuş Taht'ta Elyvara'nın dokuduğu Zaman Mekiği, Boşluk Yarığı'nda Vaelor'un kuşattığı Gök Zırhı, Fırtına Kıyısı'nda Saelith'in sakladığı Ses Kabuğu ve bu son basamakta Theryn'in uzattığı Kök Tohumu.\n\nHiçbiri tek başına bir şey değil. Ama bin yıl önce Beşler'in korkuyla ayırdığı beş parça, sen onları hatırlayarak topladın."},
+ {k:"BÜYÜK FİNAL · 2 / 10",t:"Mirael'in Sesi",l:[["M","Bin yıl… Çatlağı kapatmaya gitmiştim; yarım bıraktınız. Ama şimdi hepiniz buradasınız."],["K","Ateşimi sana çevirdim. Şimdi ateşimi sana veriyorum: Ocak'ı birlikte ısıtalım."],["E","Adını sildim. Şimdi adını zamanın en kalın ipine dokuyorum; kimse çekemeyecek."]]},
+ {k:"BÜYÜK FİNAL · 3 / 10",t:"Beşlerin Sözü",l:[["V","Kapı'yı kilitledim. Şimdi kapıyı açıyorum; anahtarı senin adın."],["S","Dinledim ve sustum. Şimdi senin adına bağıracağım; gölgem bile duysun."],["T","Seni bilmeden besledim. Şimdi bilerek besleyeceğim. Kökler senin bahçen."]]},
+ {k:"BÜYÜK FİNAL · 4 / 10",t:"Beş Kitap, Tek Yemin",x:"Kor Vadisi'nde ateş bir yemin oldu: hatırlamak.\nDonmuş Taht'ta zaman bir borç oldu: onarmak.\nBoşluk Yarığı'nda kapı bir söz oldu: dinlemek.\nFırtına Kıyısı'nda gölge bir ayna oldu: kabul etmek.\nYükseliş'te ad bir köprü oldu: söylemek.\n\nBeş kitap, beş adımdı: hatırla, onar, dinle, kabul et, söyle. Altıncı adım hiçbirinin tek başına atamayacağı adımdı: paylaş."},
+ {k:"BÜYÜK FİNAL · 5 / 10",t:"Altıncı Adım",l:[["C","Yük bir kişiye fazla ağır. Altımız bölüşelim."],["M","Altıncı Mühür benim değil, çırak. Senin de değil. Hepimizin."],["K","Beş el, bin yıl önce ona karşı kalkmıştı."],["V","Bu kez altı el, aynı mührün üstünde."]]},
+ {k:"BÜYÜK FİNAL · 6 / 10",t:"Ocak Yanıyor",x:"Altı el Çekirdeğe dokunuyor. Kor Mührü ısıyı, Zaman Mekiği hatırayı, Gök Zırhı kapıyı, Ses Kabuğu sözü, Kök Tohumu yaşamı getiriyor; altı büyücü, çatlağın başına yükü eşit paylaşarak diz çöküyor.\n\nÇatlak kapanıyor. Ocak ilk kez bin yıldır derin bir nefes alıyor. Yankılar, Mirael'in adı ağızlarında, tek tek ışığa karışıyor; bazıları gülümsüyor, bazıları sessizce sana başını eğiyor."},
+ {k:"BÜYÜK FİNAL · 7 / 10",t:"Vedalar",l:[["K","Kor Vadisi'ni yeniden kuracağım. Bu kez duvarlarında beş değil, altı ad olacak."],["E","Cam Mağara'yı açıyorum. Silinen her şeyi sahiplerine geri vereceğim."],["V","Kapı'da kilit yok artık. Yalnızca bir nöbetçi var: ben."]]},
+ {k:"BÜYÜK FİNAL · 8 / 10",t:"Yeni Yeminler",l:[["S","Kıyı'da bir fener yakacağım. Adı Mirael'in Feneri olacak."],["T","Ve ben, her sabah bir ad daha öğreneceğim. Önce seninkini, çırak."],["M","Ben de size bir söz vereyim: bu kez yarım bırakmayacağım. Hiçbirimiz."]]},
+ {k:"BÜYÜK FİNAL · 9 / 10",t:"Kapanış",x:D.EPILOG.x},
+ {k:"BÜYÜK FİNAL · 10 / 10",t:"Son Söz",x:"Her büyük savaş bir sorudan doğar. Bu savaşın sorusu şuydu: «Bir adı unutmak, onu yok eder mi?»\n\nCevabı beş kitap boyunca yürüyerek buldun: Hayır. Yalnızca kaybolmasını sağlar. Ve kaybolan her ad, birinin onu yeniden söylemesini bekler.\n\nBu yüzden son söz sana ait: yeni bir ad duyduğunda, onu hatırla.\n\n— SON —"}
+];
+})();
+
+/* ===== v3.60.234 · ANA HİKÂYE arayüzü: hikâye penceresi + Hikâye Defteri ===== */
 (function(){'use strict';
 const D=window.AFP_STORY_DATA;if(!D)return;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -9789,11 +9891,27 @@ function beat(level){
   level=Math.max(1,Math.min(250,Math.floor(+level||1)));
   const within=(level-1)%10+1,type=TYPE[within];if(!type)return null;
   const bi=Math.min(4,Math.floor((level-1)/50)),ci=Math.floor(((level-1)%50)/10),b=D.B[bi],ch=b.ch[ci];
-  return {id:type==='o'?'o'+level:'s'+level,level,type,bi,ci,art:b.art,kicker:'KİTAP '+(bi+1)+' · '+b.n+' · BÖLÜM '+(ci+1)+' — '+ch.n.toLocaleUpperCase('tr-TR'),label:LABEL[type],title:ch.n,text:ch[type]};
+  return {id:type==='o'?'o'+level:'s'+level,level,type,bi,ci,art:b.art,kicker:'KİTAP '+(bi+1)+' · '+b.n+' · BÖLÜM '+(ci+1)+' — '+ch.n.toUpperCase(),label:LABEL[type],title:ch.n,text:ch[type]};
 }
 const PRO={id:'prolog',art:'ruul',kicker:'PROLOG',label:'ANA HİKÂYE',title:D.PROLOG.t,text:D.PROLOG.x};
-const EPI={id:'epilog',art:'terrin',kicker:'EPİLOG',label:'ANA HİKÂYE',title:D.EPILOG.t,text:D.EPILOG.x};
-function reached(bt){const p=prog();if(bt.id==='prolog')return true;if(bt.id==='epilog')return p.highest>=250;return bt.type==='o'?p.highest>=bt.level:p.level>=bt.level;}
+const SPK=D.SP||{};
+const ENEMY='#ff8f8f';
+function firstArt(lines,fallback){for(const l of lines){const c=SPK[l[0]];if(c&&c.art)return c.art;}return fallback||'';}
+const DK={d:{off:1,label:'BÖLÜM BAŞLANGICI · KONUŞMA'},b:{off:10,label:'BOSS KARŞILAŞMASI'},e:{off:10,label:'BÖLÜM SONU · KONUŞMA'}};
+function dlg(level,kind){
+  level=Math.max(1,Math.min(250,Math.floor(+level||1)));const bi=Math.min(4,Math.floor((level-1)/50)),ci=Math.floor(((level-1)%50)/10),L0=bi*50+ci*10,x=D.DLG&&D.DLG[bi*5+ci];if(!x||!DK[kind])return null;
+  const b=D.B[bi],ch=b.ch[ci],lines=kind==='b'?x.b.l:x[kind],lv=L0+DK[kind].off;
+  return {id:kind+lv,level:lv,kind,dlg:true,bi,ci,lines,art:firstArt(lines,b.art),bossName:kind==='b'?x.b.n:'',kicker:'KİTAP '+(bi+1)+' · '+b.n+' · BÖLÜM '+(ci+1)+' — '+ch.n.toLocaleUpperCase('tr-TR'),label:DK[kind].label+(kind==='b'?' · '+x.b.n.toLocaleUpperCase('tr-TR'):''),title:kind==='b'?x.b.n:ch.n};
+}
+function finalePages(){return (D.FINALE||[]).map(p=>({id:'finale',final:true,art:p.l?firstArt(p.l,''):'',kicker:p.k,label:'BÜYÜK FİNAL · ALTI MÜHÜR',title:p.t,text:p.x,lines:p.l}));}
+function chunk(n){return n<=4?[n]:n===5?[3,2]:n===6?[3,3]:Array.from({length:Math.ceil(n/3)},(_,i)=>Math.min(3,n-i*3));}
+/* bir sahneyi okunur sayfalara böl: {id,pages:[...]} */
+function bundle(b){
+  if(!b)return null;
+  if(b.dlg){let i=0;const sizes=chunk(b.lines.length);const pages=sizes.map((n,k)=>{const p=Object.assign({},b,{lines:b.lines.slice(i,i+n),part:k+1,parts:sizes.length});i+=n;return p;});return {id:b.id,pages};}
+  return {id:b.id,pages:[b]};
+}
+function reached(bt){const p=prog();if(bt.id==='prolog')return true;if(bt.id==='finale')return p.highest>=250;if(bt.dlg)return bt.kind==='d'?p.level>=bt.level:bt.kind==='b'?p.level>=bt.level:p.highest>=bt.level;return bt.type==='o'?p.highest>=bt.level:p.level>=bt.level;}
 /* ---- stil ---- */
 function css(){if(document.getElementById('afpStoryCss'))return;const s=document.createElement('style');s.id='afpStoryCss';s.textContent=`
 .afp-story{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:8px;background:rgba(3,5,11,.86);font-family:inherit;color:#efe6cf}
@@ -9808,6 +9926,7 @@ function css(){if(document.getElementById('afpStoryCss'))return;const s=document
 .afp-story-t{margin:4px 0 8px;font:700 22px/1.15 Georgia,"Times New Roman",serif;color:#ffe2a8}
 .afp-story-x{flex:1 1 auto;overflow:auto;font-size:15px;line-height:1.55;color:#f1ead8;padding-right:4px}
 .afp-story-x p{margin:0 0 9px}
+.afp-dl{margin:0 0 9px}.afp-dl b{display:block;font-size:11px;letter-spacing:.1em;margin-bottom:1px}.afp-dl span{display:block}
 .afp-story-f{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
 .afp-story-dots{font-size:11px;color:#8c7a55;letter-spacing:.1em}
 .afp-story-btn{appearance:none;border:1px solid #b8893a;background:#2a2118;color:#f3d894;border-radius:10px;padding:9px 16px;font:700 13px/1 inherit;letter-spacing:.06em;cursor:pointer;touch-action:manipulation}
@@ -9838,11 +9957,27 @@ function css(){if(document.getElementById('afpStoryCss'))return;const s=document
 let layer=null;
 function close(){if(layer){layer.remove();layer=null;}}
 function mark(id){const s=st();if(!s.seen[id]){s.seen[id]=1;try{host().save();}catch(_){}}}
-function paras(t){return String(t).split(/\n\n/).map(p=>'<p>'+esc(p)+'</p>').join('');}
-function reader(list,finalLabel,done,opts){
+function paras(t){return String(t).split(/\n\n/).map(p=>'<p>'+esc(p).replace(/\n/g,'<br>')+'</p>').join('');}
+function pageBody(b){
+  if(b.lines)return b.lines.map(l=>{const c=SPK[l[0]],enemy=String(l[0])[0]==='!',n=enemy?String(l[0]).slice(1):(c?c.n:l[0]),col=enemy?ENEMY:(c?c.c:'#fff');return '<p class="afp-dl"><b style="color:'+col+'">'+esc(n.toLocaleUpperCase('tr-TR'))+'</b><span>'+esc(l[1])+'</span></p>';}).join('');
+  return paras(b.text);
+}
+function artPanel(b){
+  let art=b.art,cap='',glyph='✦';
+  if(b.lines&&b.lines.length){const f=String(b.lines[0][0]);
+    if(f[0]==='!'){art='';cap=f.slice(1);glyph='⚔';}
+    else{const c=SPK[f]||{};art=c.art||'';cap=c.n||'';glyph=f==='M'?'✦':'◆';}}
+  else if(art){cap=(Object.values(SPK).find(c=>c.art===art)||{}).n||'';}
+  const u=art?artUrl(art):'';
+  const g=!u?'<em style="position:relative;font-style:normal;font-size:46px;color:'+(glyph==='⚔'?'#e07a7a':'#d9b45a')+';margin:auto">'+glyph+'</em>':'';
+  return '<div class="afp-story-art" style="'+(u?'':'flex-direction:column;align-items:center;justify-content:center;')+'">'+(u?'<img alt="" src="'+esc(u)+'">':'')+g+'<i></i><b>'+esc(cap)+'</b></div>';
+}
+function reader(list,finalLabel,done){
   css();close();let i=0;const el=document.createElement('div');el.className='afp-story';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');layer=el;
-  const render=()=>{const b=list[i];mark(b.id);const last=i===list.length-1,u=artUrl(b.art);
-    el.innerHTML='<div class="afp-story-card"><div class="afp-story-art">'+(u?'<img alt="" src="'+esc(u)+'">':'')+'<i></i><b>'+esc((D.B.find(x=>x.art===b.art)||{}).hero||'')+'</b></div><div class="afp-story-body"><div class="afp-story-k">'+esc(b.kicker)+'</div><div class="afp-story-l">'+esc(b.label)+'</div><h2 class="afp-story-t">'+esc(b.title)+'</h2><div class="afp-story-x">'+paras(b.text)+'</div><div class="afp-story-f"><span class="afp-story-dots">'+(list.length>1?(i+1)+' / '+list.length:'')+'</span><span>'+(list.length>1&&!last?'<button type="button" class="afp-story-btn sec" data-s="skip">ATLA</button> ':'')+'<button type="button" class="afp-story-btn pri" data-s="next">'+esc(last?finalLabel:'DEVAM ›')+'</button></span></div></div></div>';};
+  const render=()=>{const b=list[i];mark(b.id);const last=i===list.length-1;
+    const label=b.label+(b.parts>1?' ('+b.part+'/'+b.parts+')':'');
+    el.innerHTML='<div class="afp-story-card">'+artPanel(b)+'<div class="afp-story-body"><div class="afp-story-k">'+esc(b.kicker)+'</div><div class="afp-story-l">'+esc(label)+'</div><h2 class="afp-story-t">'+esc(b.title)+'</h2><div class="afp-story-x">'+pageBody(b)+'</div><div class="afp-story-f"><span class="afp-story-dots">'+(list.length>1?(i+1)+' / '+list.length:'')+'</span><span>'+(list.length>1&&!last?'<button type="button" class="afp-story-btn sec" data-s="skip">ATLA</button> ':'')+'<button type="button" class="afp-story-btn pri" data-s="next">'+esc(last?finalLabel:'DEVAM ›')+'</button></span></div></div></div>';
+    const x=el.querySelector('.afp-story-x');if(x)x.scrollTop=0;};
   el.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-s]');if(!t){e.stopPropagation();return;}e.stopPropagation();e.preventDefault();
     if(t.dataset.s==='skip'){list.forEach(b=>mark(b.id));i=list.length-1;render();return;}
     if(i<list.length-1){i++;render();return;}
@@ -9850,17 +9985,21 @@ function reader(list,finalLabel,done,opts){
   render();document.body.appendChild(el);const f=el.querySelector('[data-s="next"]');if(f)f.focus({preventScroll:true});
 }
 /* ---- savaştan önce/sonra ---- */
-function unseenList(cands){const s=st();return cands.filter(b=>b&&!s.seen[b.id]);}
+function unseenPages(bundles){const s=st();const out=[];for(const b of bundles){if(b&&!s.seen[b.id])out.push(...b.pages);}return out;}
 function before(level,cont){
   try{const s=st();if(s.off)return false;
-    const list=unseenList([PRO,beat(level)].filter(Boolean).filter(b=>b.id==='prolog'||(TYPE[((b.level-1)%10)+1]!=='o')));
-    if(!list.length)return false;reader(list,'SAVAŞA BAŞLA',cont);return true;}catch(e){console.warn('[AFP hikâye] before',e);return false;}
+    const within=((level-1)%10)+1,c=[PRO?bundle(PRO):null];
+    if(within===1){c.push(bundle(beat(level)));c.push(bundle(dlg(level,'d')));}
+    else if(within===4||within===7)c.push(bundle(beat(level)));
+    else if(within===10)c.push(bundle(dlg(level,'b')));
+    const list=unseenPages(c);if(!list.length)return false;reader(list,'SAVAŞA BAŞLA',cont);return true;}catch(e){console.warn('[AFP hikâye] before',e);return false;}
 }
 function after(stage){
   try{const s=st();if(s.off)return false;
-    const c=[];if(stage%10===0)c.push(beat(stage));if(stage>=250)c.push(EPI);
-    const list=unseenList(c);if(!list.length)return false;
-    setTimeout(()=>{try{reader(list,'DEVAM');}catch(e){}},900);return true;}catch(e){console.warn('[AFP hikâye] after',e);return false;}
+    const c=[];if(stage%10===0){c.push(bundle(beat(stage)));c.push(bundle(dlg(stage,'e')));}
+    if(stage>=250)c.push({id:'finale',pages:finalePages()});
+    const list=unseenPages(c);if(!list.length)return false;
+    setTimeout(()=>{try{reader(list,stage>=250?'KAPAT · SON':'DEVAM');}catch(e){}},900);return true;}catch(e){console.warn('[AFP hikâye] after',e);return false;}
 }
 /* ---- defter ---- */
 function journal(tab){
@@ -9868,19 +10007,22 @@ function journal(tab){
   const readable=bt=>reached(bt),seen=id=>!!st().seen[id];
   const warHtml=()=>D.WAR.map(w=>{const ok=p.level>=w.u;return '<div class="afp-story-card2'+(ok?'':' lock')+'"><h3>'+esc(ok?w.t:'Kilitli kayıt')+'</h3>'+(ok?paras(w.x).replace(/<p>/g,'<p>'):'<small>Bu kayıt Kitap '+(Math.floor((w.u-1)/50)+1)+'\'e ulaşınca açılır.</small>')+'</div>';}).join('');
   const wizHtml=()=>D.WIZ.map(w=>{const ok=p.level>=w.u,u=artUrl(w.id);return '<div class="afp-story-card2 afp-story-wiz'+(ok?'':' lock')+'">'+(u?'<img alt="" src="'+esc(u)+'">':'<span></span>')+'<div><h3>'+esc(w.n)+' · '+esc(ok?w.t:'Kilitli')+'</h3>'+(ok?paras(w.x):'<small>Bu büyücünün geçmişi Kitap '+(Math.floor((w.u-1)/50)+1)+'\'e ulaşınca açılır.</small>')+'</div></div>';}).join('');
-  const chip=(bt,txt)=>{const ok=readable(bt);return '<button type="button" class="afp-story-chip'+(ok&&!seen(bt.id)?' unread':'')+'" data-r="'+bt.id+'"'+(ok?'':' disabled')+'>'+esc(txt)+(ok&&!seen(bt.id)?' •':'')+'</button>';};
+  const chip=(bt,txt)=>{if(!bt)return '';const ok=readable(bt);return '<button type="button" class="afp-story-chip'+(ok&&!seen(bt.id)?' unread':'')+'" data-r="'+bt.id+'"'+(ok?'':' disabled')+'>'+esc(txt)+(ok&&!seen(bt.id)?' •':'')+'</button>';};
   const chapHtml=()=>{let h='<div class="afp-story-card2"><h3>Prolog · '+esc(D.PROLOG.t)+'</h3><div class="afp-story-chs">'+chip(PRO,'Oku')+'</div></div>';
     D.B.forEach((b,bi)=>{const start=bi*50+1;if(p.level<start)return;h+='<div class="afp-story-card2"><h3>KİTAP '+(bi+1)+' · '+esc(b.n)+'</h3><small>'+esc(b.hero)+' · '+esc(b.sub)+'</small>';
-      b.ch.forEach((ch,ci)=>{const L=bi*50+ci*10;h+='<div style="margin-top:6px"><small>Bölüm '+(ci+1)+' — '+esc(ch.n)+'</small><div class="afp-story-chs">'+chip(beat(L+1),'Giriş')+chip(beat(L+4),'Yol 1')+chip(beat(L+7),'Yol 2')+chip(beat(L+10),'Sonuç')+'</div></div>';});h+='</div>';});
-    if(p.highest>=250)h+='<div class="afp-story-card2"><h3>Epilog · '+esc(D.EPILOG.t)+'</h3><div class="afp-story-chs">'+chip(EPI,'Oku')+'</div></div>';return h;};
-  const total=(()=>{const all=[PRO,EPI];for(let l=1;l<=250;l++){const b=beat(l);if(b)all.push(b);}const rd=all.filter(b=>readable(b));return {total:all.length,read:rd.filter(b=>seen(b.id)).length,open:rd.length};})();
+      b.ch.forEach((ch,ci)=>{const L=bi*50+ci*10;h+='<div style="margin-top:6px"><small>Bölüm '+(ci+1)+' — '+esc(ch.n)+'</small><div class="afp-story-chs">'+chip(beat(L+1),'Giriş')+chip(dlg(L+1,'d'),'Konuşma')+chip(beat(L+4),'Yol 1')+chip(beat(L+7),'Yol 2')+chip(dlg(L+10,'b'),'Boss')+chip(beat(L+10),'Sonuç')+chip(dlg(L+10,'e'),'Son konuşma')+'</div></div>';});h+='</div>';});
+    if(p.highest>=250)h+='<div class="afp-story-card2"><h3>Büyük Final · '+esc(D.EPILOG.t)+'</h3><div class="afp-story-chs">'+chip({id:'finale',final:true},'Finali oku')+'</div></div>';return h;};
+  const total=(()=>{const all=[PRO,{id:'finale',final:true}];for(let l=1;l<=250;l++){const b=beat(l);if(b)all.push(b);if((l-1)%10===0)all.push(dlg(l,'d'));if(l%10===0){all.push(dlg(l,'b'));all.push(dlg(l,'e'));}}const rd=all.filter(b=>b&&readable(b));return {total:all.length,read:rd.filter(b=>seen(b.id)).length,open:rd.length};})();
   const draw=()=>{const s=st();el.innerHTML='<div class="afp-story-sheet"><div class="afp-story-hd"><h2>📖 HİKÂYE DEFTERİ · ALTINCI MÜHÜR</h2><small style="color:#a99868">'+total.read+' / '+total.open+' açık sayfa okundu</small><button type="button" class="afp-story-btn sec" data-j="toggle">Hikâye pencereleri: '+(s.off?'KAPALI':'AÇIK')+'</button><button type="button" class="afp-story-btn" data-j="close">KAPAT</button></div><div class="afp-story-tabs">'+[['war','SAVAŞIN NEDENİ'],['wiz','BÜYÜCÜLERİN GEÇMİŞİ'],['ch','BÖLÜMLER']].map(([k,l])=>'<button type="button" class="afp-story-tab'+(tab===k?' on':'')+'" data-j="tab:'+k+'">'+l+'</button>').join('')+'</div><div class="afp-story-sc">'+(tab==='war'?warHtml():tab==='wiz'?wizHtml():chapHtml())+'</div></div>';};
   el.addEventListener('click',e=>{e.stopPropagation();const t=e.target.closest&&e.target.closest('[data-j],[data-r]');if(!t){if(e.target===el)close();return;}e.preventDefault();
-    if(t.dataset.r){const id=t.dataset.r;let bt=id==='prolog'?PRO:id==='epilog'?EPI:null;if(!bt){const lv=+id.replace(/^[so]/,'');bt=beat(lv);}if(bt)reader([bt],'KAPAT',()=>journal(tab));return;}
+    if(t.dataset.r){const id=t.dataset.r;let pages=null;
+      if(id==='prolog')pages=[PRO];else if(id==='finale')pages=finalePages();
+      else{const m=/^([sodbe])(\d+)$/.exec(id);if(m){const lv=+m[2];pages=(m[1]==='s'||m[1]==='o')?[beat(lv)]:bundle(dlg(lv,m[1])).pages;}}
+      if(pages&&pages.length)reader(pages.filter(Boolean),'KAPAT',()=>journal(tab));return;}
     const j=t.dataset.j;if(j==='close')close();else if(j==='toggle'){const s=st();s.off=!s.off;try{host().save();}catch(_){}draw();}else if(j.startsWith('tab:')){tab=j.slice(4);draw();}});
   draw();document.body.appendChild(el);
 }
-window.AFPStory={before,after,open:journal,beat,state:()=>{const s=st();return {seen:Object.keys(s.seen).length,off:s.off};},_close:close};
+window.AFPStory={before,after,open:journal,beat,dlg,finale:finalePages,state:()=>{const s=st();return {seen:Object.keys(s.seen).length,off:s.off};},_close:close};
 document.addEventListener('click',e=>{const t=e.target&&e.target.closest?e.target.closest('[data-afp-story]'):null;if(!t)return;e.preventDefault();e.stopPropagation();journal();},true);
 })();
 
@@ -12327,7 +12469,7 @@ function afpSeasonGrant(reward,season,level,track){
   return 'Ödül teslim edildi';
 }
 function afpSeasonRestore(snapshot){for(const k of Object.keys(profile))delete profile[k];Object.assign(profile,snapshot);}
-/* ===== v3.60.233 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
+/* ===== v3.60.234 · SEZON ETKİNLİĞİ: 28 günlük takvime bağlı haftalık gerçek hedefler + sezon rütbe ödülleri =====
    Yerel ve sunucusuz çalışır. Hedefler yalnız gerçek savaş sonucundan ilerler (hareketsiz/pes edilen maç ve antrenman sayılmaz);
    haftalık sayaçlar yalnız o haftanın günlerinde artar; her ödül sezon başına bir kez alınır; sezon dönünce sıfırlanır.
    Sezon Etkinlik Puanı (SEP) ALINAN hedeflerden türetilir (saklanmaz, kayma olmaz). Rütbe = SEP'e göre yerel rütbe.
