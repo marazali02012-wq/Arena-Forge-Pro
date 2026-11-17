@@ -4,7 +4,7 @@ name: Android derleme
 on:
   workflow_dispatch:
   push:
-    branches: [ 'claude/**' ]
+    branches: [ 'claude/**', 'fix/**' ]
     paths: [ 'app/**', 'gradle/**', '*.gradle', '.github/workflows/android-build.yml' ]
 
 jobs:
