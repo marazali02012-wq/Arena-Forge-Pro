@@ -15,6 +15,14 @@ android {
         versionName '3.60.253'
     }
 
+    // Ayrı test APK'sı: Play sürümünü kaldırmadan aynı telefona kurulabilir.
+    buildTypes {
+        debug {
+            applicationIdSuffix '.screenfix'
+            versionNameSuffix '-screenfix-test'
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
