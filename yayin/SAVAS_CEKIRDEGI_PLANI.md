@@ -47,3 +47,7 @@ Savaş motoru, **kare süresi sabitlenirse** ve oyun tohumu (`window.__afSeed` �
 - Denetim 1: kart, oyuncunun bildirdiği desteden olmalı. Denetim 2: **enerji bütçesi** — oynanan kartların toplam maliyeti, sunucu saatine göre kazanılabilecek en çok enerjiyi aşamaz (oyundaki tek enerji kaynakları: başlangıç 2, her 2,4 sn +1, 120. sn'den sonra ×2, en çok 10 "kilit" bonusu).
 - İhlalde hamle **engellenmez** (yanlış alarm oyunu bozmasın); maç `suspect:*` işaretlenir: ödül/kupa yok, hesap sayacı artar (24 saatte 3 ihlalde hesap ödülsüz).
 - **Yakalar:** ücretsiz/sonsuz enerji, saniyede onlarca kart, desteden olmayan kart. **Yakalamaz:** hasar/menzil/yetenek değiştirme, ~%25'e kadar fazla enerji kazanımı, sahte "kazandım" (iki cihaz anlaşırsa).
+
+
+## Durum güncellemesi (sunucu 3.60.107)
+Seçenek D'nin **istemci kaydı (3.60.246)** ve **sunucu tarafı** uygulandı: kayıt API'si + tutarlılık denetimi + örnekleme + işçi + SQL (sunucu deposu, dal `claude/replay-audit`). Varsayılan KAPALI; önerilen yol: önce `shadow` (ceza yok) ile yanlış-pozitif oranını ölç, düşükse `enforce`. Açık: cihazlar arası kayan nokta farkı, diğer modlar, uzun maçlar.

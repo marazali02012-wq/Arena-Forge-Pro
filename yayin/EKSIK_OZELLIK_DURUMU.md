@@ -22,3 +22,9 @@ Dış kaynaklı 25+5 maddelik listeyi hem oyun deposunda hem `arena-forge-online
 | 24 | Sezon sonu işlemleri | İstemci tarafı sezon etkinliği var; **sunucu tarafı sezon sonu dağıtımı yok.** |
 | 25 | Ekonomi güvenliği | Yerel mühür (`arenaForgeProSealV1`) var; sunucu otoriteli ekonomi **yok** (kredi/sandık cihazda). |
 | Play | Gizlilik/hesap silme sayfaları | `yayin/web/*.html` içinde `[DESTEK E-POSTASI]` vb. yer tutucular var — **Sahibi** doldurmalı; yayımlama ve geliştirici kimlik doğrulaması da sahibi. |
+
+
+## Savaş çekirdeği / tekrar oynatma denetimi — güncel durum
+- Yapıldı: istemci kaydı (AFPReplay, 3.60.246) · sunucu API/tutarlılık/örnekleme/işçi/SQL (sunucu 3.60.107, dal `claude/replay-audit`, testli, varsayılan kapalı).
+- Sahip adımı: `11_tekrar_oynatma.sql`'i Supabase'e uygula · PR'ı birleştir · Render'da `AFP_REPLAY_MODE=shadow` · ayrı bir işçi süreci (Playwright+Chromium, `AFP_GAME_HTML`).
+- Yapılmadı/doğrulanmadı: gerçek cihazda (Android WebView) kayıt→sunucuda oynatma uyuşması; diğer modlar; enforce'un canlı denemesi.
