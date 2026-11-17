@@ -43,6 +43,12 @@ jobs:
           else
             echo "Yükleme anahtarı tanımlı değil; yalnızca imzasız AAB üretildi."
           fi
+      - name: APK araçları (yalnız bu ekran düzeltme test dalı)
+        run: |
+          mkdir -p afp-apk-tools
+          cp "$ANDROID_HOME/build-tools/36.0.0/zipalign" afp-apk-tools/zipalign
+          cp "$ANDROID_HOME/build-tools/36.0.0/apksigner" afp-apk-tools/apksigner
+          cp "$ANDROID_HOME/build-tools/36.0.0/lib/apksigner.jar" afp-apk-tools/apksigner.jar
       - uses: actions/upload-artifact@v4
         with:
           name: ArenaForgePro-android
@@ -52,4 +58,5 @@ jobs:
             app-release-signed.aab
             bundletool-validate.txt
             apksigner-verify.txt
+            afp-apk-tools/
           if-no-files-found: warn
