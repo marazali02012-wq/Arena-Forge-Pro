@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.247" />
-<title>Arena Forge Pro v3.60.247 — Lonca Boss Ödülleri</title>
+<meta name="afp-build" content="v3.60.248" />
+<title>Arena Forge Pro v3.60.248 — Çizimsiz Savaş Çekirdeği Denemesi</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -20147,6 +20147,7 @@ var AFPReplay=(function(){
   if(!exp||exp.v!==V)throw new Error('kayıt sürümü desteklenmiyor');
   const dts=dec(exp.dt);if(dts.length!==exp.n)throw new Error('kare süresi sayısı uyuşmuyor');
   window.__afSeed=exp.seed>>>0;
+  let drawOrig=null;
   rpPending=true;                                   /* kurulum sırasında kayıt açılmaz; durum kurulumdan SONRA başlar */
   const raf0=window.requestAnimationFrame;
   try{
@@ -20154,6 +20155,7 @@ var AFPReplay=(function(){
    if(exp.vp&&(Math.round(+W||0)!==exp.vp.W||Math.round(+H||0)!==exp.vp.H)){rpPending=false;return {ok:false,error:'viewport_mismatch',have:{W:Math.round(+W||0),H:Math.round(+H||0)},want:exp.vp};}
    rp={dt:dts,i:0,fin:null,ck:new Map((exp.ck||[]).map(x=>[x[0],x])),mism:[]};rpPending=false;
    window.requestAnimationFrame=function(){return 0;};   /* kareleri biz süreriz */
+   if(opts.headless){drawOrig=draw;draw=function(){try{units.sort((a,b)=>a.x-b.x);}catch(_){}};}   /* v3.60.248: çizimsiz çekirdek denemesi — çizim atlanır; yalnız simülasyonun okuduğu sıralama korunur */
    try{if(af316Raf)cancelAnimationFrame(af316Raf);}catch(_){}
    const cmds=(exp.cmds||[]).slice().sort((x,y)=>x[0]-y[0]);let ci=0,ts=1000,guard=0,stop=null;const errs=[];
    while(true){
@@ -20168,7 +20170,7 @@ var AFPReplay=(function(){
    }
    const fin=rp.fin||{f:rp.i,hash:digest(),s:summary(),v:'?',why:'oynatma bitti, maç bitmedi'};
    return {ok:true,frames:rp.i,fin,stop,errs,ckMismatch:rp.mism,matchedFinal:!!exp.fin&&fin.hash===exp.fin.hash,expectedFin:exp.fin||null};
-  }finally{window.requestAnimationFrame=raf0;rp=null;rpPending=false;}
+  }finally{window.requestAnimationFrame=raf0;if(drawOrig)draw=drawOrig;rp=null;rpPending=false;}
  }
  /* --- yükleme (istemci → sunucu): yalnızca çevrim içi ev sahibi maçı; sessiz, başarısızlık oyunu etkilemez --- */
  async function upload(){

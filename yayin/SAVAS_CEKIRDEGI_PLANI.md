@@ -51,3 +51,5 @@ Savaş motoru, **kare süresi sabitlenirse** ve oyun tohumu (`window.__afSeed` �
 
 ## Durum güncellemesi (sunucu 3.60.107)
 Seçenek D'nin **istemci kaydı (3.60.246)** ve **sunucu tarafı** uygulandı: kayıt API'si + tutarlılık denetimi + örnekleme + işçi + SQL (sunucu deposu, dal `claude/replay-audit`). Varsayılan KAPALI; önerilen yol: önce `shadow` (ceza yok) ile yanlış-pozitif oranını ölç, düşükse `enforce`. Açık: cihazlar arası kayan nokta farkı, diğer modlar, uzun maçlar.
+
+**3.60.248:** Yol haritası §3 adım 1'in ilk dilimi: çizimsiz simülasyon ölçüldü — 3 gerçek kayıtta çizimli ile birebir aynı sonuç, ~%30 hızlı. Sonraki: HUD/DOM ayrımı → sabit adım → `simStep` → Node. Ayrıntı: TEST_RAPORU.md 3.60.248.
