@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.245" />
-<title>Arena Forge Pro v3.60.245 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.246" />
+<title>Arena Forge Pro v3.60.246 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -17110,6 +17110,7 @@ function afRenderVictoryPick(){
 }
 
 function endGame(v,customText='',options={}){
+  try{AFPReplay.onEnd(v,customText);}catch(_){} /* v3.60.246: maç sonu durum özeti (tekrar oynatma denetimi) */
   if(!playing)return; // v3.60.216 motor repair: terminal path idempotent.
   const onlineCtx=window.__AFPOnlineContext;
   if(onlineCtx&&onlineCtx.active&&onlineCtx.role==='guest'&&!window.__AFPUseModeNetworkV1&&!options.__onlineAuthoritative){
@@ -17887,7 +17888,7 @@ function tick(ts){
   af222Meas=true;af222T0=performance.now();
   // Use one bounded simulation delta for movement, energy, cooldowns and match time.
   // This prevents the match clock racing ahead while movement/energy are capped separately on slow frames.
-  const rawDt=Math.max(0,(ts-last)/1000||1/60);last=ts;lastPresentedFrame=ts;const dt=Math.min(.1,rawDt)*Math.max(1,Math.min(2,gameSpeed));elapsed+=dt;afp177Step(dt);afp179Step(dt);afp196Step(dt);enemyClock+=dt;goldClock+=dt;enemyGoldClock+=dt;hudClock+=dt;skillClock=Math.max(0,skillClock-dt);secondarySkillClock=Math.max(0,secondarySkillClock-dt);heroLaneSwitchClock=Math.max(0,heroLaneSwitchClock-dt);
+  const rawDt=Math.max(0,(ts-last)/1000||1/60);last=ts;lastPresentedFrame=ts;const dt=AFPReplay.tickDt(Math.min(.1,rawDt))*Math.max(1,Math.min(2,gameSpeed));elapsed+=dt;afp177Step(dt);afp179Step(dt);afp196Step(dt);enemyClock+=dt;goldClock+=dt;enemyGoldClock+=dt;hudClock+=dt;skillClock=Math.max(0,skillClock-dt);secondarySkillClock=Math.max(0,secondarySkillClock-dt);heroLaneSwitchClock=Math.max(0,heroLaneSwitchClock-dt);
   if(noticeClock>0){noticeClock-=dt;if(noticeClock<=0){$('notice').style.opacity='0';if(noticePillRestoreText!==null){const pill=$('battleProEvent'),strip=$('battleProStrip');if(pill)pill.textContent=noticePillRestoreText;if(strip)strip.classList.remove('notice-active');noticePillRestoreText=null;}}}
   eventClock+=dt;eventFlash=Math.max(0,eventFlash-dt);if(eventClock>=22){eventClock=0;if(gameMode!=='duel'&&gameMode!=='echo')triggerArenaEvent();} // v3.29: oyuncu lehine arena olayları düelloda yok
   if(Math.floor(elapsed)!==Math.floor(elapsed-dt))updateBattleRosterLive();
@@ -20037,7 +20038,8 @@ function af330ApplyAllyPlay(cmd,v){
  return {ok:true,code:'ok',unit:u?af330Uid(u):0,type,cost:c};
 }
 /* ---- tek komut kapısı ---- */
-function af330Command(cmd){
+function af330Command(cmd){const r=af330CommandRaw(cmd);try{AFPReplay.cmd('L',cmd,r);}catch(_){}return r;} /* v3.60.246: kabul edilen yerel hamleler tekrar oynatma kaydına yazılır */
+function af330CommandRaw(cmd){
  const rej=(code,msg)=>{const r={ok:false,code,msg:msg||code,commandId:cmd&&cmd.commandId};if(af330Match&&af330Match.log.length<300)af330Match.log.push({t:+elapsed.toFixed(2),cmd:cmd&&cmd.type,side:cmd&&cmd.side,ok:false,code});return r;};
  if(!cmd||typeof cmd!=='object')return rej('bad_command');
  if(!af330Match||!playing)return rej('not_running','Savaş sürmüyor.');
@@ -20077,6 +20079,113 @@ function af330State_(viewer){
 }
 function af330MarkEnd(v,text){if(!af330Match||af330Match.phase==='ended')return;af330Match.phase='ended';af330Match.result=v===null?'draw':v?'win':'loss';af330Match.reason=text||(v===true?'enemy_portals_destroyed':v===false?'own_portals_or_castle_destroyed':'draw');matchStats.endReason=af330Match.reason;}
 /* LocalMatchAdapter: yerel maç için bağlantı katmanı (çevrimdışı). Hem oyuncu arayüzü hem yapay zekâ oyuncu bunu kullanır. */
+/* ===== v3.60.246 · TEKRAR OYNATMA KAYDI + DENETİM SÜRÜCÜSÜ (AFPReplay) =====
+   Amaç: çevrim içi maçı (koltuk 1 = ev sahibi) sunucuda AYNI motorla yeniden oynatıp sonucu denetlemek.
+   Kaydedilen (hepsi küçük): tohum, mod, rakip komutan, başlangıç profili, her karenin süresi (µs), uygulanan hamleler (kare no + komut),
+   5 sn'lik kontrol noktaları ve maç sonu durum özeti. Maç davranışı DEĞİŞMEZ: kayıt yalnızca çevrim içi ev sahibi maçında açılır;
+   o durumda kare süresi 1 µs'ye yuvarlanır (≤ 0,000001 sn fark). Kayıt başarısızlığı oyunu etkilemez (hepsi try/catch içinde). */
+var AFPReplay=(function(){
+ 'use strict';
+ const MAX_FRAMES=60000,CK_EVERY=300,V=1;
+ let rec=null,rp=null,last=null,rpPending=false;
+ const build=()=>{try{const m=document.querySelector('meta[name="afp-build"]');return m?m.content:'';}catch(_){return '';}};
+ /* durum özeti: kare-kare tekrarlanabilir; FNV-1a (iki tohum) */
+ function digest(){
+  let a=0x811c9dc5,b=0x9747b28c;
+  const mix=s=>{for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,16777619)>>>0;b=Math.imul(b^c,0x01000193)>>>0;b=(b^(b>>>13))>>>0;}};
+  const r=(v,k)=>Math.round((+v||0)*k);
+  mix([r(elapsed,1000),gold,energyCap,enemyEnergy,enemyEnergyCap,r(enemySharedHP,100),r(allySharedHP,100),r(baseHP,100),units.length].join('|'));
+  for(const u of units)mix('#'+(u.team==='ally'?'a':'e')+String(u.heroType||u.enemyType||u.type||'')+'|'+u.lane+'|'+r(u.x,100000)+'|'+r(u.hp,100)+'|'+r(u.maxHp,100));
+  return ((a>>>0).toString(16).padStart(8,'0')+(b>>>0).toString(16).padStart(8,'0'));
+ }
+ const summary=()=>({el:Math.round((+elapsed||0)*1000),eHP:Math.round(+enemySharedHP||0),aHP:Math.round(+allySharedHP||0),base:Math.round(+baseHP||0),n:units.length});
+ /* kare süreleri: µs tamsayı, değişken uzunluklu bayt → base64 */
+ function enc(arr){const out=[];for(const v of arr){let x=v>>>0;while(x>=128){out.push((x&127)|128);x>>>=7;}out.push(x);}let s='';for(let i=0;i<out.length;i+=8192)s+=String.fromCharCode.apply(null,out.slice(i,i+8192));return btoa(s);}
+ function dec(b64){const s=atob(b64),out=[];let x=0,sh=0;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);x|=(c&127)<<sh;if(c&128){sh+=7;}else{out.push(x>>>0);x=0;sh=0;}}return out;}
+ function clean(c){try{const o=JSON.parse(JSON.stringify(c));delete o.commandId;return o;}catch(_){return null;}}
+ /* --- kayıt --- */
+ function begin(info){
+  try{
+   if(rp||rpPending)return;                       /* tekrar oynatırken kayıt açılmaz */
+   rec={v:V,build:build(),mode:String(info.modeId),seed:Number(info.seed)>>>0,seat:Number(info.seat)||1,matchId:String(info.matchId||''),
+    opp:clean(info.opponentCommander),profile:String(localStorage.getItem('arenaForgeProProfileV19')||''),dt:[],cmds:[],ck:[],bad:null,t0:Date.now(),
+    /* savaş mantığının bir kısmı piksel uzayında (mermi uçuşu, kule hedefleri): sonuç ekran boyutuna bağlı → aynı boyutta oynatılmalı */
+    vp:{W:Math.round(+W||0),H:Math.round(+H||0),dpr:+DPR||1,iw:window.innerWidth,ih:window.innerHeight}};
+  }catch(e){rec=null;}
+ }
+ function tickDt(raw){                           /* tick() içinde: kullanılacak kare süresi (sn) */
+  if(rp){const us=rp.dt[rp.i];rp.i++;
+   if(rp.i%CK_EVERY===0){try{const h=digest(),e=rp.ck.get(rp.i);if(e&&e[1]!==h&&rp.mism.length<8)rp.mism.push({f:rp.i,expected:e[1],got:h,el:Math.round(elapsed*1000)});}catch(_){}}   /* kayıtla AYNI an: kare başlangıcı, süre eklenmeden önce */
+   return Number.isFinite(us)?us/1e6:0;}
+  if(!rec)return raw;
+  const us=Math.round(raw*1e6);
+  if(rec.dt.length>=MAX_FRAMES){rec.bad=rec.bad||'too_long';return raw;}
+  if(gameSpeed!==1)rec.bad=rec.bad||'gamespeed';
+  rec.dt.push(us);
+  if(rec.dt.length%CK_EVERY===0){try{rec.ck.push([rec.dt.length,digest(),Math.round(elapsed*1000)]);}catch(_){}}
+  return us/1e6;
+ }
+ function cmd(kind,c,res){                       /* gelen hamleler (kapı sonrası) */
+  /* REDDEDİLEN komutlar da kaydedilir: uzak komut reddedilse bile rakip enerjisini üzerine yazar (yan etki); tekrar oynatmada aynen yinelenir */
+  if(!rec||rp)return;try{const o=clean(c);if(o&&rec.cmds.length<4000)rec.cmds.push([rec.dt.length,kind,o]);}catch(_){}
+ }
+ function onEnd(v,text){
+  try{
+   const fin={f:rp?rp.i:(rec?rec.dt.length:0),hash:digest(),s:summary(),v:v===null||v===undefined?'draw':v?'win':'loss',why:String(text||'').slice(0,60)};
+   if(rp){if(!rp.fin)rp.fin=fin;return;}
+   if(!rec)return;
+   if(rec.vp&&(rec.vp.W!==Math.round(+W||0)||rec.vp.H!==Math.round(+H||0)))rec.bad=rec.bad||'resized';   /* maç sırasında ekran boyutu değiştiyse tekrar oynatılamaz */
+   rec.fin=fin;last=rec;rec=null;
+   try{window.dispatchEvent(new CustomEvent('afp:replay-ready',{detail:{matchId:last.matchId}}));}catch(_){}
+  }catch(_){rec=null;}
+ }
+ function exportRec(r){r=r||last;if(!r)return null;return {v:r.v,build:r.build,mode:r.mode,seed:r.seed,seat:r.seat,matchId:r.matchId,opp:r.opp,profile:r.profile,n:r.dt.length,dt:enc(r.dt),cmds:r.cmds,ck:r.ck,fin:r.fin,bad:r.bad,vp:r.vp};}
+ /* --- tekrar oynatma (sunucu işçisi): AYNI motor, aynı kare süreleri, aynı hamleler --- */
+ async function run(exp,opts){
+  opts=opts||{};
+  const E=window.AFPOnlineBattleInternal;if(!E||typeof E.startOnlineBattle!=='function')throw new Error('çevrim içi savaş motoru yok');
+  if(!exp||exp.v!==V)throw new Error('kayıt sürümü desteklenmiyor');
+  const dts=dec(exp.dt);if(dts.length!==exp.n)throw new Error('kare süresi sayısı uyuşmuyor');
+  window.__afSeed=exp.seed>>>0;
+  rpPending=true;                                   /* kurulum sırasında kayıt açılmaz; durum kurulumdan SONRA başlar */
+  const raf0=window.requestAnimationFrame;
+  try{
+   E.startOnlineBattle(exp.mode,exp.seed,exp.opp,exp.matchId,1);
+   if(exp.vp&&(Math.round(+W||0)!==exp.vp.W||Math.round(+H||0)!==exp.vp.H)){rpPending=false;return {ok:false,error:'viewport_mismatch',have:{W:Math.round(+W||0),H:Math.round(+H||0)},want:exp.vp};}
+   rp={dt:dts,i:0,fin:null,ck:new Map((exp.ck||[]).map(x=>[x[0],x])),mism:[]};rpPending=false;
+   window.requestAnimationFrame=function(){return 0;};   /* kareleri biz süreriz */
+   try{if(af316Raf)cancelAnimationFrame(af316Raf);}catch(_){}
+   const cmds=(exp.cmds||[]).slice().sort((x,y)=>x[0]-y[0]);let ci=0,ts=1000,guard=0,stop=null;const errs=[];
+   while(true){
+    const f=rp.i;
+    while(ci<cmds.length&&cmds[ci][0]<=f){const [,k,c]=cmds[ci++];try{if(k==='L')af330Command(JSON.parse(JSON.stringify(c)));else if(k==='R')E.applyRemoteCommand(JSON.parse(JSON.stringify(c)));}catch(e){if(errs.length<5)errs.push({f,err:String(e&&e.message||e).slice(0,80)});}}
+    if(rp.fin||!playing){stop={f,fin:!!rp.fin,playing:!!playing};break;}
+    if(f>=dts.length){stop={f,end:'kayıt bitti'};break;}
+    ts+=40;tick(ts);                                      /* ts yalnızca "kare atlama" eşiğini geçmek içindir; süre kayıttan gelir */
+    if(rp.i===f){if(++guard>3000){stop={f,stuck:true,paused:!!battlePaused};break;}}else guard=0;
+    if(rp.i%150===0&&rp.i!==f)await new Promise(r=>setTimeout(r,0));
+    if(opts.progress&&rp.i%600===0&&rp.i!==f)opts.progress(rp.i,dts.length);
+   }
+   const fin=rp.fin||{f:rp.i,hash:digest(),s:summary(),v:'?',why:'oynatma bitti, maç bitmedi'};
+   return {ok:true,frames:rp.i,fin,stop,errs,ckMismatch:rp.mism,matchedFinal:!!exp.fin&&fin.hash===exp.fin.hash,expectedFin:exp.fin||null};
+  }finally{window.requestAnimationFrame=raf0;rp=null;rpPending=false;}
+ }
+ /* --- yükleme (istemci → sunucu): yalnızca çevrim içi ev sahibi maçı; sessiz, başarısızlık oyunu etkilemez --- */
+ async function upload(){
+  try{
+   const r=last;if(!r||r.seat!==1||!r.matchId||r.bad)return false;
+   const s=JSON.parse(localStorage.getItem('afpSupabaseSessionV1')||'null');if(!s||!s.access_token)return false;
+   const ws=String(window.AFP_MODE_NET_WS_URL||'');const base=ws?ws.replace(/^wss:/,'https:').replace(/^ws:/,'http:').replace(/\/ws\/?$/,''):'https://arena-forge-online-server.onrender.com';
+   const body=JSON.stringify(exportRec(r));if(body.length>900000)return false;
+   const res=await fetch(base+'/api/v1/replay',{method:'POST',headers:{'Authorization':'Bearer '+s.access_token,'Content-Type':'application/json'},body});
+   return res.ok;
+  }catch(_){return false;}
+ }
+ return {begin,tickDt,cmd,onEnd,digest,summary,export:exportRec,run,upload,active:()=>!!rec,replaying:()=>!!rp,last:()=>last};
+})();
+window.AFPReplay=Object.freeze({run:AFPReplay.run,export:AFPReplay.export,upload:AFPReplay.upload,digest:AFPReplay.digest,last:AFPReplay.last,active:AFPReplay.active});
+window.addEventListener('afp:replay-ready',()=>{try{const oc=window.__AFPOnlineContext;if(oc&&oc.seed!==undefined)setTimeout(()=>AFPReplay.upload(),1500);}catch(_){}});
+
 var AFP_LocalMatchAdapter={kind:'local',send(cmd){return af330Command(cmd);},state(viewer){return af330State_(viewer);},matchId(){return af330Match?af330Match.id:null;}};
 window.AFP={rulesVersion:AFP_RULES_VERSION,contentVersion:AFP_CONTENT_VERSION,protocolVersion:AFP_PROTOCOL_VERSION,adapter:AFP_LocalMatchAdapter,state:v=>af330State_(v),command:c=>af330Command(c)};
 
@@ -23162,7 +23271,8 @@ window.AFPOnlineBattleInternal={
       return true;
     }catch(e){console.warn('[AFP online] remote commander setup failed',e);return false;}
   },
-  applyRemoteCommand:function(cmd){
+  applyRemoteCommand:function(cmd){const r=this.applyRemoteCommandRaw(cmd);try{AFPReplay.cmd('R',cmd,r);}catch(_){}return r;},
+  applyRemoteCommandRaw:function(cmd){
     if(!cmd||!cmd.type||!cmd.payload||!playing||(gameMode!=='duel'&&gameMode!=='flag'))return {ok:false,reason:'Oyun/komut hazır değil.'};
     const payload=cmd.payload;
     if(cmd.type==='playCard'){
@@ -23218,6 +23328,7 @@ window.AFPOnlineBattleInternal={
     if(!this.applyRemoteCommander(oc,{strict:true}))fail('Rakibin komutanı oyuna eklenemedi. İki yetenek seçimi gerekli.');
     gameSpeed=1;try{const sb=$('af274Speed');if(sb)sb.textContent='HIZ x1';}catch(_){}
     window.__AFPMatchOpponent='online';try{if(af330Match)af330Match.opponentType='online';}catch(_){}
+    if(onlineSeat===1){try{AFPReplay.begin({modeId,seed:ctx.seed,opponentCommander:oc,matchId,seat:onlineSeat});}catch(_){}}
     ctx.active=true;ctx.starting=false;ctx.battleReady=true;return {playing:true,mode:expectedMode,modeId,seed:ctx.seed,unranked:true};
   },
   createOnlineSnapshot:function(){
