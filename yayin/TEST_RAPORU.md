@@ -476,3 +476,12 @@ GitHub Actions "Android derleme" **başarılı** (run 43979181512, commit c37dd5
 - **Gerçek oyunla doğrulama:** gerçek oyunda botla 8 maç oynatıldı, oynanan her kart (oyun zamanı, tür, maliyet) kaydedilip hakeme verildi: **23 kart oynayışı, işaretlenen maç 0/8, oyundaki maliyet = tablo (uyuşmazlık 0), ardışık oynayışlar arasındaki gerçek enerji kazancı modele uyuyor (15 aralık, ihlal 0), en yüksek harcama/sınır oranı %48.**
 - **Doğrulanamayan:** gerçek maçlar kısa sürdü (≤35 sn, en çok 3 kart); 120. sn sonrası ×2 enerji dönemi ve uzatma **gerçek oyunla** denenmedi (yalnızca koddan okunan kuralla ve simülasyonla); iki gerçek oyuncuyla çevrim içi maç yok. Hakem hasar/menzil/yetenek hilelerini ve ~%25'e kadar fazla enerji kazanımını yakalamaz.
 - **Yayın:** sunucu dalı birleştirilmedi.
+
+## Savaş çekirdeği — motor belirlenimciliği ÖLÇÜLDÜ (3.60.245, kod değişikliği yok)
+Gerçek oyun motoru başsız Chromium'da, **duraklatılmış sanal saat + sabit kare süresi + sabit oyun tohumu (`__afSeed`) + oyun süresine bağlı betikli girdi** ile çalıştırıldı; her karede durum özeti (birim konum/can, enerji, kule canı) alınıp iki çalıştırma karşılaştırıldı. Araçlar: `yayin/araclar/belirlenimcilik/`.
+- **Aynı koşul (iki kez):** 41,7 sn'lik gerçek savaşta **2501 kare birebir aynı** (son kule canı 62/132 ikisinde de).
+- **Görsel rastgelelikten bağımsızlık:** `Math.random` tohumu farklı (111 / 999), oyun tohumu aynı → **1667 kare birebir aynı** (son kule canı 224/280). Savaş sonucu görsel (parçacık/animasyon) rastgeleliğine bağlı değil.
+- **Depodaki araç doğrulaması** (`hazirla_test_kopyasi.js` ile üretilen kopya): 1667 ortak kare birebir aynı.
+- **Duyarlılık sınaması (test başarısız olabiliyor):** farklı oyun tohumu → fark 617. ms'de yakalandı; farklı girdi (kart bırakma var/yok) → fark 617. ms'de yakalandı (enerji ve birim sayısı).
+- **Anlamı:** sunucuda savaşı yeniden yazmak gerekmiyor; gerçek motor sunucuda aynen yeniden oynatılabilir (plan: `yayin/SAVAS_CEKIRDEGI_PLANI.md` Seçenek D: istemci dt günlüğü + hamle günlüğü + son durum özeti → sunucu işçisi → birebir karşılaştırma).
+- **Sınırlar (dürüst):** tek mod (Arena, bota karşı, yaklaşık 40 sn) ve tek girdi betiği denendi; uzun maç, uzatma, diğer modlar, 152 minyonun tüm yetenekleri, çevrim içi koltuk-2 akışı ve **gerçek hamle günlüğü kaydı henüz yok**. Sabit kare süresi yalnızca test kopyasındadır (üretimde `dt` gerçek rAF farkıdır); denetim için istemciye kayıt kancaları eklemek sonraki iştir.
