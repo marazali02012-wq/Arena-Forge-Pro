@@ -614,8 +614,8 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <!-- v3.34.51 HEROIC CHARACTER BALANCE: tank/medium/fast roles share one base stat profile across player and AI. No save-schema or battle-engine rewrite. -->
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
-<meta name="afp-build" content="v3.60.246" />
-<title>Arena Forge Pro v3.60.246 — Resimli Kupa Yolu · Denge ve Düzeltmeler</title>
+<meta name="afp-build" content="v3.60.247" />
+<title>Arena Forge Pro v3.60.247 — Lonca Boss Ödülleri</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -24427,6 +24427,19 @@ window.__AFP171Bridge={
  isPlaying:()=>!!playing, // v3.60.216 motor repair: queue adapters inspect true battle state.
  getBattleActive:()=>!!playing, // Yankı menu must never cover an active battle.
  getProfile:()=>({...profile}),
+ /* v3.60.247: lonca boss ödülü (sunucu talebi onayladıktan sonra). Atomik: kayıt başarısızsa hiçbir şey değişmez. */
+ grantGuildBossReward:({gold,gems,chest})=>{
+  const g=Math.max(0,Math.min(100000,Math.floor(+gold||0))),m=Math.max(0,Math.min(1000,Math.floor(+gems||0)));
+  const before={credits:profile.credits,relicDust:profile.relicDust,chests:Array.isArray(profile.battleChests)?profile.battleChests.slice():profile.battleChests};
+  profile.credits=Math.min(999999,Math.max(0,+profile.credits||0)+g);let dust=m,placed=false;
+  if(chest){const type=chest==='boss_chest_gold'?'epic':'battle',slots=afBattleChestSlots(),empty=slots.findIndex(c=>!c);
+   if(empty>=0){slots[empty]={id:'afgb-'+Date.now()+'-'+empty,type,earnedAt:trustedNow(),startedAt:0,readyAt:0};profile.battleChests=slots;placed=true;}else dust+=type==='epic'?25:10;}
+  profile.relicDust=Math.max(0,+profile.relicDust||0)+dust;
+  let ok=false;try{ok=!!saveProfile();}catch(_){}
+  if(!ok){profile.credits=before.credits;profile.relicDust=before.relicDust;profile.battleChests=before.chests;return {ok:false,reason:'save-failed'};}
+  try{updateChestUI();}catch(_){}
+  return {ok:true,gold:g,dust,chestPlaced:placed};
+ },
  getTrophyRanks:()=>TROPHY_RANKS,
  getTrophyHeroInfo:type=>HERO_INFO[type],
  isActiveMinion:type=>PREP_HERO_TYPES.includes(type),
@@ -35300,7 +35313,7 @@ html.af324-on #af324Shell #battlePrepOverlay.battlePrepOverlay.hmdDeckOverlay.af
  'use strict';
  if(window.AFPCommunityEventCenterV36026)return;
  const SB='https://lvjivtnnclaotayncavj.supabase.co',SBKEY='sb_publishable_0KrAa9rX_l82wV2HsaduDw_C9talJ7o',SESSION_KEY='afpSupabaseSessionV1',BASE='https://arena-forge-online-server.onrender.com';
- let session=null,root=null,activeTab='guild',community=null,season=null,loading=false,lhsState=null,lhsPollTimer=null,lhsPolling=false,chatRows=[],chatLast=0,chatTimer=null,chatOk=true;
+ let session=null,root=null,activeTab='guild',community=null,season=null,loading=false,lhsState=null,lhsPollTimer=null,lhsPolling=false,chatRows=[],chatLast=0,chatTimer=null,chatOk=true,bossRewards=null;
  const $=(sel,host=document)=>host.querySelector(sel);
  const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const readSession=()=>{try{session=JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch(_){session=null}return session;};
@@ -35351,7 +35364,15 @@ html.af324-on #af324Shell #battlePrepOverlay.battlePrepOverlay.hmdDeckOverlay.af
   chatTimer=setInterval(()=>{if(!root||root.hidden||activeTab!=='guild'||document.hidden)return;loadChat(false);},4000);
  }
  function stopChatPolling(){if(chatTimer){clearInterval(chatTimer);chatTimer=null;}}
- function raidMarkup(){
+ function raidMarkup(){return raidMarkupBase()+bossRewardsMarkup();}
+ function bossRewardsMarkup(){
+  if(!community||!community.guild||!bossRewards)return '';
+  const list=(bossRewards.rewards||[]).filter(x=>!x.claimed&&!x.expired);
+  const done=(bossRewards.rewards||[]).filter(x=>x.claimed).length;
+  if(!list.length)return '<section class="afpce-card"><h3>BOSS ÖDÜLLERİ</h3><p>'+(bossRewards.rewardsEnabled?'Alınacak ödül yok. Lonca bir boss aşamasını yendiğinde, katkına göre ödül burada belirir.'+(done?' Daha önce alınan: '+esc(done)+'.':''):'Lonca boss ödülleri henüz açık değil.')+'</p></section>';
+  return '<section class="afpce-card"><h3>BOSS ÖDÜLLERİ</h3>'+list.map(x=>'<div class="afpce-row" style="margin:6px 0"><div style="flex:1"><b>'+esc(x.boss)+'</b><p>Katkı sırası #'+esc(x.rank)+' · pay %'+esc(x.sharePct)+' · '+Number(x.damage).toLocaleString('tr-TR')+' hasar<br>'+esc(x.gold)+' altın · '+esc(x.gems)+' yadigâr tozu'+(x.chest?' · '+(x.chest==='boss_chest_gold'?'destansı':'savaş')+' sandığı':'')+'</p></div><button class="afpce-action" data-act="boss-claim" data-id="'+esc(x.id)+'">TALEP ET</button></div>').join('')+'<div class="afpce-status" aria-live="polite"></div></section>';
+ }
+ function raidMarkupBase(){
   const r=community&&community.raid,cfg=community&&community.bossConfig;
   if(!community||!community.guild)return '<div class="afpce-banner">Lonca Dev Avı için önce bir loncaya katıl.</div>';
   if(!r||!cfg)return '<div class="afpce-status">Lonca Dev Avı verisi alınamadı.</div>';
@@ -35391,11 +35412,11 @@ html.af324-on #af324Shell #battlePrepOverlay.battlePrepOverlay.hmdDeckOverlay.af
    body.innerHTML=content;
   }
  }
- async function refresh(){if(loading)return;loading=true;render();try{season=await api('/api/v1/events/season');try{community=await api('/api/v1/guild/me');}catch(e){community=null;throw e;}if(activeTab==='lhs')await refreshLhs();loading=false;render();if(activeTab==='guild'&&community&&community.guild){chatLast=0;loadChat(true);startChatPolling();}else stopChatPolling(); /* v3.60.128: son çizim "yükleniyor" durumunda yapıldığı için "Hesap kontrol ediliyor…" yazısı kalıcı oluyordu */}catch(e){loading=false;community=null;render();throw e;}finally{loading=false;}}
+ async function refresh(){if(loading)return;loading=true;render();try{season=await api('/api/v1/events/season');try{community=await api('/api/v1/guild/me');}catch(e){community=null;throw e;}try{bossRewards=await api('/api/v1/guild/boss/rewards');retryPendingBossRewards();}catch(_){bossRewards=null;}if(activeTab==='lhs')await refreshLhs();loading=false;render();if(activeTab==='guild'&&community&&community.guild){chatLast=0;loadChat(true);startChatPolling();}else stopChatPolling(); /* v3.60.128: son çizim "yükleniyor" durumunda yapıldığı için "Hesap kontrol ediliyor…" yazısı kalıcı oluyordu */}catch(e){loading=false;community=null;render();throw e;}finally{loading=false;}}
  async function refreshLhs(){if(lhsPolling)return;lhsPolling=true;try{const r=await api('/api/v1/lhs/state');lhsState=r.state||{status:'not_joined'};}finally{lhsPolling=false;}}
  function startLhsPolling(){if(lhsPollTimer)clearInterval(lhsPollTimer);lhsPollTimer=setInterval(async()=>{if(!root||root.hidden||activeTab!=='lhs')return;try{await refreshLhs();render();}catch(e){status(e.message);}},3500);}
  async function onSubmit(e){const form=e.target.closest('form[data-form]');if(!form)return;e.preventDefault();const f=new FormData(form);if(form.dataset.form==='chat'){const text=String(f.get('body')||'').trim();if(!text)return;const input=form.elements.body,btn=form.querySelector('button');if(btn)btn.disabled=true;try{await api('/api/v1/guild/chat/send','POST',{body:text});if(input)input.value='';await loadChat(false);}catch(err){status(err.message);}finally{if(btn)btn.disabled=false;}return;}status('İstek sunucuya gönderiliyor…');try{let r;if(form.dataset.form==='create')r=await api('/api/v1/guild/create','POST',{name:f.get('name'),tag:f.get('tag')});else r=await api('/api/v1/guild/join','POST',{inviteCode:f.get('code')});community=await api('/api/v1/guild/me');render();status(r.message||'İşlem tamamlandı.');}catch(err){status(err.message);}}
- async function onClick(e){if(e.target.closest('.afpce-close')){close();return;}const tab=e.target.closest('[data-tab]');if(tab){activeTab=tab.dataset.tab;render();if(activeTab==='guild'||activeTab==='raid'||activeTab==='lhs')refresh().catch(err=>status(err.message));if(activeTab==='lhs')startLhsPolling();return;}const b=e.target.closest('[data-act]');if(!b)return;const act=b.dataset.act;try{if(act==='copy'){const ok=await copyText(b.dataset.copy);status(ok?'Davet kodu kopyalandı.':'Kopyalanamadı. Kodu elle seç: '+b.dataset.copy);return;}if(act==='lhs-join'){const r=await api('/api/v1/lhs/join','POST',{});lhsState=r.state;render();startLhsPolling();status('Turnuva kuyruğuna katıldın. Sekiz gerçek oyuncu bekleniyor.');return;}if(act==='lhs-leave'){await api('/api/v1/lhs/leave','POST',{});await refreshLhs();render();status('Bekleme kuyruğundan çıktın. Aktif turnuva maçı bu işlemle iptal edilmez.');return;}if(act==='lhs-play'){const id=String(b.dataset.match||'');if(!/^[0-9a-f-]{36}$/i.test(id))throw new Error('Turnuva maç kimliği geçersiz.');if(!window.AFPModeQueueV2||typeof window.AFPModeQueueV2.startModeQueue!=='function')throw new Error('Çevrim içi savaş kuyruğu yüklenmedi.');close();window.AFPModeQueueV2.startModeQueue('lhs','duel',{tournamentMatchId:id});return;}if(act==='colossus-start'){if(!window.AFPModeQueueV2||typeof window.AFPModeQueueV2.startModeQueue!=='function')throw new Error('Çevrim içi savaş kuyruğu yüklenmedi.');close();window.AFPModeQueueV2.startModeQueue('colossus','duel');return;}if(act==='g-promote'||act==='g-demote'||act==='g-kick'||act==='g-transfer'){const uid=String(b.dataset.uid||'');if(!/^[0-9a-f-]{36}$/i.test(uid))throw new Error('Üye kimliği geçersiz.');const nm=b.dataset.name||'bu üye';if(act==='g-kick'&&!confirm(nm+' loncadan çıkarılsın mı?'))return;if(act==='g-transfer'&&!confirm('Liderliği '+nm+' üyesine devretmek istiyor musun? Sen yardımcı lider olacaksın.'))return;const r=await api('/api/v1/guild/'+act.slice(2),'POST',{targetId:uid});community=await api('/api/v1/guild/me');render();paintChat();status(r.message||'İşlem tamamlandı.');return;}if(act==='leave'){if(!confirm('Lonca üyeliğinden ayrılmak istiyor musun?'))return;await api('/api/v1/guild/leave','POST',{});community=await api('/api/v1/guild/me');render();status('Lonca üyeliği sonlandırıldı.');return;}if(act==='raid-start'){
+ async function onClick(e){if(e.target.closest('.afpce-close')){close();return;}const tab=e.target.closest('[data-tab]');if(tab){activeTab=tab.dataset.tab;render();if(activeTab==='guild'||activeTab==='raid'||activeTab==='lhs')refresh().catch(err=>status(err.message));if(activeTab==='lhs')startLhsPolling();return;}const b=e.target.closest('[data-act]');if(!b)return;const act=b.dataset.act;try{if(act==='boss-claim'){await claimBossReward(b.dataset.id,b);return;}if(act==='copy'){const ok=await copyText(b.dataset.copy);status(ok?'Davet kodu kopyalandı.':'Kopyalanamadı. Kodu elle seç: '+b.dataset.copy);return;}if(act==='lhs-join'){const r=await api('/api/v1/lhs/join','POST',{});lhsState=r.state;render();startLhsPolling();status('Turnuva kuyruğuna katıldın. Sekiz gerçek oyuncu bekleniyor.');return;}if(act==='lhs-leave'){await api('/api/v1/lhs/leave','POST',{});await refreshLhs();render();status('Bekleme kuyruğundan çıktın. Aktif turnuva maçı bu işlemle iptal edilmez.');return;}if(act==='lhs-play'){const id=String(b.dataset.match||'');if(!/^[0-9a-f-]{36}$/i.test(id))throw new Error('Turnuva maç kimliği geçersiz.');if(!window.AFPModeQueueV2||typeof window.AFPModeQueueV2.startModeQueue!=='function')throw new Error('Çevrim içi savaş kuyruğu yüklenmedi.');close();window.AFPModeQueueV2.startModeQueue('lhs','duel',{tournamentMatchId:id});return;}if(act==='colossus-start'){if(!window.AFPModeQueueV2||typeof window.AFPModeQueueV2.startModeQueue!=='function')throw new Error('Çevrim içi savaş kuyruğu yüklenmedi.');close();window.AFPModeQueueV2.startModeQueue('colossus','duel');return;}if(act==='g-promote'||act==='g-demote'||act==='g-kick'||act==='g-transfer'){const uid=String(b.dataset.uid||'');if(!/^[0-9a-f-]{36}$/i.test(uid))throw new Error('Üye kimliği geçersiz.');const nm=b.dataset.name||'bu üye';if(act==='g-kick'&&!confirm(nm+' loncadan çıkarılsın mı?'))return;if(act==='g-transfer'&&!confirm('Liderliği '+nm+' üyesine devretmek istiyor musun? Sen yardımcı lider olacaksın.'))return;const r=await api('/api/v1/guild/'+act.slice(2),'POST',{targetId:uid});community=await api('/api/v1/guild/me');render();paintChat();status(r.message||'İşlem tamamlandı.');return;}if(act==='leave'){if(!confirm('Lonca üyeliğinden ayrılmak istiyor musun?'))return;await api('/api/v1/guild/leave','POST',{});community=await api('/api/v1/guild/me');render();status('Lonca üyeliği sonlandırıldı.');return;}if(act==='raid-start'){
   if(!community||!community.guild)throw new Error('Önce loncaya katıl.');
   if(!window.__AFP171Bridge||typeof window.__AFP171Bridge.startGame!=='function')throw new Error('Örümcek Akını savaş köprüsü bulunamadı.');
   const requestId=window.__AFPRaidStartRequestId||(window.__AFPRaidStartRequestId=newUuid());
@@ -35420,6 +35441,31 @@ html.af324-on #af324Shell #battlePrepOverlay.battlePrepOverlay.hmdDeckOverlay.af
   const b=new Uint8Array(16);crypto.getRandomValues(b);b[6]=(b[6]&0x0f)|0x40;b[8]=(b[8]&0x3f)|0x80;
   const h=Array.from(b,x=>x.toString(16).padStart(2,'0')).join('');
   return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20);
+ }
+ /* v3.60.247: lonca boss ödülü. Sunucu talebi atomik ve tek seferlik onaylar; yerel yazım kayıt hatasına karşı bekleyen listeyle yeniden denenir, kimlik listesiyle ikilenmez. */
+ function bossStore(k){try{return JSON.parse(localStorage.getItem(k)||'[]')||[];}catch(_){return [];}}
+ function bossSave(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(_){return false;}}
+ function applyBossReward(r){
+  const ids=bossStore('afpGuildBossAppliedV1');if(ids.includes(r.id))return true;
+  const bridge=window.__AFP171Bridge;if(!bridge||typeof bridge.grantGuildBossReward!=='function')return false;
+  let res;try{res=bridge.grantGuildBossReward(r);}catch(_){res=null;}
+  if(!res||!res.ok)return false;
+  ids.push(r.id);bossSave('afpGuildBossAppliedV1',ids.slice(-80));return true;
+ }
+ function retryPendingBossRewards(){const left=[];for(const r of bossStore('afpGuildBossPendingV1')){if(!applyBossReward(r))left.push(r);}bossSave('afpGuildBossPendingV1',left);}
+ async function claimBossReward(id,btn){
+  if(btn)btn.disabled=true;
+  try{
+   const r=await api('/api/v1/guild/boss/claim','POST',{rewardId:id});
+   if(r.duplicate){status('Bu ödül zaten alınmış.');}
+   else{
+    const rec={id,gold:r.gold,gems:r.gems,chest:r.chest};
+    if(applyBossReward(rec))status('Ödül alındı: '+r.gold+' altın, '+r.gems+' yadigâr tozu'+(r.chest?' ve sandık':'')+'.');
+    else{const q=bossStore('afpGuildBossPendingV1');q.push(rec);bossSave('afpGuildBossPendingV1',q);status('Ödül onaylandı ama kayıt yazılamadı; bir sonraki açılışta yeniden denenecek.');}
+   }
+   try{bossRewards=await api('/api/v1/guild/boss/rewards');}catch(_){}
+   render();
+  }catch(e){status(String(e&&e.message||e));if(btn)btn.disabled=false;}
  }
  function restorePersonalRaidState(ctx){
   if(!ctx||ctx._personalRaidRestored)return;ctx._personalRaidRestored=true;
