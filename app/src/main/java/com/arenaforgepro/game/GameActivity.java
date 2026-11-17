@@ -76,21 +76,19 @@ public final class GameActivity extends Activity {
         loading.setText("Arena Forge Pro yükleniyor…");
         root.addView(loading, new FrameLayout.LayoutParams(-1, -1));
 
+        // Android landscape cutout: the old root-padding moved the *entire*
+        // WebView right, leaving a dark stripe along the left edge.
+        // Extend the background into the camera cutout instead; the HTML HUD
+        // already keeps interactive controls away from the safe-area insets.
         if (Build.VERSION.SDK_INT >= 28) {
-            root.setOnApplyWindowInsetsListener((view, insets) -> {
-                var cutout = insets.getDisplayCutout();
-                if (cutout != null) {
-                    view.setPadding(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
-                            cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
-                } else {
-                    view.setPadding(0, 0, 0, 0);
-                }
-                return insets;
-            });
+            android.view.WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.layoutInDisplayCutoutMode =
+                    android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(lp);
         }
+        root.setPadding(0, 0, 0, 0);
         setContentView(root);
         immersive();
-        root.requestApplyInsets();
         if (Build.VERSION.SDK_INT >= 33) {
             getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
                     OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::handleBack);
