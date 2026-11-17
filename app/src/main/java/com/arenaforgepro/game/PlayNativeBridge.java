@@ -159,13 +159,13 @@ final class PlayNativeBridge implements PurchasesUpdatedListener {
                     .setProductId(id).setProductType(BillingClient.ProductType.INAPP).build());
         }
         client.queryProductDetailsAsync(QueryProductDetailsParams.newBuilder().setProductList(list).build(),
-                (result, productDetails) -> {
+                (result, productDetailsResult) -> {
                     if (result.getResponseCode() != BillingClient.BillingResponseCode.OK) {
                         emitType("error", "products_" + result.getResponseCode());
                         return;
                     }
                     JSONArray array = new JSONArray();
-                    for (ProductDetails d : productDetails) {
+                    for (ProductDetails d : productDetailsResult.getProductDetailsList()) {
                         ProductDetails.OneTimePurchaseOfferDetails offer = d.getOneTimePurchaseOfferDetails();
                         if (offer == null || !isKnown(d.getProductId())) continue;
                         details.put(d.getProductId(), d);
