@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Sürüm etiketi v3.60.263",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "[262] Hikâye Seferi paneli güvenli ortalama",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "[262] Sancak skor kutusu gizli + olayda skor görünür",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "[262] Sancak şerit etiketi skor + hedef",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "[262] Gizli suikastçı: yalnız dost %42 saydam",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "[262] Koleksiyon sekmesi 49",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "[260] Savaş sonu bloğu ve Yankı boss kuralı korunuyor",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "A: af328RecordBattle — pes kaydı istatistiğe yazar, görev ilerlemesine yazmaz",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "A: pes kaydedici — çevrim içi, eğitim, Yankı ve Lonca hariç; maç başına bir kez",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "A: çıkış akışı bağlamı endGame öncesi yakalar, ödülsüz bitirir, sonra kaydeder",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "F: kupa yolu kredisi ödül satırına yazılır (gerçek eklenen miktar)",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "D: kahraman parçası = o kahramanın portresi, eşya = yuva simgesi, yedekler",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "C: 7 tekrar görsel tek kopya; yer tutucu dışında birebir tekrar yok",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "C: efekt şeritleri — her @başvuru gerçek bir şeride çözülür",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "E: rehber balonu dokunuşları geçirir; yerleştirici yüklü",
+    "status": "GEÇTİ"
+  }
+]
