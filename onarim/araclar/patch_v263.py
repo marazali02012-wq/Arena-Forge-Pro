@@ -326,6 +326,15 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
  const st=document.createElement('style');st.id='afp263GuideCss';
  st.textContent='#afpGuide{pointer-events:none}#afpGuide button{pointer-events:auto}#afpGuide.af263-placed{transform:none!important;right:auto!important;bottom:auto!important;min-width:0!important}'
   +'#afpGuide.af263-placed .g-x{padding:3px 5px;font-size:9px}'
+  /* Savaşta alt boşluğa yerleşen balon sıkı düzen: dar boşlukta (≈150 px) ATLA/KAPAT/ANLADIM tek satırda kalır, balon
+     alt koridorun ayak çizgisinin altında ve ekranın içinde biter (önce 136 px yükseklikle alt koridora ve ekran dışına taşıyordu). */
+  +'#afpGuide.btl.af263-placed{padding:3px 6px 4px!important;border-width:1px!important}'
+  +'#afpGuide.btl.af263-placed .g-top{margin-bottom:1px!important}#afpGuide.btl.af263-placed .g-dots{display:none!important}'
+  +'#afpGuide.btl.af263-placed .g-t{font-size:8.5px!important;letter-spacing:.03em!important}'
+  +'#afpGuide.btl.af263-placed .g-p{font-size:9.5px!important;line-height:1.2!important}'
+  +'#afpGuide.btl.af263-placed .g-b{margin-top:2px!important;flex-wrap:wrap!important;gap:3px!important;row-gap:2px!important}'
+  +'#afpGuide.btl.af263-placed .g-x{padding:2px 4px!important;font-size:8px!important}'
+  +'#afpGuide.btl.af263-placed .g-btn{padding:3px 6px!important;font-size:9px!important;white-space:nowrap!important}'
   /* Mini kip: hedef ekranın dışındayken (yalnız "GERİ ile ana ekrana dön") balon tek satırlık şeride küçülür. */
   +'#afpGuide.af263-mini{display:flex;align-items:center;gap:6px;padding:3px 6px 3px 8px;border-width:1px;border-radius:9px}'
   +'#afpGuide.af263-mini .g-top{order:2;margin:0;flex:0 0 auto}#afpGuide.af263-mini .g-dots,#afpGuide.af263-mini .g-t{display:none}'
@@ -501,7 +510,7 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
     let L=0,R=W;const hud=document.querySelectorAll('button,.battlePick,[role=button]');
     hud.forEach(e=>{if(card.contains(e))return;const r=vis(e);if(!r)return;const cx=(r.left+r.right)/2;if(r.top>H*.62&&cx<W*.78)L=Math.max(L,r.right);if(r.left>W*.80&&r.bottom>H*.55)R=Math.min(R,r.left);});
     const fw=Math.floor(R-L-2*m);
-    if(L>0&&fw>=140){card.style.width=fw+'px';const fh=card.getBoundingClientRect().height;card.style.width='';
+    if(L>0&&fw>=108){card.classList.add('af263-placed');card.style.width=fw+'px';const fh=card.getBoundingClientRect().height;card.style.width='';card.classList.remove('af263-placed');
      const y=H-fh-m,sc=score(L+m,y,fw,fh,P);
      card.classList.add('af263-placed');card.style.left=Math.round(L+m)+'px';card.style.top=Math.round(y)+'px';card.style.width=fw+'px';card.dataset.af263Score='alt-bosluk '+sc.toFixed(2);return;}
    }

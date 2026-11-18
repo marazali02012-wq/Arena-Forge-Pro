@@ -150,5 +150,9 @@
   {
     "name": "AB: Kahramanlar sekmeleri aynı kolon düzeni ve panel stili",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "E2: savaş öğretici balonu sıkı düzen, dar boşlukta da alt boşluğa yerleşir",
+    "status": "GEÇTİ"
   }
 ]

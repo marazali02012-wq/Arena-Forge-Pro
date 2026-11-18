@@ -203,6 +203,10 @@ test('AA: Yadigârlar alt bilgisi alanın içinde (doğru katmanda)', () => { on
 test('AB: Kahramanlar sekmeleri aynı kolon düzeni ve panel stili', () => {
   once("sab.id='afp263HeroUnifyCss'"); once("' .af332-heroes{grid-template-columns:minmax(100px,23%) minmax(0,1fr)!important;");
 });
+test('E2: savaş öğretici balonu sıkı düzen, dar boşlukta da alt boşluğa yerleşir', () => {
+  once("+'#afpGuide.btl.af263-placed .g-p{font-size:9.5px!important;line-height:1.2!important}'");
+  once("if(L>0&&fw>=108){card.classList.add('af263-placed');");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);
