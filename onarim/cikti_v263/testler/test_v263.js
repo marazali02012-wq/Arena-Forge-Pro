@@ -143,6 +143,11 @@ test('J: kilitli minyon ayrıntısında kilit sağ altta, "Nasıl açılır?" ku
   once(".afp134-miCard .afp134-lock{top:auto!important;bottom:6px!important;right:6px!important}");
   once(".afp134-how{background:#0b111e!important}");
 });
+// ---------- K) Koleksiyon çift etiket
+test('K: koleksiyon kartında aynı etiket iki kez yazılmaz', () => {
+  once("(String(t3)===String(t2)||String(t3)===r?'':'<span class=\"c-tag\">'+esc(t3)+'</span>')");
+  once("(String(t2)===r?'':'<span class=\"c-tag\">'+esc(t2)+'</span>')");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

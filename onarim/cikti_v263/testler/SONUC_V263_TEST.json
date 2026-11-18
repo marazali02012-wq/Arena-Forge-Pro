@@ -78,5 +78,9 @@
   {
     "name": "J: kilitli minyon ayrıntısında kilit sağ altta, \"Nasıl açılır?\" kutusu opak",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "K: koleksiyon kartında aynı etiket iki kez yazılmaz",
+    "status": "GEÇTİ"
   }
 ]

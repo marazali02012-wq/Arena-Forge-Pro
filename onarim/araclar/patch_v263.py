@@ -228,6 +228,14 @@ sub('G-materyal-penceresi',
     "const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile'].some(",
     "const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile','afxMats'].some(")
 
+# ================================================================ K) KOLEKSİYON KARTINDA ÇİFT ETİKET
+# Grup etiketi ile rol etiketi aynı olduğunda (ör. Orman Okçusu, Mühendis Nişancı, Savaş Mühendisi: "Menzilli · Menzilli")
+# aynı etiket iki kez yazılıyordu; Platin karakterlerde nadirlik de tekrar ediyordu ("Platin · Platin").
+# Bir etiket, kendinden önceki etiketlerden biriyle aynıysa yazılmaz.
+sub('K-koleksiyon-cift-etiket',
+    """(e.kind==='normal'?'<span class="c-tag">'+esc(g?g[1]:'')+'</span>':'<span class="c-tag">'+esc(e.title||'')+'</span>')+'<span class="c-tag">'+esc(e.kind==='boss'?'Boss':(ROLE[e.role]||{}).label||e.role)+'</span>'""",
+    """((t2,t3,r)=>(String(t2)===r?'':'<span class="c-tag">'+esc(t2)+'</span>')+(String(t3)===String(t2)||String(t3)===r?'':'<span class="c-tag">'+esc(t3)+'</span>'))(e.kind==='normal'?(g?g[1]:''):(e.title||''),e.kind==='boss'?'Boss':(ROLE[e.role]||{}).label||e.role,String(e.rarity)) /* v3.60.263 K */""")
+
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
 # kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız

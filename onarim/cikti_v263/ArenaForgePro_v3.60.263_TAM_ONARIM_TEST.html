@@ -27666,7 +27666,7 @@ function card(e){liveStats(e);const c=st()||{owned:{},bossLv:{}};const own=owns(
  const sp=(e.hero&&A37)?A37.spell(e.id):[];
  return '<article class="c-card '+cls+'" data-id="'+e.id+'">'+(preview?'<div class="c-art c-has'+(e.previewArt&&!e.art?' c-preview':'')+'" aria-hidden="true"><img src="'+preview+'" alt="" loading="lazy"></div>':'<div class="c-art" aria-hidden="true">'+icon+'<small>GÖRSEL BEKLENİYOR</small></div>')+
   '<div class="c-name">'+esc(e.name)+'<span class="c-cost" title="Enerji">'+e.cost+'</span></div>'+
-  '<div class="c-tags"><span class="c-tag r-'+esc(e.rarity)+'">'+esc(e.rarity)+'</span>'+(e.kind==='normal'?'<span class="c-tag">'+esc(g?g[1]:'')+'</span>':'<span class="c-tag">'+esc(e.title||'')+'</span>')+'<span class="c-tag">'+esc(e.kind==='boss'?'Boss':(ROLE[e.role]||{}).label||e.role)+'</span>'+(p.air?'<span class="c-tag">Uçuş: yakında</span>':'')+'</div>'+
+  '<div class="c-tags"><span class="c-tag r-'+esc(e.rarity)+'">'+esc(e.rarity)+'</span>'+((t2,t3,r)=>(String(t2)===r?'':'<span class="c-tag">'+esc(t2)+'</span>')+(String(t3)===String(t2)||String(t3)===r?'':'<span class="c-tag">'+esc(t3)+'</span>'))(e.kind==='normal'?(g?g[1]:''):(e.title||''),e.kind==='boss'?'Boss':(ROLE[e.role]||{}).label||e.role,String(e.rarity)) /* v3.60.263 K */+(p.air?'<span class="c-tag">Uçuş: yakında</span>':'')+'</div>'+
   '<div class="c-pas"><b>'+esc(p.n)+':</b> '+esc(p.d)+'</div>'+
   '<div class="c-st">Can '+e.hp+' · Hasar '+e.atk+' · Saldırı '+(+e.period).toFixed(2)+' sn</div>'+(sp.length?'<div class="c-pas"><b>Komutan yetenekleri:</b> '+sp.map(x=>esc(x.i+' '+x.n)).join(' · ')+'</div>':'')+
   (e.hero?'':'<div class="c-st">'+esc(e.look)+'</div>')+(e.story?'<div class="c-st"><i>'+esc(e.story)+'</i></div>':'')+
