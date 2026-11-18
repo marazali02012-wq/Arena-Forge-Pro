@@ -200,6 +200,9 @@ test('X: Kupa Yolu minyon kartı oyunun kart portresini kullanır; kartlar eşit
 test('Y: Minyonlar nadirlik sekmeleri dar ekranda sığar', () => { once("sy2.id='afp263MinTabsCss'"); });
 test('Z: ekipman yuvası yazısı kesilmez', () => { once("sz.id='afp263GearSlotCss'"); });
 test('AA: Yadigârlar alt bilgisi alanın içinde (doğru katmanda)', () => { once("saa.textContent='@layer af172Commerce{@media (max-height:370px){'"); });
+test('AB: Kahramanlar sekmeleri aynı kolon düzeni ve panel stili', () => {
+  once("sab.id='afp263HeroUnifyCss'"); once("' .af332-heroes{grid-template-columns:minmax(100px,23%) minmax(0,1fr)!important;");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

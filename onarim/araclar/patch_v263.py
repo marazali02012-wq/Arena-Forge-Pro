@@ -453,6 +453,24 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
  /* kaynak kurallar @layer af172Commerce içinde (katmanlı !important katmansızı yener) → düzeltme aynı katmanda */
  saa.textContent='@layer af172Commerce{@media (max-height:370px){'+HA+':has(>.af4-slots){row-gap:3px!important;gap:3px!important}'+HA+'>.af4-slots~.af171-products{padding-bottom:0!important}'+HA+'>.af4-slots~.af4-note{padding:0 2px!important}}}';
  document.head.appendChild(saa);
+ /* AB: Kahramanlar ekranı iki tasarım. Yeni Heroic görünüm (#afxHero) yalnız BÜYÜLER sekmesi için; ÖZET / EKİPMAN /
+    KIYAFETLER / İLERLEME sekmelerinde altındaki eski "Kahraman Dosyası" ekranı görünüyor ve kolonlar, çerçeveler, renkler
+    farklıydı. İşlev aynı kalır (aynı data-act düğmeleri); eski ekran yeni görünümün kolon oranlarına (%23 · %22 · %55)
+    ve panel stiline (lacivert degrade, 2 px altın çerçeve, 15 px köşe; sekmeler aynı düğme stili) getirilir. */
+ const sab=document.createElement('style');sab.id='afp263HeroUnifyCss';const HS='html'+':not(#_ab)'.repeat(13)+' #af4Screen[data-screen="heroes"]';
+ sab.textContent=HS+'{padding-left:0!important;padding-right:0!important;padding-bottom:0!important}'
+  +HS+' .af332-heroes{grid-template-columns:minmax(100px,23%) minmax(0,1fr)!important;gap:0!important;height:100%!important}'
+  +HS+' .af332-rail{background:linear-gradient(160deg,#111d32,#050b19)!important;border:2px solid #bd924b!important;border-radius:15px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.133)!important}'
+  +HS+' .af332-prof{grid-template-columns:minmax(94px,28.6%) minmax(0,1fr)!important;background:linear-gradient(#13263f,#071325)!important;border:2px solid #bb914f!important;border-radius:15px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.133)!important}'
+  +HS+' .af332-profArt{background:linear-gradient(#1b344d 0%,#0b192b 55%,#040b15 100%)!important;border:2px solid #b78a48!important;border-radius:14px!important;margin:-2px 0 -2px -2px!important}'
+  +HS+' .af332-tabBtn:not(.is-active){background:linear-gradient(#223d5c,#0a182b)!important;border:1px solid #a78c5d!important;border-radius:5px!important;color:#e9dcc0!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)!important}'
+  +HS+' .af332-tabBtn{border-radius:5px!important}'
+  +HS+' .af332-hcard{background:linear-gradient(160deg,#16243b,#08111f)!important;border:1px solid rgba(189,146,75,.55)!important;box-shadow:none!important}'
+  +HS+' .af332-hcard.is-focus{border-color:#7fb4ff!important;box-shadow:0 0 0 1px #7fb4ff inset!important}'
+  /* dar liste: başlık ve kart alt yazısı sığsın (KAHRAMANLAR 83/59 px, "SAVUNMA · 150 KUPA" 80/78 px taşıyordu) */
+  +'@media (max-width:760px){'+HS+' .af332-rail h1{letter-spacing:0!important;font-size:9px!important;white-space:nowrap!important}'
+  +HS+' .af332-hcard small{letter-spacing:0!important;font-size:6.6px!important}'+HS+' .af332-hcard{grid-template-columns:36px minmax(0,1fr)!important}}';
+ document.head.appendChild(sab);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
  function collect(card){
