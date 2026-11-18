@@ -219,6 +219,15 @@ test('AD: üç boss görseli bağlı; portre + idle/attack/death atlası; sandı
     for (const k of ['p','idle','attack','death']) assert.ok(A[id]&&String(A[id][k]).startsWith('data:image/webp;base64,')&&A[id][k].length>5000, id+' '+k);
   once('const CHEST={cost:60,pity:50,');
 });
+test('AE: büyüler sürükle-bırak (oyunun kendi atış yolu), resim sürüklemesi kapalı', () => {
+  once("window.__afp263SpellDrop=function(slot,cx,cy){");
+  once("const ok=af327HandleTap(x,y);");
+  once("#hud #skill img,#hud #skill2 img{-webkit-user-drag:none!important;");
+});
+test('AF: minyon kartı figürü baştan ayağa çerçevede', () => {
+  once("  const fit = true; /* v3.60.263 AF:");
+  once("const [x,y,maxW,maxH] = [50,50,104,104];");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

@@ -194,3 +194,13 @@ Dosyalar: `varliklar/boss_v3/` (portre, idle/attack/death atlası ve GIF'ler). B
 | Küllerin Hükümdarı · saldırı | Pakette atlasın saydam alanı yoktu (yarı saydam gri sis; GIF'te beyaz lekeler). Üretim sırasında gri sis temizleniyor, figür ve ateş efektleri korunuyor. Görüntüyle doğrulandı |
 | Ölüm (death) animasyonu | Bağlandı (veri HTML'de) ama **gösterildiği yer yok**: bu üç boss savaş motorunda hiçbir modda sahaya çıkmıyor |
 | Çift Kılıçlı | Pakette yok; dokunulmadı |
+
+---
+
+## Kullanıcı ekran görüntüleriyle bildirilenler — **DÜZELTİLDİ / TEST EDİLDİ**
+
+| Konu | Önce | Şimdi | Test |
+|---|---|---|---|
+| Büyüler | Alt koridordaki minyon büyü düğmesinin altındayken o noktaya büyü atılamıyordu (dokunuş düğmeye gidiyordu) | Büyüler kartlar gibi **sürükle-bırak**: simge parmağı takip eder, bırakılan noktaya atılır, simge yerine döner, bekleme süresi başlar. Düğmenin altındaki minyona da atılabilir. Koridor dışına (el kartları, üst bilgi) bırakmak iptal. Kısa dokunuş eskisi gibi çalışır. Düğmelerin yeri değişmedi. Atış oyunun kendi yolundan geçer (çevrim içi senkron dahil) | 667×375, 740×360, 800×360: düğmenin altındaki düşmana bırakınca büyü atıldı (can 137→89 ve 44→0, bekleme ~15 sn); el kartına bırakınca iptal; kısa dokunuşla seç/bırak; 2. büyü üst koridora atıldı; JS hatası 0 |
+| Kök neden (sürükleme) | Düğmedeki simge resim olduğu için tarayıcının kendi resim sürüklemesi dokunuş olaylarını kesiyordu | Simgede resim sürükleme kapatıldı | — |
+| Minyon kartları | Resimler yüze yakın plan (%222 büyütme), kafa ve gövde kesik | Kart portresinin tamamı çerçevede; figür baştan ayağa (resimde ne varsa) | Minyonlar, deste ve savaş elinde görüntüyle doğrulandı |

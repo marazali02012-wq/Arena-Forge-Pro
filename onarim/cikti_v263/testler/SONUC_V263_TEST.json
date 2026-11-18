@@ -162,5 +162,13 @@
   {
     "name": "AD: üç boss görseli bağlı; portre + idle/attack/death atlası; sandık kuralı değişmedi",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "AE: büyüler sürükle-bırak (oyunun kendi atış yolu), resim sürüklemesi kapalı",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "AF: minyon kartı figürü baştan ayağa çerçevede",
+    "status": "GEÇTİ"
   }
 ]
