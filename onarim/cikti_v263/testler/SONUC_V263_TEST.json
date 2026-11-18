@@ -94,5 +94,13 @@
   {
     "name": "N: Görünümler kartında İNCELE köşede, kural doğru katmanda",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "O: fiyat etiketindeki mühür simgesi 16 px ile sınırlı",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "P: etkinlik mağazasında oyunun çizdiği hedef minyon büstü silinmez",
+    "status": "GEÇTİ"
   }
 ]

@@ -160,8 +160,15 @@ test('M: hikâye girişi, hesap/misafir giriş ekranı açıkken başlamaz', () 
 });
 // ---------- N) Görünüm kartı İNCELE düğmesi
 test('N: Görünümler kartında İNCELE köşede, kural doğru katmanda', () => {
-  once("sn.textContent='@layer af172Commerce{html'+':not(#_n)'.repeat(11)+' .af4-cosArt>.af173-inspect{left:6px!important;");
+  once("sn.textContent='@layer af172Commerce{html'+':not(#_n)'.repeat(11)+' .af4-cosArt>.af173-inspect,html'+':not(#_n)'.repeat(11)+' .af4-eitem>.af4-eArt>.af173-inspect{left:6px!important;");
   assert.ok(html.includes('@layer af172Commerce'), 'kaynak katman adı değişmiş');
+});
+// ---------- O, P) Etkinlik mağazası
+test('O: fiyat etiketindeki mühür simgesi 16 px ile sınırlı', () => {
+  once("' .af4-price>img{width:16px!important;height:16px!important;");
+});
+test('P: etkinlik mağazasında oyunun çizdiği hedef minyon büstü silinmez', () => {
+  once("{const hero=art.querySelector('.af4-eHero');if(hero&&!hero.querySelector('img,canvas,svg,.af-minion-art,[style*=");
 });
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));

@@ -244,6 +244,14 @@ sub('M-ftue-giris-ekrani-bekler',
     "if(!ftueEl&&ftueEligible(p)&&document.documentElement.classList.contains('afx-hub')&&screenId()==='home'&&!document.querySelector('.afp-story')){ftueIntro();return;}",
     "if(!ftueEl&&ftueEligible(p)&&document.documentElement.classList.contains('afx-hub')&&screenId()==='home'&&!document.querySelector('.afp-story')&&!(document.getElementById('afqEntry')&&vis(document.getElementById('afqEntry')))){ftueIntro();return;} /* v3.60.263 M */")
 
+# ================================================================ P) ETKİNLİK MAĞAZASI MİNYON PARÇASI YANLIŞ RESİM
+# "3 minyon parçası — <minyon> için +3 parça" ürününde oyun hedef minyonun büstünü çiziyor (bust(target)); sonradan çalışan
+# görsel katman başlığında "minyon" geçen her kartın resmini silip sabit bir komutan görünümü (mor büyücü) koyuyordu.
+# Katman yalnız kartta resim yoksa yedek resim koyar.
+sub('P-etkinlik-minyon-resmi',
+    "{const hero=art.querySelector('.af4-eHero');if(hero){hero.innerHTML='';addImg(hero,A.sorceress,'afp-ref-event-hero','Komutan görünümü');}}",
+    "{const hero=art.querySelector('.af4-eHero');if(hero&&!hero.querySelector('img,canvas,svg,.af-minion-art,[style*=\"url(\"]')){hero.innerHTML='';addImg(hero,A.sorceress,'afp-ref-event-hero','Komutan görünümü');}} /* v3.60.263 P */")
+
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
 # kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız
@@ -299,11 +307,18 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
   +HL+':has(.af332-lockBox) .af332-profBtns .af4-btn{min-height:0!important;height:26px!important}';
  document.head.appendChild(sl);
  /* N: Mağaza → Görünümler kartı. "İNCELE" düğmesi (58x32) 68 px'lik resim alanının tam ortasındaydı; kostüm figürünün
-    gövdesini örtüyor, yalnız başı görünüyordu. Düğme küçültülüp resim alanının sol alt köşesine alınır. */
+    gövdesini örtüyor, yalnız başı görünüyordu (Etkinlik Mağazası kartlarında da aynı). Düğme küçültülüp resim alanının
+    sol alt köşesine alınır. */
  const sn=document.createElement('style');sn.id='afp263CosCss';
  /* Kaynak kural @layer af172Commerce içinde; katmanlı !important katmansızı yendiği için düzeltme aynı katmana yazılır. */
- sn.textContent='@layer af172Commerce{html'+':not(#_n)'.repeat(11)+' .af4-cosArt>.af173-inspect{left:6px!important;right:auto!important;top:auto!important;bottom:5px!important;transform:none!important;padding:5px 8px!important;font-size:9px!important;min-height:0!important;min-width:0!important;height:auto!important}}';
+ sn.textContent='@layer af172Commerce{html'+':not(#_n)'.repeat(11)+' .af4-cosArt>.af173-inspect,html'+':not(#_n)'.repeat(11)+' .af4-eitem>.af4-eArt>.af173-inspect{left:6px!important;right:auto!important;top:auto!important;bottom:5px!important;transform:none!important;padding:5px 8px!important;font-size:9px!important;min-height:0!important;min-width:0!important;height:auto!important}}';
  document.head.appendChild(sn);
+ /* O: Etkinlik Mağazası SATIN AL düğmesi. Fiyat etiketine konan etkinlik mührü resmi (img.af224-item-art, 324 px) için
+    boyut kuralı yoktu; mühür doğal boyutunda çizilip kartın ve ekranın yarısını kaplıyor, fiyat/düğme yazısı görünmüyordu.
+    Fiyat simgesi yazı boyutunda tutulur. */
+ const so=document.createElement('style');so.id='afp263PriceCss';
+ so.textContent='html'+':not(#_o)'.repeat(11)+' .af4-price>img{width:16px!important;height:16px!important;max-width:16px!important;max-height:16px!important;object-fit:contain!important;flex:0 0 16px!important;margin:0 3px 0 0!important;vertical-align:-3px!important;position:static!important}';
+ document.head.appendChild(so);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
  function collect(card){
