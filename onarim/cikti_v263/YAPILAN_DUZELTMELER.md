@@ -179,3 +179,18 @@ Testler: `test_v263.js` 32/32 (Q, R, S, T, U, V eklendi).
 `ANDROID_AKTARIM.md`: 263, Android'deki v3.60.220'nin bütün Android'e özel değişikliklerini kapsıyor (karşılaştırma tablosu orada). HTML uygulamaya kondu, `versionCode 263`. Android adresi taklit edilerek geri tuşu köprüsü denendi; davranış 220 ile birebir aynı.
 
 Testler: `test_v263.js` 40/40.
+
+---
+
+## Üç boss görseli (kullanıcı paketi `AFP_Boss_Paketi_v3`) — **DÜZELTİLDİ / TEST EDİLDİ**
+
+Dosyalar: `varliklar/boss_v3/` (portre, idle/attack/death atlası ve GIF'ler). Bağlama yaması: `patch_v263.py` → AD.
+
+| Konu | Sonuç |
+|---|---|
+| Portreler | `AFP36Col.setArt` ile bağlandı. Koleksiyon → Boss Koleksiyonu'nda üçü görünüyor (önce 2'si "GÖRSEL BEKLENİYOR", Küllerin Hükümdarı yalnız ön izleme) |
+| Boss Sandığı | Üç görsel hazır olunca kendi kuralıyla açıldı: 60 toz, %2 boss, 50. açılış garantisi değişmedi. Test: 130 toz → 1. açılış 300 kredi (toz 70), 2. açılış 4 kahraman parçası (toz 10), 3. basış "Yetersiz yadigâr tozu", ödül yok; yeniden yüklemede kayıt aynı |
+| Animasyonlar | Boss Koleksiyonu kartında bekleme (idle) döngüsü, karta dokununca saldırı (attack) bir kez oynayıp beklemeye dönüyor. 667×375, 740×360, 800×360'ta üç kart da animasyonlu |
+| Küllerin Hükümdarı · saldırı | Pakette atlasın saydam alanı yoktu (yarı saydam gri sis; GIF'te beyaz lekeler). Üretim sırasında gri sis temizleniyor, figür ve ateş efektleri korunuyor. Görüntüyle doğrulandı |
+| Ölüm (death) animasyonu | Bağlandı (veri HTML'de) ama **gösterildiği yer yok**: bu üç boss savaş motorunda hiçbir modda sahaya çıkmıyor |
+| Çift Kılıçlı | Pakette yok; dokunulmadı |

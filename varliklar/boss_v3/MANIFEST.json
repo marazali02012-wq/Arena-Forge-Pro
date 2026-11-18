@@ -1,0 +1,70 @@
+{
+  "asset_pack": "Arena Forge Pro — sadece 3 boss görsel/animasyon paketi v3",
+  "target": "Arena Forge Pro latest branch / v3.60.263+",
+  "excluded": [
+    "suikastçı",
+    "Çift Kılıçlı",
+    "all minyon/ assets"
+  ],
+  "minion_instruction": "Önce oyundaki mevcut Çift Kılıçlı/suikastçı görsellerini karşılaştır, uygunsa onları kullan. Yeni minyon veya kopya oluşturma.",
+  "bosses": [
+    {
+      "id": "boss_kullerin_hukumdari",
+      "name": "Küllerin Hükümdarı",
+      "portrait": "boss/kullerin_hukumdari/portrait.png",
+      "states": {
+        "idle": {
+          "gif": "boss/kullerin_hukumdari/idle_8kare.gif",
+          "atlas": "boss/kullerin_hukumdari/idle_atlas_4x2_256.png"
+        },
+        "attack": {
+          "gif": "boss/kullerin_hukumdari/attack_8kare.gif",
+          "atlas": "boss/kullerin_hukumdari/attack_atlas_4x2_256.png"
+        },
+        "death": {
+          "gif": "boss/kullerin_hukumdari/death_8kare.gif",
+          "atlas": "boss/kullerin_hukumdari/death_atlas_4x2_256.png"
+        }
+      }
+    },
+    {
+      "id": "boss_ucurum_ejderi",
+      "name": "Uçurum Ejderi",
+      "portrait": "boss/ucurum_ejderi/portrait.png",
+      "states": {
+        "idle": {
+          "gif": "boss/ucurum_ejderi/idle_8kare.gif",
+          "atlas": "boss/ucurum_ejderi/idle_atlas_4x2_256.png"
+        },
+        "attack": {
+          "gif": "boss/ucurum_ejderi/attack_8kare.gif",
+          "atlas": "boss/ucurum_ejderi/attack_atlas_4x2_256.png"
+        },
+        "death": {
+          "gif": "boss/ucurum_ejderi/death_8kare.gif",
+          "atlas": "boss/ucurum_ejderi/death_atlas_4x2_256.png"
+        }
+      }
+    },
+    {
+      "id": "boss_bosluk_imparatoru",
+      "name": "Boşluk İmparatoru",
+      "portrait": "boss/bosluk_imparatoru/portrait.png",
+      "states": {
+        "idle": {
+          "gif": "boss/bosluk_imparatoru/idle_8kare.gif",
+          "atlas": "boss/bosluk_imparatoru/idle_atlas_4x2_256.png"
+        },
+        "attack": {
+          "gif": "boss/bosluk_imparatoru/attack_8kare.gif",
+          "atlas": "boss/bosluk_imparatoru/attack_atlas_4x2_256.png"
+        },
+        "death": {
+          "gif": "boss/bosluk_imparatoru/death_8kare.gif",
+          "atlas": "boss/bosluk_imparatoru/death_atlas_4x2_256.png"
+        }
+      }
+    }
+  ],
+  "status": "sadece dosyalar test edildi; oyun entegrasyonu test edilmedi"
+}

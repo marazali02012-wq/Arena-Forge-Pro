@@ -556,6 +556,59 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
 </body>"""
 sub('E-C4-calisma-ani', '</body>', RUNTIME)
 
+# ================================================================ AD) ÜÇ BOSS GÖRSELİ (kullanıcının gönderdiği paket: varliklar/boss_v3)
+# Portreler oyunun kendi AFP36Col.setArt arayüzüyle bağlanır: koleksiyonda görünür, üçü de hazır olunca Boss Sandığı
+# (60 toz, %2 boss, 50. açılış garantisi — değişmedi) açılır. Bu boss'lar savaş motorunda hiçbir modda sahaya çıkmıyor;
+# bu yüzden animasyonlar oyunda boss'ların göründüğü tek yerde, Boss Koleksiyonu kartında oynatılır (bekleme döngüsü,
+# dokununca saldırı). Küllerin Hükümdarı'nın saldırı atlasında saydam alan yok (gri sis); sis üretim sırasında temizlenir.
+import os as _os, json as _json, base64 as _b64b, io as _iob
+from PIL import Image as _ImB, ImageSequence as _ISeq
+_BV = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', 'varliklar', 'boss_v3')
+_BOSS = [('boss_kullerin_hukumdari', 'kullerin_hukumdari'), ('boss_ucurum_ejderi', 'ucurum_ejderi'), ('boss_bosluk_imparatoru', 'bosluk_imparatoru')]
+def _webp(im, q=88):
+    b = _iob.BytesIO(); im.save(b, 'WEBP', quality=q, alpha_quality=100, method=6); return 'data:image/webp;base64,' + _b64b.b64encode(b.getvalue()).decode()
+def _atlas(folder, state):
+    im = _ImB.open(_os.path.join(_BV, folder, state + '_atlas_4x2_256.png')).convert('RGBA')
+    if sum(im.getchannel('A').histogram()[:10]) < im.width * im.height * 0.05:
+        # Saydam alan yok: kareleri yarı saydam gri sis kaplıyor (Küllerin Hükümdarı · saldırı). GIF sürümünde de beyaz
+        # lekeler var. Düşük alfalı ve doygunluğu düşük (gri) pikseller saydam yapılır; figür ve ateş efektleri (doygun) kalır.
+        px = im.load()
+        for y in range(im.height):
+            for x in range(im.width):
+                r, g, b_, a = px[x, y]
+                if a < 140:
+                    mx, mn = max(r, g, b_), min(r, g, b_)
+                    if (mx - mn) / (mx or 1) < 0.25: px[x, y] = (r, g, b_, 0)
+    assert im.size == (1024, 512), (folder, state, im.size)
+    return _webp(im.resize((768, 384), _ImB.LANCZOS), 86)
+_bdata = {}
+for bid, folder in _BOSS:
+    por = _ImB.open(_os.path.join(_BV, folder, 'portrait.png')).convert('RGBA')
+    assert por.size[0] >= 256
+    _bdata[bid] = {'p': _webp(por, 90), 'idle': _atlas(folder, 'idle'), 'attack': _atlas(folder, 'attack'), 'death': _atlas(folder, 'death')}
+BOSS_JS = ('<script id="AFP263_BOSS_ART">\n/* v3.60.263 AD: üç boss görseli (kullanıcı paketi boss_v3). Kural/ödül/kayıt değişmez. */\n(function(){\'use strict\';\n'
+ ' const ART=' + _json.dumps(_bdata, separators=(',', ':')) + ';\n'
+ r""" window.AFP263BossArt=ART;
+ let n=0;const t=setInterval(()=>{const C=window.AFP36Col;if(C&&typeof C.setArt==='function'){for(const id in ART)C.setArt(id,ART[id].p);clearInterval(t);}else if(++n>200)clearInterval(t);},100);
+ const st=document.createElement('style');st.id='afp263BossCss';
+ st.textContent='.afp263-bspr{position:absolute;inset:0;background-repeat:no-repeat;background-size:400% 200%;pointer-events:none;image-rendering:auto}'
+  +'.c-art.afp263-banim{position:relative}.c-art.afp263-banim>img{opacity:0}';
+ document.head.appendChild(st);
+ const live=new Set();
+ function attach(card){const id=card.dataset.id,a=ART[id],box=card.querySelector('.c-art');if(!a||!box||box.querySelector('.afp263-bspr'))return;
+  const d=document.createElement('div');d.className='afp263-bspr';d.dataset.state='idle';d.dataset.f='0';d.style.backgroundImage='url("'+a.idle+'")';
+  box.classList.add('afp263-banim');box.appendChild(d);d.__id=id;live.add(d);
+  card.addEventListener('click',()=>{d.dataset.state='attack';d.dataset.f='0';d.style.backgroundImage='url("'+a.attack+'")';});}
+ function scan(){document.querySelectorAll('.c-card[data-id^="boss_"]').forEach(attach);for(const d of live)if(!d.isConnected)live.delete(d);}
+ new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true});
+ setInterval(()=>{for(const d of live){if(!d.isConnected){live.delete(d);continue;}let f=(+d.dataset.f+1)%8;
+   if(d.dataset.state==='attack'&&f===0){d.dataset.state='idle';d.style.backgroundImage='url("'+ART[d.__id].idle+'")';}
+   d.dataset.f=String(f);d.style.backgroundPosition=((f%4)*100/3)+'% '+(f<4?0:100)+'%';}},125);
+})();
+</script>
+</body>""")
+sub('AD-boss-gorselleri', '</body>', BOSS_JS)
+
 open(DST, 'w', encoding='utf-8').write(s)
 out_sha = hashlib.sha256(s.encode('utf-8')).hexdigest()
 print('Uygulanan değişiklik:', len(changes), '·', ', '.join(changes))

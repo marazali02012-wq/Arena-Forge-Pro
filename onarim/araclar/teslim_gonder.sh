@@ -25,7 +25,7 @@ python3 -I onarim/araclar/zip_parcala.py "$Z" onarim/teslim_v263 27 | tail -1
 # birleştirme denemesi (boş klasörde)
 mkdir "$TMP/b" && cp onarim/teslim_v263/*_PARCA_*.zip "$TMP/b/" && (cd "$TMP/b" && unzip -q -o *_PARCA_01.zip BIRLESTIR_VE_DOGRULA.py PARCA_KONTROL.json && python3 -I BIRLESTIR_VE_DOGRULA.py | head -1)
 rm -rf "$TMP"
-git add -A onarim sunucu YAPMAN_GEREKENLER.md yayin/eksikler app/src/main/java/com/arenaforgepro/game/GameActivity.java app/src/main/assets/www/index.html app/build.gradle
+git add -A onarim sunucu varliklar YAPMAN_GEREKENLER.md yayin/eksikler app/src/main/java/com/arenaforgepro/game/GameActivity.java app/src/main/assets/www/index.html app/build.gradle
 git commit -q -m "$MSG
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

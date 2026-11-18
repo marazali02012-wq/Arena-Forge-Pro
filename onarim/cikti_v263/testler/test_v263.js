@@ -211,6 +211,14 @@ test('AC: Örümcek Akını / Lonca Dev Avı sonucu kendi adıyla etiketlenir', 
   once("const MODE_LABEL={raid:'ÖRÜMCEK AKINI',guildraid:'LONCA DEV AVI',duocolossus:'İKİ OYUNCULU KOLOSUS',echo:'YANKI İSTİLASI',");
   once("af263RaidKind=window.__AFPCommunityGuildRaidActive?'guildraid':(st&&st.active?'raid':'');");
 });
+test('AD: üç boss görseli bağlı; portre + idle/attack/death atlası; sandık kuralı değişmedi', () => {
+  once('<script id="AFP263_BOSS_ART">');
+  const m=html.match(/<script id="AFP263_BOSS_ART">[\s\S]*?const ART=(\{[\s\S]*?\});\n/); assert.ok(m,'veri yok');
+  const A=JSON.parse(m[1]);
+  for (const id of ['boss_kullerin_hukumdari','boss_ucurum_ejderi','boss_bosluk_imparatoru'])
+    for (const k of ['p','idle','attack','death']) assert.ok(A[id]&&String(A[id][k]).startsWith('data:image/webp;base64,')&&A[id][k].length>5000, id+' '+k);
+  once('const CHEST={cost:60,pity:50,');
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

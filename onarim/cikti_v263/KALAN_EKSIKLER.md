@@ -6,8 +6,9 @@ Etiket: **TAMAMLANMADI** = yapılmadı ya da bu ortamda doğrulanamadı. Gerçek
 
 Bu çalışma ortamında görsel üretme aracı yok. Kurallar gereği kalitesiz ya da geçici görsel eklenmedi.
 
-1. **Uçurum Ejderi** ve **Boşluk İmparatoru** boss görselleri yok. Koleksiyonda "GÖRSEL BEKLENİYOR" yazıyor.
-2. **Boss Sandığı kapalı.** Sebep yalnız bu iki görselin eksikliği: kodda sandık, bütün boss'ların görseli hazırsa açılıyor (`ready`). Görseller eklendiği anda oyunun kendi açılış sistemi (60 toz, %2 boss, 50. açılışta garanti) devreye girer. Görsel olmadığı için sandık içeriği, ödül kaydı ve çift ödül kontrolü **denenemedi**.
+1. ~~Uçurum Ejderi ve Boşluk İmparatoru boss görselleri~~ → kullanıcı paketiyle bağlandı (Küllerin Hükümdarı dahil üç boss).
+2. ~~Boss Sandığı kapalı~~ → açıldı; sandık açılışı, ödül kaydı ve çift ödül kontrolü test edildi.
+2b. **Boss savaş animasyonları (idle/attack/death) savaşta görünmüyor.** Bu üç boss oyunun hiçbir modunda sahaya çıkmıyor (açıklama "Örümcek Akını ve özel modlarda kullanılır" diyor ama bunu yapan kod yok). Animasyonlar şimdilik Boss Koleksiyonu kartında oynuyor. Boss kartlarını savaşta oynanabilir yapmak yeni oyun kuralı (hangi mod, enerji, deste sınırı, denge) gerektirir; karar sahibine ait.
 3. **Çift Kılıçlı** (ilk ücretsiz minyon) çiziminde karakter tek mızrak tutuyor. İki kılıçlı yeni çizim yapılmadı.
 
 Görseller hazırlandığında eklenecek yerler: boss'lar için `af36Collection` içindeki `DB[...].art` (koleksiyon ve sandık buradan okur); Çift Kılıçlı için `AFP94_MINION_CARDS.af37_cift_kilicli`, `minion.portrait/full.af37_cift_kilicli` ve savaş atlası `unit.atlas.af37_cift_kilicli`.
