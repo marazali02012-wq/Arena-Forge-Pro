@@ -38,3 +38,14 @@ Bu ortamda Android SDK yok. Derleme depodaki GitHub Actions iş akışında (`.g
 - **Yükleme anahtarıyla imza:** yalnız depo gizli anahtarları (`UPLOAD_KEYSTORE_BASE64`, `UPLOAD_KEYSTORE_PASSWORD`, `UPLOAD_KEY_ALIAS`) tanımlıysa yapılıyor. Tanımlı değilse imzasız AAB üretiliyor; Play'e yüklemeden önce sahibinin kendi anahtarıyla imzalaması gerekir.
 
 Derleme sonucu ve doğrulama çıktıları `TEST_SONUCLARI.md` dosyasına yazılır.
+
+## Teslim edilen Android dosyaları (`yayin/android/`, derleme commit ab1a60e)
+| Dosya | Boyut | Not |
+|---|---|---|
+| `ArenaForgePro-test-debug.apk` | 33,9 MB | Hata ayıklama anahtarıyla imzalı **test** paketi; telefona kurulup denenebilir. Yayın paketi değildir. |
+| `ArenaForgePro-release-IMZASIZ.aab` | 32,9 MB | `bundletool validate` geçti; **imzasız**. Play'e yüklemeden önce sahibinin yükleme anahtarıyla imzalanmalı. |
+| `SHA256SUMS.txt` | | `sha256sum -c SHA256SUMS.txt` ile doğrulanır (bu ortamda: OK, OK). |
+| `apksigner-verify.txt`, `bundletool-validate.txt` | | Derlemenin doğrulama çıktıları. |
+
+İkisinin içindeki `assets/www/index.html` dosyası, testleri geçen v3.60.263 HTML'si ile birebir aynı (SHA-256 `ba5cea0b37f813bf…`).
+Yeni derleme: GitHub → Actions → "Android derleme" → Run workflow → "kaydet" kutusu işaretlenirse çıktılar yine bu klasöre yazılır.
