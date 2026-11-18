@@ -70,18 +70,16 @@ public final class GameActivity extends Activity {
         loading.setText("Arena Forge Pro yükleniyor…");
         root.addView(loading, new FrameLayout.LayoutParams(-1, -1));
 
+        // Full-bleed landscape game: drawing the whole root with display cutout
+        // padding created an obvious blank strip on notch/punch-hole phones.
+        // HTML has viewport-fit=cover; don't shrink its canvas here.
         if (Build.VERSION.SDK_INT >= 28) {
-            root.setOnApplyWindowInsetsListener((view, insets) -> {
-                var cutout = insets.getDisplayCutout();
-                if (cutout != null) {
-                    view.setPadding(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
-                            cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
-                } else {
-                    view.setPadding(0, 0, 0, 0);
-                }
-                return insets;
-            });
+            android.view.WindowManager.LayoutParams attributes = getWindow().getAttributes();
+            attributes.layoutInDisplayCutoutMode =
+                    android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            getWindow().setAttributes(attributes);
         }
+        root.setPadding(0, 0, 0, 0);
         setContentView(root);
         immersive();
         root.requestApplyInsets();
