@@ -278,6 +278,15 @@ sub('S-buyu-dugmesi-kanca',
     "af382HudDense=!!(playing&&order.length>=12);",
     "af382HudDense=!!(playing&&order.length>=12);try{if(window.__afp263SkillFade)window.__afp263SkillFade(order,W,H);}catch(_){} /* v3.60.263 S */")
 
+# ================================================================ V) ÜST KORİDOR CAN ÇUBUĞU ŞERİDİN ALTINDA KALIYORDU
+# Kullanıcı bildirimi: "Yankı'da (üst) koridordaki minyonun canı gözükmüyor". Üst bilgi altındaki mod şeridi (Yankı:
+# "YANKI 1/3 · GÖLGE · BOSS SONDA", y≈42–63; diğer modlarda "KULE · 1", "⚑ BAYRAK", "☁ GÖKYÜZÜ", y≈48–60) çok yüksek
+# katmanda ve üst koridor can çubuklarının çizildiği bandın üstünde. Birimler sıkışınca çubuklar yukarı itilip bu şeridin
+# arkasında kayboluyordu. Çubuğun çıkabileceği en üst sınır, o x konumunda şerit varsa şeridin altına çekilir.
+sub('V-ust-koridor-can-cubugu',
+    "textH=Math.max(9,9*kk),minTop=H*.135;",
+    "textH=Math.max(9,9*kk),minTop=Math.max(H*.135,(window.__afp263HudFloor?window.__afp263HudFloor(x,barW):0)); /* v3.60.263 V */")
+
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
 # kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız
@@ -368,7 +377,13 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
      const x=cr.left+v.x*sx,foot=cr.top+v.y*sy,head=cr.top+(v.y-(v.top||0))*sy-24,hw=16;
      if(x+hw>r.left&&x-hw<r.right&&foot>r.top&&head<r.bottom){hit=true;break;}}}
    if(b.classList.contains('af263-thru')!==hit)b.classList.toggle('af263-thru',hit);}
+  /* V: üst şeritlerin kapladığı alan (tuval koordinatında) */
+  const fl=[];for(const id of ['af203BattleBar','battleProStrip']){const e=document.getElementById(id);if(!e)continue;const cs=getComputedStyle(e);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity<.1)continue;
+   const q=e.getBoundingClientRect();if(q.width<4||q.height<4||q.top>cr.top+cr.height*.4)continue;fl.push([(q.left-cr.left)/sx,(q.right-cr.left)/sx,(q.bottom-cr.top)/sy+2]);}
+  hudFloors=fl;
  };
+ let hudFloors=[];
+ window.__afp263HudFloor=function(x,w){let f=0;const h=(w||0)/2+20;for(const r of hudFloors)if(x+h>r[0]&&x-h<r[1])f=Math.max(f,r[2]);return f;};
  /* T: Duraklatılamayan maç (dereceli Arena, Sancak, çevrim içi). Oyun "Çevrim içi maçta duraklatma yok" mesajını savaş
     şeridine yazıyordu; bu modlarda şerit gizli olduğu için hiçbir şey görünmüyor, düğme bozuk sanılıyordu. Düğme soluk
     gösterilir; basınca yanında kısa bir açıklama çıkar. Duraklatma kuralı değişmez. */

@@ -185,6 +185,10 @@ test('T: duraklatılamayan maçta düğme soluk ve açıklama gösteriyor', () =
   once("Çevrim içi / dereceli maçta duraklatma yok: rakip beklemez. Çıkmak için ✕.");
 });
 test('U: sonuç ekranı alt başlığı ödül kutularına binmez', () => { once("c.dataset.af263Shift=String(need)"); });
+test('V: üst koridor can çubuğu mod şeridinin altına itilmez', () => {
+  once("minTop=Math.max(H*.135,(window.__afp263HudFloor?window.__afp263HudFloor(x,barW):0)); /* v3.60.263 V */");
+  once("window.__afp263HudFloor=function(x,w){");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

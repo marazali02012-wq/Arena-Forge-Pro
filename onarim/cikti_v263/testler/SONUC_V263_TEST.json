@@ -122,5 +122,9 @@
   {
     "name": "U: sonuç ekranı alt başlığı ödül kutularına binmez",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "V: üst koridor can çubuğu mod şeridinin altına itilmez",
+    "status": "GEÇTİ"
   }
 ]

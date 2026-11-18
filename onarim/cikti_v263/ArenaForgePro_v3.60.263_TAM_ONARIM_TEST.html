@@ -16077,7 +16077,7 @@ function af320DrawHud(u){
   const showHealth=u.hp>0&&!u.isBarrier; // v3.60.108: all living minions have a visible HP bar, including full-health soldiers.
   let barTop=y-top;
   if(showHealth&&!af382HudHidden.has(u)){
-    const kk=Math.max(.85,Math.min(1.5,k2)),barW=C.hpW*kk*(u._af214GroupMember?.72:1),barH=Math.max(4,C.hpH*kk),bx=x-barW/2,textH=Math.max(9,9*kk),minTop=H*.135;
+    const kk=Math.max(.85,Math.min(1.5,k2)),barW=C.hpW*kk*(u._af214GroupMember?.72:1),barH=Math.max(4,C.hpH*kk),bx=x-barW/2,textH=Math.max(9,9*kk),minTop=Math.max(H*.135,(window.__afp263HudFloor?window.__afp263HudFloor(x,barW):0)); /* v3.60.263 V */
     // Keep the gauge under the top HUD: if the numbers would not fit, only the bar is drawn (no overlap with HUD).
     const crowdLift=af320HudOffsets.get(u)||0;
     let withText=!af378HudNoText.has(u),barY=y-top-barH-C.gap*kk-textH-1-crowdLift;
@@ -43620,7 +43620,13 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
      const x=cr.left+v.x*sx,foot=cr.top+v.y*sy,head=cr.top+(v.y-(v.top||0))*sy-24,hw=16;
      if(x+hw>r.left&&x-hw<r.right&&foot>r.top&&head<r.bottom){hit=true;break;}}}
    if(b.classList.contains('af263-thru')!==hit)b.classList.toggle('af263-thru',hit);}
+  /* V: üst şeritlerin kapladığı alan (tuval koordinatında) */
+  const fl=[];for(const id of ['af203BattleBar','battleProStrip']){const e=document.getElementById(id);if(!e)continue;const cs=getComputedStyle(e);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity<.1)continue;
+   const q=e.getBoundingClientRect();if(q.width<4||q.height<4||q.top>cr.top+cr.height*.4)continue;fl.push([(q.left-cr.left)/sx,(q.right-cr.left)/sx,(q.bottom-cr.top)/sy+2]);}
+  hudFloors=fl;
  };
+ let hudFloors=[];
+ window.__afp263HudFloor=function(x,w){let f=0;const h=(w||0)/2+20;for(const r of hudFloors)if(x+h>r[0]&&x-h<r[1])f=Math.max(f,r[2]);return f;};
  /* T: Duraklatılamayan maç (dereceli Arena, Sancak, çevrim içi). Oyun "Çevrim içi maçta duraklatma yok" mesajını savaş
     şeridine yazıyordu; bu modlarda şerit gizli olduğu için hiçbir şey görünmüyor, düğme bozuk sanılıyordu. Düğme soluk
     gösterilir; basınca yanında kısa bir açıklama çıkar. Duraklatma kuralı değişmez. */
