@@ -1,3 +1,3 @@
-Derleme: 490e1249af4c26d245ef5dd3426eaff64cad673c  (çalıştırma 44418053031)
+Derleme: a41dadc445954146229a8ee123f607fffe72db7f  (çalıştırma 44423390933)
 APK: hata ayıklama anahtarıyla imzalı TEST paketi; yayın paketi değildir.
 AAB: imzasız; Play'e yüklemeden önce sahibinin yükleme anahtarıyla imzalanmalı.
