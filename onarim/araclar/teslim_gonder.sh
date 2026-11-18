@@ -19,7 +19,7 @@ cmp -s "$O" app/src/main/assets/www/index.html && echo "Android varlığı eşit
 Z="$TMP/ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip"
 zip -q -r -9 "$Z" onarim/cikti_v263 onarim/araclar/patch_v263.py onarim/araclar/html_scriptlerini_ayir.py \
   onarim/araclar/varlik_tarama.py onarim/araclar/zip_parcala.py onarim/araclar/teslim_gonder.sh \
-  onarim/testler/test_logic.js onarim/testler/test_portraits261.js app/src/main/java/com/arenaforgepro/game/GameActivity.java
+  onarim/testler/test_logic.js onarim/testler/test_portraits261.js app/src/main/java/com/arenaforgepro/game/GameActivity.java sunucu
 rm -rf onarim/teslim_v263
 python3 -I onarim/araclar/zip_parcala.py "$Z" onarim/teslim_v263 27 | tail -1
 # birleştirme denemesi (boş klasörde)
