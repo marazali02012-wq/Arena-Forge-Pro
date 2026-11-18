@@ -179,3 +179,42 @@ Görüntüler: `ekran_goruntuleri/ekranlar/`.
 
 - Yeni görsel gömülmedi, hiçbir görselin çözünürlüğü düşürülmedi.
 - 1×1 yer tutucu dışında birebir tekrar eden görsel kalmadı (`test_v263.js` denetliyor).
+
+---
+
+## Kalan eksikler turu — test sonuçları
+
+### Kod testleri
+| Grup | Sonuç |
+|---|---|
+| JS sözdizimi (106 blok) | hata 0 |
+| Eski savaş testleri | 17/17 |
+| Kart portresi testleri | 10/10 |
+| v263 regresyon testleri | 40/40 |
+
+### Tarayıcı (Chromium, 667×375 · 740×360 · 800×360)
+| Konu | Sonuç |
+|---|---|
+| Büyü penceresi düğmeleri | 3 ölçüde kaydırma payı 0, düğmeler tam görünür |
+| Kupa Yolu | 92 kart 90 px, kırpık ad 0, küçük figürlü minyon kartı 0 |
+| Minyon nadirlik sekmeleri | 3 ölçüde 6 sekme sığıyor |
+| Ekipman yuvası yazısı | Taşma yok |
+| Yadigârlar alt bilgisi | 3 ölçüde tam |
+| Kahramanlar 5 sekme | Aynı kolon düzeni; 740/800'de liste taşmıyor |
+| Savaş öğretici balonu (2 adım) | Koridora binme 0 px, ekran içinde, kart/düğme örtme yok |
+| Üst koridor can çubuğu sınırı | Yalnız üst koridor (409/792); orta 0/138, alt 0/86 |
+| Örümcek Akını zafer / yenilgi / pes | Etiket doğru; ödül ve sayaçlar doğru; çift ödül yok; JS hatası 0 |
+| İki Oyunculu Kolosus (bot) | Doğal oynanışta kontrol puanıyla zafer; kupa/kredi değişmedi; etiket doğru |
+| Son Kahraman / Lonca Dev Avı / Lonca (misafir) | Giriş uyarısı doğru; sunucu gerekli kısım denenemedi |
+| Android geri tuşu köprüsü (Android adresi taklidi) | v3.60.220 ile birebir aynı davranış, JS hatası 0 |
+
+### Android derlemesi (GitHub Actions "Android derleme", çalıştırma #55, commit 76db7f5)
+| Adım | Sonuç |
+|---|---|
+| `assembleDebug` + `bundleRelease` | BUILD SUCCESSFUL (26 sn, 81 görev) |
+| `bundletool validate` (1.18.1) | Geçti; base modülü: `assets/www/index.html`, `dex/classes.dex`, simge |
+| `apksigner verify` (test APK'sı) | Doğrulandı: v2 imza; imzalayan "CN=Android Debug" (hata ayıklama anahtarı) |
+| Yükleme anahtarıyla AAB imzası | **Yapılmadı:** depoda yükleme anahtarı gizli değişkenleri tanımlı değil; AAB imzasız |
+| Çıktı | Actions dosyası "ArenaForgePro-android" (66,8 MB): test APK'sı + imzasız AAB + doğrulama metinleri |
+
+Test APK'sı hata ayıklama anahtarıyla imzalı bir deneme paketidir, **yayın paketi değildir**. Play'e yüklenecek AAB, sahibinin kendi yükleme anahtarıyla imzalanmalıdır.

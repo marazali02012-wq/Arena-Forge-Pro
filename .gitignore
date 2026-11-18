@@ -6,6 +6,9 @@ local.properties
 *.apk
 *.aab
 *.apks
+# İstisna: elle başlatılan derlemenin teslim kopyaları (test APK'sı + imzasız AAB)
+!yayin/android/*.apk
+!yayin/android/*.aab
 
 # İmzalama anahtarları depoya girmez
 *.jks
