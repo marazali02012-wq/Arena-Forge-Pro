@@ -108,3 +108,23 @@ Etiketler:
 ## v3.60.262 düzeltmeleri korundu
 
 Hikâye paneli, Sancak skoru, olay sırasında skorun görünmesi, %42 saydam suikastçı, 49 sayısı ve Yankı boss kuralı `test_v263.js` içinde yeniden denetleniyor (6 test, hepsi geçti). Tarayıcı taraması sonuçları `TEST_SONUCLARI.md` dosyasında.
+
+---
+
+## İçerik denetimi turu (ekranların içi, kaydırılarak) — **DÜZELTİLDİ**
+
+Yöntem: 106 minyon kart resmi tek tek ölçüldü (kırık / boş / küçük figür / tekrar). Minyonlar listesi, Koleksiyon'un 5 sekmesi, 5 kahraman × 5 sekme, Mağaza'nın 5 sekmesi (yatay kaydırmayla), Etkinlik Mağazası, Sezon Bileti kaydırılarak fotoğraflandı. Ardından 30 ekranda otomatik resim taraması (kırık, düğme içinde dev resim, kartından taşan resim): **hepsi temiz**.
+
+| # | Nerede | Hata | Düzeltme | Test |
+|---|---|---|---|---|
+| 1 | Alt ekranlar (Deste, Kahramanlar, Minyonlar, Envanter, Kupa Yolu, Görevler) | Rehber balonu ("GERİ ile ana ekrana dön") içeriğin üstüne biniyordu | Bu adımda balon tek satırlık şeride küçülüp üst çubuktaki boş aralığa oturuyor; dar ekranda ";" sonrası açıklama gizleniyor | 740×360, 667×375, 800×360'ta 7 ekranın hepsinde üst çubukta, örtme 0 |
+| 2 | Gölge Suikastçı (Sezon Bileti, Koleksiyon, Minyonlar) | Kart resminde figür tuvalin yalnız %9'u; minik görünüyordu | Oyunda zaten olan aynı karakterin savaş çiziminin ilk karesi portre yapıldı; iki küçük kopya tek resme indi | Kart, koleksiyon ve sezon bileti ekranında büyük; 106 portrede en küçük figür artık %34 |
+| 3 | Minyonlar → kilitli minyon ayrıntısı | Kilit simgesi "SV 1" etiketinin üstüne biniyordu; "Nasıl açılır?" kutusu yarı saydam, altındaki istatistikler içinden okunuyordu | Kilit sağ alta alındı; kutu opak | Görüntüyle doğrulandı |
+| 4 | Koleksiyon kartları | Aynı etiket iki kez: "Menzilli · Menzilli" (4 minyon), "Platin · Platin" (2 platin karakter) | Bir etiket önceki etiketlerden biriyle aynıysa yazılmıyor | 49 + 3 boss + 2 platin kartta tekrar: 0 |
+| 5 | Kahramanlar → kilitli kahraman (Vaelor, Theryn, Elyvara, Saelith) | Açıklama "ya da 20 Vael…" diye kesiliyor, "0 / 20 parça" sekmelerin arkasına taşıyor, KUPA YOLU düğmesi İLERLEME sekmesine biniyordu | Kutu düğmeye kadar genişledi, açıklama 2 satır, düğme kutunun yanında | 3 ölçüde metin kesik değil, düğme sekmeye binmiyor |
+| 6 | İlk açılış (yeni oyuncu) | Hikâye girişi (~20 sn) giriş ekranının **arkasında** oynuyordu; oyuncu girişi kaçırıyor ya da doğrudan ücretsiz minyon kartına düşüyordu | Giriş ekranı açıkken hikâye başlamıyor | 6 sn bekleme: başlamadı; "Misafir olarak oyna" sonrası 1. slayttan başladı |
+| 7 | Mağaza → Görünümler | "İNCELE" düğmesi kostüm figürünün gövdesini örtüyordu | Düğme küçülüp resmin sol alt köşesine alındı (kaynak kural `@layer af172Commerce` içinde olduğu için düzeltme aynı katmanda) | Görüntüyle doğrulandı |
+| 8 | Etkinlik Mağazası | SATIN AL düğmesindeki mühür simgesi 324 px çiziliyor, kartları ve ekranın yarısını kaplıyordu; fiyat görünmüyordu | Fiyat simgesi 16 px | "SATIN AL ● 10 / 15" okunuyor |
+| 9 | Etkinlik Mağazası → "3 minyon parçası" | Görsel katman oyunun çizdiği hedef minyonu (Alize Bıçaklı) silip sabit bir komutan resmi (mor büyücü) koyuyordu | Katman yalnız resim yoksa yedek koyuyor; İNCELE köşede | Kartta `afn_alize_bicakli` resmi |
+
+Testler: `test_v263.js` 26/26 (I, C1b, J, K, L, M, N, O, P eklendi).

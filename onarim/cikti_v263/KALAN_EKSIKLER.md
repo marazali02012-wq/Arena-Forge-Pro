@@ -29,8 +29,15 @@ Etiket: **TAMAMLANMADI** = düzeltilmedi ya da doğrulanamadı.
 11. **Küçük görsel notlar** (işlev bozulmuyor):
     - Büyü detay penceresinin alt düğmesi ilk açılışta ~11 px kesik görünüyor; panel kaydırılabildiği için tamamına ulaşılıyor.
     - Kupa Yolu'nda iki satıra bölünen bir kart adı ("ATEŞ ELEMENTALİ") ve 667×375'te Minyonlar ekranındaki "Boş · dokun ve kuşan" alt yazısı satır sınırında kırpılıyor.
-12. **Mesajlar ve Ayarlar ekranları** bu sürümde test aracıyla açılamadı (düğmeleri küçük); test edilmedi.
+12. ~~Mesajlar ve Ayarlar ekranları test edilmedi~~ → sonraki turda açılıp kapatıldı (bkz. `TIKLAMA_VE_CENTIK_TESTI.md`).
 13. **Tek örnekte görünmeyen minyon:** 94 savaş örneğinden birinde bir dost birim bir an çizilmemiş göründü, sonraki örnekte görünüyordu. Kalıcı değil; büyük olasılıkla iki kare arasında sahaya çıkma anı. Ayrıca doğrulanmadı.
+
+## İçerik denetiminde bulunan, düzeltilemeyen ya da bilerek bırakılanlar — **TAMAMLANMADI**
+
+14. **İki boss'un resmi yok.** Koleksiyon → Boss Koleksiyonu'nda "Uçurum Ejderi" ve "Boşluk İmparatoru" "GÖRSEL BEKLENİYOR" gösteriyor; Boss Sandığı da bu yüzden kapalı ("sandık görseller gelince açılır"). Oyun dosyasında bu iki boss için çizim yok; kurallar gereği yeni görsel eklenmedi.
+15. **Ad / çizim uyuşmazlığı:** "Çift Kılıçlı" (ilk ücretsiz minyon) çiziminde karakter tek mızrak tutuyor. Oyunun kendi çizimi; değiştirilmedi.
+16. **Kahramanlar ekranında iki tasarım:** Büyüler sekmesi yeni görünümde, Özet/Ekipman/Kıyafetler/İlerleme eski "Kahraman Dosyası" görünümünde açılıyor. İşlev bozulmuyor; birleştirmek ekranı yeniden yazmak demek, yapılmadı.
+17. **Mağaza → Yadigârlar** alt bilgi satırı ilk görünümde yarım; alan 12 px kaydırılınca tamamı görünüyor.
 
 ## Bilinçli tasarım kararları (onay gerekirse değiştirilebilir)
 
