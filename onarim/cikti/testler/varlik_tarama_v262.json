@@ -1,0 +1,81 @@
+{
+  "dosya_bayt": 46893179,
+  "gomulu_gorsel_gecis": 1142,
+  "tur_dagilimi": {
+    "webp": 1142
+  },
+  "benzersiz_gorsel": 967,
+  "base64_toplam_bayt": 41718636,
+  "base64_orani_yuzde": 89.0,
+  "birebir_tekrar_eden_benzersiz": 8,
+  "tekrar_nedeniyle_fazladan_bayt": 253124,
+  "en_buyuk_tekrarlar": [
+    {
+      "kind": "webp",
+      "w": 315,
+      "h": 279,
+      "b64len": 65608,
+      "adet": 2
+    },
+    {
+      "kind": "webp",
+      "w": 468,
+      "h": 310,
+      "b64len": 51660,
+      "adet": 2
+    },
+    {
+      "kind": "webp",
+      "w": 768,
+      "h": 96,
+      "b64len": 36872,
+      "adet": 2
+    },
+    {
+      "kind": "webp",
+      "w": 768,
+      "h": 96,
+      "b64len": 28088,
+      "adet": 2
+    },
+    {
+      "kind": "webp",
+      "w": 768,
+      "h": 96,
+      "b64len": 27944,
+      "adet": 2
+    },
+    {
+      "kind": "webp",
+      "w": 768,
+      "h": 96,
+      "b64len": 23404,
+      "adet": 2
+    },
+    {
+      "kind": "webp",
+      "w": 256,
+      "h": 256,
+      "b64len": 11484,
+      "adet": 2
+    },
+    {
+      "kind": "webp",
+      "w": 1,
+      "h": 1,
+      "b64len": 48,
+      "adet": 169
+    }
+  ],
+  "bir_bir_yer_tutucu_benzersiz": 1,
+  "bir_bir_yer_tutucu_gecis": 169,
+  "cozulemeyen_gorsel": 0,
+  "boyut_dagilimi_uzun_kenar": {
+    "<=256": 181,
+    "<=512": 601,
+    "<=1024": 153,
+    "1x1": 1,
+    ">1024": 18,
+    "<=64": 13
+  }
+}

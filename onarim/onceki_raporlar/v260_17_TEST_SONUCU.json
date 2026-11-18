@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Minyon: 0.2 pozitif hasar en az 1 olur",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Minyon: tam 0 hasar 0 kalır",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Minyon: 9.8 hasar 10 olur",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Portal: başlangıç 430, 0.2 pozitif büyü 1 hasar",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Portal: normal büyü 19 hasar",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Portal: hasar sıfırsa hasar yok",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Portal: hasar 0 canın altına geçmez",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Portal: tam koruma 0 hasar verir",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Arena: düşman portalı 0 olduğunda zafer",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Arena: dost portalı 0 olduğunda yenilgi",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Arena: aynı kare iki portal sıfırsa beraberlik",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Yankı: boss ayaktayken düşman portalı yıkılsa da erken zafer yok",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Yankı: boss öldüğünde sonuç yolu açılır",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Yankı: boss hayattayken dost portalı yıkılırsa yenilgi",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Kolosus: hız çarpanı .075 yerine .65",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "1x1 atlas: boş veri kaydının atlanması",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "9 mod: 8 liste modu ve ayrı Kolosus",
+    "status": "GEÇTİ"
+  }
+]

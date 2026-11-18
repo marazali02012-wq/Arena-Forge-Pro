@@ -1,0 +1,20 @@
+{
+  "test_runs": [
+    {
+      "test": "test_logic.js",
+      "exit": 0,
+      "stdout": "GEÇTİ Minyon: 0.2 pozitif hasar en az 1 olur\nGEÇTİ Minyon: tam 0 hasar 0 kalır\nGEÇTİ Minyon: 9.8 hasar 10 olur\nGEÇTİ Portal: başlangıç 430, 0.2 pozitif büyü 1 hasar\nGEÇTİ Portal: normal büyü 19 hasar\nGEÇTİ Portal: hasar sıfırsa hasar yok\nGEÇTİ Portal: hasar 0 canın altına geçmez\nGEÇTİ Portal: tam koruma 0 hasar verir\nGEÇTİ Arena: düşman portalı 0 olduğunda zafer\nGEÇTİ Arena: dost portalı 0 olduğunda yenilgi\nGEÇTİ Arena: aynı kare iki portal sıfırsa beraberlik\nGEÇTİ Yankı: boss ayaktayken düşman portalı yıkılsa da erken zafer yok\nGEÇTİ Yankı: boss öldüğünde sonuç yolu açılır\nGEÇTİ Yankı: boss hayattayken dost portalı yıkılırsa yenilgi\nGEÇTİ Kolosus: hız çarpanı .075 yerine .65\nGEÇTİ 1x1 atlas: boş veri kaydının atlanması\nGEÇTİ 9 mod: 8 liste modu ve ayrı Kolosus\nSONUÇ 17/17\n",
+      "stderr": ""
+    },
+    {
+      "test": "test_portraits261.js",
+      "exit": 0,
+      "stdout": "GEÇTİ Art paketi: 245 ofset kaydı geçerli\nGEÇTİ Minyon gömülü görseli erişilebilir\nGEÇTİ Komutan gömülü portresi erişilebilir\nGEÇTİ Boş eski slot orijinal gömülü görseli perdeleyemez\nGEÇTİ Kart görseli aynı karakterin kendi varlığını tercih eder\nGEÇTİ Kart görseli AFArt içindeki minyona döner\nGEÇTİ Bilinmeyen minyona başka kartın görseli atanmaz\nGEÇTİ Eski koleksiyonda sabit boş portre ataması kaldırılmış\nGEÇTİ 106 portreden kaçak dış adres kullanılmıyor\nGEÇTİ Bozuk kart kaynağı aynı minyon görseline yönlendiriliyor\nSONUÇ 10/10\n",
+      "stderr": ""
+    }
+  ],
+  "js_syntax_checked": 105,
+  "js_syntax_errors": 0,
+  "html_script_tags": 108,
+  "html_style_tags": 140
+}

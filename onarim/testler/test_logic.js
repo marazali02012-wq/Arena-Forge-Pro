@@ -1,0 +1,32 @@
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const e=fs.readFileSync(__dirname+'/../04_TESTLER/_uretilen_scriptler/script_030.js','utf8');
+const modes=fs.readFileSync(__dirname+'/../04_TESTLER/_uretilen_scriptler/script_066.js','utf8');
+const results=[];
+function test(name,fn){try{fn();results.push({name,status:'GEÇTİ'});console.log('GEÇTİ',name)}catch(err){results.push({name,status:'KALDI',err:String(err)});console.log('KALDI',name,String(err));process.exitCode=1}}
+const mods=e.slice(e.indexOf('function af327AttackMods('),e.indexOf('function af327PeriodMul('));
+const s1={elapsed:1,af327Pas:()=>null,af327AuraFrom:()=>null,af327Text:()=>{},af330Rand:()=>.99};vm.createContext(s1);vm.runInContext(mods,s1);
+test('Minyon: 0.2 pozitif hasar en az 1 olur',()=>assert.equal(s1.af327AttackMods({hp:10,maxHp:10,team:'ally'},null,.2),1));
+test('Minyon: tam 0 hasar 0 kalır',()=>assert.equal(s1.af327AttackMods({hp:10,maxHp:10,team:'ally'},null,0),0));
+test('Minyon: 9.8 hasar 10 olur',()=>assert.equal(s1.af327AttackMods({hp:10,maxHp:10,team:'ally'},null,9.8),10));
+const p=e.match(/function af334PortalDmg\(side,lane,amount\)\{[^\n]+\}/)[0];
+let foe=[430,430,430],stats={towerDamage:0},ctx={af327FoePortal:()=>foe,af327EnemyPortalFactor:()=>1,af327PortalFactor:()=>1,matchStats:stats};vm.createContext(ctx);vm.runInContext(p,ctx);
+test('Portal: başlangıç 430, 0.2 pozitif büyü 1 hasar',()=>{assert.equal(ctx.af334PortalDmg({team:'ally'},1,.2),1);assert.equal(foe[1],429)});
+test('Portal: normal büyü 19 hasar',()=>{assert.equal(ctx.af334PortalDmg({team:'ally'},1,19),19);assert.equal(foe[1],410)});
+test('Portal: hasar sıfırsa hasar yok',()=>{assert.equal(ctx.af334PortalDmg({team:'ally'},1,0),0);assert.equal(foe[1],410)});
+test('Portal: hasar 0 canın altına geçmez',()=>{assert.equal(ctx.af334PortalDmg({team:'ally'},1,1000),410);assert.equal(foe[1],0)});
+ctx.af327EnemyPortalFactor=()=>0;foe=[430,430,430];test('Portal: tam koruma 0 hasar verir',()=>{assert.equal(ctx.af334PortalDmg({team:'ally'},1,30),0);assert.equal(foe[1],430)});
+const a=e.indexOf('{const enemyDown=enemySharedHP<=0,portalsDown=allySharedHP<=0,castleDown=baseHP<=0,allyDown=castleDown||portalsDown;');
+const b=e.indexOf('\n  if(elapsed>=MATCH_DURATION',a);assert.ok(a>0&&b>a);
+const endLogic=e.slice(a,b);
+function resultTest(name,vars,want){test(name,()=>{const events=[];const q={enemySharedHP:vars.enemy,allySharedHP:vars.ally,baseHP:vars.base??100,gameMode:vars.mode,af203Run:vars.echo?{active:true,bossDefeated:vars.bossDefeated}:null,draw:()=>{},endGame:(r)=>events.push(r),updateHUD:()=>{}};vm.createContext(q);const f=vm.runInContext('(function(dt){'+endLogic+'})',q);f(.016);assert.deepEqual(events,want)})}
+resultTest('Arena: düşman portalı 0 olduğunda zafer', {enemy:0,ally:430,mode:'arena'},[true]);
+resultTest('Arena: dost portalı 0 olduğunda yenilgi', {enemy:430,ally:0,mode:'arena'},[false]);
+resultTest('Arena: aynı kare iki portal sıfırsa beraberlik', {enemy:0,ally:0,mode:'arena'},[null]);
+resultTest('Yankı: boss ayaktayken düşman portalı yıkılsa da erken zafer yok', {enemy:0,ally:430,mode:'echo',echo:true,bossDefeated:false},[]);
+resultTest('Yankı: boss öldüğünde sonuç yolu açılır', {enemy:0,ally:430,mode:'echo',echo:true,bossDefeated:true},[true]);
+resultTest('Yankı: boss hayattayken dost portalı yıkılırsa yenilgi', {enemy:0,ally:0,mode:'echo',echo:true,bossDefeated:false},[false]);
+test('Kolosus: hız çarpanı .075 yerine .65',()=>{assert.ok(e.includes('speed:colGolem?-(sp*.65):-sp,atk,cd:.4'));assert.ok(!e.includes('speed:colGolem?-(sp*.075):-sp,atk,cd:.4'))});
+test('1x1 atlas: boş veri kaydının atlanması',()=>{assert.ok(e.includes('if(src&&src!==emptyAtlas)AF321.register(k,src)'))});
+test('9 mod: 8 liste modu ve ayrı Kolosus',()=>{const start=modes.indexOf('const MODES=['),end=modes.indexOf('];',start),list=modes.slice(start,end);let names=[...list.matchAll(/\{id:'(\w+)'/g)].map(x=>x[1]); assert.deepEqual(names,['arena','tower','boss','campaign','sky','flag','secret','dark']);assert.ok(modes.includes("if(id==='colossus')"))});
+fs.writeFileSync(__dirname+'/SONUC_17_TEST.json',JSON.stringify(results,null,2));
+console.log('SONUÇ',results.filter(x=>x.status==='GEÇTİ').length+'/'+results.length);

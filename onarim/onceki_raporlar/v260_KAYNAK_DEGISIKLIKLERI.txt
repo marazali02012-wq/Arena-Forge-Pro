@@ -1,0 +1,7 @@
+Pozitif minyon hasarı sıfıra düşmüyor
+Minyon canı negatif olmuyor
+Pozitif büyü portal hasarı sıfıra yuvarlanmıyor
+1x1 boş animasyon atlasları artık yüklenmiyor, mevcut karakter çizim yedeği korunuyor
+Taş Kolosus aşırı yavaş ilerlemiyor
+Yankı final boss ölmeden portal kaynaklı beraberlik engellendi
+Yankı final boss ölmeden portal kaynaklı sahte zafer engellendi

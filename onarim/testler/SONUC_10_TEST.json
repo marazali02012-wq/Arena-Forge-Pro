@@ -1,0 +1,46 @@
+{
+  "total": 10,
+  "passed": 10,
+  "results": [
+    {
+      "name": "Art paketi: 245 ofset kaydı geçerli",
+      "pass": true
+    },
+    {
+      "name": "Minyon gömülü görseli erişilebilir",
+      "pass": true
+    },
+    {
+      "name": "Komutan gömülü portresi erişilebilir",
+      "pass": true
+    },
+    {
+      "name": "Boş eski slot orijinal gömülü görseli perdeleyemez",
+      "pass": true
+    },
+    {
+      "name": "Kart görseli aynı karakterin kendi varlığını tercih eder",
+      "pass": true
+    },
+    {
+      "name": "Kart görseli AFArt içindeki minyona döner",
+      "pass": true
+    },
+    {
+      "name": "Bilinmeyen minyona başka kartın görseli atanmaz",
+      "pass": true
+    },
+    {
+      "name": "Eski koleksiyonda sabit boş portre ataması kaldırılmış",
+      "pass": true
+    },
+    {
+      "name": "106 portreden kaçak dış adres kullanılmıyor",
+      "pass": true
+    },
+    {
+      "name": "Bozuk kart kaynağı aynı minyon görseline yönlendiriliyor",
+      "pass": true
+    }
+  ]
+}

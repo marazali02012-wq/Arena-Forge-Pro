@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Sürüm etiketi v3.60.262",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Hikâye Seferi paneli: güvenli ortalama (üst satır kesilmez)",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Sancak: koridoru kapatan skor kutusu gizli",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Sancak: şerit etiketi skor + hedef puanı gösterir",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Sancak: olay bildirimi sırasında skor hapı gizlenmez",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Gizlilik: kendi suikastçın %42 saydam çizilir, rakibinki çizilmez",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Gizlilik: hedefleme kuralı değişmedi (iki taraf için aynı)",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Koleksiyon: Yeni Karakterler sekmesi 49 (Keşifçi emekli)",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Savaş motoru sonuç bloğu (v260) korunuyor",
+    "status": "GEÇTİ"
+  }
+]
