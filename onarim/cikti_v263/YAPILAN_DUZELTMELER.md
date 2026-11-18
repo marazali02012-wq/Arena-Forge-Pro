@@ -147,3 +147,35 @@ Yöntem: 9 modun her birinde (Arena, Doruk Kulesi, Hikâye Seferi, Gökyüzü Ad
 Gözlenen, sorun olmayanlar: zafer/duraklatma/çıkış pencereleri, Yankı dalga arası güç seçimi, Kolosus boss can çubukları, büyü efektleri, hasar sayıları 9 modda düzgün.
 
 Testler: `test_v263.js` 32/32 (Q, R, S, T, U, V eklendi).
+
+---
+
+## Kalan eksikler turu — **DÜZELTİLDİ / TEST EDİLDİ**
+
+Ölçüler: 667×375, 740×360, 800×360 (Chromium, mobil öykünme). Görüntüler: `ekran_goruntuleri/kalan_eksikler/`, `ekran_goruntuleri/ek_modlar/`.
+
+### Arayüz — DÜZELTİLDİ
+| # | Nerede | Kök neden | Düzeltme | Test |
+|---|---|---|---|---|
+| W | Büyü ayrıntı penceresi | Pencere 250 px, içerik 266 px; düğme satırı kaydırma alanının sonunda ~11 px kesiliyordu | Alçak ekranda simge 64→50 px, düğme satırı pencerenin altına sabit, üst çubukta zaten yazan bakiye satırı penceredeki tekrarından kaldırıldı | 3 ölçüde kaydırma payı 0, düğmeler tam |
+| X | Kupa Yolu | "MİNYON KARTI" ödülleri 256 px'lik küçük savaş figürünü kullanıyordu (aynı minyon parça ödülünde ve koleksiyonda tam portre); kart genişliği ada göre 67–90 px değişiyor, uzun ad resmi küçültüyordu | Minyon kartında oyunun kart portresi; kartlar 90 px, ad alanı sabit iki satır | 92 kartın hepsi 90 px, kırpık ad 0, küçük figürlü kart 0 |
+| Y | Minyonlar → nadirlik sekmeleri | 6 sekme 374 px istiyor, alan 289 px; EFSANEVİ yarım, PLATİN görünmüyordu | Dar ekranda boşluk/yazı küçültüldü (mevcut kuraldan güçlü seçiciyle) | 667/740/800'de 6 sekme sığıyor |
+| Z | Minyon ayrıntısı → EKİPMAN yuvaları (667) | Simge + boşluk yazıya 49 px bırakıyordu: "Boş · dokun ve…" | Simge yuvanın köşesine; yazı tam genişlikte, iki satır | Yazı 70–90 px, taşma yok |
+| AA | Mağaza → Yadigârlar alt bilgisi | Alan 12 px yetersiz; kaynak kural `@layer af172Commerce` içinde olduğu için önceki denemeler uygulanmıyordu | Aynı katmanda boşluklar kısıldı; ürün kartlarına dokunulmadı | 3 ölçüde tam görünüyor |
+| AB | Kahramanlar ekranı | Yeni Heroic görünüm yalnız BÜYÜLER için; diğer sekmeler eski "Kahraman Dosyası"nı farklı kolon, çerçeve ve renkle gösteriyordu | Eski ekran aynı kolon oranlarına (%23·%22·%55) ve aynı panel/sekme stiline getirildi; düğmeler ve işlevler aynı | 4 sekmede kolonlar ve çerçeveler aynı; 740/800'de liste taşmıyor |
+| E2 | Savaş öğretici balonu | 2. adımda ATLA/KAPAT/ANLADIM iki satıra bölünüp balon 136 px'e çıkıyor, alt koridora ve ekran dışına taşıyordu; 667'de üst koridora biniyordu | Savaşta sıkı yazı düzeni; dar boşluk eşiği 140→108 px | 3 ölçüde iki adımda da koridora binme 0 px, ekran içinde, düğme/kart örtme yok |
+| V-kontrol | Üst koridor can çubuğu düzeltmesi | — | — | Yankı'da ölçüldü: yalnız üst koridorda devreye giriyor (409/792 örnek); orta 0/138, alt 0/86 |
+
+### Ek modlar — DÜZELTİLDİ / TEST EDİLDİ
+| Mod | Bulgu | Durum |
+|---|---|---|
+| **Örümcek Akını** | Sonuç ekranı "YANKI İSTİLASI" yazıyordu (motor ikisini de `boss` modunda çalıştırıyor) | **DÜZELTİLDİ:** maç başında Örümcek motorunun etkin olup olmadığı kaydediliyor; etiket "ÖRÜMCEK AKINI". Dönüş hedefi değişmedi |
+| Örümcek Akını akışları | Zafer (portal 0): +356 kredi +1 sandık, raid zafer 0→1, kademe 1→2. Yenilgi: +40 kredi, yenilgi sayacı +1. Pes: ödülsüz, yenilgi +1. Meşale her girişte −1. Zafer sonrası yeniden yükleme: kredi aynı (çift ödül yok). JS/motor hatası 0 | **TEST EDİLDİ** |
+| **İki Oyunculu Kolosus** | Sunucuya ulaşılamayınca "Bağlantı hatası" + TEKRAR ARA / BOTLA OYNA / İPTAL doğru. Bot maçı düello motoru + "KOLOSUS" kontrol noktası; doğal oynanışta 100 puanla "KOLOSUS KONTROLÜ · ZAFER". Kupa/kredi değişmedi (bot maçı ödülsüz). Sonuç etiketi "SAVAŞ ARENALARI" yazıyordu | **DÜZELTİLDİ:** etiket "İKİ OYUNCULU KOLOSUS" |
+| Lonca Dev Avı | Lonca yoksa "önce bir loncaya katıl" | Misafir akışı **TEST EDİLDİ**; avın kendisi sunucu gerektiriyor (bkz. KALAN_EKSIKLER) |
+| Son Kahraman Ayakta | Misafirde giriş uyarısı | Misafir akışı **TEST EDİLDİ**; turnuva sunucu gerektiriyor |
+
+### Android — aktarıldı
+`ANDROID_AKTARIM.md`: 263, Android'deki v3.60.220'nin bütün Android'e özel değişikliklerini kapsıyor (karşılaştırma tablosu orada). HTML uygulamaya kondu, `versionCode 263`. Android adresi taklit edilerek geri tuşu köprüsü denendi; davranış 220 ile birebir aynı.
+
+Testler: `test_v263.js` 40/40.

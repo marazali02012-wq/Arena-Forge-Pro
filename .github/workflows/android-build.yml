@@ -3,6 +3,11 @@ name: Android derleme
 # Bilgisayar gerekmeden APK ve AAB üretir. Elle başlatmak için: GitHub → Actions → "Android derleme" → Run workflow.
 on:
   workflow_dispatch:
+    inputs:
+      kaydet:
+        description: "APK ve AAB'yi dalın yayin/android/ klasörüne commit et"
+        type: boolean
+        default: false
   push:
     branches: [ 'claude/**' ]
     paths: [ 'app/**', 'gradle/**', '*.gradle', '.github/workflows/android-build.yml' ]
@@ -10,6 +15,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -53,3 +60,18 @@ jobs:
             bundletool-validate.txt
             apksigner-verify.txt
           if-no-files-found: warn
+      - name: Çıktıları dala kaydet (yalnız elle başlatıp 'kaydet' seçilirse)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.kaydet }}
+        run: |
+          mkdir -p yayin/android
+          cp app/build/outputs/apk/debug/app-debug.apk yayin/android/ArenaForgePro-test-debug.apk
+          cp app/build/outputs/bundle/release/app-release.aab yayin/android/ArenaForgePro-release-IMZASIZ.aab
+          [ -f app-release-signed.aab ] && cp app-release-signed.aab yayin/android/ArenaForgePro-release-imzali.aab || true
+          cp bundletool-validate.txt apksigner-verify.txt yayin/android/
+          (cd yayin/android && sha256sum *.apk *.aab > SHA256SUMS.txt)
+          { echo "Derleme: ${GITHUB_SHA}  (çalıştırma ${GITHUB_RUN_ID})"; echo "APK: hata ayıklama anahtarıyla imzalı TEST paketi; yayın paketi değildir."; echo "AAB: imzasız; Play'e yüklemeden önce sahibinin yükleme anahtarıyla imzalanmalı."; } > yayin/android/OKU_BENI.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add yayin/android
+          git commit -m "Android test APK ve imzasız AAB (${GITHUB_SHA::7})"
+          git push origin HEAD:${GITHUB_REF_NAME}
