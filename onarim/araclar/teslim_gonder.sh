@@ -9,7 +9,10 @@ MSG="$1"; [ -n "$MSG" ] || { echo "commit mesajı gerekli"; exit 2; }
 TMP=$(mktemp -d)
 O=onarim/cikti_v263/ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.html
 python3 -I onarim/araclar/patch_v263.py onarim/cikti/ARENA_FORGE_PRO_v3.60.262.html "$O" | tail -1
-bash onarim/cikti_v263/testler/testleri_calistir.sh "$O" | tail -4
+T=$(bash onarim/cikti_v263/testler/testleri_calistir.sh "$O" 2>&1 | grep -E "^(SONUÇ|SÖZDİZİMİ)")
+echo "$T"
+# 4 sonuç satırı olmalı ve hepsi tam geçmeli; aksi hâlde gönderme.
+[ "$(echo "$T" | grep -c '^SONUÇ')" = 3 ] && echo "$T" | grep -q "hata=0" && echo "$T" | awk '/^SONUÇ/{split($2,a,"/"); if(a[1]!=a[2]) bad=1} END{exit bad}' || { echo "TEST BAŞARISIZ: gönderilmedi"; exit 3; }
 Z="$TMP/ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip"
 zip -q -r -9 "$Z" onarim/cikti_v263 onarim/araclar/patch_v263.py onarim/araclar/html_scriptlerini_ayir.py \
   onarim/araclar/varlik_tarama.py onarim/araclar/zip_parcala.py onarim/araclar/teslim_gonder.sh \

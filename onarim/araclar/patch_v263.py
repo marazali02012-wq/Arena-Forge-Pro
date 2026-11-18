@@ -177,7 +177,12 @@ s = s.replace('var af263GolgeArt="' + data1 + '"', 'var af263GolgeArt="' + golge
 ic = s.find('window.AFP94_MINION_CARDS={'); kc = s.find('"af37_golge_suikastci":"data:image/', ic)
 assert ic > 0 and kc > ic and kc < s.find('</script>', ic)
 ec = s.index('"', kc + len('"af37_golge_suikastci":"'))
-s = s[:kc] + '"af37_golge_suikastci":((window.AF_ART_PACK_DATA||{})["minion.full.af37_golge_suikastci"]||"")' + s[ec+1:]
+# AFP94 nesnesi saf JSON kalmalı (eski portre testi JSON olarak okur): değer 1x1 yer tutucu olur, nesnenin hemen
+# ardından paketteki tek büyük portreye bağlanır. Yer tutucu oyunun kendi isPlaceholder denetimine takılır.
+PH = 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA=='
+s = s[:kc] + '"af37_golge_suikastci":"' + PH + '"' + s[ec+1:]
+endc = s.index('};', ic) + 2
+s = s[:endc] + 'window.AFP94_MINION_CARDS.af37_golge_suikastci=(window.AF_ART_PACK_DATA||{})["minion.full.af37_golge_suikastci"]||""; /* v3.60.263 C1b */' + s[endc:]
 assert s.count(golge_new) == 1; changes.append('C1b-golge-buyuk-portre')
 
 # C2) Ana üs mağaza simgesi = epik sandık görseli (script #10 window.AFQ_CHEST_ART.epic olarak yayımlıyor, #102'den önce çalışır)

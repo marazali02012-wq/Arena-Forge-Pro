@@ -133,7 +133,7 @@ test('I: "GERİ ile ana ekrana dön" balonu mini şerit olur, üst çubuktaki bo
 });
 // ---------- C1b) Gölge Suikastçı portresi büyük kare
 test('C1b: Gölge Suikastçı kart resmi tek kopya, AFP94 kartı paketteki resme bağlı', () => {
-  once('"af37_golge_suikastci":((window.AF_ART_PACK_DATA||{})["minion.full.af37_golge_suikastci"]||"")');
+  once('window.AFP94_MINION_CARDS.af37_golge_suikastci=(window.AF_ART_PACK_DATA||{})["minion.full.af37_golge_suikastci"]||"";');
   const m = html.match(/var af263GolgeArt="(data:image\/webp;base64,[A-Za-z0-9+/=]+)"/);
   assert.ok(m && m[1].length > 12000, 'büyük portre yok');
   assert.equal(html.split(m[1]).length - 1, 1, 'portre tekrar ediyor');
