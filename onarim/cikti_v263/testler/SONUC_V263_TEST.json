@@ -58,5 +58,13 @@
   {
     "name": "E: rehber balonu dokunuşları geçirir; yerleştirici yüklü",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "G: Materyal çantası (afxMats) ana üsün tanıdığı pencereler arasında",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "H: ödül kartı resmi ad etiketinin üstünde (esnek düzen), kart portresi önce",
+    "status": "GEÇTİ"
   }
 ]

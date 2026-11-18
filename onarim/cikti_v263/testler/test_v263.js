@@ -114,5 +114,16 @@ test('E: rehber balonu dokunuşları geçirir; yerleştirici yüklü', () => {
   assert.ok(html.indexOf('<script id="AFP263_RUNTIME">') > html.indexOf('const AF213HomeArt='), 'çalışma anı betiği AF213HomeArt sonrasında olmalı');
 });
 
+// ---------- G) Materyal çantası görünür
+test('G: Materyal çantası (afxMats) ana üsün tanıdığı pencereler arasında', () => {
+  once("const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile','afxMats'].some(");
+});
+// ---------- H) Sandık / günlük ödül kartı
+test('H: ödül kartı resmi ad etiketinin üstünde (esnek düzen), kart portresi önce', () => {
+  assert.ok(html.includes("#chestRevealBackdrop .chestRevealCard>img{position:relative !important;inset:auto !important;flex:1 1 0 !important;"));
+  assert.ok(html.includes("#chestRevealBackdrop .chestRevealCard{display:flex !important;flex-direction:column !important;justify-content:flex-end !important;}"));
+  once("const hq=((typeof afpResolvedMinionPortrait==='function')&&afpResolvedMinionPortrait(type))||(AF324?AF324.portrait(type):'');");
+});
+
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

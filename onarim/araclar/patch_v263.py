@@ -204,6 +204,20 @@ sub('G-materyal-penceresi',
     "const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile'].some(",
     "const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile','afxMats'].some(")
 
+# ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
+# Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
+# kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız
+# kafa/kask ucu görünüyordu. Resim yalnız etiketlerin ÜSTÜNDEKİ alana, alttan hizalı yerleştirilir.
+sub('H-odul-karti-resmi',
+    "#chestRevealBackdrop .chestRevealCard>img{position:absolute !important;inset:0 !important;width:100% !important;height:100% !important;object-fit:contain !important;object-position:50% 15% !important;}",
+    "html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .chestRevealCard{display:flex !important;flex-direction:column !important;justify-content:flex-end !important;} html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .chestRevealCard>img{position:relative !important;inset:auto !important;flex:1 1 0 !important;min-height:0 !important;width:100% !important;height:auto !important;object-fit:contain !important;object-position:50% 100% !important;} html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .chestRevealCard>strong,html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .chestRevealCard>small{flex:0 0 auto !important;} html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .chestRevealCard{width:min(108px,22vw) !important;height:min(128px,34vh) !important;} html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .chestRevealCards{height:min(128px,34vh) !important;min-height:0 !important;max-height:none !important;} html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .af190-reveal-stage{height:calc(min(128px,34vh) + min(52px,14vh) + 24px) !important;min-height:0 !important;max-height:none !important;} html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .chestRevealIcon,html:not(#_1):not(#_2):not(#_3):not(#_4) #chestRevealBackdrop .af40-reveal-chest-image{width:min(52px,14vh) !important;height:min(52px,14vh) !important;} /* v3.60.263: resim ad etiketinin üstündeki kalan alanda, figür tam görünür; kart büyütüldü, sandık simgesi küçültüldü */")
+
+# H2) Aynı ödül kartı resmi AF324.portrait(type) ile alınıyordu; yeni minyonlarda (afn_*) bu, çevresi boş küçük bir
+# görsel döndürüyor (kartta figür birkaç piksel). Önce oyunun kart portresi (afpResolvedMinionPortrait), yoksa eski kaynak.
+sub('H2-odul-karti-kaynak',
+    "const hq=AF324?AF324.portrait(type):'';",
+    "const hq=((typeof afpResolvedMinionPortrait==='function')&&afpResolvedMinionPortrait(type))||(AF324?AF324.portrait(type):''); /* v3.60.263 */")
+
 # ================================================================ E) + C4 çalışma anı: rehber balonu yerleşimi
 RUNTIME = r"""<script id="AFP263_RUNTIME">
 /* v3.60.263 çalışma anı yardımcıları (yalnız görsel/yerleşim; oyun kuralı, kayıt veya ödül değiştirmez) */
