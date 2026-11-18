@@ -117,6 +117,26 @@ Görselleri bana gönderirsen eklemeyi, testleri ve Android derlemesini ben yapa
 - İmzalı AAB → Play Console → **Test → Kapalı test** → yeni sürüm.
 - Kişisel Play hesabı 13 Kasım 2023'ten sonra açıldıysa üretime geçmek için 12 testçi ve 14 gün kesintisiz kapalı test şartı var.
 
+## 6. Google Play'deki sol kenar siyah şerit düzeltmesini yayınla
+
+**Sorun:** Play'deki sürümde ekranın solunda siyah şerit vardı, oyun daralıyordu.
+**Sebep:** `GameActivity.java` kamera çentiği kadar boşluğu oyunun kenarına ekliyordu; oyun da aynı boşluğu kendi içinde bıraktığı için boşluk iki kat oluyordu.
+**Düzeltme (yapıldı, commit `bf88481`):** Fazla boşluk kaldırıldı, oyun çentiğin arkasına kadar tam ekran çiziliyor; düğmeleri oyunun kendi güvenlik payı çentikten uzak tutuyor.
+**Durum:** Düzeltme `yayin/android/` içindeki test APK'sında ve imzasız AAB'de var (sürüm kodu 263). Play'deki oyunda görünmesi için yeni paketin yüklenmesi gerekiyor.
+
+**Adımlar:**
+1. **Önce telefonda dene (isteğe bağlı):** `yayin/android/ArenaForgePro-test-debug.apk` dosyasını telefona indir ve kur ("bilinmeyen kaynaklara izin ver" istenebilir). Oyunu yatay aç; solda siyah şerit olmamalı, ana üs ve savaş ekranı tam genişlikte olmalı.
+   - Play'den kurulu sürüm varsa test APK'sı farklı anahtarla imzalı olduğu için üstüne kurulmaz. Önce Play sürümünü kaldırman gerekir; bu, telefondaki yerel kaydı siler.
+2. **AAB'yi imzala:** Bu dosyanın 3. bölümündeki A ya da B yolu.
+3. **Play Console'a yükle:**
+   - play.google.com/console → uygulaman → **Test → Kapalı test** (ya da kullandığın kanal) → **Yeni sürüm oluştur**.
+   - İmzalı AAB'yi (`ArenaForgePro-release-imzali.aab`) yükle. Sürüm kodu 263 olmalı ve Play'deki son sürümden büyük olmalı. Değilse bana söyle, `app/build.gradle` içinde artırıp yeniden derleyeyim.
+   - Sürüm notu örneği: "Yatay ekranda soldaki siyah şerit düzeltildi; arayüz ve savaş düzeltmeleri."
+   - **İncelemeye gönder.**
+4. **Kontrol:** Test edenler güncellemeyi aldıktan sonra, özellikle çentikli ya da kamera delikli telefonlarda solda şerit kalıp kalmadığına baksınlar.
+
+Not: Bu düzeltme Chromium'da 37 px'lik sol çentik taklit edilerek doğrulandı; gerçek telefonda denenmedi.
+
 ## Bu klasörde neler var
 | Yol | Ne |
 |---|---|
