@@ -43556,7 +43556,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
     konum denenir; düğmelerin, savaş kartlarının, sonuç başlığının ve rehberin işaret ettiği hedefin en az
     örtüldüğü konum seçilir. Varsayılan konum zaten temizse yerinden oynatılmaz. */
  const st=document.createElement('style');st.id='afp263GuideCss';
- st.textContent='#afpGuide{pointer-events:none}#afpGuide button{pointer-events:auto}#afpGuide.af263-placed{transform:none!important;right:auto!important;bottom:auto!important}';
+ st.textContent='#afpGuide{pointer-events:none}#afpGuide button{pointer-events:auto}#afpGuide.af263-placed{transform:none!important;right:auto!important;bottom:auto!important;min-width:0!important}';
  document.head.appendChild(st);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
@@ -43578,6 +43578,15 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
   try{
    card.classList.remove('af263-placed');card.style.left='';card.style.top='';card.style.width='';
    const d=card.getBoundingClientRect(),P=collect(card),W=innerWidth,H=innerHeight,m=6;
+   /* Savaşta: alt kontrol sırasındaki boşluk = son el/kart düğmesinin sağı ile sağ kenar düğmelerinin solu arası (koridorların altında). */
+   if(card.classList.contains('btl')){
+    let L=0,R=W;const hud=document.querySelectorAll('button,.battlePick,[role=button]');
+    hud.forEach(e=>{if(card.contains(e))return;const r=vis(e);if(!r)return;const cx=(r.left+r.right)/2;if(r.top>H*.62&&cx<W*.78)L=Math.max(L,r.right);if(r.left>W*.80&&r.bottom>H*.55)R=Math.min(R,r.left);});
+    const fw=Math.floor(R-L-2*m);
+    if(L>0&&fw>=140){card.style.width=fw+'px';const fh=card.getBoundingClientRect().height;card.style.width='';
+     const y=H-fh-m,sc=score(L+m,y,fw,fh,P);
+     card.classList.add('af263-placed');card.style.left=Math.round(L+m)+'px';card.style.top=Math.round(y)+'px';card.style.width=fw+'px';card.dataset.af263Score='alt-bosluk '+sc.toFixed(2);return;}
+   }
    const cands=[[d.left,d.top,d.width,d.height,0]];
    const w2=Math.min(d.width,Math.max(200,Math.round(W*.36)));
    card.style.width=w2+'px';const h2=card.getBoundingClientRect().height;card.style.width='';
@@ -43588,7 +43597,7 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
    if(best.c[4]>0&&best.sc<base-.05){card.classList.add('af263-placed');card.style.left=Math.round(best.c[0])+'px';card.style.top=Math.round(best.c[1])+'px';card.style.width=Math.round(best.c[2])+'px';card.dataset.af263Score=best.sc.toFixed(2)+'<'+base.toFixed(2);}
    else card.dataset.af263Score=base.toFixed(2);
   }catch(e){console.warn('[v3.60.263] rehber yerleşimi',e);}finally{busy=false;}}
- function sig(){const c=document.getElementById('afpGuide');if(!c||c.hidden)return '';const e=document.getElementById('end');return c.className.replace(' af263-placed','')+'|'+c.textContent.length+'|'+innerWidth+'x'+innerHeight+'|'+(e&&e.className)+'|'+(document.getElementById('hud')||{}).className+'|'+((document.getElementById('afxModeScreen')||{}).hidden)+'|'+document.querySelectorAll('.battlePick').length;}
+ function sig(){const c=document.getElementById('afpGuide');if(!c||c.hidden)return '';const e=document.getElementById('end');return c.className.replace(' af263-placed','')+'|'+(c.classList.contains('btl')?Math.floor(Date.now()/1000):'')+'|'+c.textContent.length+'|'+innerWidth+'x'+innerHeight+'|'+(e&&e.className)+'|'+(document.getElementById('hud')||{}).className+'|'+((document.getElementById('afxModeScreen')||{}).hidden)+'|'+document.querySelectorAll('.battlePick').length;}
  setInterval(()=>{const s=sig();if(s&&s!==lastSig){lastSig=s;place();}else if(!s)lastSig='';},350);
  addEventListener('resize',()=>{lastSig='';});
  window.__AFP263GuidePlace=place;
