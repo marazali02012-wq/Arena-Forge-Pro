@@ -513,7 +513,7 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
  (function(){const css=document.createElement('style');css.id='afp263SpellDragCss';
   /* düğmedeki simge <img>: tarayıcının kendi resim sürüklemesi pointer olaylarını kesiyordu → kapatıldı */
   css.textContent='#hud #skill,#hud #skill2{touch-action:none!important;user-select:none!important;-webkit-user-select:none!important}#hud #skill img,#hud #skill2 img{-webkit-user-drag:none!important;user-drag:none!important;pointer-events:none!important}#afp263SpellGhost{position:fixed;left:0;top:0;z-index:2147483200;pointer-events:none;transform:translate(-50%,-50%);border-radius:50%;border:3px solid #f2c463;background:#1a1420 center/cover no-repeat;box-shadow:0 0 0 2px #0008,0 0 18px 4px #ff9a3c99,0 8px 14px #000a;opacity:.96}'
-   +'#hud .af263-dragging{opacity:.35!important}';document.head.appendChild(css);
+   +'html'+':not(#_ae)'.repeat(13)+' #hud .af263-dragging{opacity:.35!important}';  /* oyunun 7 kimlikli "opacity:1" kuralını aşar */document.head.appendChild(css);
   let drag=null,eatClick=false;
   const endGhost=()=>{const g=document.getElementById('afp263SpellGhost');if(g)g.remove();if(drag&&drag.b)drag.b.classList.remove('af263-dragging');drag=null;};
   document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('#skill,#skill2');if(!b||e.button>0)return;

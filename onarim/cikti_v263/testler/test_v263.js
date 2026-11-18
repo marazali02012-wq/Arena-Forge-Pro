@@ -223,6 +223,7 @@ test('AE: büyüler sürükle-bırak (oyunun kendi atış yolu), resim sürükle
   once("window.__afp263SpellDrop=function(slot,cx,cy){");
   once("const ok=af327HandleTap(x,y);");
   once("#hud #skill img,#hud #skill2 img{-webkit-user-drag:none!important;");
+  once("+'html'+':not(#_ae)'.repeat(13)+' #hud .af263-dragging{opacity:.35!important}';");
 });
 test('AF: minyon kartı figürü baştan ayağa çerçevede', () => {
   once("  const fit = true; /* v3.60.263 AF:");
