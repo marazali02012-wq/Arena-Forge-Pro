@@ -170,6 +170,21 @@ test('O: fiyat etiketindeki mühür simgesi 16 px ile sınırlı', () => {
 test('P: etkinlik mağazasında oyunun çizdiği hedef minyon büstü silinmez', () => {
   once("{const hero=art.querySelector('.af4-eHero');if(hero&&!hero.querySelector('img,canvas,svg,.af-minion-art,[style*=");
 });
+// ---------- Savaş içi görsel denetim (Q, R, S, T, U)
+test('Q: sonuç ekranında kart parçası / yeni kart tek minyonsa o minyonun resmi', () => {
+  once("if(cs>0)T.push(['mcard:'+af263OnlyChanged(a.shards,b.shards),'Kart parçası',cs]);");
+  once("if(k.indexOf('mcard:')===0){const t=k.slice(6);if(!t)return ART.card;");
+  once("function af263OnlyChanged(oa,ob){");
+});
+test('R: savaş üst bilgi yazılarında koyu kontur gölgesi', () => { once("sr2.id='afp263HudCss'"); });
+test('S: alt koridor büyü düğmelerinin arkasında kalınca düğme saydamlaşır', () => {
+  once("try{if(window.__afp263SkillFade)window.__afp263SkillFade(order,W,H);}catch(_){} /* v3.60.263 S */");
+  once("window.__afp263SkillFade=function(order,W,H){");
+});
+test('T: duraklatılamayan maçta düğme soluk ve açıklama gösteriyor', () => {
+  once("Çevrim içi / dereceli maçta duraklatma yok: rakip beklemez. Çıkmak için ✕.");
+});
+test('U: sonuç ekranı alt başlığı ödül kutularına binmez', () => { once("c.dataset.af263Shift=String(need)"); });
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

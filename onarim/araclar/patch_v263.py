@@ -133,6 +133,23 @@ sub('D-simge',
     " if(k.indexOf('hitem:')===0)return af263PackArt('equipment.'+(AF263_SLOT_ART[k.slice(6)]||'sword'))||ART.gear;\n"
     " if(k.indexOf('chest:')===0&&typeof window.AFQChestArt==='function')return window.AFQChestArt(k.slice(6));return ART[k]||ART.card;}")
 
+# Q) Minyon kart parçası ve yeni kart da aynı sorunu taşıyordu: sonuç ekranında her zaman soru işaretli genel kart
+# simgesi (ART.card). Parçalar TEK bir karta gittiyse / tek yeni kart açıldıysa o minyonun kendi kart resmi gösterilir;
+# birden fazla karta dağıldıysa genel simge kalır (toplam sayı tek bir minyona aitmiş gibi görünmesin diye).
+sub('Q-kart-parcasi-kayit',
+    "if(cs>0)T.push(['card','Kart parçası',cs]);",
+    "if(cs>0)T.push(['mcard:'+af263OnlyChanged(a.shards,b.shards),'Kart parçası',cs]); /* v3.60.263 Q */")
+sub('Q-yeni-kart-kayit',
+    "if(nu>0)T.push(['card',nu>1?'Yeni kart':'Yeni kart',nu]);",
+    "if(nu>0)T.push(['mcard:'+(nu===1?unlockedSet(b).filter(k=>!ua.has(k))[0]:''),nu>1?'Yeni kart':'Yeni kart',nu]); /* v3.60.263 Q */")
+sub('Q-simge',
+    " if(k.indexOf('hitem:')===0)return af263PackArt('equipment.'+(AF263_SLOT_ART[k.slice(6)]||'sword'))||ART.gear;\n",
+    " if(k.indexOf('hitem:')===0)return af263PackArt('equipment.'+(AF263_SLOT_ART[k.slice(6)]||'sword'))||ART.gear;\n"
+    " if(k.indexOf('mcard:')===0){const t=k.slice(6);if(!t)return ART.card;const c=window.AFP94_MINION_CARDS&&window.AFP94_MINION_CARDS[t];return (typeof c==='string'&&c.length>200?c:'')||af263PackArt('minion.portrait.'+t)||af263PackArt('minion.full.'+t)||ART.card;}\n")
+sub('Q-yardimci',
+    "function af263NewItemSlot(a,b){",
+    "function af263OnlyChanged(oa,ob){try{oa=oa||{};ob=ob||{};const up=Object.keys(ob).filter(k=>num(ob[k])>num(oa[k]));return up.length===1?up[0]:'';}catch(_){return '';}}\nfunction af263NewItemSlot(a,b){")
+
 # ================================================================ C) BİREBİR TEKRAR GÖMÜLMÜŞ GÖRSELLER
 # 8 görselin 7'si iki kez gömülüydü (8.'si 48 baytlık 1×1 yer tutucu, dokunulmadı). Her biri için
 # bütün kullanım yolu bulundu; ikinci kopya, birinci kopyaya bağlanan bir referansla değiştirildi.
@@ -252,6 +269,15 @@ sub('P-etkinlik-minyon-resmi',
     "{const hero=art.querySelector('.af4-eHero');if(hero){hero.innerHTML='';addImg(hero,A.sorceress,'afp-ref-event-hero','Komutan görünümü');}}",
     "{const hero=art.querySelector('.af4-eHero');if(hero&&!hero.querySelector('img,canvas,svg,.af-minion-art,[style*=\"url(\"]')){hero.innerHTML='';addImg(hero,A.sorceress,'afp-ref-event-hero','Komutan görünümü');}} /* v3.60.263 P */")
 
+# ================================================================ S) ALT KORİDOR BÜYÜ DÜĞMELERİNİN ARKASINDA KALIYORDU
+# Komutan büyü düğmeleri (Kızıl Kuyruk / Kor Yemini) kasıtlı olarak elin üstünde, ortada duruyor; bu konum 3. (alt)
+# koridorun yürüme çizgisinin tam üstü. Alt koridordaki birimlerin %11–32'si bu düğmelerin altından geçiyor, gövdeleri
+# ve can çubukları kayboluyordu (oyuncu: "Yankı'da 3. koridordaki minyonun canı gözükmüyor"). Konum değişmez; çizim
+# döngüsü birimlerin ekrandaki yerini yardımcıya verir, arkasında birim/can çubuğu olan düğme yarı saydam olur.
+sub('S-buyu-dugmesi-kanca',
+    "af382HudDense=!!(playing&&order.length>=12);",
+    "af382HudDense=!!(playing&&order.length>=12);try{if(window.__afp263SkillFade)window.__afp263SkillFade(order,W,H);}catch(_){} /* v3.60.263 S */")
+
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
 # kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız
@@ -319,6 +345,54 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
  const so=document.createElement('style');so.id='afp263PriceCss';
  so.textContent='html'+':not(#_o)'.repeat(11)+' .af4-price>img{width:16px!important;height:16px!important;max-width:16px!important;max-height:16px!important;object-fit:contain!important;flex:0 0 16px!important;margin:0 3px 0 0!important;vertical-align:-3px!important;position:static!important}';
  document.head.appendChild(so);
+ /* R: Savaş üst bilgisi. Açık renkli arenalarda (Hikâye Seferi, Gökyüzü vb.) "SEN · kupa", "KORVAYN · SV 1",
+    "SEFER AŞAMA 1 · ⚡ 0/3", "RAKİP · …" yazıları gölgesiz olduğu için gökyüzü/mermer üstünde kayboluyordu.
+    Renkler aynı kalır; yalnız koyu bir kontur gölgesi eklenir. */
+ const sr2=document.createElement('style');sr2.id='afp263HudCss';const HR='html'+':not(#_r)'.repeat(11)+' #duelHeader ';
+ sr2.textContent=[HR+'.duelMeta',HR+'.duelMeta *',HR+'.af327CmdName',HR+'.afMeta',HR+'.afMeta *',HR+'.duelProfile .duelInfo>*:not(.duelBar)'].join(',')
+  +'{text-shadow:0 0 2px #000,0 1px 2px #000,0 0 5px rgba(0,0,0,.9)!important}';
+ document.head.appendChild(sr2);
+ /* S: büyü düğmesinin arkasında birim varken düğme yarı saydam (basılabilir kalır). */
+ const ss=document.createElement('style');ss.id='afp263SkillFadeCss';
+ ss.textContent='html'+':not(#_s)'.repeat(11)+' #hud .af263-thru{opacity:.32!important;transition:opacity .15s ease!important}';
+ document.head.appendChild(ss);
+ let fadeT=0;
+ window.__afp263SkillFade=function(order,W,H){
+  const now=performance.now();if(now-fadeT<120)return;fadeT=now;
+  const cv=document.getElementById('game'),hud=document.getElementById('hud');if(!cv||!hud)return;
+  const cr=cv.getBoundingClientRect();if(!cr.width||!W||!H)return;const sx=cr.width/W,sy=cr.height/H;
+  for(const id of ['skill','skill2']){const b=document.getElementById(id);if(!b)continue;
+   const r=b.getBoundingClientRect();let hit=false;
+   if(r.width>0&&hud.classList.contains('battle-live')){
+    for(const u of order){const v=u&&u._vis;if(!v||!(u.hp>0)||u.isBarrier)continue;
+     const x=cr.left+v.x*sx,foot=cr.top+v.y*sy,head=cr.top+(v.y-(v.top||0))*sy-24,hw=16;
+     if(x+hw>r.left&&x-hw<r.right&&foot>r.top&&head<r.bottom){hit=true;break;}}}
+   if(b.classList.contains('af263-thru')!==hit)b.classList.toggle('af263-thru',hit);}
+ };
+ /* T: Duraklatılamayan maç (dereceli Arena, Sancak, çevrim içi). Oyun "Çevrim içi maçta duraklatma yok" mesajını savaş
+    şeridine yazıyordu; bu modlarda şerit gizli olduğu için hiçbir şey görünmüyor, düğme bozuk sanılıyordu. Düğme soluk
+    gösterilir; basınca yanında kısa bir açıklama çıkar. Duraklatma kuralı değişmez. */
+ const st2=document.createElement('style');st2.id='afp263NoPauseCss';
+ st2.textContent='html'+':not(#_t)'.repeat(11)+' #af274PauseBtn.af263-nopause{opacity:.45!important;filter:grayscale(.6)!important}'
+  +'#afp263NoPauseTip{position:fixed;z-index:2147483100;max-width:200px;padding:6px 10px;border:1px solid #d9b45a;border-radius:9px;background:#120f0cf2;color:#ffe8b8;font:700 11px/1.3 system-ui,sans-serif;box-shadow:0 4px 14px #000a;pointer-events:none;transition:opacity .2s}';
+ document.head.appendChild(st2);
+ const noPause=()=>!!(window.__AFPDisguisedMatchActive||(window.__AFPUseModeNetworkV1&&window.__AFPOnlineContext&&window.__AFPOnlineContext.active));
+ setInterval(()=>{const b=document.getElementById('af274PauseBtn'),hud=document.getElementById('hud');if(!b)return;const on=!!(hud&&hud.classList.contains('battle-live')&&noPause());if(b.classList.contains('af263-nopause')!==on)b.classList.toggle('af263-nopause',on);},500);
+ let tipT=0;
+ document.addEventListener('click',e=>{const b=e.target&&e.target.closest&&e.target.closest('#af274PauseBtn');if(!b||!noPause())return;
+  let t=document.getElementById('afp263NoPauseTip');if(!t){t=document.createElement('div');t.id='afp263NoPauseTip';t.setAttribute('role','status');document.body.appendChild(t);}
+  t.textContent='Çevrim içi / dereceli maçta duraklatma yok: rakip beklemez. Çıkmak için ✕.';
+  const r=b.getBoundingClientRect();t.style.opacity='1';t.style.left=Math.max(6,Math.round(r.right-200))+'px';t.style.top='0px';
+  const h=t.getBoundingClientRect().height;t.style.top=Math.max(6,Math.round(r.top-h-6))+'px';
+  clearTimeout(tipT);tipT=setTimeout(()=>{t.style.opacity='0';},2200);},true);
+ /* U: Sonuç ekranı sağ panel. Uzun alt başlık ("ZAFER · TAŞ KOLOSUS DEVRİLDİ!") iki satıra bölününce altındaki ödül
+    kutularının (Kupa/TP/Sezon XP) çerçevesine biniyordu. Kutular, başlığın bittiği yerin altına kaydırılır. */
+ setInterval(()=>{try{const m=document.querySelector('.afqv-mode'),c=m&&m.nextElementSibling;if(!m||!c||!c.classList.contains('afqv-chips'))return;
+  const mb=m.getBoundingClientRect(),cb=c.getBoundingClientRect();if(!mb.height||!cb.height)return;
+  /* katman ölçekli çiziliyor: ekran pikselini öğe pikseline çevir, kararlı bir değere otursun */
+  const k=(c.offsetHeight&&cb.height)?cb.height/c.offsetHeight:1,cur=parseFloat(c.dataset.af263Shift||'0')||0;
+  const need=Math.max(0,Math.ceil((mb.bottom+3-(cb.top-cur*k))/k));
+  if(need!==cur){c.dataset.af263Shift=String(need);c.style.marginTop=need?need+'px':'';}}catch(_){}},400);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
  function collect(card){

@@ -102,5 +102,25 @@
   {
     "name": "P: etkinlik mağazasında oyunun çizdiği hedef minyon büstü silinmez",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "Q: sonuç ekranında kart parçası / yeni kart tek minyonsa o minyonun resmi",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "R: savaş üst bilgi yazılarında koyu kontur gölgesi",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "S: alt koridor büyü düğmelerinin arkasında kalınca düğme saydamlaşır",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "T: duraklatılamayan maçta düğme soluk ve açıklama gösteriyor",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "U: sonuç ekranı alt başlığı ödül kutularına binmez",
+    "status": "GEÇTİ"
   }
 ]
