@@ -10,7 +10,10 @@ tek çözüm, kupanın **sunucuda, oyuncunun yazamayacağı bir defterde** tutul
 | Otorite tabloları + RLS + yetkiler + `afp_trophy_settle` | `sunucu/01_kupa_otorite.sql` | Yerelde PostgreSQL 16'da doğrulandı |
 | 28 maddelik saldırı/doğruluk testi | `sunucu/02_kupa_otorite_test.sql` | 28/28 geçti |
 | WSS sunucusu için settle çağrısı | `sunucu/03_wss_kupa_isle.js` | Sahte (mock) ile test edildi; canlı sunucuda denenmedi |
-| Eski RPC/tablo kilitleme şablonu | `sunucu/04_eski_islevleri_kilitle.sql` | **Doğrulanmadı** (canlı şema bu depoda yok) |
+| Eski RPC/tablo kilitleme şablonu | `sunucu/04_eski_islevleri_kilitle.sql` | Genel şablon; **canlı şemaya özel sürüm 06'dır** |
+| **Canlı şemaya özel entegrasyon** | `sunucu/06_canli_entegrasyon.sql` | Canlı Supabase'in gerçek `afp_players` / `afp_social_me` / `afp_leaderboard` tanımları okunarak yazıldı; yerelde 15/15 (`07_canli_entegrasyon_test.sql`) |
+| Geri alma | `sunucu/08_geri_alma.sql` | 06 öncesi canlı işlev tanımlarının yedeği |
+| Kalıcı hile kaydı | `sunucu/05_antihile_kayit.sql` | Sunucu 3.60.103 için |
 | İstemci: kupa göndermez, sıralamayı sunucudan alır | `index.html` v3.60.240 | Sahte Supabase ile test edildi |
 
 ### Güvenlik kuralları (SQL'de uygulanır)
@@ -36,3 +39,19 @@ Bunlar yapılana kadar istemci **geriye uyumlu** çalışır: sunucu fonksiyonu 
 - Çevrimdışı/yerel kupa (kupa yolu, tek kişilik oyun) cihazda düzenlenebilir; bu **sıralamayı etkilemez** ama yerel göstergeyi değiştirir.
 - Sıralamaya **yalnızca sunucu onaylı çevrim içi maçlar** kupa yazar; iki cihazın işbirliğiyle yapılan anlaşmalı maçlar (çiftçilik) oran/günlük sınırlarla yavaşlatılır, tamamen yok edilemez.
 - Sunucu tarafı canlıya alınmadıkça sıralama güvenliği **fiilen sağlanmış olmaz**; bu depo yalnızca doğrulanmış çözümü ve istemci hazırlığını sağlar.
+
+## Canlı Supabase'de bulunanlar (salt-okunur inceleme, 2026-11-16)
+- `afp_players(user_id, nickname, friend_code, level, trophies, hero, muted_until, banned, ...)` — oyuncu rollerinin doğrudan erişimi yok (iyi), ama `afp_social_me(p_trophies)` kupayı istemciden yazıyor ve `afp_leaderboard` bu değerden sıralıyor.
+- Canlıda `afp_player_trophies`, `afp_trophy_*`, `afp_anticheat_log` **henüz yok** → 01, 05, 06 uygulanmadı.
+- 1 oyuncu kayıtlı (en çok 25 kupa), yani geçiş riski çok düşük.
+
+## Uygulama sırası (canlı)
+`01_kupa_otorite.sql` → `05_antihile_kayit.sql` → `06_canli_entegrasyon.sql` (hepsi idempotent). Sorun olursa `08_geri_alma.sql`.
+06 sonrası: `afp_social_me` kupayı yok sayar, `afp_leaderboard` defterden sıralar (çıktı biçimi aynı), `afp_players.trophies` otomatik yansır, mevcut oyuncular en çok 300 kupa ile deftere alınır.
+
+## Canlıya uygulandı (2026-11-16)
+`01`, `05`, `06` canlı Supabase projesine (Arena Forge Pro) uygulandı ve doğrulandı:
+- Yeni tablolar RLS açık; `authenticated` UPDATE yapamıyor, `anon` okuyamıyor, `authenticated` `afp_trophy_settle` çağıramıyor, `service_role` çağırabiliyor.
+- Geri alınan (rollback) canlı saldırı testi: oyuncu rolüyle `afp_social_me(p_trophies=1000000)` → kupa **25 kaldı**; sıralama defterden geliyor; doğrudan UPDATE ve settle **reddedildi**; test verisi bırakmadı.
+- Mevcut tek oyuncu (25 kupa) deftere alındı.
+- **Henüz açık olmayan:** WSS sunucusu 3.60.103'ün Render'a yayınlanması ve `AFP_TROPHY_AUTHORITY_ENABLED=1`. O zamana kadar maç sonu kupa değişimi (ranked) sunucu defterine yazılmaz; yani sıralama kupası **sahtelenemez ama maçlarla artmaz**.

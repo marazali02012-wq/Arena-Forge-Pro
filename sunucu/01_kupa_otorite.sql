@@ -109,7 +109,7 @@ begin
   return jsonb_build_object('trophies', r.trophies, 'seeded', r.seeded, 'authoritative', true);
 end $$;
 
--- Sıralama tablosu: yalnızca sunucu kupası. Takma ad/seviye için player_profiles okunur (varsa).
+-- Sıralama tablosu: yalnızca sunucu kupası. Takma ad/seviye/kahraman için afp_players (canlı şema) okunur; yoksa varsayılanlar.
 create or replace function public.afp_trophy_leaderboard(p_limit integer default 50) returns jsonb
 language plpgsql security definer set search_path = public, pg_temp as
 $$
@@ -118,17 +118,18 @@ begin
   if uid is null then raise exception 'oturum yok' using errcode = '28000'; end if;
   p_limit := least(greatest(coalesce(p_limit,50),1),100);
   select count(*) into total from public.afp_player_trophies;
-  if to_regclass('public.player_profiles') is not null then
+  if to_regclass('public.afp_players') is not null then
     execute $q$
-      select coalesce(jsonb_agg(x order by x.rank),'[]'::jsonb) from (
-        select rank() over (order by t.trophies desc) as rank, t.user_id = $1 as me, t.trophies,
-               coalesce(p.nickname,'Oyuncu') as nickname, coalesce(p.level,1) as level
-          from public.afp_player_trophies t left join public.player_profiles p on p.user_id = t.user_id
-         order by t.trophies desc, t.user_id limit $2) x $q$ into rows using uid, p_limit;
+      select coalesce(jsonb_agg(x order by x.rank, x.nickname),'[]'::jsonb) from (
+        select rank() over (order by t.trophies desc, coalesce(p.level,1) desc) as rank, t.user_id as user_id, t.user_id = $1 as me,
+               t.trophies, coalesce(p.nickname,'Oyuncu') as nickname, coalesce(p.level,1) as level, p.hero as hero
+          from public.afp_player_trophies t left join public.afp_players p on p.user_id = t.user_id
+         where coalesce(p.banned,false) = false
+         order by t.trophies desc, coalesce(p.level,1) desc, coalesce(p.nickname,'') limit $2) x $q$ into rows using uid, p_limit;
   else
     select coalesce(jsonb_agg(x order by x.rank),'[]'::jsonb) into rows from (
-      select rank() over (order by t.trophies desc) as rank, t.user_id = uid as me, t.trophies,
-             'Oyuncu'::text as nickname, 1 as level
+      select rank() over (order by t.trophies desc) as rank, t.user_id as user_id, t.user_id = uid as me, t.trophies,
+             'Oyuncu'::text as nickname, 1 as level, null::text as hero
         from public.afp_player_trophies t order by t.trophies desc, t.user_id limit p_limit) x;
   end if;
   select jsonb_build_object('rank', 1 + (select count(*) from public.afp_player_trophies o where o.trophies > m.trophies),
