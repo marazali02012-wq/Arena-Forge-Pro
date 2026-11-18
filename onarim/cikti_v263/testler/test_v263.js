@@ -158,6 +158,11 @@ test('L: kilitli kahraman kutusu iki satır, KUPA YOLU düğmesi sekmelere binme
 test('M: hikâye girişi, hesap/misafir giriş ekranı açıkken başlamaz', () => {
   once("&&!(document.getElementById('afqEntry')&&vis(document.getElementById('afqEntry')))){ftueIntro();return;} /* v3.60.263 M */");
 });
+// ---------- N) Görünüm kartı İNCELE düğmesi
+test('N: Görünümler kartında İNCELE köşede, kural doğru katmanda', () => {
+  once("sn.textContent='@layer af172Commerce{html'+':not(#_n)'.repeat(11)+' .af4-cosArt>.af173-inspect{left:6px!important;");
+  assert.ok(html.includes('@layer af172Commerce'), 'kaynak katman adı değişmiş');
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

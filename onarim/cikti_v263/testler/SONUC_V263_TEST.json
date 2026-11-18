@@ -90,5 +90,9 @@
   {
     "name": "M: hikâye girişi, hesap/misafir giriş ekranı açıkken başlamaz",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "N: Görünümler kartında İNCELE köşede, kural doğru katmanda",
+    "status": "GEÇTİ"
   }
 ]

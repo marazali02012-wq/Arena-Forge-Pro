@@ -298,6 +298,12 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
   +HL+':has(.af332-lockBox) .af332-profBtns{top:1px!important}'
   +HL+':has(.af332-lockBox) .af332-profBtns .af4-btn{min-height:0!important;height:26px!important}';
  document.head.appendChild(sl);
+ /* N: Mağaza → Görünümler kartı. "İNCELE" düğmesi (58x32) 68 px'lik resim alanının tam ortasındaydı; kostüm figürünün
+    gövdesini örtüyor, yalnız başı görünüyordu. Düğme küçültülüp resim alanının sol alt köşesine alınır. */
+ const sn=document.createElement('style');sn.id='afp263CosCss';
+ /* Kaynak kural @layer af172Commerce içinde; katmanlı !important katmansızı yendiği için düzeltme aynı katmana yazılır. */
+ sn.textContent='@layer af172Commerce{html'+':not(#_n)'.repeat(11)+' .af4-cosArt>.af173-inspect{left:6px!important;right:auto!important;top:auto!important;bottom:5px!important;transform:none!important;padding:5px 8px!important;font-size:9px!important;min-height:0!important;min-width:0!important;height:auto!important}}';
+ document.head.appendChild(sn);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
  function collect(card){
