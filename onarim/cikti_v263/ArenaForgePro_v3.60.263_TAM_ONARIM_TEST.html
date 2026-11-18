@@ -43570,6 +43570,18 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
   +HX+'.afp134-how{background:#0b111e!important}'
   +HX+'.afp134-act.afp134-unlock{background:linear-gradient(rgba(9,14,27,0),#090e1b 12px)!important}';
  document.head.appendChild(sj);
+ /* L: Kilitli kahraman dosyası (Vaelor, Theryn, Elyvara, Saelith). Kilit kutusu 28 px'e sıkışıyordu: açıklama tek satırda
+    kesiliyor ("ya da 20 Vael..."), "0 / 20 parça" yazısı 4 px'lik çubuğa sığmayıp sekmelerin arkasına taşıyor,
+    KUPA YOLU düğmesi (40 px) İLERLEME sekmesinin üstüne biniyordu. Kutu düğmeye kadar genişler, açıklama iki
+    satıra iner, çubukta tekrar eden "0 / 20 parça" yazısı gizlenir (açıklamada "(0/20)" var), düğme kutunun yanına alınır. */
+ const sl=document.createElement('style');sl.id='afp263HeroLockCss';const HL='html'+':not(#_l)'.repeat(11)+' .af332-prof';
+ sl.textContent=HL+' .af332-lockBox{width:calc(100% - 78px)!important;max-width:none!important;box-sizing:border-box!important;padding:2px 6px!important;row-gap:2px!important}'
+  +HL+' .af332-lockBox>small{white-space:normal!important;height:auto!important;line-height:1.1!important;display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'
+  /* "(0/20)" açıklamada zaten yazıyor; 4 px'lik çubuğa sığmayan tekrar etiketi gizlenir, çubuk ilerleme çizgisi olarak kalır */
+  +HL+' .af332-lockBox>.af4-bar>span{display:none!important}'
+  +HL+':has(.af332-lockBox) .af332-profBtns{top:1px!important}'
+  +HL+':has(.af332-lockBox) .af332-profBtns .af4-btn{min-height:0!important;height:26px!important}';
+ document.head.appendChild(sl);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
  function collect(card){

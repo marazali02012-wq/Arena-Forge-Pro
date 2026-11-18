@@ -82,5 +82,9 @@
   {
     "name": "K: koleksiyon kartında aynı etiket iki kez yazılmaz",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "L: kilitli kahraman kutusu iki satır, KUPA YOLU düğmesi sekmelere binmez",
+    "status": "GEÇTİ"
   }
 ]

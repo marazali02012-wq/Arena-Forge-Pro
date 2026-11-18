@@ -148,6 +148,12 @@ test('K: koleksiyon kartında aynı etiket iki kez yazılmaz', () => {
   once("(String(t3)===String(t2)||String(t3)===r?'':'<span class=\"c-tag\">'+esc(t3)+'</span>')");
   once("(String(t2)===r?'':'<span class=\"c-tag\">'+esc(t2)+'</span>')");
 });
+// ---------- L) Kilitli kahraman dosyası
+test('L: kilitli kahraman kutusu iki satır, KUPA YOLU düğmesi sekmelere binmez', () => {
+  once("' .af332-lockBox>small{white-space:normal!important;");
+  once(":has(.af332-lockBox) .af332-profBtns{top:1px!important}");
+  once(":has(.af332-lockBox) .af332-profBtns .af4-btn{min-height:0!important;height:26px!important}");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);
