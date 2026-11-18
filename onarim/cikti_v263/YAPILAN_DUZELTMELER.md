@@ -128,3 +128,21 @@ Yöntem: 106 minyon kart resmi tek tek ölçüldü (kırık / boş / küçük fi
 | 9 | Etkinlik Mağazası → "3 minyon parçası" | Görsel katman oyunun çizdiği hedef minyonu (Alize Bıçaklı) silip sabit bir komutan resmi (mor büyücü) koyuyordu | Katman yalnız resim yoksa yedek koyuyor; İNCELE köşede | Kartta `afn_alize_bicakli` resmi |
 
 Testler: `test_v263.js` 26/26 (I, C1b, J, K, L, M, N, O, P eklendi).
+
+---
+
+## Savaş içi görsel denetim — **DÜZELTİLDİ**
+
+Yöntem: 9 modun her birinde (Arena, Doruk Kulesi, Hikâye Seferi, Gökyüzü Adaları, Sancak, Kolosus, Yankı, Karanlık Geçit, Gizli Bölge) savaş başı, 5. ve 14. saniye, büyü kullanımı, 25. saniye, duraklatma, çıkış onayı, zafer ekranı (2 an) ve sonrası fotoğraflandı (740×360). Her anda otomatik denetim: çizilmeyen / ekran dışı birim, koridorları örten katman, ekran dışına taşan ya da kırpılan HUD öğesi. JS hatası: 9 modda 0.
+
+| # | Nerede | Hata | Düzeltme | Test |
+|---|---|---|---|---|
+| 1 | Bütün modlar, 3. (alt) koridor — **kullanıcı bildirimi: "Yankı'da 3. koridordaki minyonun canı gözükmüyor"** | Komutan büyü düğmeleri (Kızıl Kuyruk / Kor Yemini) elin üstünde, alt koridorun yürüme çizgisinin tam üstünde duruyor. Alt koridordaki birimlerin %11–32'si bu düğmelerin altından geçerken gövdesi ve can çubuğu düğmenin arkasında kalıyordu (ölçüm: Yankı'da 1 dakikada dost 112 örnekten 12'si, düşman 57'den 18'i). | Düğmelerin yeri değişmedi. Çizim döngüsü her karede birimlerin ekrandaki yerini kontrol ediyor; arkasında birim ya da can çubuğu olan düğme yarı saydam (%32) oluyor, basılabilir kalıyor. | Alt koridorda düğmenin altına giren birim yakalanıp durduruldu: düğme saydam, birim ve "58/58" can çubuğu görünüyor. |
+| 2 | Bütün modlar, üst bilgi | "SEN · kupa", "KORVAYN · SV 1", "KULE KAT · ⚡ 1/3", "RAKİP · …" yazıları gölgesizdi; açık renkli arenalarda (Hikâye Seferi, Gökyüzü, Kolosus) gökyüzünün/mermerin üstünde okunmuyordu. | Renkler aynı; koyu kontur gölgesi eklendi. | Görüntüyle doğrulandı. |
+| 3 | Arena (dereceli), Sancak | Duraklatma düğmesine basınca hiçbir şey olmuyordu. Oyunun "Çevrim içi maçta duraklatma yok" mesajı bu modlarda gizli olan bir şeride yazılıyordu; düğme bozuk görünüyordu. | Kural aynı (duraklatma yok). Düğme bu maçlarda soluk; basınca yanında "Çevrim içi / dereceli maçta duraklatma yok: rakip beklemez. Çıkmak için ✕." yazıyor. | Arena'da doğrulandı; diğer modlarda duraklatma penceresi eskisi gibi açılıyor. |
+| 4 | Sonuç ekranı, "Kart parçası" / "Yeni kart" | Her zaman soru işaretli genel kart simgesi. | Parçalar tek bir minyona gittiyse o minyonun kart resmi; birden fazla minyona dağıldıysa genel simge kalıyor. | Doruk Kulesi zaferi: "Kart parçası +3" kutusunda Orman Okçusu. |
+| 5 | Kolosus sonuç ekranı | Sağ paneldeki "ZAFER · TAŞ KOLOSUS DEVRİLDİ!" iki satıra bölünüp "Kupa" kutusunun çerçevesine biniyordu. | Kutular başlığın bittiği yerin altına kaydırılıyor (yalnız gerektiğinde). | Kolosus: başlık 66 px'te bitiyor, kutular 70 px'te başlıyor. Gökyüzü'nde kaydırma gerekmedi, uygulanmadı. |
+
+Gözlenen, sorun olmayanlar: zafer/duraklatma/çıkış pencereleri, Yankı dalga arası güç seçimi, Kolosus boss can çubukları, büyü efektleri, hasar sayıları 9 modda düzgün.
+
+Testler: `test_v263.js` 31/31 (Q, R, S, T, U eklendi).
