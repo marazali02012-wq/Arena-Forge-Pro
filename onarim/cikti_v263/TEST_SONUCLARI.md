@@ -218,3 +218,20 @@ Görüntüler: `ekran_goruntuleri/ekranlar/`.
 | Çıktı | Actions dosyası "ArenaForgePro-android" (66,8 MB): test APK'sı + imzasız AAB + doğrulama metinleri |
 
 Test APK'sı hata ayıklama anahtarıyla imzalı bir deneme paketidir, **yayın paketi değildir**. Play'e yüklenecek AAB, sahibinin kendi yükleme anahtarıyla imzalanmalıdır.
+
+### Son regresyon taraması (bütün düzeltmelerden sonra, temiz sayfayla, 740×360)
+| Mod · akış | Başlık | Ödüller | Motor hatası | DEVAM sonrası |
+|---|---|---|---|---|
+| Arena · zafer | ZAFER! | Kredi 525, Arena Arması 2, Sandık 1, Kart parçası 9 | 0 | Kupa Yolu |
+| Doruk Kulesi · zafer | KAT TEMİZLENDİ! | Kredi 144, Kule Mührü 1, Sandık 1 | 0 | Kule ekranı |
+| Hikâye Seferi · zafer | ZAFER! | Kredi 332, Hikâye Sayfası 1, Sandık 1, Kahraman parçası 2, Kahraman eşyası 1 | 0 | Sefer ekranı |
+| Gökyüzü Adaları · zafer | ZAFER! | Kredi 165, Gök Kristali 2 | 0 | Ada ekranı |
+| Sancak · zafer | ZAFER! | Kredi 160, Sancak Madalyası 2 | 0 | Sancak ekranı |
+| Kolosus · zafer | ZAFER · TAŞ KOLOSUS DEVRİLDİ! | Kredi 300, Titan Çekirdeği 1, Sandık 1 | 0 | Kolosus ekranı |
+| Yankı · zafer | YANKI İSTİLASI · ZAFER | Kredi 38, Yankı Özü 2 | 0 | Yankı girişi |
+| Karanlık Geçit · zafer | ZAFER! | Kredi 125, Karanlık Mühür 2 | 0 | Geçit ekranı |
+| Gizli Bölge · zafer | ZAFER! | Kredi 125, Gölge Mührü 1 | 0 | Bölge ekranı |
+| Doruk Kulesi · yenilgi | PORTALLARIN DÜŞTÜ | Kredi 40 | 0 | Kule ekranı |
+| Arena · pes | MAĞLUBİYET | yok | 0 | Ana üs |
+
+Zafer/yenilgi bitişi test yardımıyla tetiklendi (rakip/dost portal canı düşürüldü, Yankı'da boss canı); bitişi ve ödülü oyunun kendi kuralları yaptı.
