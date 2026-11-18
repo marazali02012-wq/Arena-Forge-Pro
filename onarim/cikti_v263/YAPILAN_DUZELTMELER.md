@@ -1,7 +1,7 @@
 # Yapılan düzeltmeler — v3.60.262 → v3.60.263
 
 - **Kaynak:** `onarim/cikti/ARENA_FORGE_PRO_v3.60.262.html`. Dokunulmadı; SHA-256 `0112308a…b06bef`.
-- **Çıktı:** `onarim/cikti_v263/ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.html`, 46.659.064 bayt. SHA-256 `66c5723d29439b12d3a0e04bc5f7bb7999598336fbefbc0e1aeaeb0b5f07d5e4`.
+- **Çıktı:** `onarim/cikti_v263/ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.html`, 46.660.034 bayt. SHA-256 `ee82f7fbc166fe0dab2b8650689a42e5441f56535af228baa27eca222ce5c558`.
 - **Nasıl üretildi:** `python3 onarim/araclar/patch_v263.py <v262.html> <çıktı.html>`. Yama 20 değişiklik uygular. Her değişiklik kaynakta tam bir kez geçen bir metne bağlıdır. Kaynak SHA'sı farklıysa yama hiçbir şey yazmadan durur.
 - **Değişmeyenler:** Kayıt anahtarı (`arenaForgeProProfileV19`), savaş kuralları, hasar ve portal değerleri, ödül miktarları, sürükle-bırak sistemi ve çevrim içi kod.
 
@@ -67,7 +67,7 @@ Etiketler:
 | 4 efekt şeridi (768×96) `afnew_te_fury`, `afnew_ru_spirit`, `afnew_al_dark`, `afnew_te_bond` | `#afxAssets` JSON | JSON'da `"@quake_wave"` gibi başvuru; tek okuyucu olan AFX yükleyicisi bunu çözüyor | Dört efekt gerçek `AFX.spell` ile yüklendi: `ready=true` |
 | Yankı tanıtım arka planı = Yankı mod kartı (468×310) | CSS `#af203Intro`, #102 `AF213HomeArt.css` (#103 bunu **metin ayrıştırarak** okuyor) | #103'ün okuduğu kopya korundu; CSS'teki kopya kaldırıldı. Açılışta aynı kaynaktan `--af263-echo-art` CSS değişkenine bağlanıyor | Değişken dolu ve görsel çözülüyor |
 
-**Kazanç:** 234.115 bayt (dosyanın %0,5'i). `test_v263.js` artık dosyada 1×1 dışında birebir tekrar eden görsel kalmadığını da denetliyor.
+**Kazanç:** 234.115 bayt görsel verisi (dosyanın %0,5'i). Eklenen kod +970 bayt; net −233.145 bayt. `test_v263.js` artık dosyada 1×1 dışında birebir tekrar eden görsel kalmadığını da denetliyor.
 
 ## D. Kahraman parçası / eşyası simgeleri — **DÜZELTİLDİ**
 
@@ -90,7 +90,11 @@ Etiketler:
 - **Test:**
   - **Sonuç ekranı:** "ZAFER" başlığının örtülmesi %40'tan **%4'e** indi; balon sol taraftaki süs kahraman görseline taşındı.
   - **Kupa Yolu ekranı (yoğun):** Bütün konumlar bir şeyi örtüyor. Balon sağ alta geçti ve hedef (GERİ) açıkta. Altındaki düğme dokunuşla çalışıyor.
-  - **İlk savaş:** Kartla çakışma yok.
+  - **Savaş (son sürüm):** Balon kart sırasının sağı ile sağ kenar düğmeleri arasındaki boşluğa yerleşiyor. 740×360, 667×375 ve 800×360'ta hiçbir kartı ya da düğmeyi örtmüyor; koridor örtmesi en çok %0,6.
+  - **Savaştaki ara sürümde bulunup giderilenler:**
+    - "KARTI AT" düğmesi balon yerleştikten sonra beliriyordu → savaşta yerleşim saniyede bir yeniden denetleniyor.
+    - Oyunun `min-width:172px` kuralı balonu düğmelerin üstüne taşırıyordu → yerleştirilmiş balonda kaldırıldı.
+    - 667 genişlikte boşluk eşiği dar kalıyordu → 140 piksele indirildi.
   - KAPAT / ATLA düğmeleri çalışıyor.
 
 ## F. Kupa yolu kredisi ödül satırında — **DÜZELTİLDİ**
