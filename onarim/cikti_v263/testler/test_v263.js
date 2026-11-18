@@ -131,6 +131,18 @@ test('I: "GERİ ile ana ekrana dön" balonu mini şerit olur, üst çubuktaki bo
   once("card.dataset.af263Score='ust-cubuk '");
   once("#afpGuide.af263-short .af263-rest{display:none}");
 });
+// ---------- C1b) Gölge Suikastçı portresi büyük kare
+test('C1b: Gölge Suikastçı kart resmi tek kopya, AFP94 kartı paketteki resme bağlı', () => {
+  once('"af37_golge_suikastci":((window.AF_ART_PACK_DATA||{})["minion.full.af37_golge_suikastci"]||"")');
+  const m = html.match(/var af263GolgeArt="(data:image\/webp;base64,[A-Za-z0-9+/=]+)"/);
+  assert.ok(m && m[1].length > 12000, 'büyük portre yok');
+  assert.equal(html.split(m[1]).length - 1, 1, 'portre tekrar ediyor');
+});
+// ---------- J) Kilitli minyon ayrıntısı
+test('J: kilitli minyon ayrıntısında kilit sağ altta, "Nasıl açılır?" kutusu opak', () => {
+  once(".afp134-miCard .afp134-lock{top:auto!important;bottom:6px!important;right:6px!important}");
+  once(".afp134-how{background:#0b111e!important}");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

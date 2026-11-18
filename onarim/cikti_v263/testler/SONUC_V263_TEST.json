@@ -70,5 +70,13 @@
   {
     "name": "I: \"GERİ ile ana ekrana dön\" balonu mini şerit olur, üst çubuktaki boşluğa oturur",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "C1b: Gölge Suikastçı kart resmi tek kopya, AFP94 kartı paketteki resme bağlı",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "J: kilitli minyon ayrıntısında kilit sağ altta, \"Nasıl açılır?\" kutusu opak",
+    "status": "GEÇTİ"
   }
 ]

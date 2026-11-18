@@ -161,6 +161,25 @@ s = s.replace('"minion.portrait.af37_golge_suikastci":"' + data1 + '"', '"minion
 s = s.replace('Object.assign(out,{"minion.full.af37_golge_suikastci":"' + data1 + '"', 'var af263GolgeArt="' + data1 + '"; /* v3.60.263: tam boy = portre, tek kopya */\n Object.assign(out,{"minion.full.af37_golge_suikastci":af263GolgeArt', 1)
 assert s.count(data1) == 1; changes.append('C1-golge-tek-kopya')
 
+# C1b) Gölge Suikastçı kart/portre resmi: eski resimde figür 256 px tuvalin yalnız %9'unu kaplıyordu (Sezon Bileti ve
+# koleksiyonda minik görünüyordu). Oyunda zaten bulunan aynı karakterin savaş çiziminin (unit.atlas, 512x256) ilk karesi
+# 256x256 kırpılıp portre olarak kullanılır. Yeni çizim eklenmez; iki küçük kopya (paket + AFP94 kart) tek kırpıma iner.
+import base64 as _b64, io as _io
+from PIL import Image as _Img
+ia = s.find('"unit.atlas.af37_golge_suikastci":"data:image/webp;base64,', s.find('var af263GolgeArt="')) + len('"unit.atlas.af37_golge_suikastci":"data:image/webp;base64,')
+assert ia > 100, 'Gölge atlası bulunamadı'
+_atl = _Img.open(_io.BytesIO(_b64.b64decode(s[ia:s.index('"', ia)]))).convert('RGBA')
+assert _atl.size == (512, 256), _atl.size
+_fr = _atl.crop((0, 0, 256, 256)); _bb = _fr.getbbox(); assert _bb and (_bb[2]-_bb[0])*(_bb[3]-_bb[1]) > 256*256*0.5, _bb
+_buf = _io.BytesIO(); _fr.save(_buf, 'WEBP', quality=88, method=6)
+golge_new = 'data:image/webp;base64,' + _b64.b64encode(_buf.getvalue()).decode()
+s = s.replace('var af263GolgeArt="' + data1 + '"', 'var af263GolgeArt="' + golge_new + '"', 1)
+ic = s.find('window.AFP94_MINION_CARDS={'); kc = s.find('"af37_golge_suikastci":"data:image/', ic)
+assert ic > 0 and kc > ic and kc < s.find('</script>', ic)
+ec = s.index('"', kc + len('"af37_golge_suikastci":"'))
+s = s[:kc] + '"af37_golge_suikastci":((window.AF_ART_PACK_DATA||{})["minion.full.af37_golge_suikastci"]||"")' + s[ec+1:]
+assert s.count(golge_new) == 1; changes.append('C1b-golge-buyuk-portre')
+
 # C2) Ana üs mağaza simgesi = epik sandık görseli (script #10 window.AFQ_CHEST_ART.epic olarak yayımlıyor, #102'den önce çalışır)
 k = s.find(',"shop":"data:image/webp;base64,') + len(',"shop":')
 m = _re.compile(r'"(data:image/webp;base64,[A-Za-z0-9+/=]+)"').match(s, k)
@@ -239,6 +258,13 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
   +'#afpGuide.af263-mini .g-top{order:2;margin:0;flex:0 0 auto}#afpGuide.af263-mini .g-dots,#afpGuide.af263-mini .g-t{display:none}'
   +'#afpGuide.af263-short .af263-rest{display:none}#afpGuide.af263-mini .g-p{order:1;flex:1 1 auto;min-width:0;font-size:11px;line-height:1.2}#afpGuide.af263-mini .g-b{order:3;margin:0}';
  document.head.appendChild(st);
+ /* J: Kilitli minyon ayrıntısı. (1) Kilit simgesi portrenin sağ üstünde "SV 1" etiketinin üstüne biniyordu: sağ alta alınır.
+    (2) "Nasıl açılır?" kutusu yarı saydamdı (%45); kaydırılan istatistik satırları içinden okunup karışıyordu: opak yapılır. */
+ const sj=document.createElement('style');sj.id='afp263MinionCss';const HX='html'+':not(#_j)'.repeat(11)+' #af4Screen[data-screen="minions"] ';
+ sj.textContent=HX+'.afp134-miCard .afp134-lock{top:auto!important;bottom:6px!important;right:6px!important}'
+  +HX+'.afp134-how{background:#0b111e!important}'
+  +HX+'.afp134-act.afp134-unlock{background:linear-gradient(rgba(9,14,27,0),#090e1b 12px)!important}';
+ document.head.appendChild(sj);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
  function collect(card){
