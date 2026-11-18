@@ -37,6 +37,30 @@ Görüntüler: `ekran_goruntuleri/tiklama_ve_centik/`.
 - **Desteler'de "Cannot set properties of null" hatası:** Test kodum, Desteler ekranı kapandıktan sonra sayfadan kalkmış deste sekmelerine basıyordu. Bir oyuncu sayfada olmayan düğmeye basamaz; deste sekmeleri açık ekranda 5/5 hatasız çalıştı.
 - **Açık kalan pencereler:** Test kodum bazı ✕ düğmelerini tanımıyordu. Gerçek dokunuşla hepsi kapandı.
 
+## 3. Ödül alma akışları — **TEST EDİLDİ**
+
+Her ödül parmakla alındı, profil kaydı önce/sonra karşılaştırıldı. Ardından aynı düğmeye bir kez daha basıldı.
+
+| Akış | Gözlenen | İkinci dokunuş |
+|---|---|---|
+| Hazır sandık → SANDIĞI AÇ | Ekran "+75 kalıcı kredi · Orman Okçusu +1 parça"; kayıt kredi 250→325, parça +1, sandık yuvadan kalktı | Boş yuva: hiçbir şey verilmedi |
+| Bekleyen sandık → SÜREYİ BAŞLAT | Usta Sandık 2 saatlik süreye girdi | "hazır değil: 1 sa 59 dk kaldı" uyarısı, ödül yok |
+| Mağaza → Günlük ücretsiz ödül → ŞİMDİ AL | +100 kredi, +1 parça, +43 rün; ekranda yazanla kayıt aynı | Düğme "ALINDI · 11 sa 30 dk sonra"; ödül yok |
+| Kupa Yolu (120 kupa) → ödül → AL | Hazır iki kilometre taşı birlikte alındı: +75 ve +100 = +175 kredi, Kızıl Şövalye +3 ve Mor Suikastçı +3 parça; kartlar "ALINDI" oldu | Düğme "ALINDI" ve pasif; ödül yok |
+| Başarımlar → İlk Zafer (+50) | Kredi 425→475, başarım alındı olarak işaretlendi | Ödül yok |
+
+JavaScript hatası: 0.
+
+Ayrıca üst çubuktaki Mesaj, Sosyal, Menü ve Ayarlar açılıp ✕ ile kapatıldı; ana üs her seferinde yeniden dokunulabilir oldu (**TEST EDİLDİ**).
+
+## 4. Bu turda bulunup düzeltilenler — **DÜZELTİLDİ**
+
+1. **Materyal çantası açılmıyordu.** Ana üstteki "YADİGÂR TOZU" düğmesine basınca ekranda hiçbir şey değişmiyordu. Pencere aslında açılıyordu ama ana üs katmanının **arkasında** kalıyordu: ana üs, pencere konumlandırma sınıfını yalnız tanıdığı dört pencere için açıyordu ve listede Materyal çantası yoktu. Listeye eklendi. Pencere görünüyor, ✕ ile kapanıyor, "GİT" düğmeleri ilgili ekrana götürüyor (ör. Kredi → Mağaza).
+2. **Sandık ve günlük ödül kartında minyon görünmüyordu.**
+   - **Sebep:** Resim kartın tamamına yerleşiyordu; ad ve "+1 PARÇA" etiketi resmin alt yarısını örtüyordu (İskelet Kalkanlı'dan yalnız kask ucu görünüyordu). Yeni minyonlarda da kart, birkaç piksellik figür içeren bir görsel kullanıyordu.
+   - **Düzeltme:** Kart dikey düzene alındı; resim etiketin üstündeki alanda, alttan hizalı. Kart 80×104'ten 108×128'e büyütüldü, sandık simgesi 68'den 52 piksele küçültüldü. Kart resmi önce oyunun kart portresinden alınıyor.
+   - **Ölçüm:** 740×360, 667×375 ve 800×360'ta sandık, kart, yazı ve DEVAM düğmesi çakışmıyor; pencere ekranın içinde.
+   - Görüntüler: `ekran_goruntuleri/odul_alma/` (önce/sonra).
+
 **TAMAMLANMADI:**
-- **Ödül alma (sandık açma, kupa yolu ödülü, görev ödülü düğmeleri):** Bu turda tek tek parmakla alınıp bakiyeyle karşılaştırılmadı. Maç sonu ödülleri ve kupa yolu kredisi önceki taramada doğrulanmıştı (`TEST_SONUCLARI.md`).
-- **Mesaj, Sosyal, Menü, Ayarlar, Materyaller:** Üst çubuktaki küçük düğmeleri test aracımın arama eşiği (60 px) atladığı için kapanışları bu turda otomatik doğrulanmadı. Parlaklık testinde açıldılar (Sosyal'de "Giriş gerekli" penceresi ve ✕ görüldü); kararma yok.
+- Lonca, sezon bileti premium satın alma ve gerçek parayla alışveriş (Play faturalandırma) bu turda denenmedi.
