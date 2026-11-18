@@ -1,0 +1,3 @@
+Derleme: eea9284aae7bca28e0695db2b008f04ec899d5c1  (çalıştırma 44382169489)
+APK: hata ayıklama anahtarıyla imzalı TEST paketi; yayın paketi değildir.
+AAB: imzasız; Play'e yüklemeden önce sahibinin yükleme anahtarıyla imzalanmalı.

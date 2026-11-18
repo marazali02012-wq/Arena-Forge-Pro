@@ -1,0 +1,2 @@
+ea7071be27ae14dd0f398df0646899032a7bacf14200542daf408a1df91429d6  ArenaForgePro-test-debug.apk
+908ca1255513c349017f81b43d3b0bec5245351628c3df416839aed273bb3d13  ArenaForgePro-release-IMZASIZ.aab
