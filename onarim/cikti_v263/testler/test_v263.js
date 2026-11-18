@@ -189,6 +189,17 @@ test('V: üst koridor can çubuğu mod şeridinin altına itilmez', () => {
   once("minTop=Math.max(H*.135,(window.__afp263HudFloor?window.__afp263HudFloor(x,barW):0)); /* v3.60.263 V */");
   once("window.__afp263HudFloor=function(x,w){");
 });
+// ---------- Kalan eksikler turu: arayüz (W, X, Y, Z, AA)
+test('W: büyü penceresinde düğme satırı alçak ekranda sabit, bakiye tekrarı gizli', () => {
+  once("sw.id='afp263SpellWinCss'"); once("' .afx-hrSpellPanel>.afp-spend-bar{display:none!important}'");
+});
+test('X: Kupa Yolu minyon kartı oyunun kart portresini kullanır; kartlar eşit, ad iki satır', () => {
+  once("art:(((c=>typeof c==='string'&&c.length>200?c:'')(window.AFP94_MINION_CARDS&&window.AFP94_MINION_CARDS[e.id]))||");
+  once("sx2.id='afp263RoadCss'");
+});
+test('Y: Minyonlar nadirlik sekmeleri dar ekranda sığar', () => { once("sy2.id='afp263MinTabsCss'"); });
+test('Z: ekipman yuvası yazısı kesilmez', () => { once("sz.id='afp263GearSlotCss'"); });
+test('AA: Yadigârlar alt bilgisi alanın içinde (doğru katmanda)', () => { once("saa.textContent='@layer af172Commerce{@media (max-height:370px){'"); });
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

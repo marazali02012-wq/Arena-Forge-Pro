@@ -30337,7 +30337,7 @@ window.__AFColossusArtV1=Object.freeze({"art":"data:image/webp;base64,UklGRkJwAA
    const e=m.af36Character||{};if(!e.id)return;let own=owned.has(e.id);if(!own){try{own=!!(A37&&typeof A37.unlocked==='function'&&A37.unlocked(e.id));}catch(_){}}
    const st=own?'claimed':cups>=m.cups?'ready':'locked';const mg=bridge.isTrophyMage(e.id);
    nodes.push({key:'c'+e.id,cups:m.cups,kind:mg?'mage':'minion',title:up(e.name||'Minyon'),alreadyOwned:own&&!owned.has(e.id),sub:'MİNYON KARTI'+(e.rarity?' · '+up(e.rarity):''),
-    items:[[mg?'magic':'helmet',(e.name||'Minyon')+(own?' koleksiyonda mevcut':' minyon kartı açılır')+(e.role?' · '+(RD_ROLE[e.role]||e.role):'')]],credits:0,char:e.id,art:typeof e.art==='string'&&e.art.length>200?e.art:'',st,rar:String(e.rarKey||e.rarity||'')});
+    items:[[mg?'magic':'helmet',(e.name||'Minyon')+(own?' koleksiyonda mevcut':' minyon kartı açılır')+(e.role?' · '+(RD_ROLE[e.role]||e.role):'')]],credits:0,char:e.id,art:(((c=>typeof c==='string'&&c.length>200?c:'')(window.AFP94_MINION_CARDS&&window.AFP94_MINION_CARDS[e.id]))||(typeof e.art==='string'&&e.art.length>200?e.art:'')),st, /* v3.60.263 X */rar:String(e.rarKey||e.rarity||'')});
   });
   /* v3.74.01: 5 ana kahraman büyücü (komutan) — oyunun AF332_HEROES verisi: Korvayn başlangıç, diğerleri kupa eşiğinde
      otomatik açılır (af332CheckUnlocks; 20 parçayla da açılabilir). Durum oyunun kaydından okunur, kural değişmez. */
@@ -43651,6 +43651,42 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
   const k=(c.offsetHeight&&cb.height)?cb.height/c.offsetHeight:1,cur=parseFloat(c.dataset.af263Shift||'0')||0;
   const need=Math.max(0,Math.ceil((mb.bottom+3-(cb.top-cur*k))/k));
   if(need!==cur){c.dataset.af263Shift=String(need);c.style.marginTop=need?need+'px':'';}}catch(_){}},400);
+ /* W: Büyü ayrıntı penceresi. Pencere alçak ekranda 250 px, içerik 266 px; ÖNİZLE / YUVA / GELİŞTİR satırı kaydırma
+    alanının en altında kalıp ~11 px kesiliyordu (740×360, 800×360). Alçak ekranda büyük simge 64→50 px küçülür ve
+    düğme satırı pencerenin altına sabitlenir (açıklama uzasa da düğmeler hep görünür). */
+ const sw=document.createElement('style');sw.id='afp263SpellWinCss';const HW='html'+':not(#_w)'.repeat(11);
+ sw.textContent='@media (max-height:430px){'+HW+' .afx-hrSpellPanel .afx-hrSpHead .afx-hrHex.is-big{width:50px!important;height:61px!important;flex:0 0 50px!important}'
+  +HW+' .afx-hrSpellPanel .afx-hrSpHead .afx-hrHex.is-big canvas{width:46px!important;height:57px!important}'
+  /* bakiye satırı üst çubuktakinin birebir tekrarı; alçak ekranda yer açmak için pencerede gizlenir */
+  +HW+' .afx-hrSpellPanel>.afp-spend-bar{display:none!important}'
+  +HW+' .afx-hrSpellPanel>.afx-hrSpActs{position:sticky!important;bottom:-8px!important;z-index:3!important;margin-top:auto!important;margin-bottom:-8px!important;padding:5px 0 8px!important;background:linear-gradient(rgba(11,14,23,0),#0b0e17 7px)!important}}';
+ document.head.appendChild(sw);
+ /* X: Kupa Yolu ödül kartları eşit genişlik, ad alanı sabit iki satır (uzun ad resmi küçültmez). */
+ const sx2=document.createElement('style');sx2.id='afp263RoadCss';const HX2='html'+':not(#_x)'.repeat(11)+' .af228-reward';
+ sx2.textContent=HX2+'{min-width:90px!important}'
+  +HX2+'>b{display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:2!important;overflow:hidden!important;line-height:1.12!important;min-height:2.24em!important;max-height:2.24em!important;text-align:center!important;align-content:center!important;overflow-wrap:normal!important;word-break:normal!important}';
+ document.head.appendChild(sx2);
+ /* Y: Minyonlar ekranı nadirlik sekmeleri (TÜMÜ … PLATİN) 667/740 genişlikte 289 px'lik alana sığmıyor, EFSANEVİ yarım
+    ve PLATİN görünmüyordu (kaydırma işareti yok). Dar ekranda boşluk/yazı küçültülür, altı sekme de sığar. */
+ const sy2=document.createElement('style');sy2.id='afp263MinTabsCss';const HY='html'+':not(#_y)'.repeat(13)+' .afp132-tabs';
+ sy2.textContent='@media (max-width:860px){'+HY+'{column-gap:3px!important;gap:3px!important}'+HY+'>.afp132-tab{padding:4px 4px!important;min-width:0!important}'
+  +HY+'>.afp132-tab>b{font-size:9.5px!important;letter-spacing:0!important}'+HY+'>.afp132-tab>small{font-size:9px!important}}';
+ document.head.appendChild(sy2);
+ /* Z: Minyon ayrıntısı → EKİPMAN yuvaları (SİLAH / ZIRH / TILSIM). 84 px'lik yuvada simge + boşluk yazıya 49 px
+    bırakıyordu; "Boş · dokun ve kuşan (1)" ve "Boş · kulede kazanılır" "dokun ve…" diye kesiliyordu. Simge yuvanın
+    sağ üst köşesine küçük alınır, yazı yuvanın tam genişliğini kullanır (iki satır, kesilmeden). */
+ const sz=document.createElement('style');sz.id='afp263GearSlotCss';const HZ='html'+':not(#_z)'.repeat(13)+' .afp134-gearRow>.af4-gslot';
+ sz.textContent=HZ+'{position:relative!important;padding:5px 6px!important;gap:0!important}'
+  +HZ+'>svg{position:absolute!important;top:5px!important;right:5px!important;width:12px!important;height:12px!important;opacity:.85}'
+  +HZ+'>span{width:100%!important;min-width:0!important}'
+  +HZ+'>span>small{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important;text-overflow:clip!important;white-space:normal!important;line-height:1.15!important;height:auto!important;max-height:none!important}';
+ document.head.appendChild(sz);
+ /* AA: Mağaza → Yadigârlar. Alt bilgi satırı ("En fazla 4 yadigâr kuşanılır…") 740×360/800×360'ta alanın 12 px altında
+    kalıp yarım görünüyordu. Ürün kartlarına dokunmadan ızgara alt boşluğu, not iç boşluğu ve aralık kısılır. */
+ const saa=document.createElement('style');saa.id='afp263RelicNoteCss';const HA='html'+':not(#_aa)'.repeat(13)+' .af4-shopSectionBody';
+ /* kaynak kurallar @layer af172Commerce içinde (katmanlı !important katmansızı yener) → düzeltme aynı katmanda */
+ saa.textContent='@layer af172Commerce{@media (max-height:370px){'+HA+':has(>.af4-slots){row-gap:3px!important;gap:3px!important}'+HA+'>.af4-slots~.af171-products{padding-bottom:0!important}'+HA+'>.af4-slots~.af4-note{padding:0 2px!important}}}';
+ document.head.appendChild(saa);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
  function collect(card){

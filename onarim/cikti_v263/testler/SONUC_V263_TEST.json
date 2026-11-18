@@ -126,5 +126,25 @@
   {
     "name": "V: üst koridor can çubuğu mod şeridinin altına itilmez",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "W: büyü penceresinde düğme satırı alçak ekranda sabit, bakiye tekrarı gizli",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "X: Kupa Yolu minyon kartı oyunun kart portresini kullanır; kartlar eşit, ad iki satır",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Y: Minyonlar nadirlik sekmeleri dar ekranda sığar",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "Z: ekipman yuvası yazısı kesilmez",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "AA: Yadigârlar alt bilgisi alanın içinde (doğru katmanda)",
+    "status": "GEÇTİ"
   }
 ]
