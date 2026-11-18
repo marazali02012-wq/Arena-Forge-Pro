@@ -1,22 +1,29 @@
 {
   "source_file": "ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip",
-  "original_size_bytes": 56099183,
-  "original_sha256": "764bc0cc807d1eeeadeee697e81ab3c03a8c59f0ecbde1dff73ef6a833feea69",
-  "part_count": 2,
+  "original_size_bytes": 57182044,
+  "original_sha256": "f0be1bf7a2062dc0447cc242e467462203329a089313c0190ace7b8b2cb2529f",
+  "part_count": 3,
   "parts": [
     {
       "index": 1,
       "zip_name": "ArenaForgePro_v3.60.263_TAM_ONARIM_TEST_PARCA_01.zip",
       "member_name": "parcalar/bolum_01.bin",
       "bytes": 28311552,
-      "sha256": "45b63a866d843e7a2e83a95ac856097f313806d82ed9fe4a9c7d28c4a5ca5936"
+      "sha256": "1360725a1d3ca7f75c58d7de104df93e2a6a408e074e54fa3d1d4e8c80c7b565"
     },
     {
       "index": 2,
       "zip_name": "ArenaForgePro_v3.60.263_TAM_ONARIM_TEST_PARCA_02.zip",
       "member_name": "parcalar/bolum_02.bin",
-      "bytes": 27787631,
-      "sha256": "31f1d7b857f5443e01464e2c230ffb29b9ac5fcc6018444dd954f9ed1360265d"
+      "bytes": 28311552,
+      "sha256": "ba7a369ec09fd7399a6efcd34fc4354d5237f1363de829cd91d94e172faa21f1"
+    },
+    {
+      "index": 3,
+      "zip_name": "ArenaForgePro_v3.60.263_TAM_ONARIM_TEST_PARCA_03.zip",
+      "member_name": "parcalar/bolum_03.bin",
+      "bytes": 558940,
+      "sha256": "924af4692e49a1e2d465b02aada3f6a8ddf348faf4f0a3c2a33adcb510cbbbae"
     }
   ]
 }

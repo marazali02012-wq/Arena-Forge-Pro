@@ -298,17 +298,17 @@ sub('X-kupa-yolu-minyon-karti',
 
 # ================================================================ AC) ÖRÜMCEK AKINI SONUCU "YANKI İSTİLASI" YAZIYORDU
 # Örümcek Akını ve Lonca Dev Avı da motorun 'boss' modunu kullanıyor; sonuç ekranı 'boss'u her zaman YANKI İSTİLASI diye
-# etiketliyordu. Maç başı kaydında Örümcek motorunun etkin olup olmadığı (ve lonca avı bağlamı) not edilir; yalnız ETİKET
+# etiketliyordu; İki Oyunculu Kolosus (düello motoru + kontrol noktası) da 'SAVAŞ ARENALARI' yazıyordu. Maç başı kaydında Örümcek motorunun etkin olup olmadığı (ve lonca avı bağlamı) not edilir; yalnız ETİKET
 # değişir, dönüş hedefi (Örümcek ekranına dönüş) aynı kalır.
 sub('AC-sonuc-kaydi',
     "let start=null,wasPlaying=false,live=false;\nfunction takeStart(){start=readProfile();hide();}",
     "let start=null,wasPlaying=false,live=false,af263RaidKind='';\nfunction takeStart(){start=readProfile();hide();try{const R=window.AFPBossRaidEngineV1,st=R&&typeof R.status==='function'?R.status():null;af263RaidKind=window.__AFPCommunityGuildRaidActive?'guildraid':(st&&st.active?'raid':'');}catch(_){af263RaidKind='';}} /* v3.60.263 AC */")
 sub('AC-etiketler',
     "const MODE_LABEL={echo:'YANKI İSTİLASI',",
-    "const MODE_LABEL={raid:'ÖRÜMCEK AKINI',guildraid:'LONCA DEV AVI',echo:'YANKI İSTİLASI',")
+    "const MODE_LABEL={raid:'ÖRÜMCEK AKINI',guildraid:'LONCA DEV AVI',duocolossus:'İKİ OYUNCULU KOLOSUS',echo:'YANKI İSTİLASI',")
 sub('AC-boya',
     " const mk=afqvResultMode(info,d.modeKey);\n",
-    " const mk=(m=>(m==='boss'&&af263RaidKind)?af263RaidKind:m)(afqvResultMode(info,d.modeKey)); /* v3.60.263 AC: yalnız etiket */\n")
+    " const mk=(m=>(m==='boss'&&af263RaidKind)?af263RaidKind:(m==='arena'&&/^KOLOSUS KONTROLÜ/.test((($('endTitle')||{}).textContent||'').trim()))?'duocolossus':m)(afqvResultMode(info,d.modeKey)); /* v3.60.263 AC: yalnız etiket */\n")
 
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi

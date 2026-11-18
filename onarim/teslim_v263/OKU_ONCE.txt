@@ -1,9 +1,9 @@
-ARENA FORGE PRO v3.60.263 — TESLİM PAKETİ (2 PARÇA, her biri 30 MB altı)
+ARENA FORGE PRO v3.60.263 — TESLİM PAKETİ (3 PARÇA, her biri 30 MB altı)
 
 Bu parçalar tek tek oyun değildir. HEPSİNİ indirip aynı klasöre koyun.
 
 BİRLEŞTİRME
-1) ArenaForgePro_v3.60.263_TAM_ONARIM_TEST_PARCA_01.zip, ArenaForgePro_v3.60.263_TAM_ONARIM_TEST_PARCA_02.zip dosyalarının tamamını aynı klasöre koyun.
+1) ArenaForgePro_v3.60.263_TAM_ONARIM_TEST_PARCA_01.zip, ArenaForgePro_v3.60.263_TAM_ONARIM_TEST_PARCA_02.zip, ArenaForgePro_v3.60.263_TAM_ONARIM_TEST_PARCA_03.zip dosyalarının tamamını aynı klasöre koyun.
 2) Herhangi bir parçanın içinden BIRLESTIR_VE_DOGRULA.py ve PARCA_KONTROL.json dosyalarını aynı klasöre çıkarın.
 3) Terminalde:  python BIRLESTIR_VE_DOGRULA.py
 4) Araç her parçanın SHA-256 değerini ve arşiv bütünlüğünü kontrol edip ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip dosyasını oluşturur.
@@ -11,8 +11,8 @@ BİRLEŞTİRME
 
 Python yoksa (yalnız birleştirme, doğrulama olmadan):
  - Her parçadan parcalar/bolum_NN.bin dosyasını çıkarın.
- - Windows:  copy /b bolum_01.bin+bolum_02.bin ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip
+ - Windows:  copy /b bolum_01.bin+bolum_02.bin+... ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip
  - Linux/Mac: cat bolum_*.bin > ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip
 
-Asıl arşiv: 56099183 bayt
-Asıl SHA-256: 764bc0cc807d1eeeadeee697e81ab3c03a8c59f0ecbde1dff73ef6a833feea69
+Asıl arşiv: 57182044 bayt
+Asıl SHA-256: f0be1bf7a2062dc0447cc242e467462203329a089313c0190ace7b8b2cb2529f

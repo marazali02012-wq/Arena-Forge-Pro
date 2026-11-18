@@ -208,7 +208,7 @@ test('E2: savaş öğretici balonu sıkı düzen, dar boşlukta da alt boşluğa
   once("if(L>0&&fw>=108){card.classList.add('af263-placed');");
 });
 test('AC: Örümcek Akını / Lonca Dev Avı sonucu kendi adıyla etiketlenir', () => {
-  once("const MODE_LABEL={raid:'ÖRÜMCEK AKINI',guildraid:'LONCA DEV AVI',echo:'YANKI İSTİLASI',");
+  once("const MODE_LABEL={raid:'ÖRÜMCEK AKINI',guildraid:'LONCA DEV AVI',duocolossus:'İKİ OYUNCULU KOLOSUS',echo:'YANKI İSTİLASI',");
   once("af263RaidKind=window.__AFPCommunityGuildRaidActive?'guildraid':(st&&st.active?'raid':'');");
 });
 
