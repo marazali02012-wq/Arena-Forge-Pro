@@ -43556,7 +43556,12 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
     konum denenir; düğmelerin, savaş kartlarının, sonuç başlığının ve rehberin işaret ettiği hedefin en az
     örtüldüğü konum seçilir. Varsayılan konum zaten temizse yerinden oynatılmaz. */
  const st=document.createElement('style');st.id='afp263GuideCss';
- st.textContent='#afpGuide{pointer-events:none}#afpGuide button{pointer-events:auto}#afpGuide.af263-placed{transform:none!important;right:auto!important;bottom:auto!important;min-width:0!important}';
+ st.textContent='#afpGuide{pointer-events:none}#afpGuide button{pointer-events:auto}#afpGuide.af263-placed{transform:none!important;right:auto!important;bottom:auto!important;min-width:0!important}'
+  +'#afpGuide.af263-placed .g-x{padding:3px 5px;font-size:9px}'
+  /* Mini kip: hedef ekranın dışındayken (yalnız "GERİ ile ana ekrana dön") balon tek satırlık şeride küçülür. */
+  +'#afpGuide.af263-mini{display:flex;align-items:center;gap:6px;padding:3px 6px 3px 8px;border-width:1px;border-radius:9px}'
+  +'#afpGuide.af263-mini .g-top{order:2;margin:0;flex:0 0 auto}#afpGuide.af263-mini .g-dots,#afpGuide.af263-mini .g-t{display:none}'
+  +'#afpGuide.af263-short .af263-rest{display:none}#afpGuide.af263-mini .g-p{order:1;flex:1 1 auto;min-width:0;font-size:11px;line-height:1.2}#afpGuide.af263-mini .g-b{order:3;margin:0}';
  document.head.appendChild(st);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
@@ -43564,7 +43569,8 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
   const out=[];const add=(r,w)=>{if(r)out.push({l:r.left,t:r.top,r:r.right,b:r.bottom,a:Math.max(1,r.width*r.height),w});};
   const walk=root=>{root.querySelectorAll('*').forEach(e=>{if(e.shadowRoot)walk(e.shadowRoot);if(card.contains(e))return;
     if(e.matches&&e.matches(SEL)){add(vis(e),e.classList&&e.classList.contains('battlePick')?6:3);}
-    else if(e.tagName==='IMG'&&e.closest&&e.closest('.afqv-stage,.afqv-root,#afqvRoot,[class^="afqv"]')&&!e.classList.contains('afqv-hero')&&!e.classList.contains('afqv-bg')){const r=vis(e);if(r&&r.width*r.height>1500)add(r,4);}
+    else if(e.childNodes.length&&[...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim().length>1)){const r=vis(e);if(r&&r.width*r.height<innerWidth*innerHeight*.3)add(r,1);}
+    if(e.tagName==='IMG'&&e.closest&&e.closest('.afqv-stage,.afqv-root,#afqvRoot,[class^="afqv"]')&&!e.classList.contains('afqv-hero')&&!e.classList.contains('afqv-bg')){const r=vis(e);if(r&&r.width*r.height>1500)add(r,4);}
   });};
   walk(document);
   const ring=document.getElementById('afpGuideRing');if(ring&&ring.style.display!=='none')add(vis(ring),12);
@@ -43577,6 +43583,10 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
   const card=document.getElementById('afpGuide');if(!card||card.hidden||busy)return;busy=true;
   try{
    card.classList.remove('af263-placed');card.style.left='';card.style.top='';card.style.width='';
+   const pEl=card.querySelector('.g-p'),mini=!card.classList.contains('btl')&&!!pEl&&/^GERİ ile ana ekrana dön/.test(pEl.textContent||'');
+   card.classList.toggle('af263-mini',mini);card.classList.remove('af263-short');
+   /* Dar ekranda şerit sığmazsa ";" sonrası açıklama gizlenir; ana komut ("GERİ ile ana ekrana dön") her zaman görünür. */
+   if(mini&&!pEl.querySelector('.af263-rest')){const t=pEl.textContent,k=t.indexOf(';');if(k>0){pEl.textContent=t.slice(0,k);const sp=document.createElement('span');sp.className='af263-rest';sp.textContent=t.slice(k);pEl.appendChild(sp);}}
    const d=card.getBoundingClientRect(),P=collect(card),W=innerWidth,H=innerHeight,m=6;
    /* Savaşta: alt kontrol sırasındaki boşluk = son el/kart düğmesinin sağı ile sağ kenar düğmelerinin solu arası (koridorların altında). */
    if(card.classList.contains('btl')){
@@ -43587,8 +43597,17 @@ html:not(#_1):not(#_2):not(#_3):not(#_4):not(#_5):not(#_6):not(#_7):not(#_8):not
      const y=H-fh-m,sc=score(L+m,y,fw,fh,P);
      card.classList.add('af263-placed');card.style.left=Math.round(L+m)+'px';card.style.top=Math.round(y)+'px';card.style.width=fw+'px';card.dataset.af263Score='alt-bosluk '+sc.toFixed(2);return;}
    }
+   if(mini){
+    /* Üst çubuktaki en geniş boş aralık (kupa ile kaynak/ayar düğmeleri arası). Sığarsa şerit oraya oturur. */
+    let barB=0;const items=[];P.forEach(q=>{if(q.t>=0&&q.t<14&&q.b<H*.2){barB=Math.max(barB,q.b);}});
+    /* üst çubuğun altına kaymış (tepesi ekran dışında) içerik sayılmaz */
+    if(barB>20){P.forEach(q=>{if(q.t>=0&&q.t<barB-4)items.push([q.l,q.r]);});items.sort((a,b)=>a[0]-b[0]);
+     let gx=m,best=null;for(const [l,r] of items){if(l-gx>(best?best[1]-best[0]:0))best=[gx,l];gx=Math.max(gx,r);}if(W-m-gx>(best?best[1]-best[0]:0))best=[gx,W-m];
+     if(best){const gw=Math.floor(Math.min(best[1]-best[0]-2*m,420));if(gw>=220){card.style.width=gw+'px';let gh=card.getBoundingClientRect().height;if(gh>barB+2){card.classList.add('af263-short');gh=card.getBoundingClientRect().height;if(gh>barB+2)card.classList.remove('af263-short');}card.style.width='';
+      if(gh<=barB+2){const y=Math.max(2,Math.round((barB-gh)/2));card.classList.add('af263-placed');card.style.left=Math.round(best[0]+m+(best[1]-best[0]-2*m-gw)/2)+'px';card.style.top=y+'px';card.style.width=gw+'px';card.dataset.af263Score='ust-cubuk '+score(best[0]+m,y,gw,gh,P).toFixed(2);return;}}}}
+   }
    const cands=[[d.left,d.top,d.width,d.height,0]];
-   const w2=Math.min(d.width,Math.max(200,Math.round(W*.36)));
+   const w2=Math.min(d.width,Math.max(mini?240:280,Math.round(W*(mini?.34:.38))));
    card.style.width=w2+'px';const h2=card.getBoundingClientRect().height;card.style.width='';
    const top=Math.min(48,H*.14);
    for(const [x,y] of [[m,top],[W-w2-m,top],[m,H-h2-m],[W-w2-m,H-h2-m],[m,(H-h2)/2],[W-w2-m,(H-h2)/2],[(W-w2)/2,m],[(W-w2)/2,H-h2-m],[(W-w2)/2,(H-h2)/2]])cands.push([x,y,w2,h2,.15]);

@@ -66,5 +66,9 @@
   {
     "name": "H: ödül kartı resmi ad etiketinin üstünde (esnek düzen), kart portresi önce",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "I: \"GERİ ile ana ekrana dön\" balonu mini şerit olur, üst çubuktaki boşluğa oturur",
+    "status": "GEÇTİ"
   }
 ]

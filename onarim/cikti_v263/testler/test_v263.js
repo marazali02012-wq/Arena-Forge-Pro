@@ -124,6 +124,13 @@ test('H: ödül kartı resmi ad etiketinin üstünde (esnek düzen), kart portre
   assert.ok(html.includes("#chestRevealBackdrop .chestRevealCard{display:flex !important;flex-direction:column !important;justify-content:flex-end !important;}"));
   once("const hq=((typeof afpResolvedMinionPortrait==='function')&&afpResolvedMinionPortrait(type))||(AF324?AF324.portrait(type):'');");
 });
+// ---------- I) Rehber balonu alt ekranlarda tek satırlık şerit
+test('I: "GERİ ile ana ekrana dön" balonu mini şerit olur, üst çubuktaki boşluğa oturur', () => {
+  once("mini=!card.classList.contains('btl')&&!!pEl&&/^GERİ ile ana ekrana dön/.test(pEl.textContent||'')");
+  once("#afpGuide.af263-mini{display:flex;");
+  once("card.dataset.af263Score='ust-cubuk '");
+  once("#afpGuide.af263-short .af263-rest{display:none}");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);
