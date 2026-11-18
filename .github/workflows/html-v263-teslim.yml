@@ -1,0 +1,54 @@
+name: v263 HTML teslim ve test
+on:
+  push:
+    branches:
+      - delivery/v263-html-20261118
+  workflow_dispatch:
+
+jobs:
+  html-delivery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: HTML dosyasinin tamligini dogrula ve teslim klasorunu olustur
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, shutil
+          src=Path('onarim/cikti_v263/ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.html')
+          expected='ee82f7fbc166fe0dab2b8650689a42e5441f56535af228baa27eca222ce5c558'
+          raw=src.read_bytes()
+          actual=hashlib.sha256(raw).hexdigest()
+          print('Dosya uzunlugu:',len(raw),'SHA256:',actual)
+          assert len(raw)==46660034, 'Boyut uyusmazligi'
+          assert actual==expected, 'Kaynak SHA256 uyusmazligi'
+          raw.decode('utf-8')
+          low=raw.lower()
+          assert b'<html' in low and b'</html>' in low, 'HTML yapisi eksik'
+          assert b'<script' in low and b'</script>' in low, 'JavaScript bolumleri eksik'
+          assert b'<style' in low and b'</style>' in low, 'CSS bolumleri eksik'
+          dist=Path('dist')
+          dist.mkdir(exist_ok=True)
+          target=dist/'ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.html'
+          shutil.copyfile(src,target)
+          (dist/'DOGRULAMA.txt').write_text(
+              'Kaynak: claude/new-session-b8xsc0; v3.60.263.\\n'
+              + 'Boyut: '+str(len(raw))+' bayt\\n'
+              + 'SHA256: '+actual+'\\n'
+              + 'Not: Bu dosya oyun HTML test surumudur. Android APK guncellemesi degildir.\\n',encoding='utf-8')
+          print('Teslim dosyasi hazir:',target)
+          PY
+      - name: Mevcut 106 JS sozdizimi ve oyun regresyon testlerini calistir
+        run: |
+          bash onarim/cikti_v263/testler/testleri_calistir.sh onarim/cikti_v263/ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ArenaForgePro-v263-TAM-HTML
+          path: dist/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
