@@ -1,4 +1,4 @@
-<!-- AFP v3.60.263 TEST: pes etme tek kez mağlubiyet olarak kaydedilir (ödülsüz, görev ilerlemesi yok); kupa yolu kredisi ödül satırında; kahraman parçası/eşyası ödül simgeleri; yeni oyuncu rehber balonu kart/başlık üstüne binmez; birebir tekrar gömülü görseller tekilleştirildi. -->
+<!-- AFP v3.60.263 TEST: Android: solda siyah şerit (çentik dolgusu) ve görünmeyen Materyal çantası düzeltildi; pes etme tek kez mağlubiyet olarak kaydedilir (ödülsüz, görev ilerlemesi yok); kupa yolu kredisi ödül satırında; kahraman parçası/eşyası ödül simgeleri; yeni oyuncu rehber balonu kart/başlık üstüne binmez; birebir tekrar gömülü görseller tekilleştirildi. -->
 <!-- AFP v3.60.262 TEST: Hikâye Seferi aşama paneli kesilmesi, Sancak skor kutusunun üst koridoru kapatması ve oyuncunun kendi görünmez suikastçısını görememesi düzeltildi; 9 mod Chromium 740x360 / 667x375 / 800x360 üzerinde oynatıldı. Savaş kuralları, kayıt anahtarı ve ödüller değişmedi. -->
 <!-- AFP v3.60.261 TEST: boş koleksiyon kart portreleri ve hatalı görsel yedeklemeleri düzeltildi; canlı sürüm değiştirilmedi. -->
 <!-- AFP yerel test onarımı: minyon sıfır hasar, portal büyü hasarı, Kolosus hızı, Yankı final boss ve boş atlas yükleme; Replit ana dosyası değiştirilmedi. -->
@@ -27443,7 +27443,7 @@ window.__afpBossRaidOpenScreenV34065=afpBossRaidOpenScreen;window.__afpBossRaidR
   const raidWindow=document.getElementById('afpBossRaidScreen');
   const modeOpen=!!(modeWindow&&!modeWindow.hidden);
   const seasonOpen=!!(seasonWindow&&!seasonWindow.hidden);
-  const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile'].some(id=>{const w=document.getElementById(id);return !!(w&&!w.hidden);});
+  const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile','afxMats'].some(id=>{const w=document.getElementById(id);return !!(w&&!w.hidden);});
   let raidOpen=false;try{raidOpen=!!(raidWindow&&getComputedStyle(raidWindow).display!=='none'&&getComputedStyle(raidWindow).visibility!=='hidden');}catch(_){}
   // 60.03 ana üs boyası korunur; mod, kupa bilgisi ve sağdaki üç işlev penceresi kendi iç ekran stilini açar.
   document.documentElement.classList.toggle('afx369',!visible||modeOpen||seasonOpen||raidOpen);document.documentElement.classList.toggle('afx-pwopen',utilityOpen); /* v3.60.66: harita üstü pencereler haritanın temasını değiştirmez */

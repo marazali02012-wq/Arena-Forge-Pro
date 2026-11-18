@@ -31,7 +31,7 @@ sub('surum-meta',
     '<meta name="afp-build" content="v3.60.263" />\n<title>Arena Forge Pro v3.60.263 — Tam Onarım TEST</title>')
 sub('surum-yorum',
     '<!-- AFP v3.60.262 TEST: ',
-    '<!-- AFP v3.60.263 TEST: pes etme tek kez mağlubiyet olarak kaydedilir (ödülsüz, görev ilerlemesi yok); kupa yolu kredisi ödül satırında; kahraman parçası/eşyası ödül simgeleri; yeni oyuncu rehber balonu kart/başlık üstüne binmez; birebir tekrar gömülü görseller tekilleştirildi. -->\n<!-- AFP v3.60.262 TEST: ')
+    '<!-- AFP v3.60.263 TEST: Android: solda siyah şerit (çentik dolgusu) ve görünmeyen Materyal çantası düzeltildi; pes etme tek kez mağlubiyet olarak kaydedilir (ödülsüz, görev ilerlemesi yok); kupa yolu kredisi ödül satırında; kahraman parçası/eşyası ödül simgeleri; yeni oyuncu rehber balonu kart/başlık üstüne binmez; birebir tekrar gömülü görseller tekilleştirildi. -->\n<!-- AFP v3.60.262 TEST: ')
 
 # ================================================================ A) PES ETME = MAĞLUBİYET
 # Önce: af274ExitBattle -> endGame(false,…,{suppressRewards,forfeit}). Her katman (genel istatistik,
@@ -195,6 +195,14 @@ assert hc > 0, 'Yankı mod kartı kopyası bulunamadı'
 assert s[mc.end():mc.end()+2] == "')"
 s = s[:c - len("url('")] + 'var(--af263-echo-art,none)' + s[mc.end()+2:]
 assert s.count(mc.group(0)) == 1; changes.append('C4-yanki-tanitim-css')
+
+# ================================================================ G) MATERYAL ÇANTASI GÖRÜNMÜYORDU
+# Ana üsteki "YADİGÂR TOZU" düğmesi Materyal çantasını (#afxMats) açıyor ama pencere ana üs katmanının
+# ARKASINDA kalıyordu: .afx-win konumlandırma kuralı yalnız html.afx-pwopen/afx369 varken geçerli ve ana üs
+# afx-pwopen'ı yalnız tanıdığı pencereler için açıyordu (afxWeek, afxHist, afxBadges, af328Profile).
+sub('G-materyal-penceresi',
+    "const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile'].some(",
+    "const utilityOpen=['afxWeek','afxHist','afxBadges','af328Profile','afxMats'].some(")
 
 # ================================================================ E) + C4 çalışma anı: rehber balonu yerleşimi
 RUNTIME = r"""<script id="AFP263_RUNTIME">
