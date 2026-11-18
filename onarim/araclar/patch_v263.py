@@ -296,6 +296,20 @@ sub('X-kupa-yolu-minyon-karti',
     "credits:0,char:e.id,art:typeof e.art==='string'&&e.art.length>200?e.art:'',st,",
     "credits:0,char:e.id,art:(((c=>typeof c==='string'&&c.length>200?c:'')(window.AFP94_MINION_CARDS&&window.AFP94_MINION_CARDS[e.id]))||(typeof e.art==='string'&&e.art.length>200?e.art:'')),st, /* v3.60.263 X */")
 
+# ================================================================ AC) ÖRÜMCEK AKINI SONUCU "YANKI İSTİLASI" YAZIYORDU
+# Örümcek Akını ve Lonca Dev Avı da motorun 'boss' modunu kullanıyor; sonuç ekranı 'boss'u her zaman YANKI İSTİLASI diye
+# etiketliyordu. Maç başı kaydında Örümcek motorunun etkin olup olmadığı (ve lonca avı bağlamı) not edilir; yalnız ETİKET
+# değişir, dönüş hedefi (Örümcek ekranına dönüş) aynı kalır.
+sub('AC-sonuc-kaydi',
+    "let start=null,wasPlaying=false,live=false;\nfunction takeStart(){start=readProfile();hide();}",
+    "let start=null,wasPlaying=false,live=false,af263RaidKind='';\nfunction takeStart(){start=readProfile();hide();try{const R=window.AFPBossRaidEngineV1,st=R&&typeof R.status==='function'?R.status():null;af263RaidKind=window.__AFPCommunityGuildRaidActive?'guildraid':(st&&st.active?'raid':'');}catch(_){af263RaidKind='';}} /* v3.60.263 AC */")
+sub('AC-etiketler',
+    "const MODE_LABEL={echo:'YANKI İSTİLASI',",
+    "const MODE_LABEL={raid:'ÖRÜMCEK AKINI',guildraid:'LONCA DEV AVI',echo:'YANKI İSTİLASI',")
+sub('AC-boya',
+    " const mk=afqvResultMode(info,d.modeKey);\n",
+    " const mk=(m=>(m==='boss'&&af263RaidKind)?af263RaidKind:m)(afqvResultMode(info,d.modeKey)); /* v3.60.263 AC: yalnız etiket */\n")
+
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
 # kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız

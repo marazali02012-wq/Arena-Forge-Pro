@@ -207,6 +207,10 @@ test('E2: savaş öğretici balonu sıkı düzen, dar boşlukta da alt boşluğa
   once("+'#afpGuide.btl.af263-placed .g-p{font-size:9.5px!important;line-height:1.2!important}'");
   once("if(L>0&&fw>=108){card.classList.add('af263-placed');");
 });
+test('AC: Örümcek Akını / Lonca Dev Avı sonucu kendi adıyla etiketlenir', () => {
+  once("const MODE_LABEL={raid:'ÖRÜMCEK AKINI',guildraid:'LONCA DEV AVI',echo:'YANKI İSTİLASI',");
+  once("af263RaidKind=window.__AFPCommunityGuildRaidActive?'guildraid':(st&&st.active?'raid':'');");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

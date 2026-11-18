@@ -154,5 +154,9 @@
   {
     "name": "E2: savaş öğretici balonu sıkı düzen, dar boşlukta da alt boşluğa yerleşir",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "AC: Örümcek Akını / Lonca Dev Avı sonucu kendi adıyla etiketlenir",
+    "status": "GEÇTİ"
   }
 ]
