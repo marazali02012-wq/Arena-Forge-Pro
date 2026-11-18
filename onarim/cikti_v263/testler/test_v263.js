@@ -154,6 +154,10 @@ test('L: kilitli kahraman kutusu iki satır, KUPA YOLU düğmesi sekmelere binme
   once(":has(.af332-lockBox) .af332-profBtns{top:1px!important}");
   once(":has(.af332-lockBox) .af332-profBtns .af4-btn{min-height:0!important;height:26px!important}");
 });
+// ---------- M) İlk açılış girişi giriş ekranını bekler
+test('M: hikâye girişi, hesap/misafir giriş ekranı açıkken başlamaz', () => {
+  once("&&!(document.getElementById('afqEntry')&&vis(document.getElementById('afqEntry')))){ftueIntro();return;} /* v3.60.263 M */");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

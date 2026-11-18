@@ -10318,7 +10318,7 @@ function tick(){
         if(window.__afpFtueSeen){window.__afpFtueSeen=false;f.stage=3;f.done=true;save();const g0=G();if(!g0.started&&!g0.done){begin(1);}}
         else{f.stage=0;save();} /* savaş hiç görülmeden uygulama kapandı: giriş baştan */
       }
-      if(!ftueEl&&ftueEligible(p)&&document.documentElement.classList.contains('afx-hub')&&screenId()==='home'&&!document.querySelector('.afp-story')){ftueIntro();return;}
+      if(!ftueEl&&ftueEligible(p)&&document.documentElement.classList.contains('afx-hub')&&screenId()==='home'&&!document.querySelector('.afp-story')&&!(document.getElementById('afqEntry')&&vis(document.getElementById('afqEntry')))){ftueIntro();return;} /* v3.60.263 M */
       if(ftueEl){hideUi();return;} }
     if(overlayOpen()||document.querySelector('.afp-story')){hideUi();return;}
     if(!g.started&&eligible(g,p)){if(!document.documentElement.classList.contains('afx-hub'))return;begin(1);}

@@ -236,6 +236,14 @@ sub('K-koleksiyon-cift-etiket',
     """(e.kind==='normal'?'<span class="c-tag">'+esc(g?g[1]:'')+'</span>':'<span class="c-tag">'+esc(e.title||'')+'</span>')+'<span class="c-tag">'+esc(e.kind==='boss'?'Boss':(ROLE[e.role]||{}).label||e.role)+'</span>'""",
     """((t2,t3,r)=>(String(t2)===r?'':'<span class="c-tag">'+esc(t2)+'</span>')+(String(t3)===String(t2)||String(t3)===r?'':'<span class="c-tag">'+esc(t3)+'</span>'))(e.kind==='normal'?(g?g[1]:''):(e.title||''),e.kind==='boss'?'Boss':(ROLE[e.role]||{}).label||e.role,String(e.rarity)) /* v3.60.263 K */""")
 
+# ================================================================ M) İLK AÇILIŞ GİRİŞİ GİRİŞ EKRANININ ARKASINDA OYNUYORDU
+# Yeni oyuncuda hikâye girişi (#afpFtue, ~20 sn slayt + ücretsiz minyon kartı) sayfa açılır açılmaz başlıyordu; o anda
+# hesap/misafir giriş ekranı (#afqEntry) en üstte olduğu için slaytlar görünmeden arkada akıyor, oyuncu giriş yaptığında
+# girişin çoğunu kaçırıyor ya da doğrudan ücretsiz minyon kartına düşüyordu. Giriş ekranı açıkken giriş başlatılmaz.
+sub('M-ftue-giris-ekrani-bekler',
+    "if(!ftueEl&&ftueEligible(p)&&document.documentElement.classList.contains('afx-hub')&&screenId()==='home'&&!document.querySelector('.afp-story')){ftueIntro();return;}",
+    "if(!ftueEl&&ftueEligible(p)&&document.documentElement.classList.contains('afx-hub')&&screenId()==='home'&&!document.querySelector('.afp-story')&&!(document.getElementById('afqEntry')&&vis(document.getElementById('afqEntry')))){ftueIntro();return;} /* v3.60.263 M */")
+
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
 # kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız
