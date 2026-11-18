@@ -11,12 +11,17 @@ android {
         applicationId 'com.arenaforgepro.game'
         minSdk 24
         targetSdk 36
-        versionCode 220
-        versionName '3.60.220'
+        versionCode 254
+        versionName '3.60.253'
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+}
+
+dependencies {
+    // Google Play Billing (tek seferlik kozmetik ürünler); sunucu doğrulaması olmadan hak vermez.
+    implementation 'com.android.billingclient:billing:8.3.0'
 }

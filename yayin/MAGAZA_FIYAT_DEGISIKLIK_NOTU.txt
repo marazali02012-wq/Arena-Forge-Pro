@@ -1,0 +1,18 @@
+ARENA FORGE PRO v3.60.229 — MAGAZA FIYAT DENGELEME (TEST)
+
+TAM HTML dosyasi. Kaynak: 229 lonca + sezon kredi dengeleme.
+
+Mağaza ayarlamaları:
+- Koleksiyon sıradan 600 -> 900; nadir 1200 -> 1900; epik 2400 -> 3400; efsanevi 4000 -> 6000 kredi.
+- Platin karakter 4000 -> 7500 kredi.
+- Kahraman/komutan ekipmanı fiyatları nadirliğe göre değiştirildi.
+- Görünümler ve rün paketlerinin kredi fiyatları artırıldı.
+- Tek kullanımlık raid parşömeni 100 -> 200 kredi.
+
+Değişmeyenler:
+- Sezon bileti fiyatı 5000 kredi; azaltılmış sezon kredi ödülleri.
+- Savaş, günlük görev, kupa yolu ödülleri.
+- Pass'a özel minyon kilitleri ve sandık olasılıkları.
+- Kayıt anahtarı ve sürüm 3.60.229.
+
+Dikkat: Bu test kopyasıdır; canlı Render lonca API dağıtımı henüz doğrulanmadı.

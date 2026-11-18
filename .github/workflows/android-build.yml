@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [ 'claude/**' ]
-    paths: [ 'app/**', 'gradle/**', '*.gradle', '.github/workflows/android-build.yml' ]
+    paths: [ 'app/**', 'gradle/**', '*.gradle', 'gradle.properties', '.github/workflows/android-build.yml' ]
 
 jobs:
   build:

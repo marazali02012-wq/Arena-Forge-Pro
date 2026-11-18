@@ -37,6 +37,7 @@ public final class GameActivity extends Activity {
     private TextView loading;
     private boolean waitingForBack;
     private AlertDialog exitDialog;
+    private PlayNativeBridge playBridge;
 
     @Override
     @SuppressLint("SetJavaScriptEnabled")
@@ -56,11 +57,16 @@ public final class GameActivity extends Activity {
         settings.setAllowFileAccess(false);
         settings.setAllowContentAccess(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+        // Müzik ilk dokunuşu beklemeden, giriş ekranından itibaren çalabilsin (Web Audio otomatik başlatma).
+        settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setSupportMultipleWindows(false);
         settings.setSupportZoom(false);
         settings.setBuiltInZoomControls(false);
         settings.setJavaScriptCanOpenWindowsAutomatically(false);
         root.addView(game, new FrameLayout.LayoutParams(-1, -1));
+        // Google Play Billing köprüsü: yalnızca yerel oyun sayfası (appassets) yüklenir; harici bağlantılar tarayıcıda açılır.
+        playBridge = new PlayNativeBridge(this, game);
+        game.addJavascriptInterface(playBridge, "AFPPlayNative");
 
         loading = new TextView(this);
         loading.setGravity(Gravity.CENTER);
