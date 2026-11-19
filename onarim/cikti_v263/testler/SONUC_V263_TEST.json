@@ -178,5 +178,9 @@
   {
     "name": "AH: Yankı portalı boss yenilmeden 0 olmaz (kalkan), gösterge KALKANLI; boss kuralı korunur",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "AI: FPS — büyü düğmesi/şerit ölçümü çizim döngüsünde yapılmaz; boss koleksiyonu tüm sayfayı izlemez",
+    "status": "GEÇTİ"
   }
 ]

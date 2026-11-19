@@ -237,6 +237,17 @@ test('AH: Yankı portalı boss yenilmeden 0 olmaz (kalkan), gösterge KALKANLI; 
   once("if(enemyDown&&!echoBossPending){draw(dt);endGame(true);updateHUD();return}");
   once("?'KALKANLI':Math.max(0,Math.min(100,Math.round(enemySharedHP/Math.max(1,TOWER_MAX_HP)*100)))+'%'; /* v3.60.263 AH */");
 });
+test('AI: FPS — büyü düğmesi/şerit ölçümü çizim döngüsünde yapılmaz; boss koleksiyonu tüm sayfayı izlemez', () => {
+  once("const geo={cr:null,btn:{},strips:[]};");
+  once("setInterval(()=>{const h=document.getElementById('hud');if(h&&h.classList.contains('battle-live'))measure();},400);");
+  once("hudFloors=geo.strips.map(q=>[(q.left-cr.left)/sx,(q.right-cr.left)/sx,(q.bottom-cr.top)/sy+2]);");
+  const m=html.match(/window\.__afp263SkillFade=function\(order,W,H\)\{([\s\S]*?)\n \};/); assert.ok(m,'SkillFade yok');
+  assert.ok(!/getBoundingClientRect|getComputedStyle/.test(m[1].replace('if(!geo.cr)measure();','')), 'çizim içinde ölçüm kaldı');
+  const b=html.match(/<script id="AFP263_BOSS_ART">[\s\S]*?<\/script>/); assert.ok(b);
+  assert.ok(!/new MutationObserver\(scan\)/.test(b[0]), 'tüm sayfa gözlemcisi duruyor');
+  assert.ok(b[0].includes("if(c&&!c.hidden&&c.getClientRects().length)scan();"));
+  assert.ok(b[0].includes("if(!live.size)return;const col=document.getElementById('af36Col');if(col&&col.hidden)return;"));
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

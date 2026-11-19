@@ -423,22 +423,30 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
  const ss=document.createElement('style');ss.id='afp263SkillFadeCss';
  ss.textContent='html'+':not(#_s)'.repeat(11)+' #hud .af263-thru{opacity:.32!important;transition:opacity .15s ease!important}';
  document.head.appendChild(ss);
+ /* FPS: ekran ölçümleri (getBoundingClientRect / getComputedStyle) çizim döngüsünde yapılınca tarayıcı yerleşimi kare ortasında
+    yeniden hesaplıyordu. Ölçümler döngü dışında, 400 ms'de bir ve ekran boyutu değişince yapılır; çizimde yalnız hazır değerler kullanılır. */
+ const geo={cr:null,btn:{},strips:[]};
+ function measure(){try{
+  const cv=document.getElementById('game');if(!cv)return;const cr=cv.getBoundingClientRect();if(!cr.width){geo.cr=null;return;}geo.cr=cr;
+  for(const id of ['skill','skill2']){const b=document.getElementById(id);geo.btn[id]=b?b.getBoundingClientRect():null;}
+  const st=[];for(const id of ['af203BattleBar','battleProStrip']){const e=document.getElementById(id);if(!e)continue;const cs=getComputedStyle(e);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity<.1)continue;
+   const q=e.getBoundingClientRect();if(q.width<4||q.height<4||q.top>cr.top+cr.height*.4)continue;st.push(q);}
+  geo.strips=st;}catch(_){}}
+ setInterval(()=>{const h=document.getElementById('hud');if(h&&h.classList.contains('battle-live'))measure();},400);
+ addEventListener('resize',()=>setTimeout(measure,60));
  let fadeT=0;
  window.__afp263SkillFade=function(order,W,H){
   const now=performance.now();if(now-fadeT<120)return;fadeT=now;
-  const cv=document.getElementById('game'),hud=document.getElementById('hud');if(!cv||!hud)return;
-  const cr=cv.getBoundingClientRect();if(!cr.width||!W||!H)return;const sx=cr.width/W,sy=cr.height/H;
-  for(const id of ['skill','skill2']){const b=document.getElementById(id);if(!b)continue;
-   const r=b.getBoundingClientRect();let hit=false;
-   if(r.width>0&&hud.classList.contains('battle-live')){
+  const hud=document.getElementById('hud');if(!hud)return;if(!geo.cr)measure();
+  const cr=geo.cr;if(!cr||!cr.width||!W||!H)return;const sx=cr.width/W,sy=cr.height/H;const live=hud.classList.contains('battle-live');
+  for(const id of ['skill','skill2']){const b=document.getElementById(id),r=geo.btn[id];if(!b)continue;let hit=false;
+   if(r&&r.width>0&&live){
     for(const u of order){const v=u&&u._vis;if(!v||!(u.hp>0)||u.isBarrier)continue;
      const x=cr.left+v.x*sx,foot=cr.top+v.y*sy,head=cr.top+(v.y-(v.top||0))*sy-24,hw=16;
      if(x+hw>r.left&&x-hw<r.right&&foot>r.top&&head<r.bottom){hit=true;break;}}}
    if(b.classList.contains('af263-thru')!==hit)b.classList.toggle('af263-thru',hit);}
   /* V: üst şeritlerin kapladığı alan (tuval koordinatında) */
-  const fl=[];for(const id of ['af203BattleBar','battleProStrip']){const e=document.getElementById(id);if(!e)continue;const cs=getComputedStyle(e);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity<.1)continue;
-   const q=e.getBoundingClientRect();if(q.width<4||q.height<4||q.top>cr.top+cr.height*.4)continue;fl.push([(q.left-cr.left)/sx,(q.right-cr.left)/sx,(q.bottom-cr.top)/sy+2]);}
-  hudFloors=fl;
+  hudFloors=geo.strips.map(q=>[(q.left-cr.left)/sx,(q.right-cr.left)/sx,(q.bottom-cr.top)/sy+2]);
  };
  let hudFloors=[];
  window.__afp263HudFloor=function(x,w){let f=0;const h=(w||0)/2+20;for(const r of hudFloors)if(x+h>r[0]&&x-h<r[1])f=Math.max(f,r[2]);return f;};
@@ -659,8 +667,11 @@ BOSS_JS = ('<script id="AFP263_BOSS_ART">\n/* v3.60.263 AD: üç boss görseli (
   box.classList.add('afp263-banim');box.appendChild(d);d.__id=id;live.add(d);
   card.addEventListener('click',()=>{d.dataset.state='attack';d.dataset.f='0';d.style.backgroundImage='url("'+a.attack+'")';});}
  function scan(){document.querySelectorAll('.c-card[data-id^="boss_"]').forEach(attach);for(const d of live)if(!d.isConnected)live.delete(d);}
- new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true});
- setInterval(()=>{for(const d of live){if(!d.isConnected){live.delete(d);continue;}let f=(+d.dataset.f+1)%8;
+ /* FPS: önce bütün sayfayı izleyen MutationObserver vardı; savaşta HUD saniyede onlarca kez değiştiği için boşuna çalışıyordu.
+    Artık yalnız koleksiyon ekranı açıkken 400 ms'de bir bakılır. */
+ setInterval(()=>{const c=document.getElementById('af36Col');if(c&&!c.hidden&&c.getClientRects().length)scan();else for(const d of live)if(!d.isConnected)live.delete(d);},400);
+ setInterval(()=>{if(!live.size)return;const col=document.getElementById('af36Col');if(col&&col.hidden)return; /* FPS: koleksiyon kapalıyken kare çevrilmez */
+  for(const d of live){if(!d.isConnected){live.delete(d);continue;}let f=(+d.dataset.f+1)%8;
    if(d.dataset.state==='attack'&&f===0){d.dataset.state='idle';d.style.backgroundImage='url("'+ART[d.__id].idle+'")';}
    d.dataset.f=String(f);d.style.backgroundPosition=((f%4)*100/3)+'% '+(f<4?0:100)+'%';}},125);
 })();

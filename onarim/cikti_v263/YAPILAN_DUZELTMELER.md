@@ -206,3 +206,19 @@ Dosyalar: `varliklar/boss_v3/` (portre, idle/attack/death atlası ve GIF'ler). B
 | Minyon kartları | Resimler yüze yakın plan (%222 büyütme), kafa ve gövde kesik | Kart portresinin tamamı çerçevede; figür baştan ayağa (resimde ne varsa) | Minyonlar, deste ve savaş elinde görüntüyle doğrulandı |
 | Sandık açılış penceresi | Sandık ve kartlar solda dar bir sütunda, ödül yazısı sağda (mağaza katmanındaki iki sütunlu kural, Android'in tek sütun kuralını eziyordu) | Tek sütun, her şey ortada | 667×375, 740×360, 800×360; 1 ve 3 kartlı sandık: başlık, sandık, kartlar, ödül yazısı ve DEVAM ET merkezden 0 px sapma, taşma yok |
 | Portal canı 0 ama maç bitmiyor (Yankı İstilası) | Rakip portal 0/430 "CAN %0" olup maç sürüyordu; test: 9. saniyede 0 oldu, maç 132. saniyede oyuncunun **yenilgisiyle** bitti | Yankı'nın zafer şartı (3 dalga + Ayna Celladı) korundu; Hikâye Seferi savunma görevindeki gibi portal 1 canda kalkanlanır, göstergede "CAN KALKANLI", şeritte "🛡 Yankı portalı kalkanlı…" | Portal 0'a çekildi → 1/430'da kaldı, maç sürdü; dalgalar + boss sonrası "YANKI İSTİLASI · ZAFER". **Bütün modlar tarandı** (Arena, Kule, Sefer, Gökyüzü, Sancak, Kolosus, Karanlık Geçit, Gizli Bölge, Örümcek Akını, Yankı): rakip portal 0 → zafer, dost portal 0 → yenilgi hemen; sorun yalnız Yankı'daydı |
+
+---
+
+## FPS taraması (bütün modlar) — **DÜZELTİLDİ / TEST EDİLDİ** (telefonda ölçülmedi)
+
+Her modda bot oynarken 15. saniyeden sonra 5 sn FPS, 8 sn işlemci profili (Chromium, 800×360) alındı. Hangi işlevin ne kadar işlemci harcadığı ölçüldü.
+
+| Bulgu | Durum |
+|---|---|
+| **Benim eklediğim büyü düğmesi saydamlığı (S) ve üst şerit can çubuğu tabanı (V)** her 120 ms'de çizim döngüsünün içinde ekran ölçümü yapıyordu (`getBoundingClientRect` / `getComputedStyle`). Bu, tarayıcıyı karenin ortasında yerleşimi yeniden hesaplamaya zorluyordu: saniyede 8–17 ms | **DÜZELTİLDİ.** Ölçümler çizimden çıkarıldı; savaş açıkken 400 ms'de bir ve ekran boyutu değişince yapılıyor, çizim hazır değeri kullanıyor. Profilde bu maliyet çizim döngüsünden tamamen kalktı (Kule: 137 ms → 0, Yankı: 100 ms → 0; 8 sn'lik profilde). Saydamlaşma ve can çubuğu tabanı aynı çalışıyor |
+| **Boss koleksiyonu animasyonu (AD)** bütün sayfayı izleyen bir `MutationObserver` kullanıyordu; savaşta üst bilgi saniyede onlarca kez değiştiği için boşuna çalışıyordu. Koleksiyon kapalıyken de kareler çevriliyordu | **DÜZELTİLDİ.** Yalnız koleksiyon ekranı açıkken 400 ms'de bir bakılıyor; ekran kapalıyken kare çevrilmiyor. Açınca animasyon devam ediyor (görüntüyle doğrulandı) |
+| İşlemcinin **%73–86'sı** WebGL'de çizilen birimlerin 2B tuvale kopyalanması (`flush` içindeki `drawImage`) | **Değiştirilmedi.** Bu ortamda ekran kartı yok; kopya yazılımla yapılıyor ve her şeyi yavaşlatıyor. Telefonda bu kopya ekran kartında yapılır ve çok daha ucuzdur. Kaldırmak çizim mimarisini değiştirmek demek; ölçüm yapılmadan risk alınmadı. Oyunun kendi uyarlanır çözünürlük düşürmesi (DPR 2 → 1,5) zaten devrede |
+| Geri kalan oyun kodu (can çubukları, iyileştirme efektleri, kupa sayaçları, eski arayüz gözlemcileri) | Toplam işlemcinin yaklaşık %3'ü; her biri saniyede 2–20 ms. Eski sürümlere ait, çalışan kod; dokunulmadı |
+
+**Mod başına FPS (bu ortamda, yazılımla çizim):** Ana üs 60 · Kolosus 59 · Gökyüzü 49 · Hikâye Seferi 45 · Örümcek Akını 23 · Arena 21 · Gizli Bölge 21 · Sancak 20 · Yankı 14 · Karanlık Geçit 14 · Kule 12.
+Bu sayılar sahadaki birim sayısına göre çok oynuyor (aynı modda 13 ile 36 arası görüldü) ve **telefon FPS'ini göstermez**. Telefonda ölçüm kapalı testte yapılacak.

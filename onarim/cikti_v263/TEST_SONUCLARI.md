@@ -235,3 +235,38 @@ Test APK'sı hata ayıklama anahtarıyla imzalı bir deneme paketidir, **yayın 
 | Arena · pes | MAĞLUBİYET | yok | 0 | Ana üs |
 
 Zafer/yenilgi bitişi test yardımıyla tetiklendi (rakip/dost portal canı düşürüldü, Yankı'da boss canı); bitişi ve ödülü oyunun kendi kuralları yaptı.
+
+## FPS taraması — test sonuçları
+
+Ortam: başsız Chromium, ekran kartı yok (SwiftShader, yazılımla WebGL), 800×360, bot oynuyor. FPS 5 sn, işlemci profili 8 sn (CDP Profiler).
+
+| Mod | FPS | DPR | 2B kopyanın işlemci payı |
+|---|---|---|---|
+| Ana üs | 60 | 2 | – |
+| Kolosus | 59 | 2 | %40 |
+| Gökyüzü | 49 | 1,5 | %86 |
+| Hikâye Seferi | 45 | 1,5 | %57 |
+| Örümcek Akını | 23 | 1,5 | %82 |
+| Arena | 21 | 1,5 | %85 |
+| Gizli Bölge | 21 | 1,5 | %75 |
+| Sancak | 20 | 1,5 | %80 |
+| Yankı | 14 | 1,5 | %83 |
+| Karanlık Geçit | 14 | 1,5 | %85 |
+| Kule | 12 | 1,5 | %85 |
+
+Eski ve yeni sürüm aynı modda arka arkaya ölçüldü (8 sn'lik profil, çizim döngüsündeki `getBoundingClientRect`):
+
+| Mod | Eski | Yeni |
+|---|---|---|
+| Kule | 136,6 ms (%1,7) | çizimde 0 (sayfadaki tek çağrı 9 ms, başka kod) |
+| Yankı | 99,6 ms (%1,2) | çizimde 0 |
+
+FPS sayıları sahadaki birim sayısına göre çok oynadığı için (Kule eski 23 / yeni 18, Yankı eski 14 / yeni 20) iyileşme FPS'le değil, ölçülen işlev maliyetiyle gösterildi.
+
+Düzeltmeden sonra yeniden denenenler (yeni sürüm):
+- Büyü sürükle-bırak, 667×375 · 740×360 · 800×360: düğmenin altındaki düşmana atış, el kartına bırakınca iptal, kısa dokunuş, 2. büyü üst koridora; JS hatası 0.
+- Yankı 800×360: üst koridor can çubukları görünüyor, mod şeridinin altında (taban 68 px).
+- Boss Koleksiyonu: üç kart animasyonlu; pencere kapanınca kare durdu (6,6,6 → 6,6,6), yeniden açınca devam etti.
+- Kod testleri: sözdizimi 107/107, 17/17, 10/10, v263 46/46 (yeni test AI: çizim içinde ölçüm yok, tüm sayfa gözlemcisi yok).
+
+**Ölçülmedi:** telefonda FPS. Bu ortamda ekran kartı olmadığı için telefon sonucu tahmin edilemez.

@@ -2,7 +2,7 @@
 # Bütün kod testlerini verilen HTML üzerinde çalıştırır (Python 3 + Node.js gerekir).
 # Kullanım: bash testleri_calistir.sh <oyun.html>
 # 1) 105 çalıştırılabilir JS bloğunun sözdizimi  2) eski 17 savaş testi  3) eski 10 kart portresi testi
-# 4) v3.60.263 regresyon testleri (15). Hiçbiri gerçek oynanış testi değildir; tarayıcı testleri tarayici/ klasöründe.
+# 4) v3.60.263 regresyon testleri (46). Hiçbiri gerçek oynanış testi değildir; tarayıcı testleri tarayici/ klasöründe.
 set -e
 HTML=$(realpath "$1")
 HERE=$(cd "$(dirname "$0")" && pwd)

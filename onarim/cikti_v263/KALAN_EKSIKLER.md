@@ -30,7 +30,7 @@ Görseller hazırlandığında eklenecek yerler: boss'lar için `af36Collection`
 10. **Örümcek Akını 1. kademe kolay.** 38 saniyede kazanıldı. Kademeler gerçekten zorlaşıyor (82. kademede can ×3, saldırı ×2,1); denge değiştirilmedi.
 11. **Lonca formu**, boş davet koduyla basılınca tarayıcının kendi dil uyarısını gösteriyor (test tarayıcısında İngilizce). Türkçe telefonda Türkçe çıkar.
 12. **Savaşta duraklatma açıkken Android geri tuşu oyunu sürdürüyor** (çıkış onayına gitmiyor). v3.60.220'de de aynı; değiştirilmedi.
-13. **Telefon FPS'i.** Ekran kartı olmayan test ortamında 15–18 FPS ölçüldü; telefonda çizim ekran kartında yapılır. Ölçüm olmadan performans değişikliği yapılmadı.
+13. **Telefon FPS'i ölçülmedi.** Ekran kartı olmayan test ortamında savaş modlarında 12–59 FPS ölçüldü; işlemcinin %73–86'sı WebGL'den 2B tuvale kopyada (yazılımla). Telefonda bu kopya ekran kartında yapılır. Kopyayı kaldırmak çizim mimarisi değişikliği olduğu için yapılmadı; kendi eklediğim çizim içi ölçümler kaldırıldı (bkz. YAPILAN_DUZELTMELER → FPS taraması).
 14. **1×1 yer tutucu** (48 bayt, 169 geçiş) tekilleştirilmedi; atlasın kasıtlı yer tutucusu.
 
 ## Bilinçli tasarım kararları
