@@ -264,6 +264,25 @@ test('AL: Lonca / Son Kahraman misafir uyarısı belirgin kutu + GİRİŞ YAP', 
   once("css.id='afp263LoginWarnCss'");
   once("const nav=document.querySelector('#af274Settings [data-sec=\"af39Sec5\"]')");
 });
+test('AM: Çift Kılıçlı görseli Karanlık Suikastçı (iki bıçak); veri kopyalanmaz, eklem noktaları da aynı görselden', () => {
+  once("try{const S='af37_karanlik_suikastci',T='af37_cift_kilicli',AR=window.AFArt,ok=v=>v&&!(AR.isPlaceholder&&AR.isPlaceholder(v)); /* v3.60.263 AM */");
+  once(" if(AF321_RIGS[S])AF321_RIGS[T]=JSON.parse(JSON.stringify(AF321_RIGS[S]));");
+  once(" const C=window.AFP94_MINION_CARDS;if(C&&C[S])C[T]=C[S];window.__afp263CiftKilicliKaynak=S;");
+  assert.ok(html.includes('"af37_cift_kilicli":{"name":"Çift Kılıçlı","rarity":"Sıradan"'), 'ad/nadirlik değişmemeli');
+});
+test('AN: üç boss boss\'u olmayan çevrim dışı modlarda (Karanlık Geçit, Gizli Bölge 3/3); diğer modlar aynı', () => {
+  once("var AF36_BOSS_HP_MUL={campaign:1,sky:1,tower:1,duel:1};\nvar AF36_BOSS_ENTRY={campaign:40,sky:30,tower:35,duel:45};");
+  once(" try{if(window.__AFPDisguisedMatchActive||(window.__AFPOnlineContext&&window.__AFPOnlineContext.active)||window.__afpFtueBattle)return null;}catch(_){return null;}");
+  once(" if(af35MatchKind==='dark')key=(Math.floor(+s.darkWins||0)%2===0)?'afp263:boss_kullerin_hukumdari':'afp263:boss_ucurum_ejderi';");
+  once(" else if(af35MatchKind==='secret'&&Math.floor(+s.stage||0)>=AF35_SECRET_REWARD.stages-1)key='afp263:boss_bosluk_imparatoru';");
+  once(" if(gameMode==='duel')return !af36Run.bossSpawned&&!!af263DuelBossDef(); /* v3.60.263 AN */");
+  once("  if(u._afp263Boss)return af263DrawBossAnim(u); /* v3.60.263 AN */");
+  once("function drawCombatTexts(dt){try{af263DrawBossDeaths();}catch(_){} /* v3.60.263 AN */");
+  once("if((String(mode)==='tower'||String(mode)==='duel')&&!playing){af36Run.bossSpawned=false;af36Run.bossKilled=false;}");
+  // Kule / Gökyüzü / Sefer / Örümcek Akını boss seçimi değişmedi
+  once("if(gameMode==='tower')return af36TowerFloor()%5===0&&!af36Run.bossSpawned;");
+  once("level=af36TowerFloor();seq=[all[1],all[0],all[3],all[2],all[4],all[5],all[6],all[7]];");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

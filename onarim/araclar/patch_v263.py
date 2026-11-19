@@ -362,6 +362,99 @@ sub('AK-dort-sutun',
     ".mode-extras {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));",
     ".mode-extras {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));")
 
+# ================================================================ AM) ÇİFT KILIÇLI: GÖRSELDE TEK MIZRAK VARDI
+# Kullanıcı kararı: minyonlar arasındaki iki kılıçlı görsellerden biri kullanılır. Karanlık Suikastçı seçildi (iki bıçak
+# savaş boyutunda da açıkça görünüyor). Veri kopyalanmaz: kart, koleksiyon, tam boy, savaş eli portresi ve savaş atlası
+# oyunun kendi görsel kaydından (AFArt) aynı kaynağa bağlanır; savaş animasyonu eklem noktaları (AF321_RIGS) da aynı
+# görsele ait olanla değiştirilir (yoksa gövde parçaları mızraklı figürün eklemlerine göre kesilirdi).
+# Ad, nadirlik, enerji, can/saldırı, sınıf ve rehberdeki "ücretsiz ilk minyon" akışı değişmez.
+sub('AM-cift-kilicli-gorsel',
+    "Object.assign(AF321_ATLAS,A);if(window.AFArt)AFArt.patch('unit.atlas',AF321_ATLAS);",
+    "Object.assign(AF321_ATLAS,A);if(window.AFArt)AFArt.patch('unit.atlas',AF321_ATLAS);\n"
+    "try{const S='af37_karanlik_suikastci',T='af37_cift_kilicli',AR=window.AFArt,ok=v=>v&&!(AR.isPlaceholder&&AR.isPlaceholder(v)); /* v3.60.263 AM */\n"
+    " if(AR){for(const k of ['minion.portrait.','minion.full.','unit.atlas.']){const v=AR.get(k+S);if(ok(v))AR.register(k+T,v);}\n"
+    "  const at=AR.get('unit.atlas.'+S);if(ok(at))AF321_ATLAS[T]=at;if(HERO_PORTRAITS[S])HERO_PORTRAITS[T]=HERO_PORTRAITS[S];}\n"
+    " if(AF321_RIGS[S])AF321_RIGS[T]=JSON.parse(JSON.stringify(AF321_RIGS[S]));\n"
+    " const C=window.AFP94_MINION_CARDS;if(C&&C[S])C[T]=C[S];window.__afp263CiftKilicliKaynak=S;\n"
+    "}catch(e){console.warn('[v3.60.263 AM] Çift Kılıçlı görseli',e);}")
+
+# ================================================================ AN) ÜÇ BOSS SAVAŞTA (BOSS'U OLMAYAN MODLAR)
+# Kullanıcı kararı: Örümcek Akını'nın kendi boss'u var; üç boss, boss'u olmayan yerlerde kullanılır. Boss'u olan modlar
+# (Örümcek Akını, Kule, Gökyüzü, Hikâye Seferi, Yankı, Kolosus) ve dereceli/çevrim içi modlar (Arena, Sancak) değişmez.
+#   Karanlık Geçit  → Küllerin Hükümdarı / Uçurum Ejderi (Karanlık Geçit zafer sayısına göre sırayla)
+#   Gizli Bölge     → yalnız son aşama (Gölge Yolu 3/3): Boşluk İmparatoru
+# Yalnız çevrim dışı (yapay zekâya karşı) maçta; çevrim içi maçta iki ekran uyuşmayacağı için boss çıkmaz.
+# Boss, motorun var olan mod-boss yolundan (af36ForceBoss) doğar: Kule/Gökyüzü boss'larıyla aynı güç çarpanları, aynı özel
+# saldırı sistemi (ateş / yıldırım / ruh emme), 45. saniyede. Portal yıkılırsa maç yine kazanılır (zafer kuralı değişmez).
+# Çizim: bekleme ve saldırı atlasından kare kare (8 kare), rakip tarafta aynalı (görseller sağa bakıyor); ölünce ölüm
+# animasyonu bir kez oynar.
+sub('AN-boss-ayar',
+    "var AF36_BOSS_HP_MUL={campaign:1,sky:1,tower:1};\nvar AF36_BOSS_ENTRY={campaign:40,sky:30,tower:35};",
+    "var AF36_BOSS_HP_MUL={campaign:1,sky:1,tower:1,duel:1};\nvar AF36_BOSS_ENTRY={campaign:40,sky:30,tower:35,duel:45};\n"
+    "/* v3.60.263 AN: üç koleksiyon boss'u boss'u olmayan çevrim dışı modlarda (Karanlık Geçit, Gizli Bölge son aşama) */\n"
+    "var AF263_NEW_BOSSES={'afp263:boss_kullerin_hukumdari':{name:'Küllerin Hükümdarı',ability:'fire',notice:'KÜLLERİN HÜKÜMDARI · ATEŞİN EFENDİSİ!',aura:'rgba(255,96,30,.22)'},"
+    "'afp263:boss_ucurum_ejderi':{name:'Uçurum Ejderi',ability:'lightning',notice:'UÇURUM EJDERİ · GÖKYÜZÜ YIKIMI!',aura:'rgba(60,170,255,.22)'},"
+    "'afp263:boss_bosluk_imparatoru':{name:'Boşluk İmparatoru',ability:'drain',notice:'BOŞLUK İMPARATORU · KOZMİK HÜKÜM!',aura:'rgba(170,80,255,.22)'}};\n"
+    "function af263DuelBossDef(){\n"
+    " if(gameMode!=='duel')return null;\n"
+    " try{if(window.__AFPDisguisedMatchActive||(window.__AFPOnlineContext&&window.__AFPOnlineContext.active)||window.__afpFtueBattle)return null;}catch(_){return null;}\n"
+    " const s=profile.af35Secret||{};let key=null;\n"
+    " if(af35MatchKind==='dark')key=(Math.floor(+s.darkWins||0)%2===0)?'afp263:boss_kullerin_hukumdari':'afp263:boss_ucurum_ejderi';\n"
+    " else if(af35MatchKind==='secret'&&Math.floor(+s.stage||0)>=AF35_SECRET_REWARD.stages-1)key='afp263:boss_bosluk_imparatoru';\n"
+    " if(!key||!window.AFP263BossArt||!window.AFP263BossArt[key.slice(7)])return null;const d=AF263_NEW_BOSSES[key];return {key,name:d.name,ability:d.ability};}")
+sub('AN-boss-bekliyor',
+    "if(gameMode==='tower')return af36TowerFloor()%5===0&&!af36Run.bossSpawned;",
+    "if(gameMode==='tower')return af36TowerFloor()%5===0&&!af36Run.bossSpawned;\n if(gameMode==='duel')return !af36Run.bossSpawned&&!!af263DuelBossDef(); /* v3.60.263 AN */")
+sub('AN-boss-secimi',
+    "function af36BossArtForSpawn(){\n if(gameMode==='boss'){",
+    "function af36BossArtForSpawn(){\n if(gameMode==='duel'){const d=af263DuelBossDef();if(d)return d;} /* v3.60.263 AN */\n if(gameMode==='boss'){")
+sub('AN-boss-duyuru',
+    "showNotice(bossArt.name.toLocaleUpperCase('tr-TR')+' SAHADA! Bossu yenmeden bu karşılaşmayı tamamlayamazsın.');",
+    "if(AF263_NEW_BOSSES[bossArt.key])bossUnit._afp263Boss=bossArt.key; /* v3.60.263 AN */\n"
+    " showNotice(bossArt.name.toLocaleUpperCase('tr-TR')+(gameMode==='duel'?' SAHADA! Rakip boss çağırdı; portalını koru.':' SAHADA! Bossu yenmeden bu karşılaşmayı tamamlayamazsın.'));")
+for _old, _nm in [("showNotice('LAV EJDERHASI · ALEV NEFESİ!')", 'ates'), ("showNotice('ÖLÜM LORDU · RUH HASADI!')", 'emme'), ("showNotice('FIRTINA EJDERİ · YILDIRIM ZİNCİRİ!')", 'yildirim')]:
+    sub('AN-ozel-saldiri-' + _nm, _old, "showNotice(boss._afp263Boss?AF263_NEW_BOSSES[boss._afp263Boss].notice:" + _old[len('showNotice('):])
+sub('AN-boss-yenildi',
+    "if(playing&&(gameMode==='sky'||gameMode==='tower')&&af36Run.bossSpawned&&!af36Run.bossKilled&&",
+    "if(playing&&gameMode==='duel'&&af36Run.bossSpawned&&!af36Run.bossKilled&&!units.some(u=>u&&u.isBoss&&u.team==='enemy'&&u.hp>0)){af36Run.bossKilled=true;showNotice('BOSS YENİLDİ!');} /* v3.60.263 AN */\n"
+    "  if(playing&&(gameMode==='sky'||gameMode==='tower')&&af36Run.bossSpawned&&!af36Run.bossKilled&&")
+sub('AN-mac-basi-sifirla',
+    "if(String(mode)==='tower'&&!playing){af36Run.bossSpawned=false;af36Run.bossKilled=false;}",
+    "if((String(mode)==='tower'||String(mode)==='duel')&&!playing){af36Run.bossSpawned=false;af36Run.bossKilled=false;} /* v3.60.263 AN: düello maçında da her maç başı */")
+sub('AN-cizim-kanca',
+    "function af36DrawBossArtwork(u){\n  if(!u||!(u.isBoss||u.enemyType==='boss'))return false;",
+    "function af36DrawBossArtwork(u){\n  if(!u||!(u.isBoss||u.enemyType==='boss'))return false;\n  if(u._afp263Boss)return af263DrawBossAnim(u); /* v3.60.263 AN */")
+sub('AN-cizim',
+    "const AF36_MODE_BOSS_IMAGE_CACHE=Object.create(null);",
+    "/* v3.60.263 AN: üç koleksiyon boss'u — bekleme/saldırı atlası (4×2 kare) savaşta, ölüm animasyonu bir kez */\n"
+    "const AF263_BOSS_IMG=Object.create(null),AF263_BOSS_LIVE=new Set(),AF263_BOSS_DEATHS=[];\n"
+    "function af263BossImg(id,st){const A=window.AFP263BossArt,a=A&&A[id];if(!a||!a[st])return null;const k=id+'|'+st;let im=AF263_BOSS_IMG[k];if(!im){im=new Image();im.decoding='async';im.src=a[st];AF263_BOSS_IMG[k]=im;}return im.complete&&im.naturalWidth?im:null;}\n"
+    "function af263BossFrame(im,f,x,y,w,h,flip){const fw=im.naturalWidth/4,fh=im.naturalHeight/2;ctx.save();ctx.translate(x,y);if(flip)ctx.scale(-1,1);ctx.drawImage(im,(f%4)*fw,(f<4?0:1)*fh,fw,fh,-w/2,-h,w,h);ctx.restore();}\n"
+    "function af263DrawBossAnim(u){\n"
+    "  const id=String(u._afp263Boss).slice(7),def=AF263_NEW_BOSSES[u._afp263Boss]||{};\n"
+    "  const atk=Math.max(0,Math.min(1,(u.attackPulse||0)/.30));\n"
+    "  let st=atk>.02?'attack':'idle',im=af263BossImg(id,st);if(!im&&st!=='idle'){st='idle';im=af263BossImg(id,'idle');}\n"
+    "  if(!im)return false;\n"
+    "  const t=(typeof elapsed==='number'?elapsed:0)+(u.phase||0),f=st==='attack'?Math.min(7,Math.floor((1-atk)*8)):Math.floor(t*8)%8;\n"
+    "  let h=af320PxFor('boss',u.lane,1)*1.75,w=h;const maxW=Math.max(90,W*.255);if(w>maxW){h*=maxW/w;w=maxW;}\n"
+    "  const x=laneX(u.x),y=laneY(u.lane,x),flip=u.team==='enemy',hurt=Math.max(0,Math.min(1,(u.hitFlash||0)/.16));\n"
+    "  ctx.save();ctx.fillStyle='rgba(2,4,10,.66)';ctx.beginPath();ctx.ellipse(x,y+1,w*.32,h*.065,0,0,Math.PI*2);ctx.fill();\n"
+    "  const g=ctx.createRadialGradient(x,y-h*.42,h*.04,x,y-h*.42,h*.6);g.addColorStop(0,def.aura||'rgba(220,190,110,.15)');g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(x,y-h*.42,w*.5,h*.52,0,0,Math.PI*2);ctx.fill();ctx.restore();\n"
+    "  af263BossFrame(im,f,x,y+h*.05,w,h,flip);\n"
+    "  if(hurt>.03){ctx.save();ctx.globalAlpha=Math.min(.2,hurt*.22);ctx.fillStyle='#fff0da';ctx.beginPath();ctx.ellipse(x,y-h*.46,w*.24,h*.26,0,0,Math.PI*2);ctx.fill();ctx.restore();}\n"
+    "  const C=AF320_CLASSES.boss||AF320_CLASSES.heavy;\n"
+    "  u._vis={x,y,top:h*.82,px:h,cls:'boss',C,k2:h/Math.max(1,C.h),blue:u.team!=='enemy'};u._afp263Last={id,x,y,w,h,flip};AF263_BOSS_LIVE.add(u);\n"
+    "  try{if(af321Band&&af321Band.length>1){af321Band[0]=Math.min(af321Band[0],y-h);af321Band[1]=Math.max(af321Band[1],y+h*.08);}}catch(_){}\n"
+    "  return true;}\n"
+    "function af263DrawBossDeaths(){\n"
+    "  for(const u of AF263_BOSS_LIVE){const dead=!(u.hp>0);if(dead&&playing&&u._afp263Last)AF263_BOSS_DEATHS.push(Object.assign({at:elapsed},u._afp263Last));if(dead||!units.includes(u))AF263_BOSS_LIVE.delete(u);}\n"
+    "  for(let i=AF263_BOSS_DEATHS.length-1;i>=0;i--){const d=AF263_BOSS_DEATHS[i],f=Math.floor((elapsed-d.at)*8);if(f>7||f<0){AF263_BOSS_DEATHS.splice(i,1);continue;}\n"
+    "   const im=af263BossImg(d.id,'death');if(im){ctx.save();ctx.globalAlpha=f>=6?Math.max(0,1-(f-5)*.3):1;af263BossFrame(im,f,d.x,d.y+d.h*.05,d.w,d.h,d.flip);ctx.restore();}}}\n"
+    "const AF36_MODE_BOSS_IMAGE_CACHE=Object.create(null);")
+sub('AN-olum-cizimi',
+    "function drawCombatTexts(dt){",
+    "function drawCombatTexts(dt){try{af263DrawBossDeaths();}catch(_){} /* v3.60.263 AN */")
+
 # ================================================================ AL) LONCA / SON KAHRAMAN: MİSAFİR GİRİŞ UYARISI FARK EDİLMİYORDU
 # Misafir "KUYRUĞA KATIL"a basınca aynı küçük satır (10-11 px) aynı yazıyla yeniden yazılıyordu; basış fark edilmiyordu.
 # Giriş gerektiren hata artık belirgin bir uyarı kutusunda (🔒 GİRİŞ GEREKLİ) ve her basışta yanıp söner; yanındaki

@@ -14,5 +14,5 @@ Python yoksa (yalnız birleştirme, doğrulama olmadan):
  - Windows:  copy /b bolum_01.bin+bolum_02.bin+... ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip
  - Linux/Mac: cat bolum_*.bin > ArenaForgePro_v3.60.263_TAM_ONARIM_TEST.zip
 
-Asıl arşiv: 59030777 bayt
-Asıl SHA-256: 6c98f94afda4e3b85df2fd76eb977a00e16f915c3cf36d0fbe014048b491af6a
+Asıl arşiv: 59035054 bayt
+Asıl SHA-256: 2a1670845bd29f13bec655b2ec27e9c3c6c16c94fd47861beaa638e17b039330

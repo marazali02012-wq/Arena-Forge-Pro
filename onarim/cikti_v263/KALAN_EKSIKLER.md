@@ -8,8 +8,8 @@ Bu çalışma ortamında görsel üretme aracı yok. Kurallar gereği kalitesiz 
 
 1. ~~Uçurum Ejderi ve Boşluk İmparatoru boss görselleri~~ → kullanıcı paketiyle bağlandı (Küllerin Hükümdarı dahil üç boss).
 2. ~~Boss Sandığı kapalı~~ → açıldı; sandık açılışı, ödül kaydı ve çift ödül kontrolü test edildi.
-2b. **Boss savaş animasyonları (idle/attack/death) savaşta görünmüyor.** Bu üç boss oyunun hiçbir modunda sahaya çıkmıyor (açıklama "Örümcek Akını ve özel modlarda kullanılır" diyor ama bunu yapan kod yok). Animasyonlar şimdilik Boss Koleksiyonu kartında oynuyor. Boss kartlarını savaşta oynanabilir yapmak yeni oyun kuralı (hangi mod, enerji, deste sınırı, denge) gerektirir; karar sahibine ait.
-3. **Çift Kılıçlı** (ilk ücretsiz minyon) çiziminde karakter tek mızrak tutuyor. İki kılıçlı yeni çizim yapılmadı.
+2b. ~~Boss animasyonları savaşta görünmüyor~~ → kullanıcı kararıyla boss'u olmayan çevrim dışı modlara bağlandı: Karanlık Geçit (Küllerin Hükümdarı / Uçurum Ejderi sırayla) ve Gizli Bölge son aşaması (Boşluk İmparatoru); bekleme, saldırı ve ölüm animasyonları savaşta oynuyor. **Kalan:** oyuncunun sandıktan kazandığı boss kartını kendi tarafında kullanması hâlâ yok; koleksiyondaki "Örümcek Akını ve özel modlarda kullanılır" yazısı bu yüzden tam doğru değil (yazı İngilizce çeviri kalıplarıyla bağlı olduğu için değiştirilmedi).
+3. ~~Çift Kılıçlı çiziminde tek mızrak~~ → kullanıcı kararıyla mevcut iki bıçaklı görsel (Karanlık Suikastçı) bağlandı. Yeni çizim yapılmadı; iki minyon aynı görünüyor.
 
 Görseller hazırlandığında eklenecek yerler: boss'lar için `af36Collection` içindeki `DB[...].art` (koleksiyon ve sandık buradan okur); Çift Kılıçlı için `AFP94_MINION_CARDS.af37_cift_kilicli`, `minion.portrait/full.af37_cift_kilicli` ve savaş atlası `unit.atlas.af37_cift_kilicli`.
 
