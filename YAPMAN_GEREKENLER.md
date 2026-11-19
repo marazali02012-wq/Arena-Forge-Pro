@@ -10,6 +10,8 @@ Anahtar, parola ya da token'ı bu dosyaya, sohbete veya GitHub'a **yazma**.
 | 3 | Android AAB'yi imzala | Yükleme anahtarı sende | ~10 dk |
 | 4 | Eksik 3 boss + Çift Kılıçlı görselini ekle | Görsel çizme aracım yok | görseller hazır olunca ~2 dk |
 | 5 | Kapalı test ve Play Console | Telefon ve Play hesabı sende | — |
+| 6 | Google Play'deki sol şerit düzeltmesini yayınla | Play hesabı ve imza sende | ~15 dk |
+| 7 | Karanlık Geçit boss'unu kapalı testte değerlendir | Gerçek oyuncu verisi gerekiyor; bot ölçümü kesin değil | testçi başı ~20 dk |
 
 ---
 
@@ -136,6 +138,51 @@ Görselleri bana gönderirsen eklemeyi, testleri ve Android derlemesini ben yapa
 4. **Kontrol:** Test edenler güncellemeyi aldıktan sonra, özellikle çentikli ya da kamera delikli telefonlarda solda şerit kalıp kalmadığına baksınlar.
 
 Not: Bu düzeltme Chromium'da 37 px'lik sol çentik taklit edilerek doğrulandı; gerçek telefonda denenmedi.
+
+## 7. Karanlık Geçit boss testi (12 kişilik kapalı test)
+
+**Neden:** Karanlık Geçit'e üç boss eklendi. Bot ölçümünde (12'şer maç) boss varken %83, yokken %75 zafer çıktı; fark ölçülemedi. Ama bot gerçek oyuncu değil ve 12 maçta sonuç ±20 puan oynayabilir. Boss'un kalıp kalmayacağına gerçek oyuncu verisiyle karar verilecek. **Bu test sırasında boss gücü, oyun kuralları ve diğer modlar değiştirilmez.**
+
+### Boss nerede, ne zaman çıkar
+- Yalnız **çevrim dışı Karanlık Geçit** maçında (yapay zekâya karşı). Çevrim içi Karanlık Geçit maçında, Gizli Bölge'de ve diğer modlarda boss **çıkmaz**. Bu yerlerde boss görülürse hata olarak bildirin.
+- Maçın **45. saniyesinde** (sayaç yaklaşık 2:15'i gösterirken) rakip tarafta doğar; ekranda "… SAHADA! Rakip boss çağırdı; portalını koru." yazar.
+- Maç 45. saniyeden önce biterse boss çıkmaz. Bu maçı da kaydedin, boss sütununa "Çıkmadı" yazın.
+- Hangi boss'un geleceği **Karanlık Geçit zafer sayısına** göre sırayla değişir: 0 zafer → Küllerin Hükümdarı, 1 → Uçurum Ejderi, 2 → Boşluk İmparatoru, sonra baştan. Yenilgide sıra ilerlemez; aynı boss tekrar gelir.
+- Karanlık Geçit'in kilidi: 400 kupa, Doruk Kulesi 5. kat, toplam 5 zafer. Ana üs → SAVAŞ MODLARI → KARANLIK GEÇİT → KİLİDİ AÇ.
+
+### Kaç maç
+Her testçi en az **3 maç** oynasın (her boss'la en az bir kez kazanırsa sıra döner). Mümkünse 6 maç. Hedef toplam: en az 36 maç, her boss için en az 12.
+
+### Her maçta kaydedilecekler
+
+| Alan | Nasıl doldurulur |
+|---|---|
+| Testçi | Ad ya da rumuz |
+| Cihaz | Telefon modeli ve Android sürümü |
+| Boss | Küllerin Hükümdarı / Uçurum Ejderi / Boşluk İmparatoru / Çıkmadı |
+| Sonuç | Zafer / Yenilgi / Berabere |
+| Boss'u öldürdü mü | Evet ("BOSS YENİLDİ!" yazısı çıktıysa) / Hayır (maç boss yaşarken bitti) |
+| Maç süresi | Sonuç ekranındaki savaş süresi (dk:sn). Görünmüyorsa yaklaşık süre |
+| Zorluk (1–5) | 1 = çok kolay, 2 = kolay, 3 = dengeli, 4 = zor, 5 = haksız/çok zor. Boss'un maçı ne kadar zorlaştırdığına göre |
+| Portal canı | Maç sonunda kendi portalının canı (sol üstteki çubuk, ör. 286/430). Boss çıktığı anı da görebildiyse ayrıca yazsın |
+| Görsel hata | Yok / Var. Varsa kısa açıklama + ekran görüntüsü. Örnekler: boss yanlış yöne bakıyor, üst bilgiye giriyor, can çubuğu görünmüyor, animasyon donuyor, ölüm animasyonu yok, kaybolmuyor, titreme |
+| Not | İsteğe bağlı (ör. "özel saldırı çok sık", "boss'a ulaşamadım") |
+
+Kopyalayıp tabloya (Google E-Tablolar / Excel) yapıştırılabilir başlık satırı:
+```
+Tarih;Testçi;Cihaz;Boss;Sonuç;Boss öldü mü;Maç süresi;Zorluk (1-5);Portal canı (son);Portal canı (boss çıkınca);Görsel hata;Ekran görüntüsü;Not
+```
+Örnek satır:
+```
+2026-11-20;Ayşe;Samsung A54 / Android 14;Uçurum Ejderi;Zafer;Hayır;1:42;3;286/430;402/430;Yok;;Özel saldırı fark edildi
+```
+
+### Sonuçlar nasıl değerlendirilecek
+Kayıtlar toplanınca bana gönder (tabloyu ya da CSV'yi). Her boss için zafer oranını, boss'u öldürme oranını, ortalama zorluğu, süreyi ve görsel hataları çıkarırım; bot ölçümüyle karşılaştırırım.
+Karar senin; öneri eşikleri:
+- Bir boss'la zafer oranı diğerlerinden belirgin düşükse ya da ortalama zorluk 4 ve üstüyse → o boss'u yumuşatma ya da kapatma önerilir.
+- Zorluk 2–3 civarı ve zafer oranı boss'suz maçlara yakınsa → olduğu gibi kalır.
+- Görsel hata bildirimi varsa önce o düzeltilir; denge kararı ondan bağımsızdır.
 
 ## Bu klasörde neler var
 | Yol | Ne |
