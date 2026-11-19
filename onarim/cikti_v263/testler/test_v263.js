@@ -232,6 +232,11 @@ test('AF: minyon kartı figürü baştan ayağa çerçevede', () => {
 test('AG: sandık açılış penceresi tek sütun, ortada (doğru katmanda)', () => {
   once("sag.textContent='@layer af172Commerce{'+HG+'{grid-template-columns:minmax(0,1fr)!important;");
 });
+test('AH: Yankı portalı boss yenilmeden 0 olmaz (kalkan), gösterge KALKANLI; boss kuralı korunur', () => {
+  once("if(enemyDown&&echoBossPending){enemySharedHP=1;");
+  once("if(enemyDown&&!echoBossPending){draw(dt);endGame(true);updateHUD();return}");
+  once("?'KALKANLI':Math.max(0,Math.min(100,Math.round(enemySharedHP/Math.max(1,TOWER_MAX_HP)*100)))+'%'; /* v3.60.263 AH */");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

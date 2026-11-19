@@ -325,6 +325,17 @@ sub('AF-kart-tam-boy',
     "  const fit = full || !portrait.length;\n  const [x,y,maxW,maxH] = bounds;\n",
     "  const fit = true; /* v3.60.263 AF: her kartta figür baştan ayağa çerçevede (önce yüz yakın planı) */\n  const [x,y,maxW,maxH] = [50,50,104,104]; /* eski sınır değerleri başka resim boyutuna göreydi (%178-%225 = yine yakın plan); kart portresi bütünüyle sığdırılır */\n")
 
+# ================================================================ AH) YANKI İSTİLASI: RAKİP PORTALI 0'DA MAÇ BİTMİYORDU
+# Yankı'nın zafer şartı 3 dalga + Ayna Celladı (korunan kural). Ama rakip portal canı 0'a inebiliyor, ekranda "CAN %0" yazıyor
+# ve maç sürüyordu; test: portal 9. saniyede 0 oldu, maç 132. saniyede oyuncunun YENİLGİSİYLE bitti. Hikâye Seferi savunma
+# görevindeki yöntemle portal 1 canda kalkanlanır, göstergede KALKANLI yazar, oyuncuya hedef söylenir. Kural değişmez.
+sub('AH-yanki-portal-kalkan',
+    "if(enemyDown&&!echoBossPending){draw(dt);endGame(true);updateHUD();return}",
+    "if(enemyDown&&echoBossPending){enemySharedHP=1;try{enemyLaneHP=[1,1,1];const g=globalThis;g.__afp263EchoShield=true;if(!g.__afp263EchoShieldAt||elapsed-g.__afp263EchoShieldAt>5){g.__afp263EchoShieldAt=elapsed;showNotice('🛡 Yankı portalı kalkanlı: zafer için 3 dalgayı ve Ayna Celladı’nı yen.');}}catch(_){}} /* v3.60.263 AH */\n   if(enemyDown&&!echoBossPending){draw(dt);endGame(true);updateHUD();return}")
+sub('AH-gosterge',
+    "$('wave').textContent=Math.max(0,Math.min(100,Math.round(enemySharedHP/Math.max(1,TOWER_MAX_HP)*100)))+'%';",
+    "$('wave').textContent=(gameMode==='echo'&&af203Run?.active&&!af203Run.bossDefeated&&enemySharedHP<=1)?'KALKANLI':Math.max(0,Math.min(100,Math.round(enemySharedHP/Math.max(1,TOWER_MAX_HP)*100)))+'%'; /* v3.60.263 AH */")
+
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
 # kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız
