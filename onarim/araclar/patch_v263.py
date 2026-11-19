@@ -363,26 +363,41 @@ sub('AK-dort-sutun',
     ".mode-extras {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));")
 
 # ================================================================ AM) ÇİFT KILIÇLI: GÖRSELDE TEK MIZRAK VARDI
-# Kullanıcı kararı: minyonlar arasındaki iki kılıçlı görsellerden biri kullanılır. Karanlık Suikastçı seçildi (iki bıçak
-# savaş boyutunda da açıkça görünüyor). Veri kopyalanmaz: kart, koleksiyon, tam boy, savaş eli portresi ve savaş atlası
-# oyunun kendi görsel kaydından (AFArt) aynı kaynağa bağlanır; savaş animasyonu eklem noktaları (AF321_RIGS) da aynı
-# görsele ait olanla değiştirilir (yoksa gövde parçaları mızraklı figürün eklemlerine göre kesilirdi).
-# Ad, nadirlik, enerji, can/saldırı, sınıf ve rehberdeki "ücretsiz ilk minyon" akışı değişmez.
+# Kullanıcı kararları: (1) minyonlar arasındaki iki kılıçlı görsellerden biri kullanılır → Karanlık Suikastçı (iki bıçak savaş
+# boyutunda da açık). (2) İki karakter aynı görünmesin → Çift Kılıçlı'ya "buz mavisi" türev: mor tonlar (bıçaklar, kıyafet)
+# açılışta tarayıcıda buz mavisine çevrilir; ten, metal ve arka plan aynı kalır. Veri kopyalanmaz (türev kaynaktan çalışma
+# anında üretilir); yeni çizim değildir, duruş/siluet Karanlık Suikastçı ile aynıdır. Savaş animasyonu eklem noktaları
+# (AF321_RIGS) da aynı görselinkiyle değiştirilir. Savaş atlası motora türev hazır olunca kaydedilir (motor bir türü yalnız bir
+# kez kaydettiği için açılış kaydı ertelenir). Ad, nadirlik, enerji, can/saldırı, sınıf ve ilk ücretsiz minyon akışı değişmez.
 sub('AM-cift-kilicli-gorsel',
     "Object.assign(AF321_ATLAS,A);if(window.AFArt)AFArt.patch('unit.atlas',AF321_ATLAS);",
     "Object.assign(AF321_ATLAS,A);if(window.AFArt)AFArt.patch('unit.atlas',AF321_ATLAS);\n"
     "try{const S='af37_karanlik_suikastci',T='af37_cift_kilicli',AR=window.AFArt,ok=v=>v&&!(AR.isPlaceholder&&AR.isPlaceholder(v)); /* v3.60.263 AM */\n"
-    " if(AR){for(const k of ['minion.portrait.','minion.full.','unit.atlas.']){const v=AR.get(k+S);if(ok(v))AR.register(k+T,v);}\n"
-    "  const at=AR.get('unit.atlas.'+S);if(ok(at))AF321_ATLAS[T]=at;if(HERO_PORTRAITS[S])HERO_PORTRAITS[T]=HERO_PORTRAITS[S];}\n"
+    " const PH='data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==',C=window.AFP94_MINION_CARDS;\n"
     " if(AF321_RIGS[S])AF321_RIGS[T]=JSON.parse(JSON.stringify(AF321_RIGS[S]));\n"
-    " const C=window.AFP94_MINION_CARDS;if(C&&C[S])C[T]=C[S];window.__afp263CiftKilicliKaynak=S;\n"
+    " /* buz mavisi türev: yalnız mor tonlar (ton 245-335°, doygunluk >0,18) → 200° çevresine; diğer pikseller aynı */\n"
+    " const ice=src=>new Promise(res=>{if(!src){res(null);return;}const im=new Image();im.onload=()=>{try{const cv=document.createElement('canvas');cv.width=im.naturalWidth;cv.height=im.naturalHeight;const g=cv.getContext('2d');g.drawImage(im,0,0);const d=g.getImageData(0,0,cv.width,cv.height),p=d.data;\n"
+    "  for(let i=0;i<p.length;i+=4){if(!p[i+3])continue;const r=p[i]/255,gg=p[i+1]/255,b=p[i+2]/255,mx=Math.max(r,gg,b),dl=mx-Math.min(r,gg,b);if(!dl||dl/mx<=.18)continue;\n"
+    "   let h=mx===r?((gg-b)/dl)%6:mx===gg?(b-r)/dl+2:(r-gg)/dl+4;h*=60;if(h<0)h+=360;if(h<245||h>335)continue;\n"
+    "   const nh=((200+(h-285)*.6)%360+360)%360,ns=Math.min(1,dl/mx*1.1),cc=mx*ns,x=cc*(1-Math.abs((nh/60)%2-1)),m=mx-cc,k=Math.floor(nh/60);\n"
+    "   const q=k===0?[cc,x,0]:k===1?[x,cc,0]:k===2?[0,cc,x]:k===3?[0,x,cc]:k===4?[x,0,cc]:[cc,0,x];p[i]=Math.round((q[0]+m)*255);p[i+1]=Math.round((q[1]+m)*255);p[i+2]=Math.round((q[2]+m)*255);}\n"
+    "  g.putImageData(d,0,0);res(cv.toDataURL('image/webp',.9));}catch(e){res(null);}};im.onerror=()=>res(null);im.src=src;});\n"
+    " if(AR){for(const k of ['minion.portrait.','minion.full.','unit.atlas.']){const v=AR.get(k+S);if(ok(v))AR.register(k+T,v);} /* türev hazır olana kadar (birkaç yüz ms) kaynak; mızraklı görsel hiç görünmez */\n"
+    "  if(HERO_PORTRAITS[S])HERO_PORTRAITS[T]=HERO_PORTRAITS[S];AF321_ATLAS[T]=PH; /* motorun açılış atlas kaydı bu türü atlar */}\n"
+    " if(C&&C[S])C[T]=C[S];window.__afp263CiftKilicliKaynak=S;\n"
+    " if(AR)Promise.all([ice(C&&C[S]),ice(AR.get('minion.portrait.'+S)),ice(AR.get('minion.full.'+S)),ice(AR.get('unit.atlas.'+S))]).then(([card,por,full,atl])=>{\n"
+    "  if(card&&C)C[T]=card;if(por)AR.register('minion.portrait.'+T,por);if(full){AR.register('minion.full.'+T,full);HERO_PORTRAITS[T]=full;}\n"
+    "  const at=atl||AR.get('unit.atlas.'+S);AF321_ATLAS[T]=at;AR.register('unit.atlas.'+T,at);try{AF321.register(T,at);}catch(e){console.warn('[v3.60.263 AM] atlas kaydı',e);}\n"
+    "  window.__afp263CiftKilicliTurev={card:!!card,portrait:!!por,full:!!full,atlas:!!atl};});\n"
     "}catch(e){console.warn('[v3.60.263 AM] Çift Kılıçlı görseli',e);}")
 
 # ================================================================ AN) ÜÇ BOSS SAVAŞTA (BOSS'U OLMAYAN MODLAR)
 # Kullanıcı kararı: Örümcek Akını'nın kendi boss'u var; üç boss, boss'u olmayan yerlerde kullanılır. Boss'u olan modlar
 # (Örümcek Akını, Kule, Gökyüzü, Hikâye Seferi, Yankı, Kolosus) ve dereceli/çevrim içi modlar (Arena, Sancak) değişmez.
-#   Karanlık Geçit  → Küllerin Hükümdarı / Uçurum Ejderi (Karanlık Geçit zafer sayısına göre sırayla)
-#   Gizli Bölge     → yalnız son aşama (Gölge Yolu 3/3): Boşluk İmparatoru
+#   Karanlık Geçit  → Küllerin Hükümdarı / Uçurum Ejderi / Boşluk İmparatoru (Karanlık Geçit zafer sayısına göre sırayla)
+#   Gizli Bölge     → boss YOK. İlk sürümde son aşamadaydı; denge ölçümünde (aynı bot, 12'şer maç) zafer %92 → %67 düştü ve
+#                     bu aşamada yenilgi yolu başa döndürdüğü için kullanıcı kararıyla kaldırıldı. Karanlık Geçit'te fark
+#                     ölçülmedi (%75 → %83, örnek gürültüsü içinde).
 # Yalnız çevrim dışı (yapay zekâya karşı) maçta; çevrim içi maçta iki ekran uyuşmayacağı için boss çıkmaz.
 # Boss, motorun var olan mod-boss yolundan (af36ForceBoss) doğar: Kule/Gökyüzü boss'larıyla aynı güç çarpanları, aynı özel
 # saldırı sistemi (ateş / yıldırım / ruh emme), 45. saniyede. Portal yıkılırsa maç yine kazanılır (zafer kuralı değişmez).
@@ -391,7 +406,7 @@ sub('AM-cift-kilicli-gorsel',
 sub('AN-boss-ayar',
     "var AF36_BOSS_HP_MUL={campaign:1,sky:1,tower:1};\nvar AF36_BOSS_ENTRY={campaign:40,sky:30,tower:35};",
     "var AF36_BOSS_HP_MUL={campaign:1,sky:1,tower:1,duel:1};\nvar AF36_BOSS_ENTRY={campaign:40,sky:30,tower:35,duel:45};\n"
-    "/* v3.60.263 AN: üç koleksiyon boss'u boss'u olmayan çevrim dışı modlarda (Karanlık Geçit, Gizli Bölge son aşama) */\n"
+    "/* v3.60.263 AN: üç koleksiyon boss'u boss'u olmayan çevrim dışı Karanlık Geçit'te (sırayla) */\n"
     "var AF263_NEW_BOSSES={'afp263:boss_kullerin_hukumdari':{name:'Küllerin Hükümdarı',ability:'fire',notice:'KÜLLERİN HÜKÜMDARI · ATEŞİN EFENDİSİ!',aura:'rgba(255,96,30,.22)'},"
     "'afp263:boss_ucurum_ejderi':{name:'Uçurum Ejderi',ability:'lightning',notice:'UÇURUM EJDERİ · GÖKYÜZÜ YIKIMI!',aura:'rgba(60,170,255,.22)'},"
     "'afp263:boss_bosluk_imparatoru':{name:'Boşluk İmparatoru',ability:'drain',notice:'BOŞLUK İMPARATORU · KOZMİK HÜKÜM!',aura:'rgba(170,80,255,.22)'}};\n"
@@ -399,8 +414,8 @@ sub('AN-boss-ayar',
     " if(gameMode!=='duel')return null;\n"
     " try{if(window.__AFPDisguisedMatchActive||(window.__AFPOnlineContext&&window.__AFPOnlineContext.active)||window.__afpFtueBattle)return null;}catch(_){return null;}\n"
     " const s=profile.af35Secret||{};let key=null;\n"
-    " if(af35MatchKind==='dark')key=(Math.floor(+s.darkWins||0)%2===0)?'afp263:boss_kullerin_hukumdari':'afp263:boss_ucurum_ejderi';\n"
-    " else if(af35MatchKind==='secret'&&Math.floor(+s.stage||0)>=AF35_SECRET_REWARD.stages-1)key='afp263:boss_bosluk_imparatoru';\n"
+    " if(af35MatchKind==='dark')key=['afp263:boss_kullerin_hukumdari','afp263:boss_ucurum_ejderi','afp263:boss_bosluk_imparatoru'][Math.floor(+s.darkWins||0)%3];\n"
+    " /* Gizli Bölge'de boss yok (kullanıcı kararı, denge ölçümü: son aşamada zafer %92 → %67; yenilgi yolu başa döndürüyor) */\n"
     " if(!key||!window.AFP263BossArt||!window.AFP263BossArt[key.slice(7)])return null;const d=AF263_NEW_BOSSES[key];return {key,name:d.name,ability:d.ability};}")
 sub('AN-boss-bekliyor',
     "if(gameMode==='tower')return af36TowerFloor()%5===0&&!af36Run.bossSpawned;",

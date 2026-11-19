@@ -296,3 +296,9 @@ Her senaryoda JS hatası 0. Yapay bitişlerde (portalın canı doğrudan 0'a çe
 - **Çift Kılıçlı:** 7 görsel kaynağı Karanlık Suikastçı'yla aynı; kart ve savaş figürü iki bıçaklı.
 - **Boss'lar:** Karanlık Geçit (Uçurum Ejderi, Küllerin Hükümdarı) ve Gizli Bölge 3/3 (Boşluk İmparatoru) 45. sn'de doğdu; bekleme/saldırı/ölüm kareleri; duyurular boss'un kendi adıyla; Kule boss'u değişmedi; çevrim içinde boss yok.
 - Kod testleri: sözdizimi 107/107, 17/17, 10/10, v263 51/51.
+
+## Boss denge ölçümü ve Çift Kılıçlı türevi
+
+Ayrıntı ve tablo: YAPILAN_DUZELTMELER → "Boss denge ölçümü". Özet (12'şer maç, aynı bot): Karanlık Geçit boss açık %83 / kapalı %75; Gizli Bölge 3/3 açık %67 / kapalı %92 → Gizli Bölge'den kaldırıldı.
+
+Değişiklik sonrası tarayıcı kontrolü: Karanlık Geçit boss sırası 3 boss'u dönüyor, Gizli Bölge'nin üç aşamasında boss yok; Çift Kılıçlı kart/tam boy/savaş atlası buz mavisi türevde ve Karanlık Suikastçı'dan farklı; savaşta yan yana mavi ve mor bıçaklar. Kod testleri: sözdizimi 107/107, 17/17, 10/10, v263 51/51.

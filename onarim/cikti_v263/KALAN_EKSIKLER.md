@@ -8,8 +8,8 @@ Bu çalışma ortamında görsel üretme aracı yok. Kurallar gereği kalitesiz 
 
 1. ~~Uçurum Ejderi ve Boşluk İmparatoru boss görselleri~~ → kullanıcı paketiyle bağlandı (Küllerin Hükümdarı dahil üç boss).
 2. ~~Boss Sandığı kapalı~~ → açıldı; sandık açılışı, ödül kaydı ve çift ödül kontrolü test edildi.
-2b. ~~Boss animasyonları savaşta görünmüyor~~ → kullanıcı kararıyla boss'u olmayan çevrim dışı modlara bağlandı: Karanlık Geçit (Küllerin Hükümdarı / Uçurum Ejderi sırayla) ve Gizli Bölge son aşaması (Boşluk İmparatoru); bekleme, saldırı ve ölüm animasyonları savaşta oynuyor. **Kalan:** oyuncunun sandıktan kazandığı boss kartını kendi tarafında kullanması hâlâ yok; koleksiyondaki "Örümcek Akını ve özel modlarda kullanılır" yazısı bu yüzden tam doğru değil (yazı İngilizce çeviri kalıplarıyla bağlı olduğu için değiştirilmedi).
-3. ~~Çift Kılıçlı çiziminde tek mızrak~~ → kullanıcı kararıyla mevcut iki bıçaklı görsel (Karanlık Suikastçı) bağlandı. Yeni çizim yapılmadı; iki minyon aynı görünüyor.
+2b. ~~Boss animasyonları savaşta görünmüyor~~ → kullanıcı kararıyla boss'u olmayan çevrim dışı **Karanlık Geçit**'e bağlandı (üç boss sırayla); bekleme, saldırı ve ölüm animasyonları savaşta oynuyor. Gizli Bölge'den denge ölçümü sonrası kaldırıldı. **Kalan:** oyuncunun sandıktan kazandığı boss kartını kendi tarafında kullanması hâlâ yok; koleksiyondaki "Örümcek Akını ve özel modlarda kullanılır" yazısı bu yüzden tam doğru değil (yazı İngilizce çeviri kalıplarıyla bağlı olduğu için değiştirilmedi). Karanlık Geçit'te bot ölçümünde fark çıkmadı ama gerçek oyuncu dengesi kapalı testte izlenmeli.
+3. ~~Çift Kılıçlı çiziminde tek mızrak~~ → Karanlık Suikastçı görselinin **buz mavisi türevi** (kullanıcı kararı). Renkle ayrışıyorlar ama **duruş/siluet aynı**; tam ayrı bir kimlik için yeni çizim gerekir. Çizim gelirse `gorsel_ekle.py --cift-kilicli` ile bağlanır.
 
 Görseller hazırlandığında eklenecek yerler: boss'lar için `af36Collection` içindeki `DB[...].art` (koleksiyon ve sandık buradan okur); Çift Kılıçlı için `AFP94_MINION_CARDS.af37_cift_kilicli`, `minion.portrait/full.af37_cift_kilicli` ve savaş atlası `unit.atlas.af37_cift_kilicli`.
 

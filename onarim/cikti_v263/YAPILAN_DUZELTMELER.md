@@ -235,3 +235,27 @@ Bu sayılar sahadaki birim sayısına göre çok oynuyor (aynı modda 13 ile 36 
 | Boss animasyonları savaşta | Üç boss yalnız Koleksiyon'da oynuyordu | Kullanıcı kararı: boss'u olmayan yerlerde. **Karanlık Geçit** → Küllerin Hükümdarı / Uçurum Ejderi (Karanlık Geçit zafer sayısına göre sırayla), **Gizli Bölge son aşama (3/3)** → Boşluk İmparatoru. 45. saniyede, motorun var olan mod-boss yolundan doğar (Kule/Gökyüzü boss'larıyla aynı güç çarpanları; özel saldırı: ateş / yıldırım / ruh emme). Bekleme ve saldırı animasyonu kare kare, rakip tarafta aynalı; ölünce ölüm animasyonu. Yalnız çevrim dışı maçta (çevrim içi maçta iki ekran uyuşmayacağı için çıkmaz). Boss'u olan modlar ve Arena/Sancak değişmedi | Karanlık Geçit: Uçurum Ejderi 45. sn'de üst/orta koridorda doğdu (151 can), sola dönük; özel saldırıda saldırı kareleri; öldürülünce ölüm kareleri (ejder yığılıp kayboldu), "BOSS YENİLDİ!". Küllerin Hükümdarı: "KÜLLERİN HÜKÜMDARI SAHADA! Rakip boss çağırdı; portalını koru." ve "KÜLLERİN HÜKÜMDARI · ATEŞİN EFENDİSİ!" duyuruları. Gizli Bölge 3/3: Boşluk İmparatoru. Seçim kuralı: Gizli 1/3 ve 2/3 yok, dereceli düello ve eğitim yok, çevrim içi bağlamda yok. Kule 5. kat boss'u hâlâ Kadim Dev. JS hatası 0 |
 | Çift Kılıçlı görseli | Kart, koleksiyon ve savaşta tek mızraklı figür | Kullanıcı kararı: mevcut iki kılıçlı görsellerden biri. **Karanlık Suikastçı** seçildi (iki bıçak savaş boyutunda da açık; Samuray'da ikinci kılıç küçük ve şapka öne çıkıyor). Veri kopyalanmadı: kart, tam boy, portre, savaş eli portresi ve savaş atlası oyunun görsel kaydından aynı kaynağa bağlandı; savaş animasyonunun eklem noktaları da aynı görselinkiyle değiştirildi. Ad, nadirlik, enerji, can, saldırı, sınıf değişmedi | 7 kaynak eşitliği doğrulandı (portre, tam boy, atlas, AF321 atlas, eklem, el portresi, kart); minyon ekranında kart iki bıçaklı; savaşta dost ve rakip figür iki mor bıçakla yürüyor. JS hatası 0. Not: iki minyon artık aynı görünüyor |
 | Çevrim içi iki oyuncu | Hiç denenmemişti | Kod değişikliği gerekmedi. Kullanıcı kararıyla **yerel sahte sunucu** ile test edildi (canlı sunucuya ve Supabase'e dokunulmadı; test tarayıcısında dış ağ tamamen kapalıydı). Araçlar: `testler/tarayici/cevrimici_sahte_sunucu.js`, `cevrimici_iki_oyuncu.js` | 6 senaryo geçti (bkz. TEST_SONUCLARI → Çevrim içi). Canlı sunucu doğrulanmadı |
+
+---
+
+## Görsel kimlik ve boss dengesi (kullanıcı geri bildirimi) — **DÜZELTİLDİ / TEST EDİLDİ**
+
+| Konu | Önce | Şimdi | Test |
+|---|---|---|---|
+| Çift Kılıçlı ↔ Karanlık Suikastçı aynı görünüyordu | Çift Kılıçlı, Karanlık Suikastçı görselinin birebir aynısıydı | Kullanıcı kararı: **buz mavisi türev**. Oyun açılırken Karanlık Suikastçı görselindeki yalnız mor tonlar (bıçaklar, kıyafet) buz mavisine çevrilir; ten, metal ve arka plan aynı kalır. Kart, tam boy, savaş eli ve savaş atlası türevi kullanır; veri kopyalanmaz. Savaş atlası, motorun türü bir kez kaydetmesi nedeniyle türev hazır olunca kaydediliyor (mızraklı ya da mor görsel savaşta hiç çıkmaz). Yeni çizim değildir; siluet aynı | Kart, tam boy, atlas, motor atlası ve el portresi türevde, Karanlık Suikastçı'dan farklı; eklemler aynı; ad/nadirlik/değerler aynı. Minyon ekranında Çift Kılıçlı buz mavisi, Karanlık Suikastçı mor; savaşta yan yana: mavi ve mor bıçaklar. JS hatası 0. Seçenek önizlemesi: `ekran_goruntuleri/cift_kilicli_secenekler.png` |
+| Boss'ların oynanışa etkisi | Karanlık Geçit (2 boss sırayla) ve Gizli Bölge son aşaması (Boşluk İmparatoru) | Denge ölçümü yapıldı (aşağıda). Kullanıcı kararı: **Gizli Bölge'den kaldırıldı** (eski dengesi geri geldi). **Karanlık Geçit'te kalır, üç boss sırayla** (Küllerin Hükümdarı → Uçurum Ejderi → Boşluk İmparatoru; Karanlık Geçit zafer sayısına göre). Güç, giriş zamanı (45. sn), ödül ve çevrim içi kuralı değişmedi | Karanlık 3/4/5/6 zafer → Küllerin / Uçurum / Boşluk / Küllerin; Gizli Bölge 1/3, 2/3, 3/3 → boss yok; Karanlık Geçit maçında 46. sn'de Küllerin Hükümdarı doğdu. JS hatası 0 |
+
+### Boss denge ölçümü
+
+Aynı test botu (kart + iki komutan büyüsü kullanır), aynı başlangıç profili, oyun hızı ×2, koşul başına 12 maç. "Kapalı" koşulunda yalnız boss tanımı kapatıldı. Ham veri: `testler/sonuclar/boss_denge_olcumu.jsonl`, araç: `testler/tarayici/boss_denge_olcumu.js`.
+
+| Mod | Boss | Zafer / Yenilgi | Zafer oranı | Ort. süre | Ort. kalan dost portalı |
+|---|---|---|---|---|---|
+| Karanlık Geçit | açık | 10 / 2 | %83 (±21) | 60 sn | 286 / 430 |
+| Karanlık Geçit | kapalı | 9 / 3 | %75 (±24) | 58 sn | 278 / 430 |
+| Gizli Bölge 3/3 | açık | 8 / 4 | %67 (±27) | 66 sn | 256 / 430 |
+| Gizli Bölge 3/3 | kapalı | 11 / 1 | %92 (±16) | 58 sn | 325 / 430 |
+
+- Boss canı 151–182, saldırı 18; rakibin maçta sahaya sürdüğü toplam birim canının %12–15'i kadar, enerjisiz gelir.
+- Karanlık Geçit: ölçülebilir fark yok. Gizli Bölge son aşaması: zafer oranı yaklaşık 25 puan düştü; Boşluk İmparatoru çıktığı 10 maçın hepsinde sona kadar yaşadı, dost portalını ortalama 403'ten 262'ye indirdi. Bu aşamada yenilgi yolu başa döndürdüğü ve ödül artmadığı için kaldırıldı.
+- Sınırlar: bot gerçek oyuncu değil; maçlar kısa (~60 sn); 12 maçta belirsizlik ±16–27 puan. Gerçek oyuncu dengesi kapalı testte izlenmeli.
