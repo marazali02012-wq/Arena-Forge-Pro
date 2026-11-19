@@ -534,6 +534,14 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
   document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);
   document.addEventListener('click',e=>{if(eatClick&&e.target.closest&&e.target.closest('#skill,#skill2')){e.stopImmediatePropagation();e.preventDefault();}},true);
  })();
+ /* AG: Sandık açılış penceresi. Mağaza katmanındaki (@layer af172Commerce) iki sütunlu kural, Android için yazılmış tek sütun
+    kuralını eziyordu: sandık ve kartlar dar sol sütunda (≈216 px), ödül yazısı sağ sütunda kalıyordu. Aynı katmanda tek sütun,
+    her şey ortada. */
+ const sag=document.createElement('style');sag.id='afp263ChestCenterCss';const HG='html'+':not(#_ag)'.repeat(13)+' #chestRevealBackdrop .chestRevealPanel';
+ sag.textContent='@layer af172Commerce{'+HG+'{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:none!important;justify-items:center!important}'
+  +HG+'>*{grid-column:1/-1!important;grid-row:auto!important;justify-self:center!important;text-align:center!important}'
+  +HG+'>.af190-reveal-stage{width:100%!important;max-width:none!important}}';  /* sandık simgesi kendi kuralıyla (left:50% + translate) ortalanır */
+ document.head.appendChild(sag);
  const SEL='button,[role=button],.battlePick,.afqv-tile,input,select,a[href]';
  function vis(e){const r=e.getBoundingClientRect();if(r.width<6||r.height<6)return null;const cs=getComputedStyle(e);if(cs.visibility==='hidden'||cs.display==='none'||+cs.opacity===0)return null;if(r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)return null;return r;}
  function collect(card){

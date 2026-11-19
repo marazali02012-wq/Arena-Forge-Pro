@@ -229,6 +229,9 @@ test('AF: minyon kartı figürü baştan ayağa çerçevede', () => {
   once("  const fit = true; /* v3.60.263 AF:");
   once("const [x,y,maxW,maxH] = [50,50,104,104];");
 });
+test('AG: sandık açılış penceresi tek sütun, ortada (doğru katmanda)', () => {
+  once("sag.textContent='@layer af172Commerce{'+HG+'{grid-template-columns:minmax(0,1fr)!important;");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);
