@@ -248,6 +248,22 @@ test('AI: FPS — büyü düğmesi/şerit ölçümü çizim döngüsünde yapıl
   assert.ok(b[0].includes("if(c&&!c.hidden&&c.getClientRects().length)scan();"));
   assert.ok(b[0].includes("if(!live.size)return;const col=document.getElementById('af36Col');if(col&&col.hidden)return;"));
 });
+test('AJ: Android geri tuşu savaşı sürdürmez (duraklat → çıkış onayı → duraklatma menüsü)', () => {
+  once("const open=id=>{const e=document.getElementById(id);return !!(e&&!e.hidden);}; /* v3.60.263 AJ: geri tuşu savaşı sürdürmez */");
+  once("if(open('af274Exit')){if(noPause)click('af274ExitNo');else{document.getElementById('af274Exit').hidden=true;const pz=document.getElementById('af274Pause');if(pz)pz.hidden=false;}}");
+  once("else if(open('af274Settings'))click('af274Close');else if(open('af274Pause'))click('af274Quit');");
+  assert.ok(!html.includes("if(isVis('af274ExitYes'))click('af274ExitNo');else if(isVis('af274Resume'))click('af274Quit');"), 'eski görünürlük denetimi duruyor');
+});
+test('AK: Örümcek Akını ana üs SAVAŞ MODLARI penceresinden açılır', () => {
+  once('<button type="button" data-home-action="raid">ÖRÜMCEK AKINI</button>');
+  once("raid:()=>{if(typeof window.__afpBossRaidOpenScreenV34065!=='function')throw new Error('Örümcek Akını ekranı yüklenmedi');window.__afpBossRaidOpenScreenV34065();},");
+  once('.mode-extras {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));');
+});
+test('AL: Lonca / Son Kahraman misafir uyarısı belirgin kutu + GİRİŞ YAP', () => {
+  once("e.innerHTML='<b>🔒 GİRİŞ GEREKLİ</b><span>'+esc(t)+'</span><button type=\"button\" class=\"afpce-action\" data-afp263-login=\"1\">GİRİŞ YAP</button>';");
+  once("css.id='afp263LoginWarnCss'");
+  once("const nav=document.querySelector('#af274Settings [data-sec=\"af39Sec5\"]')");
+});
 
 fs.writeFileSync(__dirname + '/SONUC_V263_TEST.json', JSON.stringify(results, null, 2));
 console.log('SONUÇ', results.filter(x => x.status === 'GEÇTİ').length + '/' + results.length);

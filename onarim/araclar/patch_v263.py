@@ -336,6 +336,42 @@ sub('AH-gosterge',
     "$('wave').textContent=Math.max(0,Math.min(100,Math.round(enemySharedHP/Math.max(1,TOWER_MAX_HP)*100)))+'%';",
     "$('wave').textContent=(gameMode==='echo'&&af203Run?.active&&!af203Run.bossDefeated&&enemySharedHP<=1)?'KALKANLI':Math.max(0,Math.min(100,Math.round(enemySharedHP/Math.max(1,TOWER_MAX_HP)*100)))+'%'; /* v3.60.263 AH */")
 
+# ================================================================ AJ) ANDROID GERİ TUŞU DURAKLATILMIŞ SAVAŞI SÜRDÜRÜYORDU
+# Pencereler "görünür mü" diye opaklıkla ölçülüyordu; duraklatma penceresi açılış geçişindeyken (opaklık ~0) ikinci basış
+# Ⅱ düğmesine gidip oyunu SÜRDÜRÜYORDU. Çıkış onayında geri → "Hayır" (oyunu sürdürür); Ayarlar'da geri → Ⅱ (sürdürür).
+# Artık durum hidden özniteliğinden okunur ve geri tuşu savaşı hiçbir zaman sürdürmez: savaş → duraklat → çıkış onayı;
+# çıkış onayında geri → duraklatma menüsüne döner; Ayarlar'da geri → duraklatma menüsü. Devam yalnız "Devam et" ile.
+# Çevrim içi (duraklatılamayan) maçta eski davranış korunur: geri → çıkış onayı, tekrar geri → onay kapanır.
+sub('AJ-android-geri-savas',
+    "if(isVis('af274ExitYes'))click('af274ExitNo');else if(isVis('af274Resume'))click('af274Quit');else if(noPause)click('exitBattle');else click('af274PauseBtn');",
+    "const open=id=>{const e=document.getElementById(id);return !!(e&&!e.hidden);}; /* v3.60.263 AJ: geri tuşu savaşı sürdürmez */\n"
+    "   if(open('af274Exit')){if(noPause)click('af274ExitNo');else{document.getElementById('af274Exit').hidden=true;const pz=document.getElementById('af274Pause');if(pz)pz.hidden=false;}}\n"
+    "   else if(open('af274Settings'))click('af274Close');else if(open('af274Pause'))click('af274Quit');else if(noPause)click('exitBattle');else click('af274PauseBtn');")
+
+# ================================================================ AK) ÖRÜMCEK AKINI'NA ANA ÜSTEN GİRİŞ YOKTU
+# Mod ve ekranı çalışıyordu ama yalnız eski dünya haritası kodundan açılabiliyordu. Ana üs → SAVAŞ MODLARI penceresinin
+# alt sırasına (Son Kahraman / Lonca Dev Avı / İki Oyunculu Kolosus ile aynı biçimde) bir düğme eklenir; oyunun kendi
+# Örümcek Akını ekranını açar. Mod, ödül ve kademe kuralları değişmez.
+sub('AK-orumcek-akini-dugmesi',
+    "'<div class=\"mode-extras\"><button type=\"button\" data-home-action=\"lhs\">SON KAHRAMAN</button>'",
+    "'<div class=\"mode-extras\"><button type=\"button\" data-home-action=\"raid\">ÖRÜMCEK AKINI</button><button type=\"button\" data-home-action=\"lhs\">SON KAHRAMAN</button>'")
+sub('AK-orumcek-akini-yolu',
+    "lhs:()=>window.AFPCommunityEventCenterV36026.open('lhs'),",
+    "raid:()=>{if(typeof window.__afpBossRaidOpenScreenV34065!=='function')throw new Error('Örümcek Akını ekranı yüklenmedi');window.__afpBossRaidOpenScreenV34065();},lhs:()=>window.AFPCommunityEventCenterV36026.open('lhs'),")
+sub('AK-dort-sutun',
+    ".mode-extras {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));",
+    ".mode-extras {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));")
+
+# ================================================================ AL) LONCA / SON KAHRAMAN: MİSAFİR GİRİŞ UYARISI FARK EDİLMİYORDU
+# Misafir "KUYRUĞA KATIL"a basınca aynı küçük satır (10-11 px) aynı yazıyla yeniden yazılıyordu; basış fark edilmiyordu.
+# Giriş gerektiren hata artık belirgin bir uyarı kutusunda (🔒 GİRİŞ GEREKLİ) ve her basışta yanıp söner; yanındaki
+# GİRİŞ YAP düğmesi Ayarlar → Hesap ve kayıt bölümündeki oyunun kendi giriş formunu açar. Diğer durum yazıları aynı.
+sub('AL-giris-uyarisi',
+    "function status(t){const e=$('.afpce-status',ensure());if(e)e.textContent=t;}",
+    "function status(t){const e=$('.afpce-status',ensure());if(!e)return;const login=/hesabına giriş yap|sign in to your game account/i.test(String(t||''));e.classList.toggle('afp263-login',login); /* v3.60.263 AL */\n"
+    "  if(!login){e.textContent=t;return;}\n"
+    "  e.innerHTML='<b>🔒 GİRİŞ GEREKLİ</b><span>'+esc(t)+'</span><button type=\"button\" class=\"afpce-action\" data-afp263-login=\"1\">GİRİŞ YAP</button>';e.classList.remove('afp263-flash');void e.offsetWidth;e.classList.add('afp263-flash');}")
+
 # ================================================================ H) SANDIK / GÜNLÜK ÖDÜL KARTINDA MİNYON ADIN ALTINDA KALIYORDU
 # Ödül kartında resim kartın tamamına yerleştiriliyor (inset:0, contain, üstten %15), ad ve "+1 PARÇA" etiketi
 # kartın alt ~40 px'ini kaplıyordu. Figürü resmin alt yarısında duran minyonlarda (ör. İskelet Kalkanlı) yalnız
@@ -552,6 +588,23 @@ RUNTIME = r"""<script id="AFP263_RUNTIME">
   document.addEventListener('dragstart',e=>{if(e.target.closest&&e.target.closest('#skill,#skill2'))e.preventDefault();},true);
   document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);
   document.addEventListener('click',e=>{if(eatClick&&e.target.closest&&e.target.closest('#skill,#skill2')){e.stopImmediatePropagation();e.preventDefault();}},true);
+ })();
+ /* AL: Lonca / Son Kahraman misafir uyarısı belirgin kutu; GİRİŞ YAP → Ayarlar → Hesap ve kayıt → oyunun giriş formu */
+ (function(){const css=document.createElement('style');css.id='afp263LoginWarnCss';const P='html'+':not(#_al)'.repeat(8)+' #afpce .afpce-status.afp263-login';
+  css.textContent=P+'{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:2px 10px!important;align-items:center!important;margin-top:8px!important;padding:7px 9px!important;border:2px solid #ffb547!important;border-radius:9px!important;background:linear-gradient(180deg,#4b2c0d,#2b1707)!important;color:#ffe6bf!important;white-space:normal!important}'
+   +P+'>b{grid-column:1!important;color:#ffc65c!important;font-size:12px!important;letter-spacing:.04em!important}'
+   +P+'>span{grid-column:1!important;font-size:11px!important;line-height:1.25!important}'
+   +P+'>button{grid-column:2!important;grid-row:1/span 2!important;margin:0!important;min-height:34px!important;padding:0 14px!important;white-space:nowrap!important}'
+   +P+'.afp263-flash{animation:afp263LoginFlash .45s ease-in-out 3!important}'
+   +'@keyframes afp263LoginFlash{0%,100%{box-shadow:0 0 0 0 #ffb54700}50%{box-shadow:0 0 0 4px #ffb547cc;background:#6a3a0c}}'
+   +'html'+':not(#_al)'.repeat(8)+' #afpCloudSaveBox.afp263-focus{outline:3px solid #ffb547!important;outline-offset:3px!important}';
+  document.head.appendChild(css);
+  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-afp263-login]');if(!b)return;e.preventDefault();e.stopPropagation();
+   try{window.AFPCommunityEventCenterV36026&&window.AFPCommunityEventCenterV36026.close();}catch(_){}
+   try{const R=window.__AF_HEROIC_REBUILD_V34201;if(R&&typeof R.settings==='function')R.settings();else{const st=document.getElementById('af274Settings');if(st)st.hidden=false;}}catch(_){}
+   let n=0;const go=()=>{const nav=document.querySelector('#af274Settings [data-sec="af39Sec5"]'),box=document.getElementById('afpCloudSaveBox');
+    if(!nav||!box){if(++n<20)setTimeout(go,100);return;}nav.click();setTimeout(()=>{const em=document.getElementById('afpCloudEmail');(em||box).scrollIntoView({block:'center'});box.classList.add('afp263-focus');setTimeout(()=>box.classList.remove('afp263-focus'),2600);},120);};
+   setTimeout(go,80);},true);
  })();
  /* AG: Sandık açılış penceresi. Mağaza katmanındaki (@layer af172Commerce) iki sütunlu kural, Android için yazılmış tek sütun
     kuralını eziyordu: sandık ve kartlar dar sol sütunda (≈216 px), ödül yazısı sağ sütunda kalıyordu. Aynı katmanda tek sütun,

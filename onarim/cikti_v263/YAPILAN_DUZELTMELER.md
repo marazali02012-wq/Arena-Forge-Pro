@@ -222,3 +222,16 @@ Her modda bot oynarken 15. saniyeden sonra 5 sn FPS, 8 sn işlemci profili (Chro
 
 **Mod başına FPS (bu ortamda, yazılımla çizim):** Ana üs 60 · Kolosus 59 · Gökyüzü 49 · Hikâye Seferi 45 · Örümcek Akını 23 · Arena 21 · Gizli Bölge 21 · Sancak 20 · Yankı 14 · Karanlık Geçit 14 · Kule 12.
 Bu sayılar sahadaki birim sayısına göre çok oynuyor (aynı modda 13 ile 36 arası görüldü) ve **telefon FPS'ini göstermez**. Telefonda ölçüm kapalı testte yapılacak.
+
+---
+
+## Kalan eksikler listesi (kullanıcının 6 maddesi) — ilk üçü **DÜZELTİLDİ / TEST EDİLDİ**
+
+| Madde | Önce | Şimdi | Test |
+|---|---|---|---|
+| Android geri tuşu | Duraklatma penceresi açılırken (geçiş animasyonu sırasında) gelen ikinci basış Ⅱ düğmesine gidip oyunu **sürdürüyordu**; çıkış onayında geri = "Hayır" (oyunu sürdürür); duraklatmadan açılan Ayarlar'da geri de oyunu sürdürüyordu | Pencere durumu animasyondan bağımsız okunuyor. Geri tuşu savaşı **hiçbir zaman sürdürmez**: savaş → duraklat → çıkış onayı → (geri) duraklatma menüsü; Ayarlar'da geri → duraklatma menüsü. Oyun yalnız "Devam et" ile sürer. Çevrim içi (duraklatılamayan) maçta eski davranış korundu | Android adresi (`appassets.androidplatform.net`) taklit edilerek, basışlar arası 0 / 300 / 1200 ms: 4 basışın hiçbirinde savaş sürmedi; duraklatmada savaş süresi 1,4 → 1,4 (durdu); Ayarlar'da geri → duraklatma; "Devam et" → süre aktı; ✕ → çıkış onayı → geri → duraklatma; Evet → savaştan çıkış. JS hatası 0. **Telefonda denenmedi** |
+| Örümcek Akını girişi | Ana üsten açılamıyordu (yalnız eski dünya haritası kodundan) | Ana üs → SAVAŞ MODLARI → alt sırada **ÖRÜMCEK AKINI** (Son Kahraman / Lonca Dev Avı / İki Oyunculu Kolosus ile aynı biçim, 4 sütun). Oyunun kendi Örümcek Akını ekranını açar; mod kuralları değişmedi | 667×375, 740×360, 800×360: 4 düğme tek sırada, taşma yok; düğme → Örümcek Akını ekranı (1/82); SAVAŞA GİR → savaş başladı ("ÖRÜMCEK AKINI · 1/82"); savaştan çıkış → ana üs; GERİ ve Esc → ana üs; JS hatası 0 |
+| Son Kahraman / Lonca misafir uyarısı | Misafir "KUYRUĞA KATIL"a basınca aynı küçük satır (10–11 px) aynı yazıyla yeniden yazılıyordu; basış fark edilmiyordu | Turuncu çerçeveli **🔒 GİRİŞ GEREKLİ** kutusu; her basışta yanıp söner; yanındaki **GİRİŞ YAP** düğmesi Ayarlar → Hesap ve kayıt'taki oyunun kendi giriş formunu açar (e-posta kutusu ekranda, bölüm vurgulu). Diğer durum yazıları aynı | 3 ölçüde kutu panelin içinde (667×375: 319×63 px), KATIL'a basınca yanıp sönme başladı, GİRİŞ YAP → merkez kapandı, Ayarlar açıldı, e-posta kutusu görünür. Lonca sekmesinde de aynı kutu |
+| Boss animasyonları savaşta | — | **Karar bekliyor** (bkz. KALAN_EKSIKLER) | — |
+| Çift Kılıçlı görseli | — | **Yeni çizim gerekiyor** (bkz. KALAN_EKSIKLER) | — |
+| Çevrim içi iki gerçek oyuncu | — | **Bu ortamdan yapılamıyor** (bkz. KALAN_EKSIKLER) | — |

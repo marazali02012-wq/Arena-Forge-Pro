@@ -182,5 +182,17 @@
   {
     "name": "AI: FPS — büyü düğmesi/şerit ölçümü çizim döngüsünde yapılmaz; boss koleksiyonu tüm sayfayı izlemez",
     "status": "GEÇTİ"
+  },
+  {
+    "name": "AJ: Android geri tuşu savaşı sürdürmez (duraklat → çıkış onayı → duraklatma menüsü)",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "AK: Örümcek Akını ana üs SAVAŞ MODLARI penceresinden açılır",
+    "status": "GEÇTİ"
+  },
+  {
+    "name": "AL: Lonca / Son Kahraman misafir uyarısı belirgin kutu + GİRİŞ YAP",
+    "status": "GEÇTİ"
   }
 ]
