@@ -270,3 +270,29 @@ Düzeltmeden sonra yeniden denenenler (yeni sürüm):
 - Kod testleri: sözdizimi 107/107, 17/17, 10/10, v263 46/46 (yeni test AI: çizim içinde ölçüm yok, tüm sayfa gözlemcisi yok).
 
 **Ölçülmedi:** telefonda FPS. Bu ortamda ekran kartı olmadığı için telefon sonucu tahmin edilemez.
+
+## Çevrim içi — iki oyuncu, yerel sahte sunucu
+
+**Kurulum:** Canlı sunucuya ve Supabase'e dokunulmadı. Oyunun kendi dostluk maçı oda sunucusundaki (`AFP_FRIEND_MATCH_V1`) ve istemci kodundaki protokolle aynı mesajları kullanan yerel bir WebSocket sunucusu yazıldı (`testler/tarayici/cevrimici_sahte_sunucu.js`). Oyun bu adrese, kendi ayar anahtarıyla (`afpOnlineWsUrlV1`) yönlendirildi. İki ayrı tarayıcı profili (A, B) misafir kimliğiyle aynı anda kuyruğa girdi. Test tarayıcısında dış alan adlarının hepsi engelliydi: **dışarı giden istek: 0**.
+
+| Senaryo | Ne yapıldı | Sonuç |
+|---|---|---|
+| Normal maç | Otorite (koltuk 1) rakip portalı yıktı; sunucu sonucu **iki kez** yolladı | A: zafer · B: yenilgi, ikisi de "onaylandı". İkinci sonuç yok sayıldı ("result-duplicate"); ödül/kupa değişmedi (sunucu ödülü kapalı) |
+| Pes | B savaştan ✕ → Evet | A: **HÜKMEN ZAFER** (onaylandı) · B: maçtan çıktı, ana üsse döndü (yenilgi ekranı yok — mevcut akış) |
+| Kopup geri bağlanma | Sunucu B'nin soketini sert kapattı | B **1 sn'de** aynı maça geri bağlandı (rejoin_ok); A "rakip bağlanıyor → döndü" gördü; maç sürdü, normal bitti (onaylandı) |
+| Kalıcı kopma | B'nin soketi kapatıldı, geri dönüş reddedildi, B sayfası kapandı | 8 sn bekleme sonunda A: **HÜKMEN ZAFER** (onaylandı) |
+| Çift zafer | B kendini kazanan bildirdi, A da kendini | Sunucu uyuşmazlık bildirdi → iki ekranda **"GEÇERSİZ · SONUÇ DOĞRULANAMADI"**, kupa/kredi 0 |
+| Karanlık Geçit çevrim içi | Maç 47–50. saniyeye ilerletildi | İki tarafta da **boss çıkmadı** (boss yalnız çevrim dışı); sonuç onaylandı |
+
+Her senaryoda JS hatası 0. Yapay bitişlerde (portalın canı doğrudan 0'a çekildi) koltuk 2 durumu "şüpheli" olarak işaretledi; bu, gerçek maçta olmayan ani durum değişikliğinden.
+
+**Doğrulanmadı:** canlı Render sunucusu (kupa yazımı, gerçek bekleme süreleri, farklı cihaz/ağ). Kapalı testte iki gerçek hesapla denenmeli.
+
+## Kalan 6 madde turu — tarayıcı testleri
+
+- **Android geri tuşu** (Android adresi taklit edildi): basışlar arası 0 / 300 / 1200 ms; savaş hiçbir basışta sürmedi; duraklatma, Ayarlar, çıkış onayı, "Devam et" ve "Evet" yolları doğru.
+- **Örümcek Akını girişi:** 3 ölçüde düğme tek sırada; ekran açıldı, savaş başladı, GERİ/Esc ana üsse döndü.
+- **Misafir giriş uyarısı:** 3 ölçüde kutu panelde; her basışta yanıp sönüyor; GİRİŞ YAP → Ayarlar → giriş formu görünür.
+- **Çift Kılıçlı:** 7 görsel kaynağı Karanlık Suikastçı'yla aynı; kart ve savaş figürü iki bıçaklı.
+- **Boss'lar:** Karanlık Geçit (Uçurum Ejderi, Küllerin Hükümdarı) ve Gizli Bölge 3/3 (Boşluk İmparatoru) 45. sn'de doğdu; bekleme/saldırı/ölüm kareleri; duyurular boss'un kendi adıyla; Kule boss'u değişmedi; çevrim içinde boss yok.
+- Kod testleri: sözdizimi 107/107, 17/17, 10/10, v263 51/51.
