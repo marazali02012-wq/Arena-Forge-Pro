@@ -1,0 +1,58 @@
+name: v263 HP dual sword color TEST APK
+on:
+  push:
+    branches: [test/v263-hud-dual-color]
+    paths: [.github/workflows/v263-hud-dual-test.yml]
+  workflow_dispatch:
+jobs:
+  test-apk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Install asset processor
+        run: python3 -m pip install pillow
+      - name: Apply isolated VFX and HP/dual-color patches
+        run: |
+          python3 onarim/araclar/v263_vfx_readability_test.py
+          python3 onarim/araclar/v263_hp_dual_color_test.py
+          cp onarim/cikti_v263/ArenaForgePro_v3.60.263_CAN_CUBUGU_CIFT_KILIC_RENK_TEST.html app/src/main/assets/www/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path('app/src/main/assets/www/index.html')
+          s=p.read_text(encoding='utf-8')
+          assert "af263HpLabelSprite" in s
+          assert "lossless:true" in s and "data:image/png;base64," in s
+          assert "const arenaVibrance=(window.__AFP_TROPHY_ARENA_VIBRANCE===true)?1.18:1.10" in s
+          assert "gl.scissor(0,glY,cw,bh)" not in s
+          assert "powerPreference:'high-performance'" not in s
+          assert "arenaForgeProProfileV19" in s
+          print('HTML SHA256:',hashlib.sha256(p.read_bytes()).hexdigest())
+          PY
+      - name: Compile Android debug test APK
+        run: ./gradlew --no-daemon :app:assembleDebug
+      - name: Verify embedded HTML and Android test APK signature
+        run: |
+          python3 - <<'PY'
+          from zipfile import ZipFile
+          p='app/build/outputs/apk/debug/app-debug.apk'
+          with ZipFile(p) as z:
+            s=z.read('assets/www/index.html').decode('utf-8')
+            assert 'af263HpLabelSprite' in s
+            assert "lossless:true" in s
+            assert "gl.scissor(0,glY,cw,bh)" not in s
+          print('PASS: bundled HTML contains HP cache and lossless dual sword')
+          PY
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs app/build/outputs/apk/debug/app-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ArenaForgePro-v263-HP-DualColor-TEST-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
