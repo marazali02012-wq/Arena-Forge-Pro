@@ -20,7 +20,7 @@ var AF285_CUE=Object.create(null);    // birime bağlı hazırlık/kullanım çi
 var AF285_VFX=Object.create(null);    // konuma bağlı geçici efektler (f,p)
 var AF285_CONVERTED=new Set();        // eski AF267 tetiklemesi bu aktif yeteneğe dönüştürüldü
 var AF285_LATER=[];                   // ev sahibi tarafında kısa gecikmeli etkiler (ikinci ok vb.)
-var af285Fx=[],af285FxSeq=0,af285Last=0,af285Scan=0;
+var af285Fx=[],af285FxSeq=0,af285Scan=0;
 var AF285_STATS=Object.create(null);
 
 function af285Def(u){
@@ -165,10 +165,17 @@ function af285Finish(u,def){
   u._af285S=AF285_IDLE;u._af285C=null;
   u._af285R=Math.max(elapsed+.2,(c?c.t0:elapsed)+def.cd);
 }
+function af285ResetBattleEffects(){
+  af285Fx.length=0;
+  AF285_LATER.length=0;
+  AF285_POOLS.length=0;
+  AF285_SOULS.length=0;
+  AF285_PULLS.length=0;
+  AF285_CLOCKS.length=0;
+  af285Scan=0;
+}
 function af285Step(dt){
   if(!AF285_DEFS||!af285Fx)return;
-  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;AF285_PULLS.length=0;AF285_CLOCKS.length=0;}
-  af285Last=elapsed;
   for(let i=af285Fx.length-1;i>=0;i--){const f=af285Fx[i];if(f.t0+f.life<elapsed-.05)af285Fx.splice(i,1);}
   if(!playing||!af285Sim())return;
   af285PoolStep();

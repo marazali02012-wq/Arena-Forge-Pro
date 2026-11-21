@@ -1,0 +1,909 @@
+{
+  "modes_740x360": {
+    "arena": {
+      "natural": {
+        "playing": false,
+        "elapsed": 88.402100000003,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          77,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    },
+    "tower": {
+      "natural": {
+        "playing": false,
+        "elapsed": 45.23999999999921,
+        "outcome": "win",
+        "end": "KAT TEMİZLENDİ!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "KAT TEMİZLENDİ!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    },
+    "campaign": {
+      "natural": {
+        "playing": false,
+        "elapsed": 51.35999999999908,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          304,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    },
+    "echo": {
+      "natural": {
+        "playing": false,
+        "elapsed": 82.2000000000017,
+        "outcome": "loss",
+        "end": "YANKI İSTİLASI · SAVUNMA DÜŞTÜ",
+        "portal": [
+          0,
+          1,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "YANKI İSTİLASI · SAVUNMA DÜŞTÜ",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "YANKI İSTİLASI · SAVUNMA DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    },
+    "colossus": {
+      "natural": {
+        "playing": false,
+        "elapsed": 34.799999999999436,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          271,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    },
+    "sky": {
+      "natural": {
+        "playing": false,
+        "elapsed": 45.47999999999921,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          280,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    },
+    "flag": {
+      "natural": {
+        "playing": false,
+        "elapsed": 47.71999999999916,
+        "outcome": "win",
+        "end": "BAYRAK ZAFERİ!",
+        "portal": [
+          208,
+          22,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    },
+    "dark": {
+      "natural": {
+        "playing": false,
+        "elapsed": 50.5999999999991,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          137,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    },
+    "secret": {
+      "natural": {
+        "playing": false,
+        "elapsed": 54.23999999999902,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          148,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "enemy": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      "ally": {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    }
+  },
+  "checks_740x360": {
+    "arena": true,
+    "tower": true,
+    "campaign": true,
+    "echo": true,
+    "colossus": true,
+    "sky": true,
+    "flag": true,
+    "dark": true,
+    "secret": true,
+    "echo_timeout": true,
+    "campaign_defense": true,
+    "campaign_defense_both": true,
+    "flag_score": true,
+    "flag_goal": true,
+    "flag_tie": true,
+    "flag_absent": true,
+    "tower_guardian": true,
+    "sky_guardian": true,
+    "colossus_timeout": true,
+    "colossus_one_hp": true,
+    "colossus_equal_timeout": true,
+    "guardian_timeout": true,
+    "stale_abilities": true,
+    "echo_full": true,
+    "browser_errors": true
+  },
+  "mode_navigation": {
+    "740x360": {
+      "colossus_ally": true,
+      "colossus_enemy": true,
+      "echo_ally": true
+    },
+    "667x375": {
+      "colossus_ally": true,
+      "colossus_enemy": true,
+      "echo_ally": true
+    }
+  },
+  "objective_cases_667x375": {
+    "echo_timeout": [
+      {
+        "playing": true,
+        "elapsed": 0.2976000000001877,
+        "outcome": null,
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          215,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": true,
+        "elapsed": 175.10999999999999,
+        "outcome": null,
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          215,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 180.03,
+        "outcome": "loss",
+        "end": "YANKI İSTİLASI · SÜRE DOLDU",
+        "portal": [
+          430,
+          215,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "campaign_defense": [
+      {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "YANKI İSTİLASI · SÜRE DOLDU",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 70.03,
+        "outcome": "win",
+        "end": "SÜRE BİTTİ · ZAFER",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "campaign_defense_both": [
+      {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "loss",
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          0,
+          1,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "flag_score": [
+      {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "PORTALLARIN DÜŞTÜ",
+        "portal": [
+          430,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 180.03,
+        "outcome": "win",
+        "end": "SÜRE BİTTİ · ZAFER",
+        "portal": [
+          430,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "flag_goal": [
+      {
+        "playing": false,
+        "elapsed": 0.04,
+        "outcome": "win",
+        "end": "BAYRAK ZAFERİ!",
+        "portal": [
+          430,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "flag_tie": [
+      {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "BAYRAK ZAFERİ!",
+        "portal": [
+          430,
+          215,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 180.03,
+        "outcome": "draw",
+        "end": "BERABERLİK",
+        "portal": [
+          430,
+          215,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "flag_absent": [
+      {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "BERABERLİK",
+        "portal": [
+          430,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "colossus_timeout": [
+      {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "MAĞLUBİYET",
+        "portal": [
+          430,
+          215,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 180.03,
+        "outcome": "loss",
+        "end": "BASKIN BAŞARISIZ",
+        "portal": [
+          430,
+          215,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "colossus_one_hp": [
+      {
+        "playing": true,
+        "elapsed": 1.2400000000000004,
+        "outcome": null,
+        "end": "BASKIN BAŞARISIZ",
+        "portal": [
+          430,
+          430,
+          100
+        ],
+        "guardian": true,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": true,
+        "elapsed": 1.3600000000000005,
+        "outcome": null,
+        "end": "BASKIN BAŞARISIZ",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": true,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 1.4000000000000006,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "colossus_equal_timeout": [
+      {
+        "playing": true,
+        "elapsed": 1.2400000000000004,
+        "outcome": null,
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          430,
+          100
+        ],
+        "guardian": true,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 180.03,
+        "outcome": "loss",
+        "end": "BASKIN BAŞARISIZ",
+        "portal": [
+          430,
+          430,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "guardian_timeout": [
+      {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "BASKIN BAŞARISIZ",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": true,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 180.03,
+        "outcome": "loss",
+        "end": "MUHAFIZ YENİLEMEDİ",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "tower_guardian": [
+      {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "MUHAFIZ YENİLEMEDİ",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": true,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": true,
+        "elapsed": 0.24000000000000002,
+        "outcome": null,
+        "end": "MUHAFIZ YENİLEMEDİ",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 0.28,
+        "outcome": "win",
+        "end": "KAT TEMİZLENDİ!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ],
+    "sky_guardian": [
+      {
+        "playing": true,
+        "elapsed": 0.12,
+        "outcome": null,
+        "end": "KAT TEMİZLENDİ!",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": true,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": true,
+        "elapsed": 0.24000000000000002,
+        "outcome": null,
+        "end": "KAT TEMİZLENDİ!",
+        "portal": [
+          430,
+          1,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      },
+      {
+        "playing": false,
+        "elapsed": 0.28,
+        "outcome": "win",
+        "end": "ZAFER!",
+        "portal": [
+          430,
+          0,
+          100
+        ],
+        "guardian": false,
+        "tickErrors": 0,
+        "drawErrors": 0
+      }
+    ]
+  },
+  "echo_waves_667x375": [
+    1,
+    2,
+    3
+  ],
+  "ability_regression": {
+    "passed": 59,
+    "failed": 0,
+    "mixed": 5
+  },
+  "html_release": {
+    "740x360": {
+      "title": "Arena Forge Pro · v3.60.285 Mod Motoru TEST",
+      "abilities": 59,
+      "debug": false,
+      "width": 740,
+      "height": 360,
+      "errors": []
+    },
+    "667x375": {
+      "title": "Arena Forge Pro · v3.60.285 Mod Motoru TEST",
+      "abilities": 59,
+      "debug": false,
+      "width": 667,
+      "height": 375,
+      "errors": []
+    }
+  },
+  "fixed_reproductions": {
+    "campaign_defense_simultaneous": {
+      "before": "BERABERLİK",
+      "after": "loss"
+    },
+    "flag_tie": {
+      "before": "SÜRE BİTTİ · ZAFER",
+      "after": "draw"
+    },
+    "flag_buried_unit": {
+      "before": [
+        0,
+        0.09,
+        0
+      ],
+      "after": [
+        0,
+        0,
+        0
+      ]
+    },
+    "new_match_enemy_portal": {
+      "before": 413,
+      "after": 430
+    },
+    "tower_guardian_early_end": {
+      "before": true,
+      "after": false
+    },
+    "sky_guardian_early_end": {
+      "before": true,
+      "after": false
+    }
+  },
+  "real_android": false,
+  "live_network_match": false
+}

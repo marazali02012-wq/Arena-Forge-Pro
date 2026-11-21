@@ -176,5 +176,53 @@
   finally{QA.stepping=false;}
   return {hit:false,t:elapsed};
  };
+ QA.modeStart=function(id,level=1){
+  if(playing)endGame(false,'QA',{forfeit:true,suppressRewards:true,__onlineAuthoritative:true});
+  const old=window.__afVsPass,queue=window.__AFPQueueFallbackBypass;
+  window.__afVsPass=true;window.__AFPQueueFallbackBypass=true;window.__afpStoryPass=true;
+  window.__AFPTrainingBypass=false;window.__AFPUseModeNetworkV1=false;window.__AFPOnlineContext=null;
+  window.__afNoVs=true;QA.lockEnemyEnergy=false;QA.log.length=0;
+  try{
+   if(id==='colossus'){afpColossusRaidStateV36074().level=level;afpLaunchColossusBattleV36074();}
+   else if(id==='campaign'){afpCampaignBattleState().level=level;afpLaunchPve('campaign');}
+   else if(id==='tower'){profile.towerFloor=level;startGame('tower');}
+   else if(id==='sky'||id==='flag'){if(id==='sky')af36Sky().level=level;af36Start(id);}
+   else if(id==='secret'||id==='dark'){af35ForcedKind=id;af35ForcedDiff='hard';startGame('duel');}
+   else if(id==='echo')window.__AFP171Bridge.startEcho();
+   else startGame(id);
+  }finally{window.__afVsPass=old;window.__AFPQueueFallbackBypass=queue;window.__afpStoryPass=false;}
+  return QA.modeRead();
+ };
+ QA.modeRead=function(){
+  const e=gameMode==='echo'?af203Run:null;
+  const f=gameMode==='flag'?af36Run.flags:null;
+  return {...QA.state(),kind:af35MatchKind,portal:[allySharedHP,enemySharedHP,baseHP],
+   end:$('endTitle')?.textContent||'',endText:$('endText')?.textContent||'',
+   resultVisible:!$('end')?.classList.contains('hide'),outcome:af330Match?.result||null,duration:MATCH_DURATION,
+   colossus:!!window.__AFPColossusPvEContext?.active,
+   wave:e?{wave:e.wave,boss:e.bossSpawned,defeated:e.bossDefeated,choice:e.pausedForChoice,tracked:e.tracked.length}:null,
+   flag:f&&{score:f.score,cap:f.cap.slice(),owner:f.owner.slice()},
+   guardian:units.some(u=>u.isBoss&&u.team==='enemy'&&u.hp>0),
+   units:units.length,errors:window.__arenaForgeLastTickError||''};
+ };
+ QA.modeEvent=function(event){
+  if(event==='enemy')enemySharedHP=0;
+  if(event==='ally')allySharedHP=0;
+  if(event==='both')allySharedHP=enemySharedHP=0;
+  if(event==='timeout')elapsed=MATCH_DURATION-.01;
+  if(event==='before-echo-timeout')elapsed=174.99;
+  if(event==='flag-lead'){af36Run.flags.score.ally=1;allySharedHP=allyTowerMax;enemySharedHP=TOWER_MAX_HP;}
+  if(event==='mark-pending'){af285Later(.2,()=>{enemySharedHP-=17;});}
+  if(event==='guardian-down'){for(const u of units)if(u.isBoss&&u.team==='enemy')u.hp=0;}
+  if(event==='flag-absent'){
+   for(const u of units){u.x=.5;u._af285TunnelUntil=elapsed+4;u.stunUntil=elapsed+4;}
+  }
+  if(event==='echo-choice')return af203ResumeWave('armor');
+  if(event==='echo-clear'){for(const item of af203Run.tracked)if(!item.done)item.unit.hp=0;}
+  if(event==='one-enemy')enemySharedHP=1;
+  if(event==='half-enemy')enemySharedHP=TOWER_MAX_HP*.5;
+  if(event==='flag-goal'){af36Run.flags.score.ally=AF36_FLAG_TARGET;}
+  return QA.modeRead();
+ };
  window.__AF285QA=QA;
 })();
