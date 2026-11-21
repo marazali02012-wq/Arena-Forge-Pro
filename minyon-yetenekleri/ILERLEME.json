@@ -95,9 +95,10 @@
   5,
   6,
   7,
-  8
+  8,
+  9
  ],
- "siradaki_grup": 9,
+ "siradaki_grup": 10,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -335,21 +336,21 @@
   },
   "afn_buz_zurnacisi": {
    "grup": 9,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Ayaz Ezgisi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_donuk_mizrakci": {
    "grup": 9,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Delen Buz Mızrağı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_el_arabali_topcu": {
    "grup": 9,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Ağır Top Atışı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_firtina_baglayici": {
    "grup": 2,
@@ -359,15 +360,15 @@
   },
   "afn_gece_yirticisi": {
    "grup": 9,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Gölge Çenesi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_kapi_ustasi": {
    "grup": 9,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kapı Tamiri",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_kar_fenercisi": {
    "grup": 5,

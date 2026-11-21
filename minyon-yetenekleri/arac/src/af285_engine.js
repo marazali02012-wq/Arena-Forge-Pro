@@ -31,9 +31,9 @@ function af285Def(u){
 function af285Sim(){return af267CanSim();}
 function af285Dir(u){return u.team==='ally'?1:-1;}
 function af285Phase(u,s,dur){u._af285S=s;u._af285A=elapsed;u._af285B=elapsed+Math.max(.01,dur);}
-function af285Busy(u){if(!u)return false;const s=u._af285S|0;return s>0&&u.hp>0&&elapsed<(u._af285B||0)+.25;}
+function af285Busy(u){if(!u)return false;if((u._af285DragEnd||0)>elapsed)return true;const s=u._af285S|0;return s>0&&u.hp>0&&elapsed<(u._af285B||0)+.25;}
 function af285Free(u){
-  return u.hp>0&&!u._afp177CaptiveBy&&!afp179IsBuried(u)&&!af264Buried(u)&&(u.stunUntil||0)<=elapsed;
+  return u.hp>0&&(u._af285DragEnd||0)<=elapsed&&!u._afp177CaptiveBy&&!afp179IsBuried(u)&&!af264Buried(u)&&(u.stunUntil||0)<=elapsed;
 }
 function af285Hittable(v){return !!v&&v.hp>0&&af264Targetable(v)&&!af264Buried(v)&&!af264Hidden(v);}
 function af285Foes(u,lane,x,r){
@@ -159,11 +159,12 @@ function af285Finish(u,def){
 }
 function af285Step(dt){
   if(!AF285_DEFS||!af285Fx)return;
-  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;}
+  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;AF285_PULLS.length=0;}
   af285Last=elapsed;
   for(let i=af285Fx.length-1;i>=0;i--){const f=af285Fx[i];if(f.t0+f.life<elapsed-.05)af285Fx.splice(i,1);}
   if(!playing||!af285Sim())return;
   af285PoolStep();
+  af285PullStep();
   for(let i=0;i<AF285_LATER.length;){
     const p=AF285_LATER[i];
     if(elapsed<p.t){i++;continue;}

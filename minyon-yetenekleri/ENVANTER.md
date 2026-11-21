@@ -46,12 +46,12 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 37 | 8 | Alize Bıçaklı | `afn_alize_bicakli` | Sıradan | 3 | Rüzgâr Aralığı | çalışıyor |  | Rüzgâr Kesiği (dönüştürüldü) | ✔ test geçti |
 | 38 | 8 | Ayaz Kalkanlısı | `afn_ayaz_kalkanlisi` | Epik | 4 | Ayaz Kalkanı | çalışıyor |  | Ayaz Kabuğu (dönüştürüldü) | ✔ test geçti |
 | 39 | 8 | Bulut Dalgıcı | `afn_bulut_dalgici` | Nadir | 3 | Bulut Perdesi | çalışıyor |  | Bulut Dalışı (dönüştürüldü) | ✔ test geçti |
-| 40 | 9 | Buz Zurnacısı | `afn_buz_zurnacisi` | Epik | 4 | Soğuk Nefes | çalışıyor |  | — | sırada |
-| 41 | 9 | Donuk Mızrakçı | `afn_donuk_mizrakci` | Sıradan | 3 | Hat Dikişi | çalışıyor |  | — | sırada |
-| 42 | 9 | El Arabalı Topçu | `afn_el_arabali_topcu` | Sıradan | 2 | Topçu Mermisi | çalışıyor |  | — | sırada |
+| 40 | 9 | Buz Zurnacısı | `afn_buz_zurnacisi` | Epik | 4 | Soğuk Nefes | çalışıyor |  | Ayaz Ezgisi (dönüştürüldü) | ✔ test geçti |
+| 41 | 9 | Donuk Mızrakçı | `afn_donuk_mizrakci` | Sıradan | 3 | Hat Dikişi | çalışıyor |  | Delen Buz Mızrağı (dönüştürüldü) | ✔ test geçti |
+| 42 | 9 | El Arabalı Topçu | `afn_el_arabali_topcu` | Sıradan | 2 | Topçu Mermisi | çalışıyor |  | Ağır Top Atışı (dönüştürüldü) | ✔ test geçti |
 | 43 | 2 | Fırtına Bağlayıcı | `afn_firtina_baglayici` | Mitik | 3 | Zincir Yıldırım | çalışıyor |  | Zincir Yıldırım (dönüştürüldü) | ✔ test geçti |
-| 44 | 9 | Gece Yırtıcısı | `afn_gece_yirticisi` | Nadir | 3 | Gece Açlığı | çalışıyor |  | — | sırada |
-| 45 | 9 | Kapı Ustası | `afn_kapi_ustasi` | Nadir | 3 | Kapı Tamiri | çalışıyor |  | — | sırada |
+| 44 | 9 | Gece Yırtıcısı | `afn_gece_yirticisi` | Nadir | 3 | Gece Açlığı | çalışıyor |  | Gölge Çenesi (dönüştürüldü) | ✔ test geçti |
+| 45 | 9 | Kapı Ustası | `afn_kapi_ustasi` | Nadir | 3 | Kapı Tamiri | çalışıyor |  | Kapı Tamiri (dönüştürüldü) | ✔ test geçti |
 | 46 | 5 | Kar Fenercisi | `afn_kar_fenercisi` | Nadir | 3 | Kar Feneri | çalışıyor |  | Kar Feneri (dönüştürüldü) | ✔ test geçti |
 | 47 | 10 | Kehribar Şövalye | `afn_kehribar_sovalye` | Nadir | 3 | Kehribar Kardeşliği | tetiklenmedi | Koşullu: yalnız yanında dost varken önden gelen yakın vuruşta çalışır; test sahnesinde koşul oluşmadı. | — | sırada |
 | 48 | 10 | Kırağı Dokuyucusu | `afn_kiragi_dokuyucusu` | Epik | 4 | Kırağı Düğümü | çalışıyor |  | — | sırada |

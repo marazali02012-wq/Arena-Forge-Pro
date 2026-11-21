@@ -43,6 +43,10 @@
   try{const end=document.getElementById('end');if(end)end.style.display='none';}catch(_){}
   const r=QA.start();QA.setManual(wasManual);QA.clearUnits();QA.log.length=0;return r;
  };
+ QA.setPortal=function(team,hp){
+   if(team==='ally'){allySharedHP=hp;allyLaneHP.fill(hp);}
+   else {enemySharedHP=hp;enemyLaneHP.fill(hp);}
+ };
  QA.portal=function(){return {ally:allyTowerHP[0],enemy:enemyHP[0]};};
  QA.healPortals=function(){try{allySharedHP=allyTowerMax;allyLaneHP=[allySharedHP,allySharedHP,allySharedHP];enemySharedHP=TOWER_MAX_HP;enemyLaneHP=[enemySharedHP,enemySharedHP,enemySharedHP];}catch(e){}return QA.portal();};
  QA.play=function(team,type,lane,x){

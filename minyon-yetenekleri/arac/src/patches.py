@@ -32,7 +32,7 @@ PATCHES = [
     # 8-11) Çevrim içi eşitleme: ev sahibi yetenek durumunu ve efektlerini gönderir, seat 2 aynalar.
     ('snap-fields',
      "'_afSkeletonCloneSide','_af214GroupMember'];",
-     "'_afSkeletonCloneSide','_af214GroupMember','_af285S','_af285A','_af285B','_af285R','_af285X','_af285L','_af285N','_af285Ward','_af285Aegis','_af285Dome','_af285DomeM','_af285DomeC','_af285Dizzy','_af285Vine','_af285VineEnd','_af285AirUntil'];"),
+     "'_afSkeletonCloneSide','_af214GroupMember','_af285S','_af285A','_af285B','_af285R','_af285X','_af285L','_af285N','_af285Ward','_af285Aegis','_af285Dome','_af285DomeM','_af285DomeC','_af285Dizzy','_af285Vine','_af285VineEnd','_af285AirUntil','_afp177CaptiveUntil','_af285DragEnd'];"),
     ('snap-fx',
      "units:list,shellShots,abilityFx,",
      "units:list,shellShots,abilityFx,af285Fx:af285NetFx(),"),
@@ -66,6 +66,12 @@ PATCHES = [
     ('ability-poison-passive',
      "}else if(type===AF264.poison&&alive&&!target.isBarrier",
      "}else if(type===AF264.poison&&!AF285_CONVERTED.has(type)&&alive&&!target.isBarrier"),
+    ('ability-captive-draw',
+     "if(u._afp177CaptiveBy||afp179IsBuried(u)||af264Buried(u)){u._vis=null;",
+     "if(u._afp177CaptiveBy||(u._afp177CaptiveUntil||0)>elapsed||afp179IsBuried(u)||af264Buried(u)){u._vis=null;"),
+    ('ability-captive-damage',
+     "team:eater.team,key:AFP177_KUL,kind:'afp177_stomach'",
+     "team:eater.team,key:eater.heroType||AFP177_KUL,source:eater,kind:'afp177_stomach'"),
     # 0) Yapı adı: hangi dosyanın denendiği oyunda görülsün.
     ('title',
      "<title>Arena Forge Pro · v3.60.284 Minyon Geliştirme TEST</title>",

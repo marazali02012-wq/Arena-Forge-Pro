@@ -8,6 +8,13 @@ from group5_battle import prepare
 from harness import Game
 
 MATCHUPS={
+  9: {
+    'afn_buz_zurnacisi': ('horn',.40),
+    'afn_donuk_mizrakci': ('spear',.49),
+    'afn_el_arabali_topcu': ('artillery',.49),
+    'afn_gece_yirticisi': ('bite',.62),
+    'afn_kapi_ustasi': ('repair',.54),
+  },
   8: {
     'af37_tas_devi': ('quake',.375),
     'af37_zehirci': ('poison',.49),
@@ -33,11 +40,16 @@ MATCHUPS={
 
 async def check_case(host, peer, typ, effect, x, side):
     q='window.__AF285QA'
-    card,actor,target,_,foe=await prepare(host,typ,None,'mark',side)
+    companion='af37_cuce_savasci' if effect=='horn' else None
+    card,actor,target,friend,foe=await prepare(host,typ,companion,'mark',side)
     x=x if side=='ally' else 1-x
     await host.ev('([id,t,x])=>window.__AF285QA.move(id,t,x)',[target,foe,x])
-    if effect=='bomb':
-        second_card=await host.play(foe,'af37_cuce_savasci',1,x)
+    if effect=='repair':
+        await host.ev('t=>window.__AF285QA.setPortal(t,300)',side)
+    if effect=='bite':
+        await host.ev('([id,t])=>{const u=window.__AF285QA.find(id,t);u.hp=u.maxHp=200;}',[target,foe])
+    if effect in {'bomb','spear','artillery'}:
+        second_card=await host.play(foe,'af37_cuce_savasci',1,max(.49,x) if foe=='enemy' else min(.47,x))
         second=second_card['uids'][0]
         await host.ev('([id,t,x])=>{const q=window.__AF285QA;q.move(id,t,x);q.stun(id,t,8);}',[second,foe,x+(.055 if side=='ally' else -.055)])
     if effect=='soul':
@@ -78,7 +90,7 @@ async def check_case(host, peer, typ, effect, x, side):
     beginning=await host.qa(f'{q}.snapshot().units.filter(u=>u.isSummon)') if effect in {'soul','summon'} else []
     await host.step(.08)
     effects.extend(await host.qa(f'{q}.fxList()'))
-    await host.step(.70)
+    await host.step(.87 if effect=='bite' else .70)
     log=await host.events(wind['t'])
     damage=[e for e in log if e['k']=='dmg' and e.get('su')==actor and e.get('tu')==target and str(e.get('kind','')).startswith('af285')]
     if effect=='crystal':
@@ -108,7 +120,21 @@ async def check_case(host, peer, typ, effect, x, side):
         checks['gercek_sonuc']=bool(damage) and (moved-x)*(1 if side=='ally' else -1)>.025
     elif effect=='slow':
         checks['gercek_sonuc']=bool(damage) and any(e['k']=='slow' and e.get('tu')==target for e in log)
-    elif effect=='bomb':
+    elif effect=='horn':
+        buffed=await host.ev('([id,t])=>window.__AF285QA.find(id,t)._af267Tempo',[friend,side])
+        checks['gercek_sonuc']=buffed==.78 and any(e['k']=='slow' and e.get('tu')==target for e in log)
+    elif effect=='repair':
+        health=await host.qa(f'{q}.portal()')
+        checks['gercek_sonuc']=health[side]==312
+    elif effect=='bite':
+        status=await host.ev('''([id,t])=>{
+          const q=window.__AF285QA,u=q.find(id,t);
+          return {x:u.x,captive:!!u._afp177CaptiveBy};
+        }''',[target,foe])
+        checks['gercek_sonuc']=bool(damage) and status['captive'] and abs(status['x']-x)>.05
+        if not checks['gercek_sonuc']: print(typ,side,{'cast':cast['e'],'targetAfter':status,'damage':damage},flush=True)
+        checks['isirik']=any(e['k']=='dmg' and e.get('tu')==target and e.get('kind')=='afp177_stomach' for e in log)
+    elif effect in {'bomb','spear','artillery'}:
         victims={e.get('tu') for e in log if e['k']=='dmg' and e.get('su')==actor and e.get('kind')=='af285Physical'}
         checks['gercek_sonuc']={target,second}<=victims
     elif effect in {'summon','soul'}:
