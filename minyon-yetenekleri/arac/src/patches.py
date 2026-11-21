@@ -42,6 +42,12 @@ PATCHES = [
     ('snap-apply-fx',
      "    {const ah=clamp(snapshot.enemyPortalHp&&snapshot.enemyPortalHp[0],0,100000,allySharedHP)",
      "    try{af285ApplyNetFx(snapshot.af285Fx);}catch(_){}\n    {const ah=clamp(snapshot.enemyPortalHp&&snapshot.enemyPortalHp[0],0,100000,allySharedHP)"),
+    ('ability-death',
+     "if(u.hp<=0){af264CombatEvent('death',u,u._af264Killer);",
+     "if(u.hp<=0){af285Death(u);af264CombatEvent('death',u,u._af264Killer);"),
+    ('scout-mark-damage',
+     " let d=af267Run('guard',tgt,att,dmg,kind);",
+     " let d=af267Run('guard',tgt,att,dmg,kind);if(att&&att!==tgt._af285MarkBy&&att.team!==tgt.team&&tgt._af285MarkBy?.team===att.team&&(tgt._af285MarkUntil||0)>elapsed)d*=tgt.isBoss?1.06:1.15;"),
     # 0) Yapı adı: hangi dosyanın denendiği oyunda görülsün.
     ('title',
      "<title>Arena Forge Pro · v3.60.284 Minyon Geliştirme TEST</title>",

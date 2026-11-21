@@ -1,0 +1,24 @@
+name: Minyon yetenekleri HTML
+on:
+  push:
+    branches: [claude/minyon-yetenekleri-af285]
+    paths:
+      - 'minyon-yetenekleri/arac/src/**'
+      - 'minyon-yetenekleri/arac/build.py'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test HTML'sini kaynakla eşitle
+        working-directory: minyon-yetenekleri
+        run: |
+          set -eu
+          html=ArenaForgePro_v3_60_285_Minyon_Yetenek_TEST.html
+          python3 arac/build.py "$html" "$RUNNER_TEMP/arena.html"
+          cp "$RUNNER_TEMP/arena.html" "$html"
+          if git diff --quiet -- "$html"; then exit 0; fi
+          git -c user.name=github-actions -c user.email=41898282+github-actions[bot]@users.noreply.github.com commit -m "Minyon yetenekleri test HTML derlemesi" -- "$html"
+          git push origin HEAD:refs/heads/claude/minyon-yetenekleri-af285

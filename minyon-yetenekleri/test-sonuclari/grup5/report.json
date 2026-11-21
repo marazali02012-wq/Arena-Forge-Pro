@@ -1,0 +1,134 @@
+{
+  "afn_kar_fenercisi": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "tetik": true,
+      "kullanim": true,
+      "sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "bekleme": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "tetik": true,
+      "kullanim": true,
+      "sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "bekleme": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_iskelet_kalkanli": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "tetik": true,
+      "kullanim": true,
+      "sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "bekleme": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "tetik": true,
+      "kullanim": true,
+      "sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "bekleme": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_iskelet_savasci": {
+    "ally": {
+      "kart": true,
+      "son_darbe": true,
+      "gorsel": true,
+      "tek_darbe": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "son_darbe": true,
+      "gorsel": true,
+      "tek_darbe": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_kesifci": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "tetik": true,
+      "kullanim": true,
+      "sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "bekleme": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "tetik": true,
+      "kullanim": true,
+      "sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "bekleme": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_kilicli_asker": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "tetik": true,
+      "kullanim": true,
+      "sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "bekleme": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "tetik": true,
+      "kullanim": true,
+      "sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "bekleme": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  }
+}

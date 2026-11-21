@@ -129,6 +129,7 @@
  /* AF285 gecikmeli etkiler de kaynağa atfedilir */
  wrap('af285Later',()=>af285Later,v=>{af285Later=v;},o=>function(delay,fn){const ctx=QA.ctx;return o.call(this,delay,function(){const prev=QA.ctx;QA.ctx=ctx;try{return fn();}finally{QA.ctx=prev;}});});
  QA.find=function(uid,team){return units.find(v=>v&&af330Uid(v)===uid&&(!team||v.team===team))||null;};
+ QA.testDamage=function(target,source,amount){return af327DealDamage(target,amount,{source,team:source.team,kind:"af285Physical"});};
  QA.kill=function(uid,team){const u=QA.find(uid,team);if(!u)return false;u.hp=0;u.killedBy=u.team==='ally'?'enemy':'ally';return true;};
  QA.setHp=function(uid,team,ratio){const u=QA.find(uid,team);if(!u)return false;u.hp=Math.max(1,Math.round(u.maxHp*ratio));return u.hp;};
  QA.stun=function(uid,team,dur){const u=QA.find(uid,team);if(!u)return false;u.stunUntil=elapsed+dur;return true;};
@@ -152,7 +153,7 @@
    return {count:ids.length,ids,rarity:rar,costs:Object.fromEntries(ids.map(t=>[t,energyCost(t)])),saveKey:(typeof SAVE_KEY!=='undefined'?SAVE_KEY:null),deckSize:(typeof preparedDeckTypes!=='undefined'?preparedDeckTypes.length:null)};};
  QA.stepUntil=function(maxSec,k,src,fps){
   fps=fps||25;let idx=QA.log.length;const tEnd=elapsed+maxSec;QA.stepping=true;
-  try{while(playing&&elapsed<tEnd){if(QA.lockEnemyEnergy)enemyEnergy=0;QA.ts+=1000/fps;realTick(QA.ts);
+  try{for(let n=0;playing&&elapsed<tEnd&&n<Math.ceil(maxSec*fps)+8;n++){if(QA.lockEnemyEnergy)enemyEnergy=0;QA.ts+=1000/fps;realTick(QA.ts);
     for(;idx<QA.log.length;idx++){const e=QA.log[idx];if(e.k===k&&(!src||e.src===src))return {hit:true,t:elapsed,e};}}}
   finally{QA.stepping=false;}
   return {hit:false,t:elapsed};

@@ -48,6 +48,12 @@ function af285Allies(u,r){
   return units.filter(v=>v!==u&&v.team===u.team&&v.lane===u.lane&&v.hp>0&&!v.isBarrier&&!v.isCommander&&
     !v._afp177CaptiveBy&&!afp179IsBuried(v)&&Math.abs(v.x-u.x)<=r);
 }
+function af285Death(u){
+  if(!af285Sim()||!u.killedBy||u._expired||u._af285DeathDone)return;
+  u._af285DeathDone=true;
+  const def=af285Def(u);
+  if(def?.onDeath)def.onDeath(u);
+}
 function af285Stat(type,key,n){const s=AF285_STATS[type]||(AF285_STATS[type]={});s[key]=(s[key]||0)+(n==null?1:n);}
 function af285Dmg(u,v,amount,phys,color){
   if(!v||v.hp<=0)return 0;

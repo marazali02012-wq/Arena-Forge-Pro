@@ -25,10 +25,10 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 16 | 4 | Gece Büyücüsü | `af37_golge_buyucusu` | Epik | 5 | Kesilen Soluk | çalışıyor |  | Kesilen Soluk (dönüştürüldü) | ✔ test geçti |
 | 17 | 4 | Gölge Suikastçı | `af37_golge_suikastci` | Epik | 3 | Gölge Pususu | yalnızca görsel | Görünmezlik çalışıyor; pusu hasarı saldırı içinde hesaplanıyor (bu ölçümün dışında). | Gölge Kesiği (eklendi) | ✔ test geçti |
 | 18 | 4 | Işık Şifacısı | `af37_isik_sifacisi` | Nadir | 4 | İlk Işık | çalışıyor |  | İlk Işık (dönüştürüldü) | ✔ test geçti |
-| 19 | 5 | İskelet Kalkanlı | `af37_iskelet_kalkanli` | Sıradan | 3 | Kemik Duvarı | çalışıyor |  | — | sırada |
-| 20 | 5 | İskelet Savaşçı | `af37_iskelet_savasci` | Sıradan | 2 | Son Kemik | çalışıyor |  | — | sırada |
-| 21 | 5 | Keşifçi | `af37_kesifci` | Sıradan | 2 | İz Oku | çalışıyor |  | — | sırada |
-| 22 | 5 | Kılıçlı Asker | `af37_kilicli_asker` | Sıradan | 2 | Yan Yana | çalışıyor |  | — | sırada |
+| 19 | 5 | İskelet Kalkanlı | `af37_iskelet_kalkanli` | Sıradan | 3 | Kemik Duvarı | çalışıyor |  | Kemik Duvarı (dönüştürüldü) | ✔ test geçti |
+| 20 | 5 | İskelet Savaşçı | `af37_iskelet_savasci` | Sıradan | 2 | Son Kemik | çalışıyor |  | Son Kemik (dönüştürüldü) | ✔ test geçti |
+| 21 | 5 | Keşifçi | `af37_kesifci` | Sıradan | 2 | İz Oku | çalışıyor |  | İz Oku (dönüştürüldü) | ✔ test geçti |
+| 22 | 5 | Kılıçlı Asker | `af37_kilicli_asker` | Sıradan | 2 | Yan Yana | çalışıyor |  | Yan Yana (dönüştürüldü) | ✔ test geçti |
 | 23 | 10 | Kızıl Düellocu | `af37_kizil_duellocu` | Sıradan | 3 | Düello İmzası | çalışıyor |  | — | sırada |
 | 24 | 6 | Kristal Golem | `af37_kristal_golem` | Efsanevi | 7 | Kristal Karşı Siper | yalnızca görsel | Yalnız yetenek hasarı aldığında kalkan verir; sinyal görüldü, kalkan ölçümde kaynağa bağlanamadı. | — | sırada |
 | 25 | 6 | Lav Golemi | `af37_lav_golemi` | Efsanevi | 7 | Lav Kuyruğu | çalışıyor |  | — | sırada |
@@ -52,7 +52,7 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 43 | 2 | Fırtına Bağlayıcı | `afn_firtina_baglayici` | Mitik | 3 | Zincir Yıldırım | çalışıyor |  | Zincir Yıldırım (dönüştürüldü) | ✔ test geçti |
 | 44 | 9 | Gece Yırtıcısı | `afn_gece_yirticisi` | Nadir | 3 | Gece Açlığı | çalışıyor |  | — | sırada |
 | 45 | 9 | Kapı Ustası | `afn_kapi_ustasi` | Nadir | 3 | Kapı Tamiri | çalışıyor |  | — | sırada |
-| 46 | 5 | Kar Fenercisi | `afn_kar_fenercisi` | Nadir | 3 | Kar Feneri | çalışıyor |  | — | sırada |
+| 46 | 5 | Kar Fenercisi | `afn_kar_fenercisi` | Nadir | 3 | Kar Feneri | çalışıyor |  | Kar Feneri (dönüştürüldü) | ✔ test geçti |
 | 47 | 10 | Kehribar Şövalye | `afn_kehribar_sovalye` | Nadir | 3 | Kehribar Kardeşliği | tetiklenmedi | Koşullu: yalnız yanında dost varken önden gelen yakın vuruşta çalışır; test sahnesinde koşul oluşmadı. | — | sırada |
 | 48 | 10 | Kırağı Dokuyucusu | `afn_kiragi_dokuyucusu` | Epik | 4 | Kırağı Düğümü | çalışıyor |  | — | sırada |
 | 49 | 10 | Kırık Kuklacı | `afn_kirik_kuklaci` | Epik | 4 | Kırık İp | çalışıyor |  | — | sırada |

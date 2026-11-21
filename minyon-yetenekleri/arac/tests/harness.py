@@ -3,7 +3,9 @@
 import asyncio, json, time, pathlib
 from playwright.async_api import async_playwright
 
-CHROME = '/usr/bin/google-chrome'
+import shutil
+
+CHROME = shutil.which('google-chrome') or shutil.which('chromium')
 
 
 class Game:
@@ -24,7 +26,9 @@ class Game:
         self.page = await self.ctx.new_page()
         self.page.on('console', lambda m: self.logs.append((m.type, m.text[:400])))
         self.page.on('pageerror', lambda e: self.logs.append(('pageerror', str(e)[:800])))
-        await self.page.goto('file://' + self.html, wait_until='load', timeout=180000)
+        url = 'http://arena-forge.test/game.html'
+        await self.page.route(url, lambda route: route.fulfill(path=self.html, content_type='text/html; charset=utf-8'))
+        await self.page.goto(url, wait_until='domcontentloaded', timeout=180000)
         await self.page.wait_for_timeout(2500)
         await self.guest_login()
         return self

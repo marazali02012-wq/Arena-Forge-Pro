@@ -20,3 +20,18 @@ window.AF285Abilities=Object.freeze({
   stats:()=>JSON.parse(JSON.stringify(AF285_STATS)),
   has:t=>!!AF285_DEFS[t]
 });
+
+/* Ağda ikinci koltuk, ev sahibinin aldığı kararları ve savaş saatini çizer. */
+{
+  const simulate=tick;
+  tick=function(ts){
+    if(!playing||af285Sim())return simulate.call(this,ts);
+    const dt=Math.max(0,Math.min(.1,(ts-last)/1000||0));
+    last=lastPresentedFrame=ts;
+    try{if(!battlePaused)draw(dt);}
+    finally{
+      if(af316Raf)cancelAnimationFrame(af316Raf);
+      if(playing)af316Raf=requestAnimationFrame(tick);
+    }
+  };
+}
