@@ -6,18 +6,16 @@
     "kart": true,
     "tetik": true,
     "zamanlama": true,
-    "poz": false,
-    "hedef": false,
+    "poz": true,
+    "hedef": true,
     "hesap": true,
-    "grup": false,
-    "bekleme": false,
+    "grup": true,
+    "bekleme": true,
     "yenihedef": true,
     "kesinti": true,
     "pvp": true
    },
-   "notes": [
-    "bekleme sonrası yeniden kullanım gözlenmedi (birim bu sırada öldü)"
-   ],
+   "notes": [],
    "card": {
     "ok": true,
     "spawned": 1,
@@ -31,10 +29,10 @@
     "src": "af37_orman_ruhu",
     "team": "ally",
     "su": 1,
-    "tu": 3,
+    "tu": 2,
     "tt": "ally",
-    "tx": 0.3234,
-    "ux": 0.3709,
+    "tx": 0.2199,
+    "ux": 0.1704,
     "wind": 0.5,
     "cast": 0.22,
     "hit": 1
@@ -61,7 +59,7 @@
      "p": 0.545,
      "dx": 0,
      "dy": -0.01,
-     "tau": -0.12727272727272732,
+     "tau": 0.1636363636363636,
      "atlas": {
       "state": "attack",
       "frame": 4
@@ -69,15 +67,17 @@
     }
    },
    "targets": {
-    "planned": 3,
-    "hit": [],
+    "planned": 2,
+    "hit": [
+     2
+    ],
     "wrongTeam": 0
    },
    "dome": {},
    "vine": {
-    "3": [
+    "2": [
      2.4,
-     2.35
+     24.69
     ]
    },
    "calc": {
@@ -89,21 +89,21 @@
     ]
    },
    "group": {
-    "distinctTargets": 0,
+    "distinctTargets": 1,
     "max": 1
    },
    "cooldownReadyIn": 5.12,
    "cooldown": {
-    "gap": null,
+    "gap": 8.04,
     "cd": 8,
-    "reused": false
+    "reused": true
    },
    "snapshot": {
     "unitFields": {
      "_af285S": 1,
      "_af285A": 1.6000000000000008,
      "_af285B": 2.1000000000000005,
-     "_af285X": 0.32336591518265734,
+     "_af285X": 0.2199371372399794,
      "_af285N": 1
     },
     "fx": [
@@ -115,9 +115,7 @@
    "caster": 1,
    "retarget": {
     "ok": true,
-    "result": "yeni hedef",
-    "from": 3,
-    "to": 4,
+    "result": "iptal",
     "killed": true
    },
    "interrupt": {
@@ -139,6 +137,7 @@
     "peerSawCast": true,
     "peerFx": [
      "label",
+     "steel_slam",
      "vine_sprout"
     ],
     "hpSync": true,
@@ -149,7 +148,7 @@
      0
     ]
    },
-   "passed": false
+   "passed": true
   },
   "af37_buz_sovalyesi": {
    "checks": {
@@ -267,7 +266,7 @@
    },
    "cooldownReadyIn": 7.2,
    "cooldown": {
-    "gap": 10.68,
+    "gap": 10.08,
     "cd": 10,
     "reused": true
    },
@@ -311,7 +310,8 @@
     "peerSawCast": true,
     "peerFx": [
      "frost_ridge",
-     "label"
+     "label",
+     "lib"
     ],
     "hpSync": true,
     "peerSimulatedAbilities": 0,
@@ -481,14 +481,12 @@
     "hedef": true,
     "hesap": true,
     "grup": true,
-    "bekleme": false,
+    "bekleme": true,
     "yenihedef": true,
     "kesinti": true,
     "pvp": true
    },
-   "notes": [
-    "bekleme sonrası yeniden kullanım gözlenmedi (birim bu sırada öldü)"
-   ],
+   "notes": [],
    "card": {
     "ok": true,
     "spawned": 1,
@@ -502,9 +500,9 @@
     "src": "af37_dovus_ustasi",
     "team": "ally",
     "su": 1,
-    "tu": 2,
+    "tu": 3,
     "tt": "enemy",
-    "tx": 0.557,
+    "tx": 0.5448,
     "ux": 0.4647,
     "wind": 0.3,
     "cast": 0.12,
@@ -540,9 +538,9 @@
     }
    },
    "targets": {
-    "planned": 2,
+    "planned": 3,
     "hit": [
-     2
+     3
     ],
     "wrongTeam": 0
    },
@@ -553,7 +551,7 @@
       "pre": 19.8,
       "post": 19.8,
       "dealt": 20,
-      "hpBefore": 171,
+      "hpBefore": 44,
       "raw_ok": true,
       "applied_ok": true,
       "mitigated": 0.0
@@ -568,18 +566,18 @@
     "distinctTargets": 1,
     "max": 1
    },
-   "cooldownReadyIn": 6,
+   "cooldownReadyIn": 3.44,
    "cooldown": {
-    "gap": null,
+    "gap": 6.0,
     "cd": 6,
-    "reused": false
+    "reused": true
    },
    "snapshot": {
     "unitFields": {
      "_af285S": 1,
      "_af285A": 1.4800000000000006,
      "_af285B": 1.7800000000000007,
-     "_af285X": 0.5449586712290433,
+     "_af285X": 0.5384001303292618,
      "_af285N": 1
     },
     "fx": [
@@ -599,7 +597,7 @@
     "impact": false,
     "readyIn": 2.32,
     "expected": 2.28,
-    "reusedAfter": false
+    "reusedAfter": true
    },
    "casterDeath": {
     "ok": true,
@@ -622,7 +620,7 @@
      0
     ]
    },
-   "passed": false
+   "passed": true
   },
   "af37_dovus_ustasi_ii": {
    "checks": {
@@ -631,17 +629,14 @@
     "zamanlama": true,
     "poz": true,
     "hedef": true,
-    "hesap": false,
+    "hesap": true,
     "grup": true,
-    "bekleme": false,
+    "bekleme": true,
     "yenihedef": true,
     "kesinti": true,
     "pvp": true
    },
-   "notes": [
-    "eksik durum: push",
-    "bekleme sonrası yeniden kullanım gözlenmedi (birim bu sırada öldü)"
-   ],
+   "notes": [],
    "card": {
     "ok": true,
     "spawned": 1,
@@ -706,8 +701,8 @@
      {
       "pre": 16.5,
       "post": 16.5,
-      "dealt": 5,
-      "hpBefore": 5,
+      "dealt": 6,
+      "hpBefore": 6,
       "raw_ok": true,
       "applied_ok": true,
       "mitigated": 0.0
@@ -722,7 +717,9 @@
       "mitigated": 0.0
      }
     ],
-    "statuses": []
+    "statuses": [
+     "push"
+    ]
    },
    "group": {
     "distinctTargets": 2,
@@ -730,9 +727,9 @@
    },
    "cooldownReadyIn": 4.32,
    "cooldown": {
-    "gap": null,
+    "gap": 7.08,
     "cd": 7,
-    "reused": false
+    "reused": true
    },
    "snapshot": {
     "unitFields": {
@@ -784,7 +781,7 @@
      0
     ]
    },
-   "passed": false
+   "passed": true
   }
  },
  "system": {
@@ -935,46 +932,16 @@
   },
   "abilityStats": {
    "af37_orman_ruhu": {
-    "start": 6,
-    "healTargets": 3,
-    "cast": 3,
-    "retarget": 1,
-    "interrupt": 1,
-    "dropped": 1
-   },
-   "af37_buz_sovalyesi": {
     "start": 7,
-    "damage": 84,
-    "cast": 3,
-    "interrupt": 1,
-    "dropped": 1
-   },
-   "af37_cuce_savasci": {
-    "start": 7,
-    "damage": 22,
-    "stun": 2,
+    "healTargets": 2,
     "cast": 2,
     "interrupt": 2,
-    "dropped": 1
-   },
-   "af37_dovus_ustasi": {
-    "start": 5,
-    "damage": 40,
-    "cast": 2,
-    "interrupt": 2,
-    "dropped": 1
-   },
-   "af37_dovus_ustasi_ii": {
-    "start": 6,
-    "damage": 73,
-    "cast": 3,
-    "retarget": 1,
-    "interrupt": 1,
     "dropped": 1
    },
    "af37_agir_zirhli": {
-    "start": 1,
-    "cast": 1
+    "start": 5,
+    "damage": 76,
+    "cast": 5
    }
   },
   "roster": {

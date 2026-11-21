@@ -29,7 +29,7 @@ Gerçek savaş döngüsü, kartlar gerçek oynama yolundan. ✔ geçti, ✘ kald
 - Hesap: saldırı 25; ham→uygulanan hasar: 8.8→9; durumlar: dot, push.
 - Bekleme: ikinci kullanım 8.04 sn sonra (bekleme 8 sn).
 - Ölüm/yeni hedef: yeni hedef; kesinti: hazırlıkta sersemletilince iptal=True, sonra yeniden kullanıldı=True; birim hazırlıkta ölünce etki yok=True.
-- PvP: ikinci sayfa (seat 2) yeteneği gördü=True, efektler=['ember_nova', 'label'], can eşit=True, kendi başına benzetim=0.
+- PvP: ikinci sayfa (seat 2) yeteneği gördü=True, efektler=['ember_nova', 'label', 'lib'], can eşit=True, kendi başına benzetim=0.
 - Görüntüler: `af37_alev_muhafizi_1_hazirlik.webp`, `af37_alev_muhafizi_2_kullanim.webp`, `af37_alev_muhafizi_3_etki.webp`, `af37_alev_muhafizi_3b_sonra.webp`, `af37_alev_muhafizi_4_pvp_seat2.webp`.
 
 ### Alev Silahçısı · Köz Yelpazesi

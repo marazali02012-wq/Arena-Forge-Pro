@@ -452,6 +452,66 @@
    "cast": 0.14,
    "rec": 0.3,
    "desc": "Buz kılıcını yere saplar: önündeki en hızlı düşmanı 0,9 sn yerinde tutar ve %55 fiziksel hasar verir, yanındaki düşmanları 1,2 sn yavaşlatır. Kendini 4 sn boyunca canının %14’ü kadar mavi buz kubbesiyle korur; kubbe hasar aldıkça çatlar, bitince kırılır."
+  },
+  {
+   "id": "af37_orman_ruhu",
+   "group": 3,
+   "name": "Taze Filiz",
+   "role": "destek",
+   "status": "dönüştürüldü",
+   "cd": 8,
+   "wind": 0.5,
+   "cast": 0.22,
+   "rec": 0.3,
+   "desc": "Canı %75’in altındaki en yaralı dostun ayağının dibinden sarmaşıklar çıkarır: dost hemen canının %4’ünü, sonra 3 sn içinde %16’sını geri kazanır. Her iyileştirme anında şifa işareti parlar. Sarmaşıklar dostun yanındaki düşmanları 1 sn yavaşlatır."
+  },
+  {
+   "id": "af37_buz_sovalyesi",
+   "group": 3,
+   "name": "Kar Hattı",
+   "role": "tank",
+   "status": "dönüştürüldü",
+   "cd": 10,
+   "wind": 0.48,
+   "cast": 0.34,
+   "rec": 0.3,
+   "desc": "Buz kılıcını yere sürter; önündeki koridor boyunca buz sırtı yükselir. Önündeki en çok 3 düşmana %40 fiziksel hasar verir, onları 1,8 sn yavaşlatır ve 2 sn saldırılarını %20 yavaşlatır."
+  },
+  {
+   "id": "af37_cuce_savasci",
+   "group": 3,
+   "name": "Kısa Çekiç",
+   "role": "tank",
+   "status": "dönüştürüldü",
+   "cd": 7,
+   "wind": 0.42,
+   "cast": 0.12,
+   "rec": 0.32,
+   "desc": "Çekicini başının üstüne kaldırıp önündeki düşmana indirir: %70 fiziksel hasar verir ve 0,6 sn sersemletir (başında yıldızlar döner). Hızlı hedefleri önceler. Aynı hedef sersemlik bittikten sonra 2,5 sn yeniden sersemletilemez."
+  },
+  {
+   "id": "af37_dovus_ustasi",
+   "group": 3,
+   "name": "Asa Karşılığı",
+   "role": "hızlı savaşçı",
+   "status": "dönüştürüldü",
+   "cd": 6,
+   "wind": 0.3,
+   "cast": 0.12,
+   "rec": 0.25,
+   "desc": "Kendisine yakın dövüşle saldıran düşmanı bekler: savunma duruşunda 0,3 sn gelen hasarın %40’ını savuşturur, sonra karşı vuruşla %90 fiziksel hasar verir, geri iter ve sıradaki saldırısını 0,3 sn geciktirir."
+  },
+  {
+   "id": "af37_dovus_ustasi_ii",
+   "group": 3,
+   "name": "İkinci Basış",
+   "role": "savaşçı",
+   "status": "dönüştürüldü",
+   "cd": 7,
+   "wind": 0.38,
+   "cast": 0.14,
+   "rec": 0.28,
+   "desc": "Mızrağını geri çekip ileri saplar; mızrak ilk hedeften geçip arkasındaki bir düşmanı da deler. İkisine %75 fiziksel hasar verir, hamleden sağ çıkan ilk hedefi geri iter."
   }
  ],
  "errors": [],

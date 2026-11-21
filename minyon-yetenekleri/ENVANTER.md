@@ -16,10 +16,10 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 7 | 2 | Ateş Elementali | `af37_ates_elementali` | Efsanevi | 5 | Kül Yağmuru | çalışıyor |  | Alev Dalgası (eklendi) | ✔ test geçti |
 | 8 | 2 | Buz Elementali | `af37_buz_elementali` | Efsanevi | 5 | Kırılgan Buz | tetiklenmedi | Koşullu (yavaşlamış hedef gerekir); testte tetiklenmedi. | Kırılgan Buz (dönüştürüldü) | ✔ test geçti |
 | 9 | 2 | Buz Muhafızı | `af37_buz_muhafizi` | Nadir | 4 | Ayak Kesme | çalışıyor |  | Buz Siperi (dönüştürüldü) | ✔ test geçti |
-| 10 | 3 | Buz Şövalyesi | `af37_buz_sovalyesi` | Efsanevi | 6 | Kar Hattı | çalışıyor |  | — | sırada |
-| 11 | 3 | Cüce Savaşçı | `af37_cuce_savasci` | Sıradan | 3 | Kısa Çekiç | çalışıyor |  | — | sırada |
-| 12 | 3 | Dövüş Ustası | `af37_dovus_ustasi` | Sıradan | 3 | Asa Karşılığı | çalışıyor |  | — | sırada |
-| 13 | 3 | Mızrak Ustası | `af37_dovus_ustasi_ii` | Nadir | 3 | İkinci Basış | çalışıyor |  | — | sırada |
+| 10 | 3 | Buz Şövalyesi | `af37_buz_sovalyesi` | Efsanevi | 6 | Kar Hattı | çalışıyor |  | Kar Hattı (dönüştürüldü) | ✔ test geçti |
+| 11 | 3 | Cüce Savaşçı | `af37_cuce_savasci` | Sıradan | 3 | Kısa Çekiç | çalışıyor |  | Kısa Çekiç (dönüştürüldü) | ✔ test geçti |
+| 12 | 3 | Dövüş Ustası | `af37_dovus_ustasi` | Sıradan | 3 | Asa Karşılığı | çalışıyor |  | Asa Karşılığı (dönüştürüldü) | ✔ test geçti |
+| 13 | 3 | Mızrak Ustası | `af37_dovus_ustasi_ii` | Nadir | 3 | İkinci Basış | çalışıyor |  | İkinci Basış (dönüştürüldü) | ✔ test geçti |
 | 14 | 4 | Elit Kadın Savaşçı | `af37_elit_kadin_savasci` | Nadir | 4 | Orak Geçidi | çalışıyor |  | — | sırada |
 | 15 | 4 | Gölge Avcı | `af37_golge_avcisi` | Epik | 4 | Yaranın Peşinde | çalışıyor |  | — | sırada |
 | 16 | 4 | Gece Büyücüsü | `af37_golge_buyucusu` | Epik | 5 | Kesilen Soluk | çalışıyor |  | — | sırada |
@@ -37,7 +37,7 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 28 | 6 | Nekromancı | `af37_nekromanci` | Efsanevi | 5 | Ruh Payı | tetiklenmedi | Koşullu: son vuruş + yakında yaralı dost gerekir; test sahnesinde oluşmadı. | — | sırada |
 | 29 | 7 | Ork Savaşçı | `af37_ork_savasci` | Nadir | 4 | Omuz Darbesi | çalışıyor |  | — | sırada |
 | 30 | 7 | Orman Okçusu | `af37_orman_okcu` | Sıradan | 1 | Yavaşlatan Ok | çalışıyor |  | — | sırada |
-| 31 | 3 | Orman Ruhu | `af37_orman_ruhu` | Epik | 5 | Taze Filiz | çalışıyor |  | — | sırada |
+| 31 | 3 | Orman Ruhu | `af37_orman_ruhu` | Epik | 5 | Taze Filiz | çalışıyor |  | Taze Filiz (dönüştürüldü) | ✔ test geçti |
 | 32 | 7 | Ruh Çağırıcı | `af37_ruh_cagirici` | Efsanevi | 4 | Ruh Yankısı | çalışıyor |  | — | sırada |
 | 33 | 7 | Samuray | `af37_samuray` | Nadir | 4 | Denge Kesimi | çalışıyor |  | — | sırada |
 | 34 | 7 | Savaş Mühendisi | `af37_savas_muhendisi` | Efsanevi | 6 | Yer Sarsan Mermi | çalışıyor |  | — | sırada |

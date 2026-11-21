@@ -14,12 +14,12 @@ Gerçek savaş döngüsü, kartlar gerçek oynama yolundan. ✔ geçti, ✘ kald
 
 ### Fırtına Bağlayıcı · Zincir Yıldırım
 - Kart: 3 enerji harcandı (bedel 3), 1 birlik çıktı.
-- Zamanlama: hazırlık 1.84 sn, etki 2.52 sn (beklenen 2.48 sn).
+- Zamanlama: hazırlık 1.76 sn, etki 2.44 sn (beklenen 2.4 sn).
 - Hedef: planlanan #4, etkilenen [4, 5, 6, 8], yanlış takıma etki 0.
 - Hesap: saldırı 26; ham→uygulanan hasar: 33.8→28, 23.4→17, 15.6→16, 10.4→10; durumlar: root.
-- Bekleme: ikinci kullanım 5.88 sn sonra (bekleme 5.5 sn).
+- Bekleme: ikinci kullanım 6.48 sn sonra (bekleme 5.5 sn).
 - Ölüm/yeni hedef: iptal; kesinti: hazırlıkta sersemletilince iptal=True, sonra yeniden kullanıldı=True; birim hazırlıkta ölünce etki yok=True.
-- PvP: ikinci sayfa (seat 2) yeteneği gördü=True, efektler=['chain_hop', 'label'], can eşit=True, kendi başına benzetim=0.
+- PvP: ikinci sayfa (seat 2) yeteneği gördü=True, efektler=['chain_hop', 'label', 'lib'], can eşit=True, kendi başına benzetim=0.
 - Görüntüler: `afn_firtina_baglayici_1_hazirlik.webp`, `afn_firtina_baglayici_2_kullanim.webp`, `afn_firtina_baglayici_3_etki.webp`, `afn_firtina_baglayici_3b_sonra.webp`, `afn_firtina_baglayici_4_pvp_seat2.webp`.
 
 ### Ateş Büyücüsü · Kor Çemberi

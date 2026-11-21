@@ -89,9 +89,10 @@
  },
  "tamamlanan_gruplar": [
   1,
-  2
+  2,
+  3
  ],
- "siradaki_grup": 3,
+ "siradaki_grup": 4,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -149,27 +150,27 @@
   },
   "af37_buz_sovalyesi": {
    "grup": 3,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kar Hattı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_cuce_savasci": {
    "grup": 3,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kısa Çekiç",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_dovus_ustasi": {
    "grup": 3,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Asa Karşılığı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_dovus_ustasi_ii": {
    "grup": 3,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "İkinci Basış",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_elit_kadin_savasci": {
    "grup": 4,
@@ -275,9 +276,9 @@
   },
   "af37_orman_ruhu": {
    "grup": 3,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Taze Filiz",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_ruh_cagirici": {
    "grup": 7,

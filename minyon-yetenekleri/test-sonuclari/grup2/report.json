@@ -24,23 +24,23 @@
    },
    "cancelledBeforeCast": 0,
    "wind": {
-    "t": 1.840000000000001,
+    "t": 1.760000000000001,
     "k": "ab-wind",
     "src": "afn_firtina_baglayici",
     "team": "ally",
     "su": 1,
     "tu": 4,
     "tt": "enemy",
-    "tx": 0.516,
-    "ux": 0.39,
+    "tx": 0.5224,
+    "ux": 0.3833,
     "wind": 0.5,
     "cast": 0.14,
     "hit": 1
    },
    "timing": {
-    "wind_at": 1.84,
-    "impact_at": 2.52,
-    "expected": 2.48
+    "wind_at": 1.76,
+    "impact_at": 2.44,
+    "expected": 2.4
    },
    "pose": {
     "wind": {
@@ -126,16 +126,16 @@
    },
    "cooldownReadyIn": 2.18,
    "cooldown": {
-    "gap": 5.88,
+    "gap": 6.48,
     "cd": 5.5,
     "reused": true
    },
    "snapshot": {
     "unitFields": {
      "_af285S": 1,
-     "_af285A": 1.840000000000001,
-     "_af285B": 2.3400000000000007,
-     "_af285X": 0.49360017834530556,
+     "_af285A": 1.760000000000001,
+     "_af285B": 2.2600000000000007,
+     "_af285X": 0.5000001714858708,
      "_af285N": 1
     },
     "fx": [
@@ -168,7 +168,8 @@
     "peerSawCast": true,
     "peerFx": [
      "chain_hop",
-     "label"
+     "label",
+     "lib"
     ],
     "hpSync": true,
     "peerSimulatedAbilities": 0,
@@ -993,17 +994,17 @@
    }
   },
   "abilityStats": {
-   "af37_ates_buyucusu": {
+   "afn_firtina_baglayici": {
     "start": 7,
-    "damage": 238,
-    "cast": 3,
-    "retarget": 1,
-    "interrupt": 1,
+    "damage": 142,
+    "hops": 8,
+    "cast": 2,
+    "interrupt": 2,
     "dropped": 1
    },
    "af37_agir_zirhli": {
-    "start": 1,
-    "cast": 1
+    "start": 5,
+    "cast": 3
    }
   },
   "roster": {

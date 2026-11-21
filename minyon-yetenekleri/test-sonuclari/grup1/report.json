@@ -175,6 +175,7 @@
     "spent": 5,
     "cost": 5
    },
+   "cancelledBeforeCast": 0,
    "wind": {
     "t": 3.400000000000002,
     "k": "ab-wind",
@@ -293,7 +294,8 @@
     "peerSawCast": true,
     "peerFx": [
      "ember_nova",
-     "label"
+     "label",
+     "lib"
     ],
     "hpSync": true,
     "peerSimulatedAbilities": 0,
@@ -798,8 +800,9 @@
  },
  "system": {
   "control": {
-   "ok": false,
-   "legacyEvents": 0
+   "ok": true,
+   "type": "af37_ork_savasci",
+   "legacyEvents": 6
   },
   "legacy": {
    "afp177": "TypeError: Cannot read properties of undefined (reading 'test')",
@@ -942,13 +945,6 @@
    }
   },
   "abilityStats": {
-   "af37_agir_zirhli": {
-    "start": 14,
-    "damage": 99,
-    "cast": 7,
-    "interrupt": 1,
-    "dropped": 1
-   },
    "af37_alev_muhafizi": {
     "start": 7,
     "damage": 27,
@@ -956,32 +952,8 @@
     "interrupt": 1,
     "dropped": 1
    },
-   "af37_alev_silahcisi": {
-    "start": 7,
-    "damage": 102,
-    "cast": 2,
-    "interrupt": 2,
-    "dropped": 1
-   },
-   "af37_altin_muhafiz": {
-    "start": 7,
-    "shielded": 8,
-    "cast": 3,
-    "retarget": 1,
-    "interrupt": 1,
-    "dropped": 1
-   },
-   "af37_arbaletci": {
-    "start": 7,
-    "damage": 96,
-    "cast": 3,
-    "retarget": 1,
-    "interrupt": 1,
-    "dropped": 1
-   },
-   "af37_ates_buyucusu": {
+   "af37_agir_zirhli": {
     "start": 1,
-    "damage": 84,
     "cast": 1
    }
   },

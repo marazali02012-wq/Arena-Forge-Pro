@@ -65,7 +65,7 @@ GROUPS = {
   },
   3: {
     'af37_orman_ruhu': {
-      'ally': [('af37_orman_ruhu', 1, .24), ('af37_agir_zirhli', 1, .33)],
+      'ally': [('af37_orman_ruhu', 1, .08), ('af37_agir_zirhli', 1, .14)],
       'enemy': [('af37_ork_savasci', 1, .54), ('af37_samuray', 1, .60)],
       'hurt': [('af37_agir_zirhli', .55)],
       'kind': 'support', 'coef': [], 'maxTargets': 1, 'statuses': ['heal'], 'vine': True,
@@ -93,6 +93,37 @@ GROUPS = {
       'enemy': [('af37_iskelet_savasci', 1, .52), ('af37_kilicli_asker', 1, .58)],
       'kind': 'offense', 'coef': [.75], 'maxTargets': 2, 'statuses': ['push'],
       'wave2': [('af37_iskelet_savasci', 1, .56)],
+    },
+  },
+  4: {
+    'af37_elit_kadin_savasci': {
+      'ally': [('af37_elit_kadin_savasci', 1, .30)],
+      'enemy': [('af37_kilicli_asker', 1, .50), ('af37_iskelet_savasci', 1, .56)],
+      'kind': 'offense', 'coef': [.65], 'maxTargets': 3, 'statuses': ['push'],
+      'wave2': [('af37_kilicli_asker', 1, .56)],
+    },
+    'af37_golge_avcisi': {
+      'ally': [('af37_golge_avcisi', 1, .30)],
+      'enemy': [('af37_kilicli_asker', 1, .50), ('af37_orman_okcu', 1, .60)],
+      'kind': 'offense', 'coef': [1.10, 1.76], 'maxTargets': 1, 'statuses': [],
+      'wave2': [('af37_kilicli_asker', 1, .56)],
+    },
+    'af37_golge_buyucusu': {
+      'ally': [('af37_golge_buyucusu', 1, .22), ('af37_iskelet_kalkanli', 1, .30)],
+      'enemy': [('af37_ork_savasci', 1, .54), ('af37_kilicli_asker', 1, .60)],
+      'kind': 'offense', 'coef': [.70], 'maxTargets': 1, 'statuses': ['timed'],
+    },
+    'af37_golge_suikastci': {
+      'ally': [('af37_golge_suikastci', 1, .30)],
+      'enemy': [('af37_kilicli_asker', 1, .52), ('af37_orman_okcu', 1, .62)],
+      'kind': 'offense', 'coef': [1.2, 1.5], 'maxTargets': 1, 'statuses': [],
+      'wave2': [('af37_orman_okcu', 1, .60)],
+    },
+    'af37_isik_sifacisi': {
+      'ally': [('af37_isik_sifacisi', 1, .08), ('af37_agir_zirhli', 1, .14)],
+      'enemy': [('af37_ork_savasci', 1, .54), ('af37_samuray', 1, .60)],
+      'hurt': [('af37_agir_zirhli', .55)],
+      'kind': 'support', 'coef': [], 'maxTargets': 3, 'statuses': ['heal'],
     },
   },
 }
