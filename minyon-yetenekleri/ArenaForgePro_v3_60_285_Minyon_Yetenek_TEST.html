@@ -627,7 +627,7 @@ html.afx369.afx-hub:not(#_1):not(#_2):not(#_3):not(#_8):not(#_9) #af4Screen .af4
 <meta content="Arena Forge Pro v3.55.00 JS Cleanup" name="application-name"/><meta charset="utf-8"><meta content="#120d17" name="theme-color"/><!-- v2.80: reduce mobile battle-render cost; keep combat simulation and save schema unchanged -->
 <!-- v3.60.40: Örümcek Akını result return exists on win/loss/draw; return opens the saved-stage lobby; start keeps lobby open if torch/save validation blocks battle; middle stage label follows refreshed current-stage display. V19 save key and combat/reward rules unchanged. -->
 <meta name="afp-build" content="v3.60.263" />
-<title>Arena Forge Pro · v3.60.285 Minyon Yetenek TEST</title>
+<title>Arena Forge Pro · v3.60.285 Mod Motoru TEST</title>
 <!-- AFP v3.60.94: 57 face-first minion card thumbnails, fullscreen detail layout fix; v3.60.93: portrait-only minion cards, fullscreen upgrade detail using existing profile/shard/credit implementation -->
 <script id="af4041SharedChestArt">window.AF40_CHEST_ART_DATA=(window.AFQ_CHEST_ART&&window.AFQ_CHEST_ART.legendary)||"data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==";window.AF40ApplyTrophyChestArt=function(root){if(!root||!root.querySelectorAll)return;root.querySelectorAll(".hubicChest").forEach(function(el){var item=el.closest(".hubicReward"),milestone=item?Number(item.getAttribute("data-trophy-milestone")):0;var isChest=!!item&&milestone>=10000&&!item.classList.contains("heroMilestone");if(isChest){el.classList.add("has-af40-chest-art");if(!el.querySelector("img.af40-hubicChestImg"))el.innerHTML='<img class="af40-hubicChestImg" src="'+window.AF40_CHEST_ART_DATA+'" alt="" draggable="false" decoding="async">';}else if(el.classList.contains("has-af40-chest-art")||el.querySelector("img.af40-hubicChestImg")){el.classList.remove("has-af40-chest-art");el.innerHTML='<span class="hubicRewardHeroIcon">🏆</span>';}});};</script>
 <!-- v3.40.29 VFX ENTEGRASYON TEST (kaynak: v3.40.28). Yeni: AFX görsel efekt katmanı (vuruş, ölüm, çağırma, portal darbesi, komutan büyüleri, ana büyücü mermileri). Yalnızca görsel; savaş/kayıt/kupa mantığı değişmedi. -->
@@ -17640,7 +17640,7 @@ function endGame(v,customText='',options={}){
   af362ClearOpenMatch();window.__AFPDisguisedMatchActive=false;window.__AFPDisguisedArena=false;window.__AFPBotCups=null; /* v3.60.71 / v3.60.72 */
   // Stop the battle and discard every remaining live/death/effect sprite.
   // matchStats stays intact for the report; it contains all counts collected during combat.
-  try{AFX.clear();}catch(_){}units=[];shots=[];particles=[];combatTexts=[];fallenUnits=[];af323Shots=[];af323Resolved=[];af321Flashes=[];af321Heals=[];AF267_PENDING.length=0;
+  try{AFX.clear();}catch(_){}af285ResetBattleEffects();units=[];shots=[];particles=[];combatTexts=[];fallenUnits=[];af323Shots=[];af323Resolved=[];af321Flashes=[];af321Heals=[];AF267_PENDING.length=0;
   selectedBattleSlot=-1;selectedBattleType='';selectedBattleCardId=null;laneChosen=false;
   eventFlash=0;noticeClock=0;noticePillRestoreText=null;
   if($('notice'))$('notice').style.opacity='0';
@@ -19373,6 +19373,7 @@ function tick(ts){
       return false}
     return u.x>=-.03&&u.x<=.99;
   });
+  if(af285PrepareModeResult()){updateHUD();draw(dt);return;}
   if(gameMode==='echo'&&af203EchoStep(dt)){updateHUD();draw(dt);return;}
   // v3.78.63: overtime ends on the first real portal-damage frame. If both sides are hit in the same frame,
   // compare damage as a share of each portal's maximum HP; an exact tie remains a draw.
@@ -19397,7 +19398,7 @@ function tick(ts){
   {const enemyDown=enemySharedHP<=0,portalsDown=allySharedHP<=0,castleDown=baseHP<=0,allyDown=castleDown||portalsDown;
    // Yankı İstilası has its own three-wave + final-boss victory condition.
    // A destroyed enemy portal must not bypass that objective.
-   const echoBossPending=gameMode==='echo'&&af203Run?.active&&!af203Run.bossDefeated;
+   const echoBossPending=gameMode==='echo'&&af203Run?.active;
    if(enemyDown&&allyDown&&!echoBossPending){draw(dt);endGame(null,castleDown?'Üç düşman kulesi yıkılırken ana üs de aynı anda düştü; maç berabere bitti.':'İki ana kalenin canı aynı anda tükendi; maç berabere bitti.',{title:'BERABERLİK'});updateHUD();return}
    if(enemyDown&&echoBossPending){enemySharedHP=1;try{enemyLaneHP=[1,1,1];const g=globalThis;g.__afp263EchoShield=true;if(!g.__afp263EchoShieldAt||elapsed-g.__afp263EchoShieldAt>5){g.__afp263EchoShieldAt=elapsed;showNotice('🛡 Yankı portalı kalkanlı: zafer için 3 dalgayı ve Ayna Celladı’nı yen.');}}catch(_){}} /* v3.60.263 AH */
    if(enemyDown&&!echoBossPending){draw(dt);endGame(true);updateHUD();return}
@@ -19499,7 +19500,7 @@ function startGame(mode='arena'){
   }
   if(!window.__AFPTrainingBypass&&!window.__afVsPass&&af332VsGate(mode))return;
   af35BeginMatch(gameMode); // v3.32: savaş öncesi VS ekranı; rehberli eğitim bunu atlar
-  battlePaused=false;energyLockTimer=0;hero=null;gold=AF333_TIMING.energy.start;energyCap=AF333_TIMING.energy.capStart;enemyEnergy=AF333_TIMING.energy.start;enemyEnergyCap=AF333_TIMING.energy.capStart;af333MatchTiming(mode);gameSpeed=1;matchTimeoutResolved=false;af330StartMatch();af362MarkOpenMatch();af333Apply(af333S().sel);buildBattleDeck();af332PrepBattle();af333Snapshot(mode);{const fs=af326FortStats();allyTowerMax=fs.towerMax;baseMax=fs.baseMax;allyTowerDamage=fs.towerDamage;allyTowerInterval=fs.towerInterval;if(gameMode==='duel'){allyTowerMax=TOWER_MAX_HP;}allyTowerMax=af332PortalMax(allyTowerMax);}baseHP=baseMax;baseBreachNoticeShown=false;enemySharedHP=TOWER_MAX_HP;allySharedHP=allyTowerMax;enemyLaneHP=[enemySharedHP,enemySharedHP,enemySharedHP];allyLaneHP=[allySharedHP,allySharedHP,allySharedHP]; /* v3.34.112: lanes 1/2/3 remain active; spawning, commanders and AI setup use one shared 430-HP base portal per side. Upgrades may raise the allied cap. */ units=[];particles=[];shots=[];combatTexts=[];fallenUnits=[];af323Shots=[];af323Resolved=[];af321Flashes=[];af321Heals=[];AF267_PENDING.length=0;towerClocks=[0,0,0];enemyTowerClocks=[0,0,0];af353AllyTowerClocks=[0,0,0];af353EnemyTowerClocks=[0,0,0];elapsed=0;AFX.clear();enemyClock=Math.max(0,enemyDifficulty().interval-1.15);skillClock=0;noticeClock=0;heroRespawn=999999;noticePillRestoreText=null;if($('battleProStrip'))$('battleProStrip').classList.remove('notice-active');lastHeroFallNotice=-10;goldClock=0;enemyGoldClock=0;hudClock=0;enemyLaneCursor=0;enemySpawnCount=0;heroLaneSwitchClock=0;battleDrawCount=0;enemyDrawCount=0;selectedLane=1;laneChosen=false;eventClock=0;eventFlash=0;secondarySkillClock=0;resetMatchStats();af327StartBattle();af329Start();
+  battlePaused=false;energyLockTimer=0;hero=null;gold=AF333_TIMING.energy.start;energyCap=AF333_TIMING.energy.capStart;enemyEnergy=AF333_TIMING.energy.start;enemyEnergyCap=AF333_TIMING.energy.capStart;af333MatchTiming(mode);gameSpeed=1;matchTimeoutResolved=false;af330StartMatch();af285ResetBattleEffects();af36ShieldNoticeAt=-99;af362MarkOpenMatch();af333Apply(af333S().sel);buildBattleDeck();af332PrepBattle();af333Snapshot(mode);{const fs=af326FortStats();allyTowerMax=fs.towerMax;baseMax=fs.baseMax;allyTowerDamage=fs.towerDamage;allyTowerInterval=fs.towerInterval;if(gameMode==='duel'){allyTowerMax=TOWER_MAX_HP;}allyTowerMax=af332PortalMax(allyTowerMax);}baseHP=baseMax;baseBreachNoticeShown=false;enemySharedHP=TOWER_MAX_HP;allySharedHP=allyTowerMax;enemyLaneHP=[enemySharedHP,enemySharedHP,enemySharedHP];allyLaneHP=[allySharedHP,allySharedHP,allySharedHP]; /* v3.34.112: lanes 1/2/3 remain active; spawning, commanders and AI setup use one shared 430-HP base portal per side. Upgrades may raise the allied cap. */ units=[];particles=[];shots=[];combatTexts=[];fallenUnits=[];af323Shots=[];af323Resolved=[];af321Flashes=[];af321Heals=[];AF267_PENDING.length=0;towerClocks=[0,0,0];enemyTowerClocks=[0,0,0];af353AllyTowerClocks=[0,0,0];af353EnemyTowerClocks=[0,0,0];elapsed=0;AFX.clear();enemyClock=Math.max(0,enemyDifficulty().interval-1.15);skillClock=0;noticeClock=0;heroRespawn=999999;noticePillRestoreText=null;if($('battleProStrip'))$('battleProStrip').classList.remove('notice-active');lastHeroFallNotice=-10;goldClock=0;enemyGoldClock=0;hudClock=0;enemyLaneCursor=0;enemySpawnCount=0;heroLaneSwitchClock=0;battleDrawCount=0;enemyDrawCount=0;selectedLane=1;laneChosen=false;eventClock=0;eventFlash=0;secondarySkillClock=0;resetMatchStats();af327StartBattle();af329Start();
   // v2.69: each unlocked commander has a named spell and a mapped battle effect; trophy/event progression remains intact. The 12-card deck opens with five cards; energy begins at 2/2 and the cap grows by one with each replacement draw, up to 12.
   selectedBattleType='';selectedBattleSlot=-1;selectedBattleCardId=null;$('battlePickName').textContent='12 KARTLIK DESTE · 5 KARTLIK EL';renderBattleRoster();
   playing=true;const lingeringToast=$('af274Toast');if(lingeringToast)lingeringToast.classList.add('af274-hidden');window.__AFPBattleSceneFrameReady=false;stage.classList.add('afp-entry-wait');const afpCanvasForScene=$('game');if(afpCanvasForScene){afpCanvasForScene.style.visibility='visible';try{ctx.clearRect(0,0,W,H);}catch(_){}}const afpRaidLayer=document.getElementById('afpBossRaidScreen');if(afpRaidLayer)afpRaidLayer.hidden=true;const afpWorldLayer=document.getElementById('afwmWorldScreen');if(afpWorldLayer)afpWorldLayer.hidden=true;const afpModeLayer=document.getElementById('afwmModeBackdrop');if(afpModeLayer)afpModeLayer.hidden=true;const battleToast=$('af274Toast');if(battleToast){battleToast.classList.add('af274-hidden');clearTimeout(battleToast._hideTimer);}af274Audio();tutorialActive=false;tutorialStep=0;const tutOverlay=$('af274Tutorial');if(tutOverlay)tutOverlay.hidden=true;['battleRoster','game'].forEach(id=>{const e=$(id);if(e)e.classList.remove('afp-guide-pulse')});const tutGold=$('gold'),tutEnergy=tutGold&&tutGold.closest('.battleEnergyStat');if(tutEnergy)tutEnergy.classList.remove('afp-guide-pulse');$('hud').classList.remove('battle-ended'); /* v3.40.61: do not place tutorial panel over the battlefield. */$('menu').classList.add('hide');$('end').classList.add('hide');$('hud').classList.remove('hide');$('hud').classList.add('battle-live');$('hud').classList.toggle('afp-boss-raid-hud',gameMode==='boss');updateLaneMetrics();updateDuelHUD();const diff=enemyDifficulty();showNotice(deckRepairAtStart.changed?'Deste güvenliği: '+deckRepairAtStart.removed+' kilitli/geçersiz/tekrarlı kart düzeltildi; '+deckRepairAtStart.added+' açık kart eklendi. Sonraki maçtan önce desteni kontrol et.':(battleHandSlots.some(id=>battleCardMap[id]&&energyCost(battleCardMap[id].type)<=gold)?'Savaş kartını sürükle; minyonu kendi sahana veya düşman birliğinin arkasındaki boş alana bırak.':'Bu elde kart maliyetleri yüksek. Seçtiğin kahramanlar değiştirilmeyecek; enerji tavanı kullanılabilir karta ulaşmak için otomatik yükselecek.'));updateHUD();if(gameMode==='echo')af203StartEngine();last=performance.now();lastPresentedFrame=last;if(af316Raf)cancelAnimationFrame(af316Raf);af316Raf=requestAnimationFrame(tick);af35EndMatchSetup();
@@ -25673,7 +25674,7 @@ function af36Start(mode){
 function af36FlagStep(dt){
  const f=af36Run.flags;if(!f||f.done||!(dt>0))return;dt=Math.min(.25,dt);
  for(let l=0;l<3;l++){
-  let a=0,e=0;for(const u of units){if(!u||u.hp<=0||u.lane!==l||u.isCommander||u.isBarrier)continue;if(Math.abs(u.x-.5)<=AF36_FLAG_ZONE){if(u.team==='ally')a++;else if(u.team==='enemy')e++;}}
+  let a=0,e=0;for(const u of units){if(!u||!af264Targetable(u)||af264Buried(u)||(u._af285AirUntil||0)>elapsed||u.lane!==l||u.isCommander||u.isBarrier)continue;if(Math.abs(u.x-.5)<=AF36_FLAG_ZONE){if(u.team==='ally')a++;else if(u.team==='enemy')e++;}}
   const rate=n=>.75+.25*Math.min(3,n-1);
   if(a>0&&e===0)f.cap[l]=Math.min(1,f.cap[l]+rate(a)*dt);
   else if(e>0&&a===0)f.cap[l]=Math.max(-1,f.cap[l]-rate(e)*dt);
@@ -25844,14 +25845,14 @@ tick=function(ts){const r=af36BaseTick.apply(this,arguments);af36BossSpecialAtta
 const af36BaseResolve=resolveMatchTimeout;
 resolveMatchTimeout=function(){
  if(playing&&gameMode==='flag'&&af36Run.flags){const s=af36Run.flags.score,a=Math.floor(s.ally),e=Math.floor(s.enemy);
-  if(a!==e){af36Run.flags.done=true;endGame(a>e,'SÜRE BİTTİ · Bayrak puanı '+a+' - '+e+'.');return;}}
+  af36Run.flags.done=true;endGame(a===e?null:a>e,'SÜRE BİTTİ · Bayrak puanı '+a+' - '+e+'.');return;}
  return af36BaseResolve.apply(this,arguments);
 };
 // v3.60.65: Bayrak puanları farklıysa süre dolunca karar bayrak puanıyla verilir; eşit portal oranı uzatma açmaz.
 // Kök neden: af327TimeUp() portal oranları eşitken uzatma başlatıyor, bayrak kararını veren resolveMatchTimeout çağrılmıyordu.
 const af36BaseTimeUp=af327TimeUp;
 af327TimeUp=function(){
- if(playing&&gameMode==='flag'&&af36Run.flags){const s=af36Run.flags.score;if(Math.floor(s.ally)!==Math.floor(s.enemy))return true;}
+ if(playing&&gameMode==='flag'&&af36Run.flags)return true;
  return af36BaseTimeUp.apply(this,arguments);
 };
 const af36BaseEndGame=endGame;
@@ -26076,7 +26077,7 @@ function af39Snap(){return {cups:+profile.trophies||0,cr:+profile.credits||0,lv:
  if(was&&!playing){try{battlePaused=false;for(const id of ['af274Pause','af274Settings','af274Exit']){const e=document.getElementById(id);if(e)e.hidden=true;}}catch(_){}}
  if(was&&!playing){try{const a=af39Snap();let tp=a.xp-b.xp;for(let l=b.lv;l<a.lv;l++)tp+=l*100;
   const ms=matchStats||{};
-  window.__AF39OnEnd&&window.__AF39OnEnd({v:v===true?'win':v===false?'loss':'draw',mode:gameMode,resultMode,kind:(typeof af35MatchKind!=='undefined'?af35MatchKind:''),
+  window.__AF39OnEnd&&window.__AF39OnEnd({v:af330Match?.result||(v===true?'win':v===false?'loss':'draw'),mode:gameMode,resultMode,kind:(typeof af35MatchKind!=='undefined'?af35MatchKind:''),
    sec:Math.round(elapsed),gain:{cups:a.cups-b.cups,credits:a.cr-b.cr,tp,dust:a.dust-b.dust,levels:a.lv-b.lv},
    stats:{deployed:+ms.deployed||0,kills:+ms.kills||0,damage:Math.round(+ms.damage||0),towerDamage:Math.round(+ms.towerDamage||0),portalTaken:Math.round(+ms.portalTaken||0),spells:+ms.spells||0,lost:+ms.alliesLost||0}});}catch(e){console.warn('[AF39] sonuç ekranı',e);}}
  return r;};}
@@ -26277,7 +26278,7 @@ function af203EchoStep(dt){
   if(r.wave===3){if(r.bossDefeated){if(afIsAfkLoss(false,false)){endGame(false,'Hiç kart oynamadan ve büyü kullanmadan bu mod kazanılamaz; savunmayı en az bir kartla ya da büyüyle destekle.',{title:'YANKI İSTİLASI · HAREKETSİZ'});return true;}endGame(true,'Üç gölge dalgasını ve finalde Ayna Celladı’nı yendin.',{title:'YANKI İSTİLASI · ZAFER'});return true;}}
   else if(!r.pausedForChoice){r.pausedForChoice=true;battlePaused=true;window.AFPEchoEvent?.chooseBuff?.(r);return false;}
  }
- if(elapsed>=175){endGame(false,'Yankı İstilası süresi doldu.',{title:'YANKI İSTİLASI · SÜRE DOLDU'});return true;}
+ if(elapsed>=MATCH_DURATION){endGame(false,'Yankı İstilası süresi doldu.',{title:'YANKI İSTİLASI · SÜRE DOLDU'});return true;}
  window.AFPEchoEvent?.updateBattle?.(r,elapsed);return false;
 }
 function af203ResumeWave(which){
@@ -26962,7 +26963,7 @@ window.__AFPInstallBossRaidEngineV1=function(install){
   get(name){return getters[name]?getters[name]():undefined;},
   set(name,fn){if(!setters[name]||typeof fn!=='function')throw new Error('Invalid Örümcek Akını hook: '+name);setters[name](fn);return fn;},
   wrap(name,factory){const base=this.get(name);if(typeof base!=='function')throw new Error('Missing shared kernel hook: '+name);const next=factory(base);this.set(name,next);return next;},
-  battle(){return {playing:!!playing,mode:gameMode,elapsed:Number(elapsed)||0,matchDuration:Number(MATCH_DURATION)||180,portalHP:Number(enemySharedHP)||0,enemyEnergy:Number(enemyEnergy)||0,enemyEnergyCap:Number(enemyEnergyCap)||0,maxUnits:Number(MAX_UNITS)||0};},
+  battle(){return {playing:!!playing,mode:gameMode,elapsed:Number(elapsed)||0,matchDuration:Number(MATCH_DURATION)||180,portalHP:Number(enemySharedHP)||0,portalMax:TOWER_MAX_HP,enemyEnergy:Number(enemyEnergy)||0,enemyEnergyCap:Number(enemyEnergyCap)||0,maxUnits:Number(MAX_UNITS)||0};},
   raid(){return afpBossRaidState();},
   profile(){return profile;},
   units(){return units;},
@@ -27017,7 +27018,7 @@ var AF285_CUE=Object.create(null);    // birime bağlı hazırlık/kullanım çi
 var AF285_VFX=Object.create(null);    // konuma bağlı geçici efektler (f,p)
 var AF285_CONVERTED=new Set();        // eski AF267 tetiklemesi bu aktif yeteneğe dönüştürüldü
 var AF285_LATER=[];                   // ev sahibi tarafında kısa gecikmeli etkiler (ikinci ok vb.)
-var af285Fx=[],af285FxSeq=0,af285Last=0,af285Scan=0;
+var af285Fx=[],af285FxSeq=0,af285Scan=0;
 var AF285_STATS=Object.create(null);
 
 function af285Def(u){
@@ -27162,10 +27163,17 @@ function af285Finish(u,def){
   u._af285S=AF285_IDLE;u._af285C=null;
   u._af285R=Math.max(elapsed+.2,(c?c.t0:elapsed)+def.cd);
 }
+function af285ResetBattleEffects(){
+  af285Fx.length=0;
+  AF285_LATER.length=0;
+  AF285_POOLS.length=0;
+  AF285_SOULS.length=0;
+  AF285_PULLS.length=0;
+  AF285_CLOCKS.length=0;
+  af285Scan=0;
+}
 function af285Step(dt){
   if(!AF285_DEFS||!af285Fx)return;
-  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;AF285_PULLS.length=0;AF285_CLOCKS.length=0;}
-  af285Last=elapsed;
   for(let i=af285Fx.length-1;i>=0;i--){const f=af285Fx[i];if(f.t0+f.life<elapsed-.05)af285Fx.splice(i,1);}
   if(!playing||!af285Sim())return;
   af285PoolStep();
@@ -29565,6 +29573,61 @@ window.AF285Abilities=Object.freeze({
       if(af316Raf)cancelAnimationFrame(af316Raf);
       if(playing)af316Raf=requestAnimationFrame(tick);
     }
+  };
+}
+
+
+/* Ortak portal kararı verilmeden önce zorunlu mod hedeflerini koru. */
+function af285CampaignDefense(){
+  if(gameMode!=='campaign')return false;
+  const stage=afpCampaignBattleState();
+  return afpStoryEncounter(stage.activeLevel||stage.level).kind==='defense';
+}
+
+function af285GuardianPending(){
+  const level=gameMode==='tower'?af36TowerFloor():gameMode==='sky'?af36Run.level:0;
+  return level>0&&level%5===0&&!af36Run.bossKilled;
+}
+
+function af285PrepareModeResult(){
+  const echo=gameMode==='echo'&&af203Run?.active;
+  if(echo&&(allySharedHP<=0||baseHP<=0)){
+    endGame(false,'Savunma portalın düştü.',{title:'YANKI İSTİLASI · SAVUNMA DÜŞTÜ'});
+    return true;
+  }
+  const guardian=af285GuardianPending();
+  if(guardian&&enemySharedHP<=0&&af36BossPending())af36ForceBoss();
+  if(enemySharedHP<=0&&(echo||af285CampaignDefense()||guardian)){
+    enemySharedHP=1;
+    enemyLaneHP.fill(1);
+    if(elapsed-af36ShieldNoticeAt>4){
+      af36ShieldNoticeAt=elapsed;
+      showNotice(echo?'Yankı portalı kalkanlı: üç dalgayı ve Ayna Celladı’nı yen.':
+        guardian?'Rakip portalı kalkanlı. Önce muhafızı yen.':
+        'Rakip portalı kalkanlı. Süre dolana kadar savunmanı koru.');
+    }
+  }
+  return false;
+}
+
+{
+  const resolve=resolveMatchTimeout;
+  resolveMatchTimeout=function(){
+    if(playing&&af285GuardianPending()){
+      endGame(false,'Süre doldu. Muhafız hâlâ ayakta.',{title:'MUHAFIZ YENİLEMEDİ'});
+      return;
+    }
+    return resolve.apply(this,arguments);
+  };
+
+  const timeUp=af327TimeUp;
+  af327TimeUp=function(){
+    if(playing&&af285GuardianPending())return true;
+    if(playing&&gameMode==='boss'){
+      const raid=window.AFPBossRaidEngineV1;
+      if(window.__AFPColossusPvEContext?.active||raid&&raid.stage()%5===0)return true;
+    }
+    return timeUp.apply(this,arguments);
   };
 }
 
@@ -40162,7 +40225,7 @@ html.afx369:not(#_1):not(#_2):not(#_3) #afxHero .afx-hrHex>img.af332-icon{displa
     // is reflected on the shared portal. Health fractions are normalized to each visual max HP.
     function syncLinkedObjective(queen,b){
       if(!queen||!queenStage(state.stage))return false;
-      const portalMax=state.linkedPortalMax||Math.max(1,Number(b.portalHP)||430);
+      const portalMax=state.linkedPortalMax||Math.max(1,Number(b.portalMax)||430);
       const queenMax=state.linkedQueenMax||Math.max(1,Number(queen.maxHp)||Number(queen.hp)||1);
       const portalNow=clamp((Number(b.portalHP)||0)/portalMax,0,1);
       const queenNow=clamp((Number(queen.hp)||0)/queenMax,0,1);
@@ -40172,8 +40235,8 @@ html.afx369:not(#_1):not(#_2):not(#_3) #afxHero .afx-hrHex>img.af332-icon{displa
         state.linkedCommonFrac=Math.min(portalNow,queenNow);
         state.linkedPortalFrac=portalNow;state.linkedQueenFrac=queenNow;
         if(state.linkedCommonFrac<1){
-          const p=Math.round(portalMax*state.linkedCommonFrac);
-          const q=Math.round(queenMax*state.linkedCommonFrac);
+          const p=state.linkedCommonFrac>0?Math.max(1,Math.round(portalMax*state.linkedCommonFrac)):0;
+          const q=state.linkedCommonFrac>0?Math.max(1,Math.round(queenMax*state.linkedCommonFrac)):0;
           if(Math.abs((Number(b.portalHP)||0)-p)>.25)setPortal(p);
           queen.hp=q;
           state.linkedPortalFrac=clamp(p/portalMax,0,1);
@@ -40191,7 +40254,7 @@ html.afx369:not(#_1):not(#_2):not(#_3) #afxHero .afx-hrHex>img.af332-icon{displa
       const commonDelta=portalDelta+queenDelta;
       if(Math.abs(commonDelta)>1e-7){
         state.linkedCommonFrac=clamp(state.linkedCommonFrac+commonDelta,0,1);
-        const p=state.linkedCommonFrac<=1e-7?0:Math.round(portalMax*state.linkedCommonFrac);
+        const p=state.linkedCommonFrac<=1e-7?0:Math.max(1,Math.round(portalMax*state.linkedCommonFrac));
         const q=state.linkedCommonFrac<=1e-7?0:Math.max(1,Math.round(queenMax*state.linkedCommonFrac));
         if(Math.abs((Number(b.portalHP)||0)-p)>.25)setPortal(p);
         queen.hp=q;
@@ -40445,7 +40508,7 @@ html.afx369:not(#_1):not(#_2):not(#_3) #afxHero .afx-hrHex>img.af332-icon{displa
       let q=liveQueen();
       if(queen&&c.bossSpawned&&c.bossKilled){finishLinkedWin(isColossusRun()?'TAŞ KOLOSUS DEVRİLDİ · PORTAL YIKILDI.':'ÖRÜMCEK KRALİÇE YENİLDİ · PORTAL YIKILDI.');return;}
       if(queen&&c.bossSpawned&&!q&&!c.bossKilled){c.bossKilled=true;finishLinkedWin(isColossusRun()?'TAŞ KOLOSUS DEVRİLDİ · PORTAL YIKILDI.':'ÖRÜMCEK KRALİÇE YENİLDİ · PORTAL YIKILDI.');return;}
-      if(b.portalHP<=1){
+      if(b.portalHP<=0){
         if(queen){
           if(q){q.hp=0;q.killedBy='ally';q.hitFlash=.18;}
           c.bossSpawned=true;c.bossKilled=true;
@@ -41829,6 +41892,7 @@ function afqvGoToMode(){
   /* Aynı modun yerleşik dönüş düğmesi varsa onu kullan. */
   clickExisting('#afpColossusReturnV36074');return;
  }
+ if(target==='echo'){hub?.openModeScreen?.('boss');return;}
  if(target==='boss'&&typeof window.__afpBossRaidOpenScreenV34065==='function'){window.__afpBossRaidOpenScreenV34065();return;}
  hub?.openModeScreen?.(target);
 }
@@ -48109,4 +48173,4 @@ html:not(#_q):not(#_q):not(#_q) #af171Shop .af173-side>.af4-item>small{min-heigh
 </body>
 </html>
 
-<!-- AF285-PATCHES:eyJ2ZXJzaW9uIjogIjMuNjAuMjg1IiwgImJhc2Vfc2hhMjU2IjogIjU3YTAxMjFlYTBkYjFjNGNiNGQ4NTFiMzQ1OTI3MmRiMGNlNjFkMWNlZTA5ODRhYjhlM2MxMzI3Zjc0ODI1ZDEiLCAicGF0Y2hlcyI6IFtbInRpY2stc3RlcCIsICJhZnAxNzdTdGVwKGR0KTthZnAxNzlTdGVwKGR0KTthZjI2NFN0ZXAoKTsiLCAiYWZwMTc3U3RlcChkdCk7YWZwMTc5U3RlcChkdCk7YWYyNjRTdGVwKCk7YWYyODVTdGVwKGR0KTsiXSwgWyJ1bml0LWJ1c3kiLCAiaWYoKHUuX2FmMjc5U3VwcG9ydFVudGlsfHwwKT5lbGFwc2VkKXt1Ll9hZlRvd2VyPTA7Y29udGludWU7fSIsICJpZihhZjI4NUJ1c3kodSkpe3UuX2FmVG93ZXI9MDt1Ll9hZkVuZz0xO2NvbnRpbnVlO31pZigodS5fYWYyNzlTdXBwb3J0VW50aWx8fDApPmVsYXBzZWQpe3UuX2FmVG93ZXI9MDtjb250aW51ZTt9Il0sIFsiZHJhdy1wYXNzIiwgInRyeXtBRlguZHJhdyhkdCk7fWNhdGNoKF8pe30iLCAidHJ5e0FGWC5kcmF3KGR0KTt9Y2F0Y2goXyl7fXRyeXthZjI4NURyYXcoKTt9Y2F0Y2goXyl7fSJdLCBbImhlcm8teCIsICJjb25zdCB4PWxhbmVYKHUueCkscHg9YWYzMjBQeEZvcihSLmNscyx1LmxhbmUsUi5hcnRCdWxrPz9SLmJ1bGspKih1Ll9hZjIwNUJvc3M/MS4zMjoxKSxrMj1weC9DLmg7IiwgImNvbnN0IHB4PWFmMzIwUHhGb3IoUi5jbHMsdS5sYW5lLFIuYXJ0QnVsaz8/Ui5idWxrKSoodS5fYWYyMDVCb3NzPzEuMzI6MSkseD1sYW5lWCh1LngpK2FmMjg1UG9zZURYKHUscHgpLGsyPXB4L0MuaDsiXSwgWyJoZXJvLXkiLCAiICAgICsodS5fYWZTa2VsZXRvbkNsb25lU2lkZXx8MCkqcHgqLjE1K2FmMzQwMzRNZWxlZUZsYW5rT2Zmc2V0KHUscHgpO1xuICBpZihhZnAxNzdEcmF3SGVybyIsICIgICAgKyh1Ll9hZlNrZWxldG9uQ2xvbmVTaWRlfHwwKSpweCouMTUrYWYzNDAzNE1lbGVlRmxhbmtPZmZzZXQodSxweCkrYWYyODVQb3NlRFkodSxweCk7XG4gIGlmKGFmcDE3N0RyYXdIZXJvIl0sIFsibWVzaC1wb3NlIiwgIiAgY29uc3QgTT1BRjMyMS5wb3NlKEssc3QsZW52KTsiLCAiICBhZjI4NVBvc2VFbnYodSxlbnYpO2NvbnN0IE09QUYzMjEucG9zZShLLHN0LGVudik7Il0sIFsiYXRsYXMtcG9zZSIsICIgICBjb25zdCBhbHBoYSA9IHUuX2FmQmF0dGxlR2hvc3QgPyAodS5fYWZCYXR0bGVHaG9zdFZhbGlkID8gLjYzIDogLjQyKSA6ICh1LmlzRWNobyA/IC42NyA6IDEpOyIsICIgICB7IGNvbnN0IGFiID0gKCF1Ll9hZkJhdHRsZUdob3N0ICYmIHR5cGVvZiB3aW5kb3cuX19BRjI4NVBvc2UgPT09ICdmdW5jdGlvbicpID8gd2luZG93Ll9fQUYyODVQb3NlKHUpIDogbnVsbDtcbiAgICAgaWYgKGFiICYmIGdlb21ldHJ5W3R5cGVdW2FiLnN0YXRlXSkgeyBzdGF0ZSA9IGFiLnN0YXRlOyBmcmFtZSA9IE1hdGgubWF4KDAsIE1hdGgubWluKDcsIGFiLmZyYW1lIHwgMCkpOyB9IH1cbiAgIGNvbnN0IGFscGhhID0gdS5fYWZCYXR0bGVHaG9zdCA/ICh1Ll9hZkJhdHRsZUdob3N0VmFsaWQgPyAuNjMgOiAuNDIpIDogKHUuaXNFY2hvID8gLjY3IDogMSk7Il0sIFsic25hcC1maWVsZHMiLCAiJ19hZlNrZWxldG9uQ2xvbmVTaWRlJywnX2FmMjE0R3JvdXBNZW1iZXInXTsiLCAiJ19hZlNrZWxldG9uQ2xvbmVTaWRlJywnX2FmMjE0R3JvdXBNZW1iZXInLCdfYWYyODVTJywnX2FmMjg1QScsJ19hZjI4NUInLCdfYWYyODVSJywnX2FmMjg1WCcsJ19hZjI4NUwnLCdfYWYyODVOJywnX2FmMjg1V2FyZCcsJ19hZjI4NUFlZ2lzJywnX2FmMjg1RG9tZScsJ19hZjI4NURvbWVNJywnX2FmMjg1RG9tZUMnLCdfYWYyODVEaXp6eScsJ19hZjI4NVZpbmUnLCdfYWYyODVWaW5lRW5kJywnX2FmMjg1QWlyVW50aWwnLCdfYWZwMTc3Q2FwdGl2ZVVudGlsJywnX2FmMjg1RHJhZ0VuZCcsJ19hZjI4NVR1bm5lbFVudGlsJywnX2FmMjg1Rm9yZ2VVbnRpbCcsJ19hZjI4NUZvcmdlJ107Il0sIFsic25hcC1meCIsICJ1bml0czpsaXN0LHNoZWxsU2hvdHMsYWJpbGl0eUZ4LCIsICJ1bml0czpsaXN0LHNoZWxsU2hvdHMsYWJpbGl0eUZ4LGFmMjg1Rng6YWYyODVOZXRGeCgpLCJdLCBbInNuYXAtbWlycm9yIiwgImZvcihjb25zdCBrIG9mIFsnX2FmMjY0VHVubmVsRnJvbScsJ19hZjI2NFR1bm5lbFRvJ10paWYoTnVtYmVyLmlzRmluaXRlKHJhd1trXSkpdVtrXT0xLWNsYW1wKHJhd1trXSwwLDEpOyIsICJmb3IoY29uc3QgayBvZiBbJ19hZjI2NFR1bm5lbEZyb20nLCdfYWYyNjRUdW5uZWxUbycsJ19hZjI4NVgnXSlpZihOdW1iZXIuaXNGaW5pdGUocmF3W2tdKSl1W2tdPTEtY2xhbXAocmF3W2tdLDAsMSk7Il0sIFsic25hcC1hcHBseS1meCIsICIgICAge2NvbnN0IGFoPWNsYW1wKHNuYXBzaG90LmVuZW15UG9ydGFsSHAmJnNuYXBzaG90LmVuZW15UG9ydGFsSHBbMF0sMCwxMDAwMDAsYWxseVNoYXJlZEhQKSIsICIgICAgdHJ5e2FmMjg1QXBwbHlOZXRGeChzbmFwc2hvdC5hZjI4NUZ4KTt9Y2F0Y2goXyl7fVxuICAgIHtjb25zdCBhaD1jbGFtcChzbmFwc2hvdC5lbmVteVBvcnRhbEhwJiZzbmFwc2hvdC5lbmVteVBvcnRhbEhwWzBdLDAsMTAwMDAwLGFsbHlTaGFyZWRIUCkiXSwgWyJhYmlsaXR5LWRlYXRoIiwgImlmKHUuaHA8PTApe2FmMjY0Q29tYmF0RXZlbnQoJ2RlYXRoJyx1LHUuX2FmMjY0S2lsbGVyKTsiLCAiaWYodS5ocDw9MCl7YWYyODVEZWF0aCh1KTthZjI2NENvbWJhdEV2ZW50KCdkZWF0aCcsdSx1Ll9hZjI2NEtpbGxlcik7Il0sIFsic2NvdXQtbWFyay1kYW1hZ2UiLCAiIGxldCBkPWFmMjY3UnVuKCdndWFyZCcsdGd0LGF0dCxkbWcsa2luZCk7IiwgIiBsZXQgZD1hZjI2N1J1bignZ3VhcmQnLHRndCxhdHQsZG1nLGtpbmQpO2lmKGF0dCYmYXR0IT09dGd0Ll9hZjI4NU1hcmtCeSYmYXR0LnRlYW0hPT10Z3QudGVhbSYmdGd0Ll9hZjI4NU1hcmtCeT8udGVhbT09PWF0dC50ZWFtJiYodGd0Ll9hZjI4NU1hcmtVbnRpbHx8MCk+ZWxhcHNlZClkKj10Z3QuaXNCb3NzPzEuMDY6MS4xNTsiXSwgWyJhYmlsaXR5LWFybW9yLXBpZXJjZSIsICJmdW5jdGlvbiBhZjI2NFBpZXJjZShhdHQsa2luZCl7XG4gIGlmKGtpbmQhPT0naGl0JylyZXR1cm4gMDsiLCAiZnVuY3Rpb24gYWYyNjRQaWVyY2UoYXR0LGtpbmQpe1xuICBpZihraW5kPT09J2FmMjg1UGllcmNlJylyZXR1cm4gLjY1O1xuICBpZihraW5kIT09J2hpdCcpcmV0dXJuIDA7Il0sIFsibWVsZWUtY291bnRlciIsICIgZHI9TWF0aC5tYXgoZHIsY3JhY2tlZEFybW9yKTsiLCAiIGQ9YWYyODVDb3VudGVyRGFtYWdlKGF0dCx0Z3QsZCxraW5kKTtkPWFmMjg1Q292ZXJEYW1hZ2UoYXR0LHRndCxkLGtpbmQpO2lmKGF0dD8uX2FmMjg1RHVlbFRhcmdldD09PXRndCYmYXR0Ll9hZjI4NUR1ZWxVbnRpbD5lbGFwc2VkKWQqPTEuMjI7ZD1hZjI4NUZyb3N0RGFtYWdlKGF0dCx0Z3QsZCxraW5kKTtkcj1NYXRoLm1heChkcixjcmFja2VkQXJtb3IpOyJdLCBbImFiaWxpdHktc2xvdy1nYXRlIiwgImZ1bmN0aW9uIGFmMjY0U2xvdyh1LHNlY29uZHMsaW50ZXJ2YWwpe1xuICBpZighYWYyNjRUYXJnZXRhYmxlKHUpfHx1LmlzQmFycmllcnx8dS5pbW11bmVVbnRpbD5lbGFwc2VkfHwhYWYyNjRSZWFkeSh1LCdfYWYyNjRTbG93R2F0ZScsaW50ZXJ2YWwpKXJldHVybjsiLCAiZnVuY3Rpb24gYWYyNjRTbG93KHUsc2Vjb25kcyxpbnRlcnZhbCxnYXRlPSdfYWYyNjRTbG93R2F0ZScpe1xuICBpZighYWYyNjRUYXJnZXRhYmxlKHUpfHx1LmlzQmFycmllcnx8dS5pbW11bmVVbnRpbD5lbGFwc2VkfHwhYWYyNjRSZWFkeSh1LGdhdGUsaW50ZXJ2YWwpKXJldHVybjsiXSwgWyJhYmlsaXR5LWFpci10YXJnZXQiLCAiZnVuY3Rpb24gYWYyNjRIaWRkZW4odSl7cmV0dXJuIGFmMjY0VHlwZSh1KT09PUFGMjY0LmFzc2Fzc2luJiYodS5fYWYyNjRTdGVhbHRofHwwKT5lbGFwc2VkO30iLCAiZnVuY3Rpb24gYWYyNjRIaWRkZW4odSl7cmV0dXJuICh1Ll9hZjI4NUFpclVudGlsfHwwKT5lbGFwc2VkfHxhZjI2NFR5cGUodSk9PT1BRjI2NC5hc3Nhc3NpbiYmKHUuX2FmMjY0U3RlYWx0aHx8MCk+ZWxhcHNlZDt9Il0sIFsiYWJpbGl0eS1haXItZGFtYWdlIiwgIiBpZighdGd0fHx0Z3QuaHA8PTB8fGFmcDE3OUlzQnVyaWVkKHRndCl8fCIsICIgaWYoIXRndHx8dGd0LmhwPD0wfHwodGd0Ll9hZjI4NUFpclVudGlsfHwwKT5lbGFwc2VkfHwodGd0Ll9hZjI4NVR1bm5lbFVudGlsfHwwKT5lbGFwc2VkfHxhZnAxNzlJc0J1cmllZCh0Z3QpfHwiXSwgWyJhYmlsaXR5LXBvaXNvbi1wYXNzaXZlIiwgIn1lbHNlIGlmKHR5cGU9PT1BRjI2NC5wb2lzb24mJmFsaXZlJiYhdGFyZ2V0LmlzQmFycmllciIsICJ9ZWxzZSBpZih0eXBlPT09QUYyNjQucG9pc29uJiYhQUYyODVfQ09OVkVSVEVELmhhcyh0eXBlKSYmYWxpdmUmJiF0YXJnZXQuaXNCYXJyaWVyIl0sIFsiYWJpbGl0eS1jYXB0aXZlLWRyYXciLCAiaWYodS5fYWZwMTc3Q2FwdGl2ZUJ5fHxhZnAxNzlJc0J1cmllZCh1KXx8YWYyNjRCdXJpZWQodSkpe3UuX3Zpcz1udWxsOyIsICJpZih1Ll9hZnAxNzdDYXB0aXZlQnl8fCh1Ll9hZnAxNzdDYXB0aXZlVW50aWx8fDApPmVsYXBzZWR8fGFmcDE3OUlzQnVyaWVkKHUpfHxhZjI2NEJ1cmllZCh1KSl7dS5fdmlzPW51bGw7Il0sIFsiYWJpbGl0eS1jYXB0aXZlLWRhbWFnZSIsICJ0ZWFtOmVhdGVyLnRlYW0sa2V5OkFGUDE3N19LVUwsa2luZDonYWZwMTc3X3N0b21hY2gnIiwgInRlYW06ZWF0ZXIudGVhbSxrZXk6ZWF0ZXIuaGVyb1R5cGV8fEFGUDE3N19LVUwsc291cmNlOmVhdGVyLGtpbmQ6J2FmcDE3N19zdG9tYWNoJyJdLCBbImR1ZWwtcGVyaW9kIiwgImlmKCh1LnRzbG93VW50aWx8fDApPmVsYXBzZWQpcCo9dS50c2xvd3x8MTtpZigodS5hZnByUmFpZEhhc3RlVW50aWx8fDApPmVsYXBzZWQpIiwgImlmKCh1LnRzbG93VW50aWx8fDApPmVsYXBzZWQpcCo9dS50c2xvd3x8MTtpZih1Ll9hZjI4NUR1ZWxVbnRpbD5lbGFwc2VkJiZ1Ll9hZjI4NUR1ZWxUYXJnZXQ/LmhwPjAmJnUuX2FmVGd0PT09dS5fYWYyODVEdWVsVGFyZ2V0KXAqPS43NjtpZigodS5hZnByUmFpZEhhc3RlVW50aWx8fDApPmVsYXBzZWQpIl0sIFsiZm9yZ2UtZGFtYWdlIiwgIiBjb25zdCBhRG1nPXUudGVhbSYmYWYzMjdBdXJhRnJvbSh1LCdkbWcnKTtpZihhRG1nKWQqPWFEbWc7IiwgIiBjb25zdCBhRG1nPXUudGVhbSYmYWYzMjdBdXJhRnJvbSh1LCdkbWcnKTtpZihhRG1nKWQqPWFEbWc7aWYodS5fYWYyODVGb3JnZVVudGlsPmVsYXBzZWQpZCo9dS5fYWYyODVGb3JnZTsiXSwgWyJmYW4tZGVmbGVjdGlvbiIsICIgICAgICAgIGVsc2UgYWYzMjNBcHBseUhpdChzLnUscy50YXJnZXQscy5kYW1hZ2UpOyIsICIgICAgICAgIGVsc2UgaWYoYWYyODVEZWZsZWN0KHMudSxzLnRhcmdldCkpcy5maXp6bGVkPXRydWU7ZWxzZSBhZjMyM0FwcGx5SGl0KHMudSxzLnRhcmdldCxzLmRhbWFnZSk7Il0sIFsidGl0YW4tcm9vdC1wYXNzaXZlIiwgIn1lbHNlIGlmKHR5cGU9PT1BRjI2NC50aXRhbiYmYWxpdmUmJmFmMjY0UmVhZHkiLCAifWVsc2UgaWYodHlwZT09PUFGMjY0LnRpdGFuJiYhQUYyODVfQ09OVkVSVEVELmhhcyh0eXBlKSYmYWxpdmUmJmFmMjY0UmVhZHkiXSwgWyJhYmlsaXR5LWVhcnRoLXZpc2liaWxpdHkiLCAiZnVuY3Rpb24gYWYyNjRCdXJpZWQodSl7cmV0dXJuIGFmMjY0VHlwZSh1KT09PUFGMjY0LmVhcnRoJiYodS5fYWYyNjRUdW5uZWxFbmR8fDApPmVsYXBzZWQ7fSIsICJmdW5jdGlvbiBhZjI2NEJ1cmllZCh1KXtyZXR1cm4gKHUuX2FmMjg1VHVubmVsVW50aWx8fDApPmVsYXBzZWR8fGFmMjY0VHlwZSh1KT09PUFGMjY0LmVhcnRoJiYodS5fYWYyNjRUdW5uZWxFbmR8fDApPmVsYXBzZWQ7fSJdLCBbImFiaWxpdHktZWFydGgtc3RhcnQiLCAiICB9ZWxzZSBpZih0eXBlPT09QUYyNjQuZWFydGgpe1xuICAgIGNvbnN0IGRpcj1hZjI2NERpcih1LnRlYW0pIiwgIiAgfWVsc2UgaWYodHlwZT09PUFGMjY0LmVhcnRoJiYhQUYyODVfQ09OVkVSVEVELmhhcyh0eXBlKSl7XG4gICAgY29uc3QgZGlyPWFmMjY0RGlyKHUudGVhbSkiXSwgWyJ0aXRsZSIsICI8dGl0bGU+QXJlbmEgRm9yZ2UgUHJvIMK3IHYzLjYwLjI4NCBNaW55b24gR2VsacWfdGlybWUgVEVTVDwvdGl0bGU+IiwgIjx0aXRsZT5BcmVuYSBGb3JnZSBQcm8gwrcgdjMuNjAuMjg1IE1pbnlvbiBZZXRlbmVrIFRFU1Q8L3RpdGxlPiJdLCBbInBoeXNpY2FsLWtpbmQiLCAiaWYoa2luZD09PSdhZjI2NFNoZWxsJ3x8a2luZD09PSdhZjI2NEVhcnRoJ3x8a2luZD09PSdhZjI2N1BoeXNpY2FsJ3x8a2luZD09PSdyZWZsZWN0ZWRBcnJvdyd8fGtpbmQ9PT0ndG93ZXInKXJldHVybiB0cnVlOyIsICJpZihraW5kPT09J2FmMjY0U2hlbGwnfHxraW5kPT09J2FmMjY0RWFydGgnfHxraW5kPT09J2FmMjY3UGh5c2ljYWwnfHxraW5kPT09J2FmMjg1UGh5c2ljYWwnfHxraW5kPT09J2FmMjg1UGllcmNlJ3x8a2luZD09PSdyZWZsZWN0ZWRBcnJvdyd8fGtpbmQ9PT0ndG93ZXInKXJldHVybiB0cnVlOyJdXSwgInFhIjogZmFsc2V9 -->
+<!-- AF285-PATCHES:eyJ2ZXJzaW9uIjogIjMuNjAuMjg1IiwgImJhc2Vfc2hhMjU2IjogIjU3YTAxMjFlYTBkYjFjNGNiNGQ4NTFiMzQ1OTI3MmRiMGNlNjFkMWNlZTA5ODRhYjhlM2MxMzI3Zjc0ODI1ZDEiLCAicGF0Y2hlcyI6IFtbInRpY2stc3RlcCIsICJhZnAxNzdTdGVwKGR0KTthZnAxNzlTdGVwKGR0KTthZjI2NFN0ZXAoKTsiLCAiYWZwMTc3U3RlcChkdCk7YWZwMTc5U3RlcChkdCk7YWYyNjRTdGVwKCk7YWYyODVTdGVwKGR0KTsiXSwgWyJ1bml0LWJ1c3kiLCAiaWYoKHUuX2FmMjc5U3VwcG9ydFVudGlsfHwwKT5lbGFwc2VkKXt1Ll9hZlRvd2VyPTA7Y29udGludWU7fSIsICJpZihhZjI4NUJ1c3kodSkpe3UuX2FmVG93ZXI9MDt1Ll9hZkVuZz0xO2NvbnRpbnVlO31pZigodS5fYWYyNzlTdXBwb3J0VW50aWx8fDApPmVsYXBzZWQpe3UuX2FmVG93ZXI9MDtjb250aW51ZTt9Il0sIFsiZHJhdy1wYXNzIiwgInRyeXtBRlguZHJhdyhkdCk7fWNhdGNoKF8pe30iLCAidHJ5e0FGWC5kcmF3KGR0KTt9Y2F0Y2goXyl7fXRyeXthZjI4NURyYXcoKTt9Y2F0Y2goXyl7fSJdLCBbImhlcm8teCIsICJjb25zdCB4PWxhbmVYKHUueCkscHg9YWYzMjBQeEZvcihSLmNscyx1LmxhbmUsUi5hcnRCdWxrPz9SLmJ1bGspKih1Ll9hZjIwNUJvc3M/MS4zMjoxKSxrMj1weC9DLmg7IiwgImNvbnN0IHB4PWFmMzIwUHhGb3IoUi5jbHMsdS5sYW5lLFIuYXJ0QnVsaz8/Ui5idWxrKSoodS5fYWYyMDVCb3NzPzEuMzI6MSkseD1sYW5lWCh1LngpK2FmMjg1UG9zZURYKHUscHgpLGsyPXB4L0MuaDsiXSwgWyJoZXJvLXkiLCAiICAgICsodS5fYWZTa2VsZXRvbkNsb25lU2lkZXx8MCkqcHgqLjE1K2FmMzQwMzRNZWxlZUZsYW5rT2Zmc2V0KHUscHgpO1xuICBpZihhZnAxNzdEcmF3SGVybyIsICIgICAgKyh1Ll9hZlNrZWxldG9uQ2xvbmVTaWRlfHwwKSpweCouMTUrYWYzNDAzNE1lbGVlRmxhbmtPZmZzZXQodSxweCkrYWYyODVQb3NlRFkodSxweCk7XG4gIGlmKGFmcDE3N0RyYXdIZXJvIl0sIFsibWVzaC1wb3NlIiwgIiAgY29uc3QgTT1BRjMyMS5wb3NlKEssc3QsZW52KTsiLCAiICBhZjI4NVBvc2VFbnYodSxlbnYpO2NvbnN0IE09QUYzMjEucG9zZShLLHN0LGVudik7Il0sIFsiYXRsYXMtcG9zZSIsICIgICBjb25zdCBhbHBoYSA9IHUuX2FmQmF0dGxlR2hvc3QgPyAodS5fYWZCYXR0bGVHaG9zdFZhbGlkID8gLjYzIDogLjQyKSA6ICh1LmlzRWNobyA/IC42NyA6IDEpOyIsICIgICB7IGNvbnN0IGFiID0gKCF1Ll9hZkJhdHRsZUdob3N0ICYmIHR5cGVvZiB3aW5kb3cuX19BRjI4NVBvc2UgPT09ICdmdW5jdGlvbicpID8gd2luZG93Ll9fQUYyODVQb3NlKHUpIDogbnVsbDtcbiAgICAgaWYgKGFiICYmIGdlb21ldHJ5W3R5cGVdW2FiLnN0YXRlXSkgeyBzdGF0ZSA9IGFiLnN0YXRlOyBmcmFtZSA9IE1hdGgubWF4KDAsIE1hdGgubWluKDcsIGFiLmZyYW1lIHwgMCkpOyB9IH1cbiAgIGNvbnN0IGFscGhhID0gdS5fYWZCYXR0bGVHaG9zdCA/ICh1Ll9hZkJhdHRsZUdob3N0VmFsaWQgPyAuNjMgOiAuNDIpIDogKHUuaXNFY2hvID8gLjY3IDogMSk7Il0sIFsic25hcC1maWVsZHMiLCAiJ19hZlNrZWxldG9uQ2xvbmVTaWRlJywnX2FmMjE0R3JvdXBNZW1iZXInXTsiLCAiJ19hZlNrZWxldG9uQ2xvbmVTaWRlJywnX2FmMjE0R3JvdXBNZW1iZXInLCdfYWYyODVTJywnX2FmMjg1QScsJ19hZjI4NUInLCdfYWYyODVSJywnX2FmMjg1WCcsJ19hZjI4NUwnLCdfYWYyODVOJywnX2FmMjg1V2FyZCcsJ19hZjI4NUFlZ2lzJywnX2FmMjg1RG9tZScsJ19hZjI4NURvbWVNJywnX2FmMjg1RG9tZUMnLCdfYWYyODVEaXp6eScsJ19hZjI4NVZpbmUnLCdfYWYyODVWaW5lRW5kJywnX2FmMjg1QWlyVW50aWwnLCdfYWZwMTc3Q2FwdGl2ZVVudGlsJywnX2FmMjg1RHJhZ0VuZCcsJ19hZjI4NVR1bm5lbFVudGlsJywnX2FmMjg1Rm9yZ2VVbnRpbCcsJ19hZjI4NUZvcmdlJ107Il0sIFsic25hcC1meCIsICJ1bml0czpsaXN0LHNoZWxsU2hvdHMsYWJpbGl0eUZ4LCIsICJ1bml0czpsaXN0LHNoZWxsU2hvdHMsYWJpbGl0eUZ4LGFmMjg1Rng6YWYyODVOZXRGeCgpLCJdLCBbInNuYXAtbWlycm9yIiwgImZvcihjb25zdCBrIG9mIFsnX2FmMjY0VHVubmVsRnJvbScsJ19hZjI2NFR1bm5lbFRvJ10paWYoTnVtYmVyLmlzRmluaXRlKHJhd1trXSkpdVtrXT0xLWNsYW1wKHJhd1trXSwwLDEpOyIsICJmb3IoY29uc3QgayBvZiBbJ19hZjI2NFR1bm5lbEZyb20nLCdfYWYyNjRUdW5uZWxUbycsJ19hZjI4NVgnXSlpZihOdW1iZXIuaXNGaW5pdGUocmF3W2tdKSl1W2tdPTEtY2xhbXAocmF3W2tdLDAsMSk7Il0sIFsic25hcC1hcHBseS1meCIsICIgICAge2NvbnN0IGFoPWNsYW1wKHNuYXBzaG90LmVuZW15UG9ydGFsSHAmJnNuYXBzaG90LmVuZW15UG9ydGFsSHBbMF0sMCwxMDAwMDAsYWxseVNoYXJlZEhQKSIsICIgICAgdHJ5e2FmMjg1QXBwbHlOZXRGeChzbmFwc2hvdC5hZjI4NUZ4KTt9Y2F0Y2goXyl7fVxuICAgIHtjb25zdCBhaD1jbGFtcChzbmFwc2hvdC5lbmVteVBvcnRhbEhwJiZzbmFwc2hvdC5lbmVteVBvcnRhbEhwWzBdLDAsMTAwMDAwLGFsbHlTaGFyZWRIUCkiXSwgWyJhYmlsaXR5LWRlYXRoIiwgImlmKHUuaHA8PTApe2FmMjY0Q29tYmF0RXZlbnQoJ2RlYXRoJyx1LHUuX2FmMjY0S2lsbGVyKTsiLCAiaWYodS5ocDw9MCl7YWYyODVEZWF0aCh1KTthZjI2NENvbWJhdEV2ZW50KCdkZWF0aCcsdSx1Ll9hZjI2NEtpbGxlcik7Il0sIFsic2NvdXQtbWFyay1kYW1hZ2UiLCAiIGxldCBkPWFmMjY3UnVuKCdndWFyZCcsdGd0LGF0dCxkbWcsa2luZCk7IiwgIiBsZXQgZD1hZjI2N1J1bignZ3VhcmQnLHRndCxhdHQsZG1nLGtpbmQpO2lmKGF0dCYmYXR0IT09dGd0Ll9hZjI4NU1hcmtCeSYmYXR0LnRlYW0hPT10Z3QudGVhbSYmdGd0Ll9hZjI4NU1hcmtCeT8udGVhbT09PWF0dC50ZWFtJiYodGd0Ll9hZjI4NU1hcmtVbnRpbHx8MCk+ZWxhcHNlZClkKj10Z3QuaXNCb3NzPzEuMDY6MS4xNTsiXSwgWyJhYmlsaXR5LWFybW9yLXBpZXJjZSIsICJmdW5jdGlvbiBhZjI2NFBpZXJjZShhdHQsa2luZCl7XG4gIGlmKGtpbmQhPT0naGl0JylyZXR1cm4gMDsiLCAiZnVuY3Rpb24gYWYyNjRQaWVyY2UoYXR0LGtpbmQpe1xuICBpZihraW5kPT09J2FmMjg1UGllcmNlJylyZXR1cm4gLjY1O1xuICBpZihraW5kIT09J2hpdCcpcmV0dXJuIDA7Il0sIFsibWVsZWUtY291bnRlciIsICIgZHI9TWF0aC5tYXgoZHIsY3JhY2tlZEFybW9yKTsiLCAiIGQ9YWYyODVDb3VudGVyRGFtYWdlKGF0dCx0Z3QsZCxraW5kKTtkPWFmMjg1Q292ZXJEYW1hZ2UoYXR0LHRndCxkLGtpbmQpO2lmKGF0dD8uX2FmMjg1RHVlbFRhcmdldD09PXRndCYmYXR0Ll9hZjI4NUR1ZWxVbnRpbD5lbGFwc2VkKWQqPTEuMjI7ZD1hZjI4NUZyb3N0RGFtYWdlKGF0dCx0Z3QsZCxraW5kKTtkcj1NYXRoLm1heChkcixjcmFja2VkQXJtb3IpOyJdLCBbImFiaWxpdHktc2xvdy1nYXRlIiwgImZ1bmN0aW9uIGFmMjY0U2xvdyh1LHNlY29uZHMsaW50ZXJ2YWwpe1xuICBpZighYWYyNjRUYXJnZXRhYmxlKHUpfHx1LmlzQmFycmllcnx8dS5pbW11bmVVbnRpbD5lbGFwc2VkfHwhYWYyNjRSZWFkeSh1LCdfYWYyNjRTbG93R2F0ZScsaW50ZXJ2YWwpKXJldHVybjsiLCAiZnVuY3Rpb24gYWYyNjRTbG93KHUsc2Vjb25kcyxpbnRlcnZhbCxnYXRlPSdfYWYyNjRTbG93R2F0ZScpe1xuICBpZighYWYyNjRUYXJnZXRhYmxlKHUpfHx1LmlzQmFycmllcnx8dS5pbW11bmVVbnRpbD5lbGFwc2VkfHwhYWYyNjRSZWFkeSh1LGdhdGUsaW50ZXJ2YWwpKXJldHVybjsiXSwgWyJhYmlsaXR5LWFpci10YXJnZXQiLCAiZnVuY3Rpb24gYWYyNjRIaWRkZW4odSl7cmV0dXJuIGFmMjY0VHlwZSh1KT09PUFGMjY0LmFzc2Fzc2luJiYodS5fYWYyNjRTdGVhbHRofHwwKT5lbGFwc2VkO30iLCAiZnVuY3Rpb24gYWYyNjRIaWRkZW4odSl7cmV0dXJuICh1Ll9hZjI4NUFpclVudGlsfHwwKT5lbGFwc2VkfHxhZjI2NFR5cGUodSk9PT1BRjI2NC5hc3Nhc3NpbiYmKHUuX2FmMjY0U3RlYWx0aHx8MCk+ZWxhcHNlZDt9Il0sIFsiYWJpbGl0eS1haXItZGFtYWdlIiwgIiBpZighdGd0fHx0Z3QuaHA8PTB8fGFmcDE3OUlzQnVyaWVkKHRndCl8fCIsICIgaWYoIXRndHx8dGd0LmhwPD0wfHwodGd0Ll9hZjI4NUFpclVudGlsfHwwKT5lbGFwc2VkfHwodGd0Ll9hZjI4NVR1bm5lbFVudGlsfHwwKT5lbGFwc2VkfHxhZnAxNzlJc0J1cmllZCh0Z3QpfHwiXSwgWyJhYmlsaXR5LXBvaXNvbi1wYXNzaXZlIiwgIn1lbHNlIGlmKHR5cGU9PT1BRjI2NC5wb2lzb24mJmFsaXZlJiYhdGFyZ2V0LmlzQmFycmllciIsICJ9ZWxzZSBpZih0eXBlPT09QUYyNjQucG9pc29uJiYhQUYyODVfQ09OVkVSVEVELmhhcyh0eXBlKSYmYWxpdmUmJiF0YXJnZXQuaXNCYXJyaWVyIl0sIFsiYWJpbGl0eS1jYXB0aXZlLWRyYXciLCAiaWYodS5fYWZwMTc3Q2FwdGl2ZUJ5fHxhZnAxNzlJc0J1cmllZCh1KXx8YWYyNjRCdXJpZWQodSkpe3UuX3Zpcz1udWxsOyIsICJpZih1Ll9hZnAxNzdDYXB0aXZlQnl8fCh1Ll9hZnAxNzdDYXB0aXZlVW50aWx8fDApPmVsYXBzZWR8fGFmcDE3OUlzQnVyaWVkKHUpfHxhZjI2NEJ1cmllZCh1KSl7dS5fdmlzPW51bGw7Il0sIFsiYWJpbGl0eS1jYXB0aXZlLWRhbWFnZSIsICJ0ZWFtOmVhdGVyLnRlYW0sa2V5OkFGUDE3N19LVUwsa2luZDonYWZwMTc3X3N0b21hY2gnIiwgInRlYW06ZWF0ZXIudGVhbSxrZXk6ZWF0ZXIuaGVyb1R5cGV8fEFGUDE3N19LVUwsc291cmNlOmVhdGVyLGtpbmQ6J2FmcDE3N19zdG9tYWNoJyJdLCBbImR1ZWwtcGVyaW9kIiwgImlmKCh1LnRzbG93VW50aWx8fDApPmVsYXBzZWQpcCo9dS50c2xvd3x8MTtpZigodS5hZnByUmFpZEhhc3RlVW50aWx8fDApPmVsYXBzZWQpIiwgImlmKCh1LnRzbG93VW50aWx8fDApPmVsYXBzZWQpcCo9dS50c2xvd3x8MTtpZih1Ll9hZjI4NUR1ZWxVbnRpbD5lbGFwc2VkJiZ1Ll9hZjI4NUR1ZWxUYXJnZXQ/LmhwPjAmJnUuX2FmVGd0PT09dS5fYWYyODVEdWVsVGFyZ2V0KXAqPS43NjtpZigodS5hZnByUmFpZEhhc3RlVW50aWx8fDApPmVsYXBzZWQpIl0sIFsiZm9yZ2UtZGFtYWdlIiwgIiBjb25zdCBhRG1nPXUudGVhbSYmYWYzMjdBdXJhRnJvbSh1LCdkbWcnKTtpZihhRG1nKWQqPWFEbWc7IiwgIiBjb25zdCBhRG1nPXUudGVhbSYmYWYzMjdBdXJhRnJvbSh1LCdkbWcnKTtpZihhRG1nKWQqPWFEbWc7aWYodS5fYWYyODVGb3JnZVVudGlsPmVsYXBzZWQpZCo9dS5fYWYyODVGb3JnZTsiXSwgWyJmYW4tZGVmbGVjdGlvbiIsICIgICAgICAgIGVsc2UgYWYzMjNBcHBseUhpdChzLnUscy50YXJnZXQscy5kYW1hZ2UpOyIsICIgICAgICAgIGVsc2UgaWYoYWYyODVEZWZsZWN0KHMudSxzLnRhcmdldCkpcy5maXp6bGVkPXRydWU7ZWxzZSBhZjMyM0FwcGx5SGl0KHMudSxzLnRhcmdldCxzLmRhbWFnZSk7Il0sIFsidGl0YW4tcm9vdC1wYXNzaXZlIiwgIn1lbHNlIGlmKHR5cGU9PT1BRjI2NC50aXRhbiYmYWxpdmUmJmFmMjY0UmVhZHkiLCAifWVsc2UgaWYodHlwZT09PUFGMjY0LnRpdGFuJiYhQUYyODVfQ09OVkVSVEVELmhhcyh0eXBlKSYmYWxpdmUmJmFmMjY0UmVhZHkiXSwgWyJhYmlsaXR5LWVhcnRoLXZpc2liaWxpdHkiLCAiZnVuY3Rpb24gYWYyNjRCdXJpZWQodSl7cmV0dXJuIGFmMjY0VHlwZSh1KT09PUFGMjY0LmVhcnRoJiYodS5fYWYyNjRUdW5uZWxFbmR8fDApPmVsYXBzZWQ7fSIsICJmdW5jdGlvbiBhZjI2NEJ1cmllZCh1KXtyZXR1cm4gKHUuX2FmMjg1VHVubmVsVW50aWx8fDApPmVsYXBzZWR8fGFmMjY0VHlwZSh1KT09PUFGMjY0LmVhcnRoJiYodS5fYWYyNjRUdW5uZWxFbmR8fDApPmVsYXBzZWQ7fSJdLCBbImFiaWxpdHktZWFydGgtc3RhcnQiLCAiICB9ZWxzZSBpZih0eXBlPT09QUYyNjQuZWFydGgpe1xuICAgIGNvbnN0IGRpcj1hZjI2NERpcih1LnRlYW0pIiwgIiAgfWVsc2UgaWYodHlwZT09PUFGMjY0LmVhcnRoJiYhQUYyODVfQ09OVkVSVEVELmhhcyh0eXBlKSl7XG4gICAgY29uc3QgZGlyPWFmMjY0RGlyKHUudGVhbSkiXSwgWyJ0aXRsZSIsICI8dGl0bGU+QXJlbmEgRm9yZ2UgUHJvIMK3IHYzLjYwLjI4NCBNaW55b24gR2VsacWfdGlybWUgVEVTVDwvdGl0bGU+IiwgIjx0aXRsZT5BcmVuYSBGb3JnZSBQcm8gwrcgdjMuNjAuMjg1IE1vZCBNb3RvcnUgVEVTVDwvdGl0bGU+Il0sIFsicGh5c2ljYWwta2luZCIsICJpZihraW5kPT09J2FmMjY0U2hlbGwnfHxraW5kPT09J2FmMjY0RWFydGgnfHxraW5kPT09J2FmMjY3UGh5c2ljYWwnfHxraW5kPT09J3JlZmxlY3RlZEFycm93J3x8a2luZD09PSd0b3dlcicpcmV0dXJuIHRydWU7IiwgImlmKGtpbmQ9PT0nYWYyNjRTaGVsbCd8fGtpbmQ9PT0nYWYyNjRFYXJ0aCd8fGtpbmQ9PT0nYWYyNjdQaHlzaWNhbCd8fGtpbmQ9PT0nYWYyODVQaHlzaWNhbCd8fGtpbmQ9PT0nYWYyODVQaWVyY2UnfHxraW5kPT09J3JlZmxlY3RlZEFycm93J3x8a2luZD09PSd0b3dlcicpcmV0dXJuIHRydWU7Il0sIFsibWF0Y2gtZWZmZWN0cy1zdGFydCIsICJhZjMzMFN0YXJ0TWF0Y2goKTthZjM2Mk1hcmtPcGVuTWF0Y2goKTsiLCAiYWYzMzBTdGFydE1hdGNoKCk7YWYyODVSZXNldEJhdHRsZUVmZmVjdHMoKTthZjM2U2hpZWxkTm90aWNlQXQ9LTk5O2FmMzYyTWFya09wZW5NYXRjaCgpOyJdLCBbIm1hdGNoLWVmZmVjdHMtZW5kIiwgInRyeXtBRlguY2xlYXIoKTt9Y2F0Y2goXyl7fXVuaXRzPVtdO3Nob3RzPVtdOyIsICJ0cnl7QUZYLmNsZWFyKCk7fWNhdGNoKF8pe31hZjI4NVJlc2V0QmF0dGxlRWZmZWN0cygpO3VuaXRzPVtdO3Nob3RzPVtdOyJdLCBbIm1vZGUtb2JqZWN0aXZlLXByaW9yaXR5IiwgIiAgaWYoZ2FtZU1vZGU9PT0nZWNobycmJmFmMjAzRWNob1N0ZXAoZHQpKXt1cGRhdGVIVUQoKTtkcmF3KGR0KTtyZXR1cm47fSIsICIgIGlmKGFmMjg1UHJlcGFyZU1vZGVSZXN1bHQoKSl7dXBkYXRlSFVEKCk7ZHJhdyhkdCk7cmV0dXJuO31cbiAgaWYoZ2FtZU1vZGU9PT0nZWNobycmJmFmMjAzRWNob1N0ZXAoZHQpKXt1cGRhdGVIVUQoKTtkcmF3KGR0KTtyZXR1cm47fSJdLCBbImVjaG8tcG9ydGFsLW9iamVjdGl2ZSIsICIgICBjb25zdCBlY2hvQm9zc1BlbmRpbmc9Z2FtZU1vZGU9PT0nZWNobycmJmFmMjAzUnVuPy5hY3RpdmUmJiFhZjIwM1J1bi5ib3NzRGVmZWF0ZWQ7IiwgIiAgIGNvbnN0IGVjaG9Cb3NzUGVuZGluZz1nYW1lTW9kZT09PSdlY2hvJyYmYWYyMDNSdW4/LmFjdGl2ZTsiXSwgWyJlY2hvLWNsb2NrIiwgIiBpZihlbGFwc2VkPj0xNzUpe2VuZEdhbWUoZmFsc2UsJ1lhbmvEsSDEsHN0aWxhc8SxIHPDvHJlc2kgZG9sZHUuJyIsICIgaWYoZWxhcHNlZD49TUFUQ0hfRFVSQVRJT04pe2VuZEdhbWUoZmFsc2UsJ1lhbmvEsSDEsHN0aWxhc8SxIHPDvHJlc2kgZG9sZHUuJyJdLCBbImZsYWctcG9pbnRzLWRlY2lkZS1hdC10aW1lb3V0IiwgIiAgaWYoYSE9PWUpe2FmMzZSdW4uZmxhZ3MuZG9uZT10cnVlO2VuZEdhbWUoYT5lLCdTw5xSRSBCxLBUVMSwIMK3IEJheXJhayBwdWFuxLEgJythKycgLSAnK2UrJy4nKTtyZXR1cm47fX0iLCAiICBhZjM2UnVuLmZsYWdzLmRvbmU9dHJ1ZTtlbmRHYW1lKGE9PT1lP251bGw6YT5lLCdTw5xSRSBCxLBUVMSwIMK3IEJheXJhayBwdWFuxLEgJythKycgLSAnK2UrJy4nKTtyZXR1cm47fSJdLCBbImZsYWctbm8tcG9ydGFsLW92ZXJ0aW1lIiwgIiBpZihwbGF5aW5nJiZnYW1lTW9kZT09PSdmbGFnJyYmYWYzNlJ1bi5mbGFncyl7Y29uc3Qgcz1hZjM2UnVuLmZsYWdzLnNjb3JlO2lmKE1hdGguZmxvb3Iocy5hbGx5KSE9PU1hdGguZmxvb3Iocy5lbmVteSkpcmV0dXJuIHRydWU7fSIsICIgaWYocGxheWluZyYmZ2FtZU1vZGU9PT0nZmxhZycmJmFmMzZSdW4uZmxhZ3MpcmV0dXJuIHRydWU7Il0sIFsiZmxhZy11bml0cy1wcmVzZW50LW9uLWZpZWxkIiwgImlmKCF1fHx1LmhwPD0wfHx1LmxhbmUhPT1sfHx1LmlzQ29tbWFuZGVyfHx1LmlzQmFycmllciljb250aW51ZTtpZihNYXRoLmFicyh1LngtLjUpPD1BRjM2X0ZMQUdfWk9ORSkiLCAiaWYoIXV8fCFhZjI2NFRhcmdldGFibGUodSl8fGFmMjY0QnVyaWVkKHUpfHwodS5fYWYyODVBaXJVbnRpbHx8MCk+ZWxhcHNlZHx8dS5sYW5lIT09bHx8dS5pc0NvbW1hbmRlcnx8dS5pc0JhcnJpZXIpY29udGludWU7aWYoTWF0aC5hYnModS54LS41KTw9QUYzNl9GTEFHX1pPTkUpIl0sIFsiYm9zcy1wb3J0YWwtbWF4IiwgInBvcnRhbEhQOk51bWJlcihlbmVteVNoYXJlZEhQKXx8MCxlbmVteUVuZXJneTpOdW1iZXIoZW5lbXlFbmVyZ3kpIiwgInBvcnRhbEhQOk51bWJlcihlbmVteVNoYXJlZEhQKXx8MCxwb3J0YWxNYXg6VE9XRVJfTUFYX0hQLGVuZW15RW5lcmd5Ok51bWJlcihlbmVteUVuZXJneSkiXSwgWyJib3NzLWxpbmstcmVmZXJlbmNlLWhwIiwgImNvbnN0IHBvcnRhbE1heD1zdGF0ZS5saW5rZWRQb3J0YWxNYXh8fE1hdGgubWF4KDEsTnVtYmVyKGIucG9ydGFsSFApfHw0MzApOyIsICJjb25zdCBwb3J0YWxNYXg9c3RhdGUubGlua2VkUG9ydGFsTWF4fHxNYXRoLm1heCgxLE51bWJlcihiLnBvcnRhbE1heCl8fDQzMCk7Il0sIFsiYm9zcy1wb3NpdGl2ZS1saW5rZWQtZmlyc3QtaHAiLCAiY29uc3QgcD1NYXRoLnJvdW5kKHBvcnRhbE1heCpzdGF0ZS5saW5rZWRDb21tb25GcmFjKTtcbiAgICAgICAgICBjb25zdCBxPU1hdGgucm91bmQocXVlZW5NYXgqc3RhdGUubGlua2VkQ29tbW9uRnJhYyk7IiwgImNvbnN0IHA9c3RhdGUubGlua2VkQ29tbW9uRnJhYz4wP01hdGgubWF4KDEsTWF0aC5yb3VuZChwb3J0YWxNYXgqc3RhdGUubGlua2VkQ29tbW9uRnJhYykpOjA7XG4gICAgICAgICAgY29uc3QgcT1zdGF0ZS5saW5rZWRDb21tb25GcmFjPjA/TWF0aC5tYXgoMSxNYXRoLnJvdW5kKHF1ZWVuTWF4KnN0YXRlLmxpbmtlZENvbW1vbkZyYWMpKTowOyJdLCBbImJvc3MtcG9zaXRpdmUtbGlua2VkLWhwIiwgImNvbnN0IHA9c3RhdGUubGlua2VkQ29tbW9uRnJhYzw9MWUtNz8wOk1hdGgucm91bmQocG9ydGFsTWF4KnN0YXRlLmxpbmtlZENvbW1vbkZyYWMpOyIsICJjb25zdCBwPXN0YXRlLmxpbmtlZENvbW1vbkZyYWM8PTFlLTc/MDpNYXRoLm1heCgxLE1hdGgucm91bmQocG9ydGFsTWF4KnN0YXRlLmxpbmtlZENvbW1vbkZyYWMpKTsiXSwgWyJib3NzLXJlcXVpcmUtemVyby1wb3J0YWwtaHAiLCAiICAgICAgaWYoYi5wb3J0YWxIUDw9MSl7IiwgIiAgICAgIGlmKGIucG9ydGFsSFA8PTApeyJdLCBbInJlc3VsdC1vdmVybGF5LXVzZXMtZmluYWwtb3V0Y29tZSIsICJ3aW5kb3cuX19BRjM5T25FbmQmJndpbmRvdy5fX0FGMzlPbkVuZCh7djp2PT09dHJ1ZT8nd2luJzp2PT09ZmFsc2U/J2xvc3MnOidkcmF3Jyxtb2RlOmdhbWVNb2RlLHJlc3VsdE1vZGUsIiwgIndpbmRvdy5fX0FGMzlPbkVuZCYmd2luZG93Ll9fQUYzOU9uRW5kKHt2OmFmMzMwTWF0Y2g/LnJlc3VsdHx8KHY9PT10cnVlPyd3aW4nOnY9PT1mYWxzZT8nbG9zcyc6J2RyYXcnKSxtb2RlOmdhbWVNb2RlLHJlc3VsdE1vZGUsIl0sIFsiZWNoby1jb250aW51ZS1yZXR1cm5zLXRvLWV2ZW50IiwgIiBpZih0YXJnZXQ9PT0nYm9zcycmJnR5cGVvZiB3aW5kb3cuX19hZnBCb3NzUmFpZE9wZW5TY3JlZW5WMzQwNjU9PT0nZnVuY3Rpb24nKXt3aW5kb3cuX19hZnBCb3NzUmFpZE9wZW5TY3JlZW5WMzQwNjUoKTtyZXR1cm47fSIsICIgaWYodGFyZ2V0PT09J2VjaG8nKXtodWI/Lm9wZW5Nb2RlU2NyZWVuPy4oJ2Jvc3MnKTtyZXR1cm47fVxuIGlmKHRhcmdldD09PSdib3NzJyYmdHlwZW9mIHdpbmRvdy5fX2FmcEJvc3NSYWlkT3BlblNjcmVlblYzNDA2NT09PSdmdW5jdGlvbicpe3dpbmRvdy5fX2FmcEJvc3NSYWlkT3BlblNjcmVlblYzNDA2NSgpO3JldHVybjt9Il1dLCAicWEiOiBmYWxzZX0= -->
