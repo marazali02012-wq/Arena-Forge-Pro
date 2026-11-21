@@ -92,9 +92,10 @@
   2,
   3,
   4,
-  5
+  5,
+  6
  ],
- "siradaki_grup": 6,
+ "siradaki_grup": 7,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -236,33 +237,33 @@
   },
   "af37_kristal_golem": {
    "grup": 6,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kristal Kabuk",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_lav_golemi": {
    "grup": 6,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Lav Havuzu",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_mavi_buyucu": {
    "grup": 6,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "İkiz Kıvılcım",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_muhendis_nisanci": {
    "grup": 6,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Zırh Delen Mermi",
+   "durum": "eklendi",
+   "test": "geçti"
   },
   "af37_nekromanci": {
    "grup": 6,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Ruh Payı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_ork_savasci": {
    "grup": 7,

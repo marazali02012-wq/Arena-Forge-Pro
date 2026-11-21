@@ -51,6 +51,10 @@ function af285Allies(u,r){
 function af285Death(u){
   if(!af285Sim()||!u.killedBy||u._expired||u._af285DeathDone)return;
   u._af285DeathDone=true;
+  if(!u.isBoss&&!u.isBarrier&&!u.isSummon&&!u.isCommander){
+    if(AF285_SOULS.length>=16)AF285_SOULS.shift();
+    AF285_SOULS.push({team:u.team,lane:u.lane,x:u.x,until:elapsed+3,claimed:false});
+  }
   const def=af285Def(u);
   if(def?.onDeath)def.onDeath(u);
 }
@@ -155,10 +159,11 @@ function af285Finish(u,def){
 }
 function af285Step(dt){
   if(!AF285_DEFS||!af285Fx)return;
-  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;}
+  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;}
   af285Last=elapsed;
   for(let i=af285Fx.length-1;i>=0;i--){const f=af285Fx[i];if(f.t0+f.life<elapsed-.05)af285Fx.splice(i,1);}
   if(!playing||!af285Sim())return;
+  af285PoolStep();
   for(let i=0;i<AF285_LATER.length;){
     const p=AF285_LATER[i];
     if(elapsed<p.t){i++;continue;}
@@ -171,6 +176,7 @@ function af285Step(dt){
     if(u._af285R===undefined){u._af285R=elapsed+def.first;u._af285S=AF285_IDLE;u._af285N=0;}
     const s=u._af285S|0;
     if(u.hp<=0){if(s)af285Drop(u,def);continue;}
+    if(def.onTick)def.onTick(u);
     if(s===AF285_WIND){
       if(!af285Free(u)){af285Cancel(u,def,'kesildi');continue;}
       const c=u._af285C;

@@ -9,20 +9,24 @@ CHROME = shutil.which('google-chrome') or shutil.which('chromium')
 
 
 class Game:
-    def __init__(self, html, width=1280, height=640, mobile=False):
+    def __init__(self, html, width=1280, height=640, mobile=False, browser=None):
         self.html = str(pathlib.Path(html).resolve())
         self.width, self.height, self.mobile = width, height, mobile
         self.logs = []
+        self.browser = browser
+        self.pw = None
 
     async def __aenter__(self):
-        self.pw = await async_playwright().start()
-        self.browser = await self.pw.chromium.launch(
-            executable_path=CHROME, headless=True,
-            args=['--use-gl=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist',
-                  '--autoplay-policy=no-user-gesture-required'])
+        if self.browser is None:
+            self.pw = await async_playwright().start()
+            self.browser = await self.pw.chromium.launch(
+                executable_path=CHROME, headless=True,
+                args=['--use-gl=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist',
+                      '--autoplay-policy=no-user-gesture-required'])
         self.ctx = await self.browser.new_context(
             viewport={'width': self.width, 'height': self.height}, device_scale_factor=1,
             is_mobile=self.mobile, has_touch=self.mobile)
+        await self.ctx.add_init_script("localStorage.setItem('afpFtueOffV1','1')")
         self.page = await self.ctx.new_page()
         self.page.on('console', lambda m: self.logs.append((m.type, m.text[:400])))
         self.page.on('pageerror', lambda e: self.logs.append(('pageerror', str(e)[:800])))
@@ -56,8 +60,10 @@ class Game:
             await self.page.wait_for_timeout(250)
 
     async def __aexit__(self, *exc):
-        await self.browser.close()
-        await self.pw.stop()
+        await self.ctx.close()
+        if self.pw is not None:
+            await self.browser.close()
+            await self.pw.stop()
 
     async def ev(self, js, arg=None):
         if arg is None:

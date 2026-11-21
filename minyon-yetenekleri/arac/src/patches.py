@@ -48,6 +48,9 @@ PATCHES = [
     ('scout-mark-damage',
      " let d=af267Run('guard',tgt,att,dmg,kind);",
      " let d=af267Run('guard',tgt,att,dmg,kind);if(att&&att!==tgt._af285MarkBy&&att.team!==tgt.team&&tgt._af285MarkBy?.team===att.team&&(tgt._af285MarkUntil||0)>elapsed)d*=tgt.isBoss?1.06:1.15;"),
+    ('ability-armor-pierce',
+     "function af264Pierce(att,kind){\n  if(kind!=='hit')return 0;",
+     "function af264Pierce(att,kind){\n  if(kind==='af285Pierce')return .65;\n  if(kind!=='hit')return 0;"),
     # 0) Yapı adı: hangi dosyanın denendiği oyunda görülsün.
     ('title',
      "<title>Arena Forge Pro · v3.60.284 Minyon Geliştirme TEST</title>",
@@ -55,5 +58,5 @@ PATCHES = [
     # 12) Fiziksel yetenek hasarı zırh/koruma kurallarına girer (büyü hasarı girmez).
     ('physical-kind',
      "if(kind==='af264Shell'||kind==='af264Earth'||kind==='af267Physical'||kind==='reflectedArrow'||kind==='tower')return true;",
-     "if(kind==='af264Shell'||kind==='af264Earth'||kind==='af267Physical'||kind==='af285Physical'||kind==='reflectedArrow'||kind==='tower')return true;"),
+     "if(kind==='af264Shell'||kind==='af264Earth'||kind==='af267Physical'||kind==='af285Physical'||kind==='af285Pierce'||kind==='reflectedArrow'||kind==='tower')return true;"),
 ]

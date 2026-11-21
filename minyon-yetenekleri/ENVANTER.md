@@ -30,11 +30,11 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 21 | 5 | Keşifçi | `af37_kesifci` | Sıradan | 2 | İz Oku | çalışıyor |  | İz Oku (dönüştürüldü) | ✔ test geçti |
 | 22 | 5 | Kılıçlı Asker | `af37_kilicli_asker` | Sıradan | 2 | Yan Yana | çalışıyor |  | Yan Yana (dönüştürüldü) | ✔ test geçti |
 | 23 | 10 | Kızıl Düellocu | `af37_kizil_duellocu` | Sıradan | 3 | Düello İmzası | çalışıyor |  | — | sırada |
-| 24 | 6 | Kristal Golem | `af37_kristal_golem` | Efsanevi | 7 | Kristal Karşı Siper | yalnızca görsel | Yalnız yetenek hasarı aldığında kalkan verir; sinyal görüldü, kalkan ölçümde kaynağa bağlanamadı. | — | sırada |
-| 25 | 6 | Lav Golemi | `af37_lav_golemi` | Efsanevi | 7 | Lav Kuyruğu | çalışıyor |  | — | sırada |
-| 26 | 6 | Mavi Büyücü | `af37_mavi_buyucu` | Epik | 4 | İkiz Kıvılcım | çalışıyor |  | — | sırada |
-| 27 | 6 | Mühendis Nişancı | `af37_muhendis_nisanci` | Epik | 4 | Zırh Delici Kurşun | çalışıyor |  | — | sırada |
-| 28 | 6 | Nekromancı | `af37_nekromanci` | Efsanevi | 5 | Ruh Payı | tetiklenmedi | Koşullu: son vuruş + yakında yaralı dost gerekir; test sahnesinde oluşmadı. | — | sırada |
+| 24 | 6 | Kristal Golem | `af37_kristal_golem` | Efsanevi | 7 | Kristal Karşı Siper | yalnızca görsel | Yalnız yetenek hasarı aldığında kalkan verir; sinyal görüldü, kalkan ölçümde kaynağa bağlanamadı. | Kristal Kabuk (dönüştürüldü) | ✔ test geçti |
+| 25 | 6 | Lav Golemi | `af37_lav_golemi` | Efsanevi | 7 | Lav Kuyruğu | çalışıyor |  | Lav Havuzu (dönüştürüldü) | ✔ test geçti |
+| 26 | 6 | Mavi Büyücü | `af37_mavi_buyucu` | Epik | 4 | İkiz Kıvılcım | çalışıyor |  | İkiz Kıvılcım (dönüştürüldü) | ✔ test geçti |
+| 27 | 6 | Mühendis Nişancı | `af37_muhendis_nisanci` | Epik | 4 | Zırh Delici Kurşun | çalışıyor |  | Zırh Delen Mermi (eklendi) | ✔ test geçti |
+| 28 | 6 | Nekromancı | `af37_nekromanci` | Efsanevi | 5 | Ruh Payı | tetiklenmedi | Koşullu: son vuruş + yakında yaralı dost gerekir; test sahnesinde oluşmadı. | Ruh Payı (dönüştürüldü) | ✔ test geçti |
 | 29 | 7 | Ork Savaşçı | `af37_ork_savasci` | Nadir | 4 | Omuz Darbesi | çalışıyor |  | — | sırada |
 | 30 | 7 | Orman Okçusu | `af37_orman_okcu` | Sıradan | 1 | Yavaşlatan Ok | çalışıyor |  | — | sırada |
 | 31 | 3 | Orman Ruhu | `af37_orman_ruhu` | Epik | 5 | Taze Filiz | çalışıyor |  | Taze Filiz (dönüştürüldü) | ✔ test geçti |
