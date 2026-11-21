@@ -18080,7 +18080,7 @@ function afp177Step(dt){
         t._afp177CaptiveDamageClock-=.5;
         t._afp177StomachTick=true;
         try{af327DealDamage(t,Math.max(1,Math.round(t.maxHp*.035)),{
-          team:eater.team,key:AFP177_KUL,kind:'afp177_stomach',color:'#bc91ff',text:false
+          team:eater.team,key:eater.heroType||AFP177_KUL,source:eater,kind:'afp177_stomach',color:'#bc91ff',text:false
         });}finally{t._afp177StomachTick=false;}
       }
       if(t.hp<=0)afp177Release(eater);
@@ -19217,7 +19217,7 @@ function tick(ts){
     u.hitFlash=Math.max(0,(u.hitFlash||0)-dt);u.attackPulse=Math.max(0,(u.attackPulse||0)-dt);
     const wasEngaged=u._afEng===1;
     u._afEng=0;u._afGap=null;
-    if(u._afp177CaptiveBy||afp179IsBuried(u)||af264Buried(u)){u._vis=null;u._afTgt=null;continue;}
+    if(u._afp177CaptiveBy||(u._afp177CaptiveUntil||0)>elapsed||afp179IsBuried(u)||af264Buried(u)){u._vis=null;u._afTgt=null;continue;}
     if(u.hp<=0&&u._af378Live!==af378F)continue;u._af378Q=++af378Seq;u.cd-=dt;if((u._af378Live===af378F?u._af378St:u.stunUntil)>elapsed)continue;let target=null,dist=Infinity; // v3.77.01/03: bu karede ölen ya da sersemletilen birlik de karedeki sırasını kullanır
     if(af285Busy(u)){u._afTower=0;u._afEng=1;continue;}if((u._af279SupportUntil||0)>elapsed){u._afTower=0;continue;}
     const attackRange=unitAttackRange(u),af265IsSiege=af265Siege(u),gun=af268Gun(u); // v3.24: same table, shared with the hero screen
@@ -25074,7 +25074,7 @@ window.AFPOnlineBattleInternal={
   },
   createOnlineSnapshot:function(){
     const cleanNum=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
-    const abilityFields=['_af264Born','_af264Ice','_af264IceUntil','_af264Stealth','_af264RootUntil','_af264Crack','_af264CrackUntil','_af264TunnelStart','_af264TunnelEnd','_af264TunnelFrom','_af264TunnelTo','_af264Emerging','_af264First','_af327FirstUsed','_af264HealBudget','_af264HealUses','_af264HealReady','_af264RootReady','_af264RootGate','_af264SlowGate','_af264StormReady','_af264ArmorReady','_af267Tempo','_af267TempoUntil','hot','hotUntil','tslow','tslowUntil','hasteUntil','dr','drUntil','attackPulse','hitFlash','animMove','_afSkeletonCloneSide','_af214GroupMember','_af285S','_af285A','_af285B','_af285R','_af285X','_af285L','_af285N','_af285Ward','_af285Aegis','_af285Dome','_af285DomeM','_af285DomeC','_af285Dizzy','_af285Vine','_af285VineEnd','_af285AirUntil'];
+    const abilityFields=['_af264Born','_af264Ice','_af264IceUntil','_af264Stealth','_af264RootUntil','_af264Crack','_af264CrackUntil','_af264TunnelStart','_af264TunnelEnd','_af264TunnelFrom','_af264TunnelTo','_af264Emerging','_af264First','_af327FirstUsed','_af264HealBudget','_af264HealUses','_af264HealReady','_af264RootReady','_af264RootGate','_af264SlowGate','_af264StormReady','_af264ArmorReady','_af267Tempo','_af267TempoUntil','hot','hotUntil','tslow','tslowUntil','hasteUntil','dr','drUntil','attackPulse','hitFlash','animMove','_afSkeletonCloneSide','_af214GroupMember','_af285S','_af285A','_af285B','_af285R','_af285X','_af285L','_af285N','_af285Ward','_af285Aegis','_af285Dome','_af285DomeM','_af285DomeC','_af285Dizzy','_af285Vine','_af285VineEnd','_af285AirUntil','_afp177CaptiveUntil','_af285DragEnd'];
     const unitFields=[...abilityFields,'uid','lane','x','hp','maxHp','speed','mass','power','atk','cd','attackPeriod','phase','level','isCommander','isHero','isRoster','isBarrier','isSummon','summonUntil','spawnedAt','showLabelUntil','facingDir','def','crit','critDmg','stunUntil','slowUntil','absorb','absorbUntil','immuneUntil','vulnUntil','range','attackRange'];
     const list=units.filter(u=>u&&u.hp>0).slice(0,60).map(u=>{
       const item={uid:af330Uid(u),team:u.team==='enemy'?'enemy':'ally',type:String(u.heroType||u.enemyType||(u.isBarrier?'barrier':'')),lane:Math.max(0,Math.min(2,Math.floor(cleanNum(u.lane)))),x:Math.max(0,Math.min(1,cleanNum(u.x))),hp:Math.max(0,cleanNum(u.hp)),maxHp:Math.max(1,cleanNum(u.maxHp,1))};
@@ -27028,9 +27028,9 @@ function af285Def(u){
 function af285Sim(){return af267CanSim();}
 function af285Dir(u){return u.team==='ally'?1:-1;}
 function af285Phase(u,s,dur){u._af285S=s;u._af285A=elapsed;u._af285B=elapsed+Math.max(.01,dur);}
-function af285Busy(u){if(!u)return false;const s=u._af285S|0;return s>0&&u.hp>0&&elapsed<(u._af285B||0)+.25;}
+function af285Busy(u){if(!u)return false;if((u._af285DragEnd||0)>elapsed)return true;const s=u._af285S|0;return s>0&&u.hp>0&&elapsed<(u._af285B||0)+.25;}
 function af285Free(u){
-  return u.hp>0&&!u._afp177CaptiveBy&&!afp179IsBuried(u)&&!af264Buried(u)&&(u.stunUntil||0)<=elapsed;
+  return u.hp>0&&(u._af285DragEnd||0)<=elapsed&&!u._afp177CaptiveBy&&!afp179IsBuried(u)&&!af264Buried(u)&&(u.stunUntil||0)<=elapsed;
 }
 function af285Hittable(v){return !!v&&v.hp>0&&af264Targetable(v)&&!af264Buried(v)&&!af264Hidden(v);}
 function af285Foes(u,lane,x,r){
@@ -27156,11 +27156,12 @@ function af285Finish(u,def){
 }
 function af285Step(dt){
   if(!AF285_DEFS||!af285Fx)return;
-  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;}
+  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;AF285_PULLS.length=0;}
   af285Last=elapsed;
   for(let i=af285Fx.length-1;i>=0;i--){const f=af285Fx[i];if(f.t0+f.life<elapsed-.05)af285Fx.splice(i,1);}
   if(!playing||!af285Sim())return;
   af285PoolStep();
+  af285PullStep();
   for(let i=0;i<AF285_LATER.length;){
     const p=AF285_LATER[i];
     if(elapsed<p.t){i++;continue;}
@@ -28959,6 +28960,166 @@ AF285_DEFS.afn_bulut_dalgici={
 
 for(const [type,def] of Object.entries(AF285_DEFS)){
   if(def.group===8&&def.status==='dönüştürüldü')AF285_CONVERTED.add(type);
+}
+
+
+/* GRUP 9 · Buz Zurnacısı, Donuk Mızrakçı, El Arabalı Topçu, Gece Yırtıcısı, Kapı Ustası */
+
+var AF285_PULLS=[];
+function af285PullStart(u,t,seconds,finish,destination){
+  if(!af285Pushable(t)||(t._af285DragEnd||0)>elapsed)return false;
+  const dir=Math.sign(t.x-u.x)||af285Dir(u),gap=Math.min(.075,Math.max(.039,unitAttackRange(u)*.83));
+  const to=Number.isFinite(destination)?destination:u.x+dir*gap;
+  if(!Number.isFinite(destination)&&Math.abs(t.x-u.x)<=gap){finish(u,t);return true;}
+  const hold=af285Def(t);
+  if(hold&&[AF285_WIND,AF285_CAST].includes(t._af285S)&&!t._af285C?.done)af285Cancel(t,hold,'çekildi');
+  const fx=af285Emit('pull_line',u,{x1:t.x,a:af330Uid(u),b:af330Uid(t),life:seconds+.025});
+  t._af285DragEnd=elapsed+seconds;
+  t._afTgt=null;
+  AF285_PULLS.push({u,t,start:elapsed,end:elapsed+seconds,from:t.x,to:Math.max(.035,Math.min(.965,to)),finish,fx});
+  return true;
+}
+function af285PullStep(){
+  for(let i=AF285_PULLS.length-1;i>=0;i--){
+    const p=AF285_PULLS[i],{u,t}=p;
+    if(!units.includes(u)||!af285Free(u)||!af285ValidTarget(u,t,.39)||!af285Pushable(t)){
+      t._af285DragEnd=0;
+      p.fx.life=Math.max(.01,elapsed-p.fx.t0);
+      AF285_PULLS.splice(i,1);
+      continue;
+    }
+    const q=Math.min(1,(elapsed-p.start)/(p.end-p.start));
+    t.x=p.from+(p.to-p.from)*af285Ease(q);
+    t._afTgt=null;
+    if(q>=1){
+      t._af285DragEnd=0;
+      AF285_PULLS.splice(i,1);
+      p.finish(u,t);
+    }
+  }
+}
+AF285_VFX.pull_line=function(f,p){
+  const source=af285Unit(f.a,f.team),target=af285Unit(f.b,f.team==='ally'?'enemy':'ally');
+  if(!source||!target||source.hp<=0||target.hp<=0)return;
+  const a=af285Pos(source),b=af285Pos(target),y0=a.y-a.px*.60,y1=b.y-b.px*.60;
+  ctx.strokeStyle=f.card==='afn_gece_yirticisi'?'#c282eb':'#c8c4b2';
+  ctx.lineWidth=2.4;ctx.setLineDash(f.card==='afn_gece_yirticisi'?[]:[4,2]);
+  ctx.beginPath();ctx.moveTo(a.x,y0);ctx.lineTo(b.x,y1);ctx.stroke();
+  ctx.setLineDash([]);
+};
+AF285_VFX.jaw=function(f,p){
+  const a=af285At(f.lane,f.x0),b=af285At(f.lane,f.x1),k=af285Ease(p);
+  const x=a.x+(b.x-a.x)*k,y=a.y+(b.y-a.y)*k-a.px*.60,r=a.px*.31;
+  ctx.strokeStyle='#c98aff';ctx.fillStyle='#1e0d30';ctx.lineWidth=Math.max(1,r*.16);
+  const dir=b.x>=a.x?1:-1;
+  for(const side of [-1,1]){
+    ctx.beginPath();ctx.moveTo(x-dir*r*.8,y);
+    ctx.quadraticCurveTo(x,y+side*r*.72,x+dir*r,y+side*r*(.58-.27*p));
+    ctx.lineTo(x+dir*r*.65,y+side*r*.14);ctx.closePath();ctx.fill();ctx.stroke();
+  }
+};
+
+AF285_DEFS.afn_buz_zurnacisi={
+  group:9,role:'destek',status:'dönüştürüldü',name:'Ayaz Ezgisi',icon:'🎵',
+  cd:7.8,first:1.2,wind:.42,cast:.29,rec:.25,sfx:['spell','ice'],
+  desc:'Yakın dostların saldırılarını hızlandırır. Koridora yolladığı soğuk dalga düşmanları yavaşlatır.',
+  plan(u){const t=af285Front(u,.22)[0];return t?{t}:null;},
+  onCast(u,c){af285Bolt(u,c,this.cast,0,.23);},
+  impact(u){
+    for(const v of af285Allies(u,.16).slice(0,4))af327Timed(v,'_af267Tempo','_af267TempoUntil',.78,2.4,true);
+    for(const t of af285Front(u,.20).slice(0,4))af264Slow(t,1.5,2.6,'_af285ArrowSlow');
+    af285Effect(u,'ability_burst',u.x,.50,0,1.24);
+  }
+};
+
+AF285_DEFS.afn_donuk_mizrakci={
+  group:9,role:'menzilli',status:'dönüştürüldü',name:'Delen Buz Mızrağı',icon:'🔱',
+  cd:6.3,first:1.25,wind:.36,cast:.38,hit:.76,rec:.24,retarget:true,sfx:['hit','throw'],
+  desc:'İleri fırlattığı buz mızrağı ilk düşmana ve aynı hattaki uygun ikinci düşmana hasar verir.',
+  plan(u){const t=af285Front(u,.27)[0];return t?{t}:null;},
+  onCast(u,c){
+    const dir=af285Dir(u);
+    c.data.next=af285Front(u,.35).find(v=>v!==c.t&&dir*(v.x-c.x)>.02&&Math.abs(v.x-c.x)<.12);
+    af285Emit('scout_arrow',u,{x1:c.data.next?.x??c.x,life:this.cast});
+  },
+  impact(u,c){
+    const t=c.t;
+    if(af285ValidTarget(u,t,.31))af285Dmg(u,t,u.atk*.95,true,'#b8efff');
+    const next=c.data.next;
+    af285Later(.10,()=>{
+      if(af285ValidTarget(u,next,.37)&&af285Dir(u)*(next.x-u.x)>0)
+        af285Dmg(u,next,u.atk*.63,true,'#9ae6ff');
+    });
+    af285Effect(u,'ability_burst',c.x,.35,0,.62);
+  }
+};
+
+AF285_DEFS.afn_el_arabali_topcu={
+  group:9,role:'alan',status:'dönüştürüldü',name:'Ağır Top Atışı',icon:'💣',
+  cd:8.4,first:1.32,wind:.43,cast:.55,rec:.33,retarget:true,sfx:['hit','shoot'],
+  desc:'Ağır top mermisi havada yay çizip hedeflenen yere düşer. Darbe yakın düşmanların gerçek canını azaltır.',
+  plan(u){const t=af285Front(u,.35)[0];return t?{t}:null;},
+  onCast(u,c){c.data.land=c.x;af285Bolt(u,c,this.cast,1,1.4);},
+  impact(u,c){
+    const x=c.data.land;
+    af285AreaHit(u,x,.093,.95,true,1,5);
+    af285Effect(u,'ability_burst',x,.65,1,1.75);
+  }
+};
+
+function af285Bite(u,t){
+  if(!af285ValidTarget(u,t,.081)||!af285Pushable(t))return;
+  af285Dmg(u,t,u.atk*.62,true,'#dc9fff');
+  if(t.hp<=0||u._afp177Held||t._afp177ImmuneUntil>elapsed||t.maxHp>Math.max(245,u.maxHp*1.55))return;
+  u._afp177Held=t;
+  t._afp177CaptiveBy=u;t._afp177CaptiveUntil=elapsed+1.58;t._afp177CaptiveDamageClock=0;
+  t._afTgt=null;t._vis=null;
+  af285LibEmit(u,'fx_shadow_strike',u.x,u.lane,.66,3,11,1.52);
+}
+AF285_DEFS.afn_gece_yirticisi={
+  group:9,role:'suikastçı',status:'dönüştürüldü',name:'Gölge Çenesi',icon:'🌑',
+  cd:10.4,first:1.5,wind:.39,cast:.33,rec:.50,retarget:true,sfx:['spell','dark'],
+  desc:'Uygun hedefi gölge çenesiyle yakalayıp çeker. Hafif birlik kısa süre tutulur ve ısırık hasarı alır.',
+  plan(u){const t=af285Front(u,.26).find(v=>af285Pushable(v)&&!(v._afp177ImmuneUntil>elapsed));return t?{t}:null;},
+  onCast(u,c){af285Emit('jaw',u,{x1:c.x,life:this.cast});},
+  impact(u,c){
+    if(af285ValidTarget(u,c.t,.29))af285PullStart(u,c.t,.33,af285Bite);
+  }
+};
+
+function af285Portal(u){
+  return u.team==='ally'?{hp:allySharedHP,max:allyTowerMax}:{hp:enemySharedHP,max:TOWER_MAX_HP};
+}
+function af285PortalRepair(u,amount){
+  const p=af285Portal(u);
+  if(p.hp<=0||p.hp>=p.max)return false;
+  const hp=Math.min(p.max,p.hp+amount);
+  if(u.team==='ally'){allySharedHP=hp;allyLaneHP.fill(hp);}
+  else{enemySharedHP=hp;enemyLaneHP.fill(hp);}
+  return true;
+}
+AF285_DEFS.afn_kapi_ustasi={
+  group:9,role:'destek',status:'dönüştürüldü',name:'Kapı Tamiri',icon:'🛠️',
+  cd:8.7,first:1.05,wind:.47,cast:.22,rec:.28,sfx:['spell','holy'],
+  desc:'Hasarlı dost portalını onarır. Portal sağlamsa yakın dosta hasarı emen koruyucu yapı kurar.',
+  plan(u){
+    const p=af285Portal(u);
+    if(p.hp>0&&p.hp<p.max)return {x:u.team==='ally'?.055:.945,data:{portal:true}};
+    const t=af285Allies(u,.14).find(v=>!(v.absorb>0&&v.absorbUntil>elapsed));
+    return t?{t}:null;
+  },
+  onCast(u,c){af285Bolt(u,c,this.cast,3,.5);},
+  impact(u,c){
+    if(c.data.portal&&af285PortalRepair(u,12)){af285Effect(u,'ability_burst',c.x,.7,3,1.25);return;}
+    const t=c.t;
+    if(!t||!af285Allies(u,.17).includes(t))return;
+    af285BoneWall(t,Math.ceil(t.maxHp*.17),3);
+    af285Effect(u,'ability_burst',t.x,.59,3,1);
+  }
+};
+
+for(const [type,def] of Object.entries(AF285_DEFS)){
+  if(def.group===9&&def.status==='dönüştürüldü')AF285_CONVERTED.add(type);
 }
 
 
@@ -47541,4 +47702,4 @@ html:not(#_q):not(#_q):not(#_q) #af171Shop .af173-side>.af4-item>small{min-heigh
 </body>
 </html>
 
-<!-- AF285-PATCHES:eyJ2ZXJzaW9uIjogIjMuNjAuMjg1IiwgImJhc2Vfc2hhMjU2IjogIjU3YTAxMjFlYTBkYjFjNGNiNGQ4NTFiMzQ1OTI3MmRiMGNlNjFkMWNlZTA5ODRhYjhlM2MxMzI3Zjc0ODI1ZDEiLCAicGF0Y2hlcyI6IFtbInRpY2stc3RlcCIsICJhZnAxNzdTdGVwKGR0KTthZnAxNzlTdGVwKGR0KTthZjI2NFN0ZXAoKTsiLCAiYWZwMTc3U3RlcChkdCk7YWZwMTc5U3RlcChkdCk7YWYyNjRTdGVwKCk7YWYyODVTdGVwKGR0KTsiXSwgWyJ1bml0LWJ1c3kiLCAiaWYoKHUuX2FmMjc5U3VwcG9ydFVudGlsfHwwKT5lbGFwc2VkKXt1Ll9hZlRvd2VyPTA7Y29udGludWU7fSIsICJpZihhZjI4NUJ1c3kodSkpe3UuX2FmVG93ZXI9MDt1Ll9hZkVuZz0xO2NvbnRpbnVlO31pZigodS5fYWYyNzlTdXBwb3J0VW50aWx8fDApPmVsYXBzZWQpe3UuX2FmVG93ZXI9MDtjb250aW51ZTt9Il0sIFsiZHJhdy1wYXNzIiwgInRyeXtBRlguZHJhdyhkdCk7fWNhdGNoKF8pe30iLCAidHJ5e0FGWC5kcmF3KGR0KTt9Y2F0Y2goXyl7fXRyeXthZjI4NURyYXcoKTt9Y2F0Y2goXyl7fSJdLCBbImhlcm8teCIsICJjb25zdCB4PWxhbmVYKHUueCkscHg9YWYzMjBQeEZvcihSLmNscyx1LmxhbmUsUi5hcnRCdWxrPz9SLmJ1bGspKih1Ll9hZjIwNUJvc3M/MS4zMjoxKSxrMj1weC9DLmg7IiwgImNvbnN0IHB4PWFmMzIwUHhGb3IoUi5jbHMsdS5sYW5lLFIuYXJ0QnVsaz8/Ui5idWxrKSoodS5fYWYyMDVCb3NzPzEuMzI6MSkseD1sYW5lWCh1LngpK2FmMjg1UG9zZURYKHUscHgpLGsyPXB4L0MuaDsiXSwgWyJoZXJvLXkiLCAiICAgICsodS5fYWZTa2VsZXRvbkNsb25lU2lkZXx8MCkqcHgqLjE1K2FmMzQwMzRNZWxlZUZsYW5rT2Zmc2V0KHUscHgpO1xuICBpZihhZnAxNzdEcmF3SGVybyIsICIgICAgKyh1Ll9hZlNrZWxldG9uQ2xvbmVTaWRlfHwwKSpweCouMTUrYWYzNDAzNE1lbGVlRmxhbmtPZmZzZXQodSxweCkrYWYyODVQb3NlRFkodSxweCk7XG4gIGlmKGFmcDE3N0RyYXdIZXJvIl0sIFsibWVzaC1wb3NlIiwgIiAgY29uc3QgTT1BRjMyMS5wb3NlKEssc3QsZW52KTsiLCAiICBhZjI4NVBvc2VFbnYodSxlbnYpO2NvbnN0IE09QUYzMjEucG9zZShLLHN0LGVudik7Il0sIFsiYXRsYXMtcG9zZSIsICIgICBjb25zdCBhbHBoYSA9IHUuX2FmQmF0dGxlR2hvc3QgPyAodS5fYWZCYXR0bGVHaG9zdFZhbGlkID8gLjYzIDogLjQyKSA6ICh1LmlzRWNobyA/IC42NyA6IDEpOyIsICIgICB7IGNvbnN0IGFiID0gKCF1Ll9hZkJhdHRsZUdob3N0ICYmIHR5cGVvZiB3aW5kb3cuX19BRjI4NVBvc2UgPT09ICdmdW5jdGlvbicpID8gd2luZG93Ll9fQUYyODVQb3NlKHUpIDogbnVsbDtcbiAgICAgaWYgKGFiICYmIGdlb21ldHJ5W3R5cGVdW2FiLnN0YXRlXSkgeyBzdGF0ZSA9IGFiLnN0YXRlOyBmcmFtZSA9IE1hdGgubWF4KDAsIE1hdGgubWluKDcsIGFiLmZyYW1lIHwgMCkpOyB9IH1cbiAgIGNvbnN0IGFscGhhID0gdS5fYWZCYXR0bGVHaG9zdCA/ICh1Ll9hZkJhdHRsZUdob3N0VmFsaWQgPyAuNjMgOiAuNDIpIDogKHUuaXNFY2hvID8gLjY3IDogMSk7Il0sIFsic25hcC1maWVsZHMiLCAiJ19hZlNrZWxldG9uQ2xvbmVTaWRlJywnX2FmMjE0R3JvdXBNZW1iZXInXTsiLCAiJ19hZlNrZWxldG9uQ2xvbmVTaWRlJywnX2FmMjE0R3JvdXBNZW1iZXInLCdfYWYyODVTJywnX2FmMjg1QScsJ19hZjI4NUInLCdfYWYyODVSJywnX2FmMjg1WCcsJ19hZjI4NUwnLCdfYWYyODVOJywnX2FmMjg1V2FyZCcsJ19hZjI4NUFlZ2lzJywnX2FmMjg1RG9tZScsJ19hZjI4NURvbWVNJywnX2FmMjg1RG9tZUMnLCdfYWYyODVEaXp6eScsJ19hZjI4NVZpbmUnLCdfYWYyODVWaW5lRW5kJywnX2FmMjg1QWlyVW50aWwnXTsiXSwgWyJzbmFwLWZ4IiwgInVuaXRzOmxpc3Qsc2hlbGxTaG90cyxhYmlsaXR5RngsIiwgInVuaXRzOmxpc3Qsc2hlbGxTaG90cyxhYmlsaXR5RngsYWYyODVGeDphZjI4NU5ldEZ4KCksIl0sIFsic25hcC1taXJyb3IiLCAiZm9yKGNvbnN0IGsgb2YgWydfYWYyNjRUdW5uZWxGcm9tJywnX2FmMjY0VHVubmVsVG8nXSlpZihOdW1iZXIuaXNGaW5pdGUocmF3W2tdKSl1W2tdPTEtY2xhbXAocmF3W2tdLDAsMSk7IiwgImZvcihjb25zdCBrIG9mIFsnX2FmMjY0VHVubmVsRnJvbScsJ19hZjI2NFR1bm5lbFRvJywnX2FmMjg1WCddKWlmKE51bWJlci5pc0Zpbml0ZShyYXdba10pKXVba109MS1jbGFtcChyYXdba10sMCwxKTsiXSwgWyJzbmFwLWFwcGx5LWZ4IiwgIiAgICB7Y29uc3QgYWg9Y2xhbXAoc25hcHNob3QuZW5lbXlQb3J0YWxIcCYmc25hcHNob3QuZW5lbXlQb3J0YWxIcFswXSwwLDEwMDAwMCxhbGx5U2hhcmVkSFApIiwgIiAgICB0cnl7YWYyODVBcHBseU5ldEZ4KHNuYXBzaG90LmFmMjg1RngpO31jYXRjaChfKXt9XG4gICAge2NvbnN0IGFoPWNsYW1wKHNuYXBzaG90LmVuZW15UG9ydGFsSHAmJnNuYXBzaG90LmVuZW15UG9ydGFsSHBbMF0sMCwxMDAwMDAsYWxseVNoYXJlZEhQKSJdLCBbImFiaWxpdHktZGVhdGgiLCAiaWYodS5ocDw9MCl7YWYyNjRDb21iYXRFdmVudCgnZGVhdGgnLHUsdS5fYWYyNjRLaWxsZXIpOyIsICJpZih1LmhwPD0wKXthZjI4NURlYXRoKHUpO2FmMjY0Q29tYmF0RXZlbnQoJ2RlYXRoJyx1LHUuX2FmMjY0S2lsbGVyKTsiXSwgWyJzY291dC1tYXJrLWRhbWFnZSIsICIgbGV0IGQ9YWYyNjdSdW4oJ2d1YXJkJyx0Z3QsYXR0LGRtZyxraW5kKTsiLCAiIGxldCBkPWFmMjY3UnVuKCdndWFyZCcsdGd0LGF0dCxkbWcsa2luZCk7aWYoYXR0JiZhdHQhPT10Z3QuX2FmMjg1TWFya0J5JiZhdHQudGVhbSE9PXRndC50ZWFtJiZ0Z3QuX2FmMjg1TWFya0J5Py50ZWFtPT09YXR0LnRlYW0mJih0Z3QuX2FmMjg1TWFya1VudGlsfHwwKT5lbGFwc2VkKWQqPXRndC5pc0Jvc3M/MS4wNjoxLjE1OyJdLCBbImFiaWxpdHktYXJtb3ItcGllcmNlIiwgImZ1bmN0aW9uIGFmMjY0UGllcmNlKGF0dCxraW5kKXtcbiAgaWYoa2luZCE9PSdoaXQnKXJldHVybiAwOyIsICJmdW5jdGlvbiBhZjI2NFBpZXJjZShhdHQsa2luZCl7XG4gIGlmKGtpbmQ9PT0nYWYyODVQaWVyY2UnKXJldHVybiAuNjU7XG4gIGlmKGtpbmQhPT0naGl0JylyZXR1cm4gMDsiXSwgWyJtZWxlZS1jb3VudGVyIiwgIiBkcj1NYXRoLm1heChkcixjcmFja2VkQXJtb3IpOyIsICIgZD1hZjI4NUNvdW50ZXJEYW1hZ2UoYXR0LHRndCxkLGtpbmQpO2RyPU1hdGgubWF4KGRyLGNyYWNrZWRBcm1vcik7Il0sIFsiYWJpbGl0eS1zbG93LWdhdGUiLCAiZnVuY3Rpb24gYWYyNjRTbG93KHUsc2Vjb25kcyxpbnRlcnZhbCl7XG4gIGlmKCFhZjI2NFRhcmdldGFibGUodSl8fHUuaXNCYXJyaWVyfHx1LmltbXVuZVVudGlsPmVsYXBzZWR8fCFhZjI2NFJlYWR5KHUsJ19hZjI2NFNsb3dHYXRlJyxpbnRlcnZhbCkpcmV0dXJuOyIsICJmdW5jdGlvbiBhZjI2NFNsb3codSxzZWNvbmRzLGludGVydmFsLGdhdGU9J19hZjI2NFNsb3dHYXRlJyl7XG4gIGlmKCFhZjI2NFRhcmdldGFibGUodSl8fHUuaXNCYXJyaWVyfHx1LmltbXVuZVVudGlsPmVsYXBzZWR8fCFhZjI2NFJlYWR5KHUsZ2F0ZSxpbnRlcnZhbCkpcmV0dXJuOyJdLCBbImFiaWxpdHktYWlyLXRhcmdldCIsICJmdW5jdGlvbiBhZjI2NEhpZGRlbih1KXtyZXR1cm4gYWYyNjRUeXBlKHUpPT09QUYyNjQuYXNzYXNzaW4mJih1Ll9hZjI2NFN0ZWFsdGh8fDApPmVsYXBzZWQ7fSIsICJmdW5jdGlvbiBhZjI2NEhpZGRlbih1KXtyZXR1cm4gKHUuX2FmMjg1QWlyVW50aWx8fDApPmVsYXBzZWR8fGFmMjY0VHlwZSh1KT09PUFGMjY0LmFzc2Fzc2luJiYodS5fYWYyNjRTdGVhbHRofHwwKT5lbGFwc2VkO30iXSwgWyJhYmlsaXR5LWFpci1kYW1hZ2UiLCAiIGlmKCF0Z3R8fHRndC5ocDw9MHx8YWZwMTc5SXNCdXJpZWQodGd0KXx8IiwgIiBpZighdGd0fHx0Z3QuaHA8PTB8fCh0Z3QuX2FmMjg1QWlyVW50aWx8fDApPmVsYXBzZWR8fGFmcDE3OUlzQnVyaWVkKHRndCl8fCJdLCBbImFiaWxpdHktcG9pc29uLXBhc3NpdmUiLCAifWVsc2UgaWYodHlwZT09PUFGMjY0LnBvaXNvbiYmYWxpdmUmJiF0YXJnZXQuaXNCYXJyaWVyIiwgIn1lbHNlIGlmKHR5cGU9PT1BRjI2NC5wb2lzb24mJiFBRjI4NV9DT05WRVJURUQuaGFzKHR5cGUpJiZhbGl2ZSYmIXRhcmdldC5pc0JhcnJpZXIiXSwgWyJ0aXRsZSIsICI8dGl0bGU+QXJlbmEgRm9yZ2UgUHJvIMK3IHYzLjYwLjI4NCBNaW55b24gR2VsacWfdGlybWUgVEVTVDwvdGl0bGU+IiwgIjx0aXRsZT5BcmVuYSBGb3JnZSBQcm8gwrcgdjMuNjAuMjg1IE1pbnlvbiBZZXRlbmVrIFRFU1Q8L3RpdGxlPiJdLCBbInBoeXNpY2FsLWtpbmQiLCAiaWYoa2luZD09PSdhZjI2NFNoZWxsJ3x8a2luZD09PSdhZjI2NEVhcnRoJ3x8a2luZD09PSdhZjI2N1BoeXNpY2FsJ3x8a2luZD09PSdyZWZsZWN0ZWRBcnJvdyd8fGtpbmQ9PT0ndG93ZXInKXJldHVybiB0cnVlOyIsICJpZihraW5kPT09J2FmMjY0U2hlbGwnfHxraW5kPT09J2FmMjY0RWFydGgnfHxraW5kPT09J2FmMjY3UGh5c2ljYWwnfHxraW5kPT09J2FmMjg1UGh5c2ljYWwnfHxraW5kPT09J2FmMjg1UGllcmNlJ3x8a2luZD09PSdyZWZsZWN0ZWRBcnJvdyd8fGtpbmQ9PT0ndG93ZXInKXJldHVybiB0cnVlOyJdXSwgInFhIjogZmFsc2V9 -->
+<!-- AF285-PATCHES:eyJ2ZXJzaW9uIjogIjMuNjAuMjg1IiwgImJhc2Vfc2hhMjU2IjogIjU3YTAxMjFlYTBkYjFjNGNiNGQ4NTFiMzQ1OTI3MmRiMGNlNjFkMWNlZTA5ODRhYjhlM2MxMzI3Zjc0ODI1ZDEiLCAicGF0Y2hlcyI6IFtbInRpY2stc3RlcCIsICJhZnAxNzdTdGVwKGR0KTthZnAxNzlTdGVwKGR0KTthZjI2NFN0ZXAoKTsiLCAiYWZwMTc3U3RlcChkdCk7YWZwMTc5U3RlcChkdCk7YWYyNjRTdGVwKCk7YWYyODVTdGVwKGR0KTsiXSwgWyJ1bml0LWJ1c3kiLCAiaWYoKHUuX2FmMjc5U3VwcG9ydFVudGlsfHwwKT5lbGFwc2VkKXt1Ll9hZlRvd2VyPTA7Y29udGludWU7fSIsICJpZihhZjI4NUJ1c3kodSkpe3UuX2FmVG93ZXI9MDt1Ll9hZkVuZz0xO2NvbnRpbnVlO31pZigodS5fYWYyNzlTdXBwb3J0VW50aWx8fDApPmVsYXBzZWQpe3UuX2FmVG93ZXI9MDtjb250aW51ZTt9Il0sIFsiZHJhdy1wYXNzIiwgInRyeXtBRlguZHJhdyhkdCk7fWNhdGNoKF8pe30iLCAidHJ5e0FGWC5kcmF3KGR0KTt9Y2F0Y2goXyl7fXRyeXthZjI4NURyYXcoKTt9Y2F0Y2goXyl7fSJdLCBbImhlcm8teCIsICJjb25zdCB4PWxhbmVYKHUueCkscHg9YWYzMjBQeEZvcihSLmNscyx1LmxhbmUsUi5hcnRCdWxrPz9SLmJ1bGspKih1Ll9hZjIwNUJvc3M/MS4zMjoxKSxrMj1weC9DLmg7IiwgImNvbnN0IHB4PWFmMzIwUHhGb3IoUi5jbHMsdS5sYW5lLFIuYXJ0QnVsaz8/Ui5idWxrKSoodS5fYWYyMDVCb3NzPzEuMzI6MSkseD1sYW5lWCh1LngpK2FmMjg1UG9zZURYKHUscHgpLGsyPXB4L0MuaDsiXSwgWyJoZXJvLXkiLCAiICAgICsodS5fYWZTa2VsZXRvbkNsb25lU2lkZXx8MCkqcHgqLjE1K2FmMzQwMzRNZWxlZUZsYW5rT2Zmc2V0KHUscHgpO1xuICBpZihhZnAxNzdEcmF3SGVybyIsICIgICAgKyh1Ll9hZlNrZWxldG9uQ2xvbmVTaWRlfHwwKSpweCouMTUrYWYzNDAzNE1lbGVlRmxhbmtPZmZzZXQodSxweCkrYWYyODVQb3NlRFkodSxweCk7XG4gIGlmKGFmcDE3N0RyYXdIZXJvIl0sIFsibWVzaC1wb3NlIiwgIiAgY29uc3QgTT1BRjMyMS5wb3NlKEssc3QsZW52KTsiLCAiICBhZjI4NVBvc2VFbnYodSxlbnYpO2NvbnN0IE09QUYzMjEucG9zZShLLHN0LGVudik7Il0sIFsiYXRsYXMtcG9zZSIsICIgICBjb25zdCBhbHBoYSA9IHUuX2FmQmF0dGxlR2hvc3QgPyAodS5fYWZCYXR0bGVHaG9zdFZhbGlkID8gLjYzIDogLjQyKSA6ICh1LmlzRWNobyA/IC42NyA6IDEpOyIsICIgICB7IGNvbnN0IGFiID0gKCF1Ll9hZkJhdHRsZUdob3N0ICYmIHR5cGVvZiB3aW5kb3cuX19BRjI4NVBvc2UgPT09ICdmdW5jdGlvbicpID8gd2luZG93Ll9fQUYyODVQb3NlKHUpIDogbnVsbDtcbiAgICAgaWYgKGFiICYmIGdlb21ldHJ5W3R5cGVdW2FiLnN0YXRlXSkgeyBzdGF0ZSA9IGFiLnN0YXRlOyBmcmFtZSA9IE1hdGgubWF4KDAsIE1hdGgubWluKDcsIGFiLmZyYW1lIHwgMCkpOyB9IH1cbiAgIGNvbnN0IGFscGhhID0gdS5fYWZCYXR0bGVHaG9zdCA/ICh1Ll9hZkJhdHRsZUdob3N0VmFsaWQgPyAuNjMgOiAuNDIpIDogKHUuaXNFY2hvID8gLjY3IDogMSk7Il0sIFsic25hcC1maWVsZHMiLCAiJ19hZlNrZWxldG9uQ2xvbmVTaWRlJywnX2FmMjE0R3JvdXBNZW1iZXInXTsiLCAiJ19hZlNrZWxldG9uQ2xvbmVTaWRlJywnX2FmMjE0R3JvdXBNZW1iZXInLCdfYWYyODVTJywnX2FmMjg1QScsJ19hZjI4NUInLCdfYWYyODVSJywnX2FmMjg1WCcsJ19hZjI4NUwnLCdfYWYyODVOJywnX2FmMjg1V2FyZCcsJ19hZjI4NUFlZ2lzJywnX2FmMjg1RG9tZScsJ19hZjI4NURvbWVNJywnX2FmMjg1RG9tZUMnLCdfYWYyODVEaXp6eScsJ19hZjI4NVZpbmUnLCdfYWYyODVWaW5lRW5kJywnX2FmMjg1QWlyVW50aWwnLCdfYWZwMTc3Q2FwdGl2ZVVudGlsJywnX2FmMjg1RHJhZ0VuZCddOyJdLCBbInNuYXAtZngiLCAidW5pdHM6bGlzdCxzaGVsbFNob3RzLGFiaWxpdHlGeCwiLCAidW5pdHM6bGlzdCxzaGVsbFNob3RzLGFiaWxpdHlGeCxhZjI4NUZ4OmFmMjg1TmV0RngoKSwiXSwgWyJzbmFwLW1pcnJvciIsICJmb3IoY29uc3QgayBvZiBbJ19hZjI2NFR1bm5lbEZyb20nLCdfYWYyNjRUdW5uZWxUbyddKWlmKE51bWJlci5pc0Zpbml0ZShyYXdba10pKXVba109MS1jbGFtcChyYXdba10sMCwxKTsiLCAiZm9yKGNvbnN0IGsgb2YgWydfYWYyNjRUdW5uZWxGcm9tJywnX2FmMjY0VHVubmVsVG8nLCdfYWYyODVYJ10paWYoTnVtYmVyLmlzRmluaXRlKHJhd1trXSkpdVtrXT0xLWNsYW1wKHJhd1trXSwwLDEpOyJdLCBbInNuYXAtYXBwbHktZngiLCAiICAgIHtjb25zdCBhaD1jbGFtcChzbmFwc2hvdC5lbmVteVBvcnRhbEhwJiZzbmFwc2hvdC5lbmVteVBvcnRhbEhwWzBdLDAsMTAwMDAwLGFsbHlTaGFyZWRIUCkiLCAiICAgIHRyeXthZjI4NUFwcGx5TmV0Rngoc25hcHNob3QuYWYyODVGeCk7fWNhdGNoKF8pe31cbiAgICB7Y29uc3QgYWg9Y2xhbXAoc25hcHNob3QuZW5lbXlQb3J0YWxIcCYmc25hcHNob3QuZW5lbXlQb3J0YWxIcFswXSwwLDEwMDAwMCxhbGx5U2hhcmVkSFApIl0sIFsiYWJpbGl0eS1kZWF0aCIsICJpZih1LmhwPD0wKXthZjI2NENvbWJhdEV2ZW50KCdkZWF0aCcsdSx1Ll9hZjI2NEtpbGxlcik7IiwgImlmKHUuaHA8PTApe2FmMjg1RGVhdGgodSk7YWYyNjRDb21iYXRFdmVudCgnZGVhdGgnLHUsdS5fYWYyNjRLaWxsZXIpOyJdLCBbInNjb3V0LW1hcmstZGFtYWdlIiwgIiBsZXQgZD1hZjI2N1J1bignZ3VhcmQnLHRndCxhdHQsZG1nLGtpbmQpOyIsICIgbGV0IGQ9YWYyNjdSdW4oJ2d1YXJkJyx0Z3QsYXR0LGRtZyxraW5kKTtpZihhdHQmJmF0dCE9PXRndC5fYWYyODVNYXJrQnkmJmF0dC50ZWFtIT09dGd0LnRlYW0mJnRndC5fYWYyODVNYXJrQnk/LnRlYW09PT1hdHQudGVhbSYmKHRndC5fYWYyODVNYXJrVW50aWx8fDApPmVsYXBzZWQpZCo9dGd0LmlzQm9zcz8xLjA2OjEuMTU7Il0sIFsiYWJpbGl0eS1hcm1vci1waWVyY2UiLCAiZnVuY3Rpb24gYWYyNjRQaWVyY2UoYXR0LGtpbmQpe1xuICBpZihraW5kIT09J2hpdCcpcmV0dXJuIDA7IiwgImZ1bmN0aW9uIGFmMjY0UGllcmNlKGF0dCxraW5kKXtcbiAgaWYoa2luZD09PSdhZjI4NVBpZXJjZScpcmV0dXJuIC42NTtcbiAgaWYoa2luZCE9PSdoaXQnKXJldHVybiAwOyJdLCBbIm1lbGVlLWNvdW50ZXIiLCAiIGRyPU1hdGgubWF4KGRyLGNyYWNrZWRBcm1vcik7IiwgIiBkPWFmMjg1Q291bnRlckRhbWFnZShhdHQsdGd0LGQsa2luZCk7ZHI9TWF0aC5tYXgoZHIsY3JhY2tlZEFybW9yKTsiXSwgWyJhYmlsaXR5LXNsb3ctZ2F0ZSIsICJmdW5jdGlvbiBhZjI2NFNsb3codSxzZWNvbmRzLGludGVydmFsKXtcbiAgaWYoIWFmMjY0VGFyZ2V0YWJsZSh1KXx8dS5pc0JhcnJpZXJ8fHUuaW1tdW5lVW50aWw+ZWxhcHNlZHx8IWFmMjY0UmVhZHkodSwnX2FmMjY0U2xvd0dhdGUnLGludGVydmFsKSlyZXR1cm47IiwgImZ1bmN0aW9uIGFmMjY0U2xvdyh1LHNlY29uZHMsaW50ZXJ2YWwsZ2F0ZT0nX2FmMjY0U2xvd0dhdGUnKXtcbiAgaWYoIWFmMjY0VGFyZ2V0YWJsZSh1KXx8dS5pc0JhcnJpZXJ8fHUuaW1tdW5lVW50aWw+ZWxhcHNlZHx8IWFmMjY0UmVhZHkodSxnYXRlLGludGVydmFsKSlyZXR1cm47Il0sIFsiYWJpbGl0eS1haXItdGFyZ2V0IiwgImZ1bmN0aW9uIGFmMjY0SGlkZGVuKHUpe3JldHVybiBhZjI2NFR5cGUodSk9PT1BRjI2NC5hc3Nhc3NpbiYmKHUuX2FmMjY0U3RlYWx0aHx8MCk+ZWxhcHNlZDt9IiwgImZ1bmN0aW9uIGFmMjY0SGlkZGVuKHUpe3JldHVybiAodS5fYWYyODVBaXJVbnRpbHx8MCk+ZWxhcHNlZHx8YWYyNjRUeXBlKHUpPT09QUYyNjQuYXNzYXNzaW4mJih1Ll9hZjI2NFN0ZWFsdGh8fDApPmVsYXBzZWQ7fSJdLCBbImFiaWxpdHktYWlyLWRhbWFnZSIsICIgaWYoIXRndHx8dGd0LmhwPD0wfHxhZnAxNzlJc0J1cmllZCh0Z3QpfHwiLCAiIGlmKCF0Z3R8fHRndC5ocDw9MHx8KHRndC5fYWYyODVBaXJVbnRpbHx8MCk+ZWxhcHNlZHx8YWZwMTc5SXNCdXJpZWQodGd0KXx8Il0sIFsiYWJpbGl0eS1wb2lzb24tcGFzc2l2ZSIsICJ9ZWxzZSBpZih0eXBlPT09QUYyNjQucG9pc29uJiZhbGl2ZSYmIXRhcmdldC5pc0JhcnJpZXIiLCAifWVsc2UgaWYodHlwZT09PUFGMjY0LnBvaXNvbiYmIUFGMjg1X0NPTlZFUlRFRC5oYXModHlwZSkmJmFsaXZlJiYhdGFyZ2V0LmlzQmFycmllciJdLCBbImFiaWxpdHktY2FwdGl2ZS1kcmF3IiwgImlmKHUuX2FmcDE3N0NhcHRpdmVCeXx8YWZwMTc5SXNCdXJpZWQodSl8fGFmMjY0QnVyaWVkKHUpKXt1Ll92aXM9bnVsbDsiLCAiaWYodS5fYWZwMTc3Q2FwdGl2ZUJ5fHwodS5fYWZwMTc3Q2FwdGl2ZVVudGlsfHwwKT5lbGFwc2VkfHxhZnAxNzlJc0J1cmllZCh1KXx8YWYyNjRCdXJpZWQodSkpe3UuX3Zpcz1udWxsOyJdLCBbImFiaWxpdHktY2FwdGl2ZS1kYW1hZ2UiLCAidGVhbTplYXRlci50ZWFtLGtleTpBRlAxNzdfS1VMLGtpbmQ6J2FmcDE3N19zdG9tYWNoJyIsICJ0ZWFtOmVhdGVyLnRlYW0sa2V5OmVhdGVyLmhlcm9UeXBlfHxBRlAxNzdfS1VMLHNvdXJjZTplYXRlcixraW5kOidhZnAxNzdfc3RvbWFjaCciXSwgWyJ0aXRsZSIsICI8dGl0bGU+QXJlbmEgRm9yZ2UgUHJvIMK3IHYzLjYwLjI4NCBNaW55b24gR2VsacWfdGlybWUgVEVTVDwvdGl0bGU+IiwgIjx0aXRsZT5BcmVuYSBGb3JnZSBQcm8gwrcgdjMuNjAuMjg1IE1pbnlvbiBZZXRlbmVrIFRFU1Q8L3RpdGxlPiJdLCBbInBoeXNpY2FsLWtpbmQiLCAiaWYoa2luZD09PSdhZjI2NFNoZWxsJ3x8a2luZD09PSdhZjI2NEVhcnRoJ3x8a2luZD09PSdhZjI2N1BoeXNpY2FsJ3x8a2luZD09PSdyZWZsZWN0ZWRBcnJvdyd8fGtpbmQ9PT0ndG93ZXInKXJldHVybiB0cnVlOyIsICJpZihraW5kPT09J2FmMjY0U2hlbGwnfHxraW5kPT09J2FmMjY0RWFydGgnfHxraW5kPT09J2FmMjY3UGh5c2ljYWwnfHxraW5kPT09J2FmMjg1UGh5c2ljYWwnfHxraW5kPT09J2FmMjg1UGllcmNlJ3x8a2luZD09PSdyZWZsZWN0ZWRBcnJvdyd8fGtpbmQ9PT0ndG93ZXInKXJldHVybiB0cnVlOyJdXSwgInFhIjogZmFsc2V9 -->
