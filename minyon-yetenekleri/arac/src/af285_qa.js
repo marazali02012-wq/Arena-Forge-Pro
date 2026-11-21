@@ -168,7 +168,7 @@
    try{out.hands=window.__arenaForgeV275QA.openingHands(200);}catch(e){out.hands=String(e);}
    return out;};
  QA.roster=function(){const ids=window.AF59Roster.ids();const rar={};for(const t of ids){const r=HERO_INFO[t].rarity;rar[r]=(rar[r]||0)+1;}
-   return {count:ids.length,ids,rarity:rar,costs:Object.fromEntries(ids.map(t=>[t,energyCost(t)])),saveKey:(typeof SAVE_KEY!=='undefined'?SAVE_KEY:null),deckSize:(typeof preparedDeckTypes!=='undefined'?preparedDeckTypes.length:null)};};
+   return {count:ids.length,ids,rarity:rar,costs:Object.fromEntries(ids.map(t=>[t,energyCost(t)])),levels:Object.fromEntries(ids.map(t=>[t,heroLevel(t)])),saveKey:(typeof SAVE_KEY!=='undefined'?SAVE_KEY:null),deckSize:(typeof preparedDeckTypes!=='undefined'?preparedDeckTypes.length:null)};};
  QA.stepUntil=function(maxSec,k,src,fps){
   fps=fps||25;let idx=QA.log.length;const tEnd=elapsed+maxSec;QA.stepping=true;
   try{for(let n=0;playing&&elapsed<tEnd&&n<Math.ceil(maxSec*fps)+8;n++){if(QA.lockEnemyEnergy)enemyEnergy=0;QA.ts+=1000/fps;realTick(QA.ts);

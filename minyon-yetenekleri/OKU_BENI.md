@@ -44,7 +44,7 @@ Görsellerin kaynak dosyaları `arac/assets/kaynak_*.png` adıyla duruyor.
 | Zincir yıldırım (16 kare) | Fırtına Bağlayıcı. Her sıçrama, hasar alan iki birimin arasına gerçek mesafeye göre uzatılarak çizilir. |
 | Sarmaşık şifası (16 kare) | Orman Ruhu. İyileştirme her uygulandığında artı işareti parlar. |
 | Efekt kütüphanesi (10 × 12 kare) | Alev Bekçisi: ateş kalkanı. Fırtına Bağlayıcı: zincirle bağlama. Buz Şövalyesi: buz kesiği ve dikenler. Gölge Suikastçı ve Gece Büyücüsü: gölge kesiği. Işık Şifacısı: altın ışık. Zehir, toprak, zincir ve sarmaşık görselleri sıradaki gruplarda kullanılacak; eşleştirme `ILERLEME.json` içinde. |
-| Buz şifası (16 kare) | Oyuna gömüldü (`fx_frost_heal`). 5. grubun ilk minyonu Kar Fenercisi'nde kullanılacak. |
+| Buz şifası (16 kare) | Oyuna gömüldü (`fx_frost_heal`). Kar Fenercisi şifa verirken oynatılır. |
 
 ## Derleme ve test
 
@@ -59,6 +59,8 @@ python3 build.py ../ArenaForgePro_v3_60_285_Minyon_Yetenek_TEST.html qa.html --q
 python3 build.py v284.html orijinal_qa.html --qa --no-abilities
 python3 tests/group_test.py qa.html 1 sonuc/grup1 --orig orijinal_qa.html
 python3 tests/system_check.py qa.html orijinal_qa.html sonuc/sistem.json
+python3 tests/edge_battle.py qa.html sonuc/sinirlar.json
+python3 tests/final_battle.py qa.html sonuc/son_savas_testi.json
 ```
 
 Testler Playwright ve Google Chrome ile başsız tarayıcıda gerçek savaş döngüsünü kare kare ilerletir.
@@ -87,7 +89,13 @@ Her minyon için şunlar denetlenir:
 - Dönüştürülmemiş bir minyonun eski yeteneğinin hâlâ çalışması
 - Hata sayaçları
 
-## Sonraki çalışmada devam
+## Son denetim
+
+[59 minyon ve karma maçlar](test-sonuclari/son_savas_testi.json), [sınır senaryoları](test-sonuclari/sinir_testleri.json) ve [sistem karşılaştırması](test-sonuclari/sistem_denetimi.json) bu HTML'nin kaynaklarıyla çalıştırıldı.
+59 minyonun her biri ayrı savaş senaryosunda sınandı. Ayrıca 59 kart, birbiri ardına beş karma maçta gerçek kart oynama yolundan kullanıldı.
+Sistem karşılaştırması 9 mod tanımını, 12 kartlık deste boyutunu ve 59 kartın kimliğini, seviyesini, enerjisini ve nadirliğini denetler.
+
+## Bakım
 
 `ILERLEME.json` içindeki `siradaki_grup` değerinden başla. Aynı yöntemle ilerle:
 

@@ -463,6 +463,7 @@
   "ids": true,
   "rarity": true,
   "costs": true,
+  "levels": true,
   "deck12": true,
   "legacySame": true,
   "openingHandsOk": true,
@@ -485,5 +486,18 @@
   "fx_chains": "afn_zincir_kiran (grup 12)",
   "fx_dome12": "yedek mavi kubbe (12 kare)",
   "fx_frost_heal (buz şifası, 16 kare, kütüphanede gömülü)": "afn_kar_fenercisi (grup 5)"
+ },
+ "son_toplu_denetim": {
+  "başarılı_minyon": 59,
+  "başarısız_minyon": 0,
+  "karma_maç": 5,
+  "bot_özel_yetenek": true,
+  "sınır_kontrolü": 8,
+  "html_çözünürlükleri": [
+   "740x360",
+   "667x375"
+  ],
+  "gerçek_android_cihaz": false,
+  "gerçek_ağda_iki_cihaz": false
  }
 }

@@ -203,23 +203,31 @@ AF285_VFX.counter_strike=function(f,p){
   for(let i=0;i<4;i++){const an=(i-1.5)*.45+(dir>0?0:Math.PI);ctx.beginPath();ctx.moveTo(c.x+Math.cos(an)*px*.12,y+Math.sin(an)*px*.12);ctx.lineTo(c.x+Math.cos(an)*px*(.3+.3*p),y+Math.sin(an)*px*(.3+.3*p));ctx.stroke();}
 };
 
-/* ---------- 5. MIZRAK USTASI · İKİNCİ BASIŞ (savaşçı: iki hedefi delen mızrak hamlesi) ---------- */
+/* ---------- 5. MIZRAK USTASI · İKİNCİ BASIŞ (savaşçı: iki ayrı mızrak hamlesi) ---------- */
 AF285_CONVERTED.add('af37_dovus_ustasi_ii');
 AF285_DEFS.af37_dovus_ustasi_ii={
   group:3,role:'savaşçı',status:'dönüştürüldü',name:'İkinci Basış',icon:'🔱',
   cd:7,first:1.6,wind:.38,cast:.14,hit:1,rec:.28,retarget:true,track:true,sfx:['hit','thrust'],
-  desc:'Mızrağını geri çekip ileri saplar; mızrak ilk hedeften geçip arkasındaki bir düşmanı da deler. İkisine %75 fiziksel hasar verir, hamleden sağ çıkan ilk hedefi geri iter.',
-  keep:'Eski “üçüncü vuruşta geri it” kuralı korundu; itme artık hazırlıklı, iki hedefi delen gerçek bir hamleyle gelir.',
-  strong:'Arka arkaya dizilen düşmanlara ve ön safın arkasındaki destek birliklerine karşı.',
-  weak:'Yan yana değil, arka arkaya dizilmeyen gruplarda tek hedefe iner; hazırlıkta sersemletilirse hamle olmaz.',
+  desc:'Mızrağını art arda iki kez saplar. Ayrı hesaplanan iki darbe %75 ve %65 fiziksel hasar verir. İkinci darbe yakın hedefi geri iter.',
+  keep:'Eski “üçüncü vuruşta geri it” kuralı korundu; itme iki ayrı, hazırlıklı mızrak darbesinin ikincisinde gelir.',
+  strong:'Düşmanı seri iki darbeyle geri itmede.',
+  weak:'Menzili kısadır, hedef ikinci hamleden önce kaçabilir.',
   plan(u){const t=af285Front(u,unitAttackRange(u)+.015)[0];return t?{t,x:t.x}:null;},
   impact(u,c){
-    const dir=af285Dir(u),t=c.t&&c.t.hp>0&&units.includes(c.t)&&af285Hittable(c.t)?c.t:af285Front(u,unitAttackRange(u)+.03)[0];if(!t)return;
-    const behind=af285Foes(u,u.lane,t.x,.075).filter(v=>v!==t&&dir*(v.x-t.x)>0).sort((a,b)=>Math.abs(a.x-t.x)-Math.abs(b.x-t.x))[0];
+    const reach=unitAttackRange(u)+.03,dir=af285Dir(u);
+    const t=af285ValidTarget(u,c.t,reach)?c.t:af285Front(u,reach)[0];
+    if(!t)return;
     af285Dmg(u,t,u.atk*.75,true,'#f4e0c0');
-    if(behind)af285Dmg(u,behind,u.atk*.75,true,'#f4e0c0');
-    const pushed=[t,behind].find(v=>v&&v.hp>0&&!v.isBarrier);if(pushed)af285Knock(u,pushed,.03); // hamleden sağ çıkan ilk hedef geri itilir
-    af285Emit('spear_pierce',u,{x1:(behind||t).x+dir*.02,life:.35});
+    af285Emit('spear_pierce',u,{x1:t.x+dir*.012,life:.22});
+    af285Later(.14,()=>{
+      if(!units.includes(u)||!af285Free(u))return;
+      const second=af285ValidTarget(u,t,reach)?t:af285Front(u,reach)[0];
+      if(!second)return;
+      u.attackPulse=Math.max(u.attackPulse||0,.24);
+      af285Dmg(u,second,u.atk*.65,true,'#ffe9c7');
+      af285Knock(u,second,.03);
+      af285Emit('spear_pierce',u,{x1:second.x+dir*.014,life:.26});
+    });
   },
   pose(s,p){
     if(s===AF285_WIND)return {dx:-.04*af285Ease(p),dy:.015*p,tau:-1+.95*p};

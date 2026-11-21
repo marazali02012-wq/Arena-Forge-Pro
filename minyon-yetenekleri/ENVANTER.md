@@ -66,3 +66,5 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 57 | 12 | Toprak Yarıcı | `afn_toprak_yarici` | Mitik | 6 | Yeraltı Geçidi | yalnızca görsel | Tünel çalışıyor; çıkıştaki alan hasarı yalnız çıkış noktasında düşman varsa uygulanıyor, testte boşa düştü. | Toprak Çıkışı (dönüştürüldü) | ✔ test geçti |
 | 58 | 12 | Zincir Kıran | `afn_zincir_kiran` | Epik | 5 | Bağ Koparan | çalışıyor |  | Zincir Kancası (dönüştürüldü) | ✔ test geçti |
 | 59 | 12 | Büyücü | `mage` | Nadir | 3 | Mühür Çatlağı | çalışıyor |  | Büyü Mührü (dönüştürüldü) | ✔ test geçti |
+
+Son HTML, [59 minyonluk son savaş testinde](test-sonuclari/son_savas_testi.json) yeniden sınandı.

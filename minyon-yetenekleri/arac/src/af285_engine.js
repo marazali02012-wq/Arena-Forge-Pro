@@ -58,6 +58,14 @@ function af285Death(u){
   const def=af285Def(u);
   if(def?.onDeath)def.onDeath(u);
 }
+function af285FrostDamage(att,tgt,d,kind){
+  if(kind!=='hit'||!(d>0)||!att||att.team===tgt.team)return d;
+  if(tgt.heroType==='af37_buz_muhafizi'&&tgt._af285Dome>0&&tgt.absorb>0&&tgt.absorbUntil>elapsed&&
+     !af323IsShooter(att)&&af285ValidTarget(tgt,att,.1))af264Slow(att,1.2,2.5,'_af285ArmorChill');
+  if(!(tgt._af285BrittleUntil>elapsed))return d;
+  tgt._af285BrittleUntil=0;
+  return d*(tgt.isBoss?1.06:1.16);
+}
 function af285Stat(type,key,n){const s=AF285_STATS[type]||(AF285_STATS[type]={});s[key]=(s[key]||0)+(n==null?1:n);}
 function af285Dmg(u,v,amount,phys,color){
   if(!v||v.hp<=0)return 0;

@@ -201,7 +201,7 @@ AF285_CONVERTED.add('af37_buz_elementali');
 AF285_DEFS.af37_buz_elementali={
   group:2,role:'kontrol',status:'dönüştürüldü',name:'Kırılgan Buz',icon:'❄️',
   cd:8,first:2,wind:.45,cast:.32,hit:.5,rec:.3,sfx:['spell','ice'],
-  desc:'Yumruklarında buz kristali toplar ve önüne buz dalgası gönderir: en çok 3 düşmana %40 büyü hasarı verir ve 1,6 sn yavaşlatır. Zaten yavaşlamış ya da kökü tutulmuş en çok 2 düşmanı buz kırar: %60 hasar alır ve 0,7 sn yerinde kalır.',
+  desc:'Yumruklarında buz kristali toplar ve önüne buz dalgası gönderir: en çok 3 düşmana %40 büyü hasarı verir ve 1,6 sn yavaşlatır. Sonraki yakın ya da menzilli normal darbe, kırılgan düşmana %16 daha güçlü vurur. Zaten yavaşlamış ya da kökü tutulmuş en çok 2 düşmanı buz kırar: %60 hasar alır ve 0,7 sn yerinde kalır.',
   keep:'Eski “yavaşlamış hedefi kökle” kuralı korundu; artık önce buz dalgası yavaşlatır, ikinci kullanımda kırar.',
   strong:'Başka buz/yavaşlatma birlikleriyle birlikte; yavaş ön safı durdurmada.',
   weak:'Yalnız önündeki düşmanları etkiler; bağışıklık ve köklenme aralığı (2,5 sn) art arda kilitlemeyi engeller.',
@@ -224,6 +224,10 @@ AF285_DEFS.af37_buz_elementali={
         if(af264Root(v,.7)){shattered++;af285Emit('ice_shatter',u,{x0:v.x,life:.7});}
       }else af285Dmg(u,v,u.atk*.4,false,'#cdefff');
       af264Slow(v,1.6,2.5);
+      if(v.hp>0&&!v.isBarrier&&(v.immuneUntil||0)<=elapsed){
+        v._af285BrittleUntil=elapsed+2;
+        af285Emit('ice_shatter',u,{x0:v.x,life:.32});
+      }
     }
   },
   pose(s,p){
@@ -269,7 +273,7 @@ AF285_CONVERTED.add('af37_buz_muhafizi');
 AF285_DEFS.af37_buz_muhafizi={
   group:2,role:'tank',status:'dönüştürüldü',name:'Buz Siperi',icon:'🧊',
   cd:9,first:1.5,wind:.4,cast:.14,hit:1,rec:.3,sfx:['hit','ice'],
-  desc:'Buz kılıcını yere saplar: önündeki en hızlı düşmanı 0,9 sn yerinde tutar ve %55 fiziksel hasar verir, yanındaki düşmanları 1,2 sn yavaşlatır. Kendini 4 sn boyunca canının %14’ü kadar mavi buz kubbesiyle korur; kubbe hasar aldıkça çatlar, bitince kırılır.',
+  desc:'Buz kılıcını yere saplar: önündeki en hızlı düşmanı 0,9 sn yerinde tutar ve %55 fiziksel hasar verir, yanındaki düşmanları 1,2 sn yavaşlatır. Kendini 4 sn boyunca canının %14’ü kadar mavi buz kubbesiyle korur; kubbe yakın saldırganı yavaşlatır, hasar aldıkça çatlar ve bitince kırılır.',
   keep:'Eski “hızlı düşmanı yerinde tut” kuralı korundu; kökleme artık görünür buz dikenleriyle ve kendi buz kalkanıyla birlikte gelir.',
   strong:'Hızlı dalış yapan suikastçı ve hafif birliklere karşı; ön safta zaman kazandırır.',
   weak:'Kök sadece tek hedefe; büyü hasarı kubbeyi hızlı kırar; köklenme aralığı 2,5 sn.',

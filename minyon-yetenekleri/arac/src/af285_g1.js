@@ -6,7 +6,7 @@
 AF285_DEFS.af37_agir_zirhli={
   group:1,role:'tank',status:'eklendi',name:'Çelik Siper',icon:'🛡️',
   cd:11,first:2,wind:.48,cast:.14,hit:1,rec:.32,sfx:['hit','heavy'],
-  desc:'Kalkanını yere çakar: önündeki en çok 3 düşmana %55 fiziksel hasar verir, onları geri iter ve saldırılarını geciktirir. Ardından 4 sn çelik siper kurar: kendisi %40, arkasındaki dostlar %22 daha az hasar alır.',
+  desc:'Kalkanını yere çakar: önündeki en çok 3 düşmana %55 fiziksel hasar verir, onları geri iter ve saldırılarını geciktirir. Ardından 4 sn çelik siper kurar: kendisi %40, arkasındaki dostlar %22 daha az hasar alır. Ayrıca çelik kalkan ilk darbeleri emer.',
   keep:'Pasif — Çelik Ön Saf: fiziksel hasarı %28 azaltır, arkasındaki menzilli/destek dostlarını önden gelen fiziksel hasara karşı %12 korur.',
   strong:'Yakın dövüşçü sürülerine ve arka hattı sıkıştıran saldırılara karşı.',
   weak:'Büyü hasarı zırhı aşar; hazırlık sırasında sersemletilirse siper kurulamaz; yavaş olduğu için menzilliler uzaktan aşındırır.',
@@ -25,7 +25,11 @@ AF285_DEFS.af37_agir_zirhli={
       .sort((a,b)=>Math.abs(a.x-u.x)-Math.abs(b.x-u.x)).slice(0,3);
     for(const v of victims){af285Dmg(u,v,u.atk*.55,true,'#d9e6f2');af285Knock(u,v,.026);af285Delay(u,v,.35);}
     af327Timed(u,'dr','drUntil',.40,4);
-    for(const a of af285Allies(u,.13))if(dir*(u.x-a.x)>=-.004)af327Timed(a,'dr','drUntil',.22,4);
+    af327Shield(u,Math.max(1,Math.round(u.maxHp*.12)),4);
+    for(const a of af285Allies(u,.13).filter(v=>dir*(u.x-v.x)>=-.004).slice(0,3)){
+      af327Timed(a,'dr','drUntil',.22,4);
+      af327Shield(a,Math.max(1,Math.round(a.maxHp*.08)),4);
+    }
     u._af285Ward=elapsed+4;
     af285Emit('steel_slam',u,{x1:u.x+dir*.085,life:.6,a:victims.length});
   },

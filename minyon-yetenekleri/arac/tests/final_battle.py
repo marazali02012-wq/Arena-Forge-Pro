@@ -64,13 +64,36 @@ async def mixed_battle(game, deck, rival):
         'deck': deck,
         'played': used,
         'stats': stats,
-        'ok': set(used) == set(deck) and stats['botCards'] > 0 and stats['botAbilities'] > 0
+        'ok': set(used) == set(deck) and stats['botCards'] > 0
               and not stats['playing'] and stats['tickErrors'] == stats['drawErrors'] == 0,
     }
 
 
-async def main(html, result_file):
-    result = {'minions': {}, 'matches': []}
+async def bot_ability(game):
+    q='window.__AF285QA'
+    await game.qa(f'{q}.restart()')
+    typ='af37_orman_okcu'
+    for lane,card in enumerate(('af37_agir_zirhli','af37_altin_muhafiz','afn_ayaz_kalkanlisi')):
+        placed=await game.play('ally',card,lane,.27)
+        if not placed.get('ok'):
+            return False
+        await game.ev('''id=>{
+          const q=window.__AF285QA,u=q.find(id,'ally');
+          u.x=.53;u.stunUntil=30;u.hp=u.maxHp=2200;
+        }''',placed['uids'][0])
+    await game.qa(f'{q}.drawEvery=100')
+    await game.ev('d=>window.__AF285QA.enableBot(d)',[typ])
+    await game.step(14)
+    seen=any(e['k']=='ab-impact' and e['team']=='enemy' and e['src']==typ for e in await game.events(0))
+    report=await game.qa(f'{q}.battleReport()')
+    await game.qa(f'{q}.disableBot()')
+    return seen and report['botCards']>0
+
+
+async def main(html, result_file, only=None):
+    path=pathlib.Path(result_file)
+    result=json.loads(path.read_text()) if only=='--matches-only' else {'minions': {}, 'matches': []}
+    result['matches']=[]
     async with Game(html, 740, 360, mobile=True) as host, Game(html, 667, 375, mobile=True, browser=host.browser) as peer:
         for device in (host, peer):
             start = await device.start_battle()
@@ -79,7 +102,7 @@ async def main(html, result_file):
         defined = {d['id'] for d in await host.qa('window.__AF285QA.defs()')}
         roster = (await host.qa('window.__AF285QA.roster()'))['ids']
         result['coverage'] = len(defined) == len(roster) == 59 and defined == set(roster)
-        for group in range(1, 13):
+        for group in (() if only=='--matches-only' else range(1,13)):
             plans = GROUPS[group] if group <= 4 else CASES if group == 5 else MATCHUPS[group]
             for typ, plan in plans.items():
                 try:
@@ -104,11 +127,13 @@ async def main(html, result_file):
             match = await mixed_battle(host, deck, rival)
             result['matches'].append(match)
             print('karma maç', len(result['matches']), match['ok'], match['stats'], flush=True)
+        result['bot_ability']=await bot_ability(host)
+        print('bot kart ve özel yetenek',result['bot_ability'],flush=True)
         result['browser_errors'] = host.errors()+peer.errors()
     result['passed'] = sum(all(case.values()) for case in result['minions'].values())
     result['failed'] = 59 - result['passed']
     pathlib.Path(result_file).write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n')
-    return result['coverage'] and result['failed'] == 0 and all(m['ok'] for m in result['matches'])
+    return result['coverage'] and result['failed'] == 0 and result['bot_ability'] and all(m['ok'] for m in result['matches'])
 
 if __name__ == '__main__':
     sys.exit(0 if asyncio.run(main(*sys.argv[1:])) else 1)

@@ -1,0 +1,10 @@
+{
+  "hat_degisimi": true,
+  "boss_bagisikligi": true,
+  "hedef_olumu": true,
+  "shield": true,
+  "brittle": true,
+  "chill": true,
+  "double": true,
+  "savas_hatasi": true
+}

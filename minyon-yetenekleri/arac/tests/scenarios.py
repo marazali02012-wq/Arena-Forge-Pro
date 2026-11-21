@@ -93,7 +93,7 @@ GROUPS = {
     'af37_dovus_ustasi_ii': {
       'ally': [('af37_dovus_ustasi_ii', 1, .30)],
       'enemy': [('af37_iskelet_savasci', 1, .52), ('af37_kilicli_asker', 1, .58)],
-      'kind': 'offense', 'coef': [.75], 'maxTargets': 2, 'statuses': ['push'],
+      'kind': 'offense', 'coef': [.75,.65], 'maxTargets': 2, 'statuses': ['push'],
       'wave2': [('af37_iskelet_savasci', 1, .56)],
     },
   },

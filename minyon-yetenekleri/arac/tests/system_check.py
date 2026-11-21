@@ -29,7 +29,7 @@ async def main(html, orig, out):
     ro, rn = res['rosterOrig'], res['roster']
     strip = lambda d: {k: v for k, v in d.items() if k != 'hands'}
     res['unchanged'] = {'count59': rn['count'] == 59 == ro['count'], 'ids': ro['ids'] == rn['ids'], 'rarity': ro['rarity'] == rn['rarity'],
-                        'costs': ro['costs'] == rn['costs'], 'deck12': rn['deckSize'] == 12,
+                        'costs': ro['costs'] == rn['costs'], 'levels': ro['levels'] == rn['levels'], 'deck12': rn['deckSize'] == 12,
                         'legacySame': json.dumps(strip(res['legacy']), sort_keys=True) == json.dumps(strip(res['legacyOrig']), sort_keys=True),
                         'openingHandsOk': bool(res['legacy'].get('hands', {}).get('passed')),
                         'modesPresent': all(n > 0 for _, n in res['modes']), 'noErrors': not res['errors'] and res['state']['tickErrors'] == 0 and res['state']['drawErrors'] == 0,
