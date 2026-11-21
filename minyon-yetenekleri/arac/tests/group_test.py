@@ -190,6 +190,13 @@ async def run_main(g, typ, spec, defn, outdir):
     await g.ev('(n)=>{window.__AF285QA.drawEvery=n}', 4)
     await g.step(max(0, ready_in - 1.5))
     await g.ev('(n)=>{window.__AF285QA.drawEvery=n}', 1)
+    # Test hazırlığı: ikinci dalga ölçümü için birim canlı ve kendi yarı sahasında olsun (suikastçılar ilk kullanımda düşman hattına atlar).
+    me2 = next((u for u in await g.units() if u['uid'] == caster), None)
+    if me2:
+        await g.ev('([u])=>window.__AF285QA.setHp(u,"ally",1)', [caster])
+        if me2['x'] > .42:
+            await g.ev('([u])=>window.__AF285QA.move(u,"ally",.30)', [caster])
+            res['notes'].append('ikinci dalga öncesi birim x=.30 konumuna alındı (test hazırlığı)')
     for (t_, lane_, x_) in spec.get('wave2', spec['enemy']):
         await g.play('enemy', t_, lane_, x_)
     for (t_, ratio) in spec.get('hurt', []):

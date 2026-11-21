@@ -512,6 +512,66 @@
    "cast": 0.14,
    "rec": 0.28,
    "desc": "Mızrağını geri çekip ileri saplar; mızrak ilk hedeften geçip arkasındaki bir düşmanı da deler. İkisine %75 fiziksel hasar verir, hamleden sağ çıkan ilk hedefi geri iter."
+  },
+  {
+   "id": "af37_elit_kadin_savasci",
+   "group": 4,
+   "name": "Orak Geçidi",
+   "role": "savaşçı",
+   "status": "dönüştürüldü",
+   "cd": 7,
+   "wind": 0.38,
+   "cast": 0.16,
+   "rec": 0.28,
+   "desc": "Baltasını omzunun arkasına çekip yay çizerek savurur: önündeki en çok 3 düşmana %65 fiziksel hasar verir ve onları hafifçe geri iter."
+  },
+  {
+   "id": "af37_golge_avcisi",
+   "group": 4,
+   "name": "Yaranın Peşinde",
+   "role": "suikastçı",
+   "status": "dönüştürüldü",
+   "cd": 8,
+   "wind": 0.34,
+   "cast": 0.18,
+   "rec": 0.26,
+   "desc": "Menzilindeki en yaralı düşmanı seçer, gölgeye çömelip ona atılır: %110 fiziksel hasar verir. Hedefin canı %40’ın altındaysa hasar %60 artar ve verdiği hasarın %45’i kadar iyileşir."
+  },
+  {
+   "id": "af37_golge_buyucusu",
+   "group": 4,
+   "name": "Kesilen Soluk",
+   "role": "büyücü",
+   "status": "dönüştürüldü",
+   "cd": 8,
+   "wind": 0.45,
+   "cast": 0.36,
+   "rec": 0.26,
+   "desc": "Küresine gölge toplar ve hedefe gönderir: %70 büyü hasarı verir; hedefin saldırıları 3 sn %30 yavaşlar ve 3 sn %12 fazla hasar alır."
+  },
+  {
+   "id": "af37_golge_suikastci",
+   "group": 4,
+   "name": "Gölge Kesiği",
+   "role": "suikastçı",
+   "status": "eklendi",
+   "cd": 9,
+   "wind": 0.3,
+   "cast": 0.16,
+   "rec": 0.26,
+   "desc": "Gölgeye karışıp menzilindeki en zayıf destek ya da menzilli düşmanın önüne atlar ve çapraz X kesiği atar: %120 fiziksel hasar; hedef menzilli ya da destekse %25 fazlası. Atlama en çok 0,22 uzaklığa yapılır."
+  },
+  {
+   "id": "af37_isik_sifacisi",
+   "group": 4,
+   "name": "İlk Işık",
+   "role": "destek",
+   "status": "dönüştürüldü",
+   "cd": 8,
+   "wind": 0.45,
+   "cast": 0.25,
+   "rec": 0.28,
+   "desc": "Güneş asasını kaldırır; canı %70’in altındaki en yaralı dostun üstüne altın ışık iner: dost canının %18’ini geri kazanır ve üzerindeki bir zehir ya da yanma temizlenir. Yanındaki dostlar %6 iyileşir."
   }
  ],
  "errors": [],

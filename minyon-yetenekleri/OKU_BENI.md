@@ -43,7 +43,8 @@ Görsellerin kaynak dosyaları `arac/assets/kaynak_*.png` adıyla duruyor.
 | Kalkan kubbesi (16 kare) | Altın Muhafız: altın tonunda. Buz Muhafızı: mavi. Kalkan verildiğinde oluşur, hasar emdikçe çatlar, bitince kırılır. |
 | Zincir yıldırım (16 kare) | Fırtına Bağlayıcı. Her sıçrama, hasar alan iki birimin arasına gerçek mesafeye göre uzatılarak çizilir. |
 | Sarmaşık şifası (16 kare) | Orman Ruhu. İyileştirme her uygulandığında artı işareti parlar. |
-| Efekt kütüphanesi (10 × 12 kare) | Alev Bekçisi: ateş kalkanı. Fırtına Bağlayıcı: zincirle bağlama. Buz Şövalyesi: buz kesiği ve dikenler. Diğerleri sıradaki gruplarda kullanılacak; eşleştirme `ILERLEME.json` içinde. |
+| Efekt kütüphanesi (10 × 12 kare) | Alev Bekçisi: ateş kalkanı. Fırtına Bağlayıcı: zincirle bağlama. Buz Şövalyesi: buz kesiği ve dikenler. Gölge Suikastçı ve Gece Büyücüsü: gölge kesiği. Işık Şifacısı: altın ışık. Zehir, toprak, zincir ve sarmaşık görselleri sıradaki gruplarda kullanılacak; eşleştirme `ILERLEME.json` içinde. |
+| Buz şifası (16 kare) | Oyuna gömüldü (`fx_frost_heal`). 5. grubun ilk minyonu Kar Fenercisi'nde kullanılacak. |
 
 ## Derleme ve test
 

@@ -32,11 +32,11 @@
    "af37_isik_sifacisi"
   ],
   "5": [
+   "afn_kar_fenercisi",
    "af37_iskelet_kalkanli",
    "af37_iskelet_savasci",
    "af37_kesifci",
-   "af37_kilicli_asker",
-   "af37_kizil_duellocu"
+   "af37_kilicli_asker"
   ],
   "6": [
    "af37_kristal_golem",
@@ -67,7 +67,7 @@
    "afn_kapi_ustasi"
   ],
   "10": [
-   "afn_kar_fenercisi",
+   "af37_kizil_duellocu",
    "afn_kehribar_sovalye",
    "afn_kiragi_dokuyucusu",
    "afn_kirik_kuklaci",
@@ -90,9 +90,10 @@
  "tamamlanan_gruplar": [
   1,
   2,
-  3
+  3,
+  4
  ],
- "siradaki_grup": 4,
+ "siradaki_grup": 5,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -174,33 +175,33 @@
   },
   "af37_elit_kadin_savasci": {
    "grup": 4,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Orak Geçidi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_golge_avcisi": {
    "grup": 4,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Yaranın Peşinde",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_golge_buyucusu": {
    "grup": 4,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kesilen Soluk",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_golge_suikastci": {
    "grup": 4,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Gölge Kesiği",
+   "durum": "eklendi",
+   "test": "geçti"
   },
   "af37_isik_sifacisi": {
    "grup": 4,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "İlk Işık",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_iskelet_kalkanli": {
    "grup": 5,
@@ -227,7 +228,7 @@
    "test": null
   },
   "af37_kizil_duellocu": {
-   "grup": 5,
+   "grup": 10,
    "yetenek": null,
    "durum": "sırada",
    "test": null
@@ -365,7 +366,7 @@
    "test": null
   },
   "afn_kar_fenercisi": {
-   "grup": 10,
+   "grup": 5,
    "yetenek": null,
    "durum": "sırada",
    "test": null
@@ -474,6 +475,7 @@
   "fx_vines12": "afn_kok_titani (grup 11)",
   "fx_earth_burst": "afn_toprak_yarici (grup 12)",
   "fx_chains": "afn_zincir_kiran (grup 12)",
-  "fx_dome12": "yedek mavi kubbe (12 kare)"
+  "fx_dome12": "yedek mavi kubbe (12 kare)",
+  "fx_frost_heal (buz şifası, 16 kare, kütüphanede gömülü)": "afn_kar_fenercisi (grup 5, sıradaki ilk minyon)"
  }
 }

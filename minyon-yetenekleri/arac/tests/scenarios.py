@@ -104,7 +104,7 @@ GROUPS = {
     },
     'af37_golge_avcisi': {
       'ally': [('af37_golge_avcisi', 1, .30)],
-      'enemy': [('af37_kilicli_asker', 1, .50), ('af37_orman_okcu', 1, .60)],
+      'enemy': [('af37_orman_okcu', 1, .52)],
       'kind': 'offense', 'coef': [1.10, 1.76], 'maxTargets': 1, 'statuses': [],
       'wave2': [('af37_kilicli_asker', 1, .56)],
     },
@@ -117,7 +117,7 @@ GROUPS = {
       'ally': [('af37_golge_suikastci', 1, .30)],
       'enemy': [('af37_kilicli_asker', 1, .52), ('af37_orman_okcu', 1, .62)],
       'kind': 'offense', 'coef': [1.2, 1.5], 'maxTargets': 1, 'statuses': [],
-      'wave2': [('af37_orman_okcu', 1, .60)],
+      'wave2': [('af37_kilicli_asker', 1, .54), ('af37_orman_okcu', 1, .62)],
     },
     'af37_isik_sifacisi': {
       'ally': [('af37_isik_sifacisi', 1, .08), ('af37_agir_zirhli', 1, .14)],

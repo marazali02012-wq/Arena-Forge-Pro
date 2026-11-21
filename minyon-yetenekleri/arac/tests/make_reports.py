@@ -18,18 +18,18 @@ ORDER = ["af37_agir_zirhli", "af37_alev_muhafizi", "af37_alev_silahcisi", "af37_
          "afn_firtina_baglayici", "afn_gece_yirticisi", "afn_kapi_ustasi", "afn_kar_fenercisi", "afn_kehribar_sovalye", "afn_kiragi_dokuyucusu",
          "afn_kirik_kuklaci", "afn_kirik_saat_efendisi", "afn_kok_titani", "afn_kutup_kiricisi", "afn_mantar_davulcusu", "afn_ocak_dovucusu",
          "afn_sedef_pervane", "afn_sicrayan_kocbasi", "afn_toprak_yarici", "afn_zincir_kiran", "mage"]
-# Grup sırası (kullanıcının gönderdiği görseller nedeniyle Fırtına Bağlayıcı 2., Orman Ruhu 3. gruba alındı).
+# Grup sırası (kullanıcının gönderdiği görseller nedeniyle Fırtına Bağlayıcı 2., Orman Ruhu 3., Kar Fenercisi 5. gruba alındı).
 GROUPS = {
     1: ["af37_agir_zirhli", "af37_alev_muhafizi", "af37_alev_silahcisi", "af37_altin_muhafiz", "af37_arbaletci"],
     2: ["afn_firtina_baglayici", "af37_ates_buyucusu", "af37_ates_elementali", "af37_buz_elementali", "af37_buz_muhafizi"],
     3: ["af37_orman_ruhu", "af37_buz_sovalyesi", "af37_cuce_savasci", "af37_dovus_ustasi", "af37_dovus_ustasi_ii"],
     4: ["af37_elit_kadin_savasci", "af37_golge_avcisi", "af37_golge_buyucusu", "af37_golge_suikastci", "af37_isik_sifacisi"],
-    5: ["af37_iskelet_kalkanli", "af37_iskelet_savasci", "af37_kesifci", "af37_kilicli_asker", "af37_kizil_duellocu"],
+    5: ["afn_kar_fenercisi", "af37_iskelet_kalkanli", "af37_iskelet_savasci", "af37_kesifci", "af37_kilicli_asker"],
     6: ["af37_kristal_golem", "af37_lav_golemi", "af37_mavi_buyucu", "af37_muhendis_nisanci", "af37_nekromanci"],
     7: ["af37_ork_savasci", "af37_orman_okcu", "af37_ruh_cagirici", "af37_samuray", "af37_savas_muhendisi"],
     8: ["af37_tas_devi", "af37_zehirci", "afn_alize_bicakli", "afn_ayaz_kalkanlisi", "afn_bulut_dalgici"],
     9: ["afn_buz_zurnacisi", "afn_donuk_mizrakci", "afn_el_arabali_topcu", "afn_gece_yirticisi", "afn_kapi_ustasi"],
-    10: ["afn_kar_fenercisi", "afn_kehribar_sovalye", "afn_kiragi_dokuyucusu", "afn_kirik_kuklaci", "afn_kirik_saat_efendisi"],
+    10: ["af37_kizil_duellocu", "afn_kehribar_sovalye", "afn_kiragi_dokuyucusu", "afn_kirik_kuklaci", "afn_kirik_saat_efendisi"],
     11: ["afn_kok_titani", "afn_kutup_kiricisi", "afn_mantar_davulcusu", "afn_ocak_dovucusu", "afn_sedef_pervane"],
     12: ["afn_sicrayan_kocbasi", "afn_toprak_yarici", "afn_zincir_kiran", "mage"],
 }
@@ -147,7 +147,8 @@ def main():
                 'fx_fire_shield': 'af37_alev_muhafizi', 'fx_storm_bind': 'afn_firtina_baglayici (bağlama anı)', 'fx_ice_slash': 'af37_buz_sovalyesi',
                 'fx_holy_light': 'af37_isik_sifacisi (grup 4)', 'fx_shadow_strike': 'af37_golge_suikastci (grup 4)', 'fx_poison_flask': 'af37_zehirci (grup 8)',
                 'fx_vines12': 'afn_kok_titani (grup 11)', 'fx_earth_burst': 'afn_toprak_yarici (grup 12)', 'fx_chains': 'afn_zincir_kiran (grup 12)',
-                'fx_dome12': 'yedek mavi kubbe (12 kare)'}}
+                'fx_dome12': 'yedek mavi kubbe (12 kare)',
+                'fx_frost_heal (buz şifası, 16 kare, kütüphanede gömülü)': 'afn_kar_fenercisi (grup 5, sıradaki ilk minyon)'}}
     (OUT / 'ILERLEME.json').write_text(json.dumps(prog, ensure_ascii=False, indent=1), encoding='utf-8')
     print('tamamlanan', done, 'sıradaki', nxt)
 
