@@ -61,7 +61,7 @@ def build(base, qa=False, abilities=True):
         for label, old, new in load_patches():
             data = once(data, old, new, label)
             applied.append([label, old, new])
-        parts = ['af285_engine.js', 'af285_assets.js'] + sorted(p.name for p in SRC.glob('af285_g*.js')) + ['af285_final.js']
+        parts = ['af285_engine.js', 'af285_assets.js'] + sorted((p.name for p in SRC.glob('af285_g*.js')), key=lambda name: int(name[7:-3])) + ['af285_final.js']
         for name in parts:
             inject += '\n' + (SRC / name).read_text(encoding='utf-8') + '\n'
     if qa:

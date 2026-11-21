@@ -96,9 +96,10 @@
   6,
   7,
   8,
-  9
+  9,
+  10
  ],
- "siradaki_grup": 10,
+ "siradaki_grup": 11,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -234,9 +235,9 @@
   },
   "af37_kizil_duellocu": {
    "grup": 10,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Düello İmzası",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_kristal_golem": {
    "grup": 6,
@@ -378,27 +379,27 @@
   },
   "afn_kehribar_sovalye": {
    "grup": 10,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kehribar Muhafaza",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_kiragi_dokuyucusu": {
    "grup": 10,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kırağı Düğümü",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_kirik_kuklaci": {
    "grup": 10,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kırık İp",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_kirik_saat_efendisi": {
    "grup": 10,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kırık Saat Alanı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_kok_titani": {
    "grup": 11,

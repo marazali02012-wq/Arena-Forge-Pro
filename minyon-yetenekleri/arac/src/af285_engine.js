@@ -159,12 +159,13 @@ function af285Finish(u,def){
 }
 function af285Step(dt){
   if(!AF285_DEFS||!af285Fx)return;
-  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;AF285_PULLS.length=0;}
+  if(elapsed+.5<af285Last){af285Fx.length=0;AF285_LATER.length=0;AF285_POOLS.length=0;AF285_SOULS.length=0;AF285_PULLS.length=0;AF285_CLOCKS.length=0;}
   af285Last=elapsed;
   for(let i=af285Fx.length-1;i>=0;i--){const f=af285Fx[i];if(f.t0+f.life<elapsed-.05)af285Fx.splice(i,1);}
   if(!playing||!af285Sim())return;
   af285PoolStep();
   af285PullStep();
+  af285ClockStep();
   for(let i=0;i<AF285_LATER.length;){
     const p=AF285_LATER[i];
     if(elapsed<p.t){i++;continue;}

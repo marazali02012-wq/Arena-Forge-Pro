@@ -8,6 +8,13 @@ from group5_battle import prepare
 from harness import Game
 
 MATCHUPS={
+  10: {
+    'af37_kizil_duellocu': ('duel',.383),
+    'afn_kehribar_sovalye': ('cover',.40),
+    'afn_kiragi_dokuyucusu': ('bind',.47),
+    'afn_kirik_kuklaci': ('puppet',.55),
+    'afn_kirik_saat_efendisi': ('clock',.49),
+  },
   9: {
     'afn_buz_zurnacisi': ('horn',.40),
     'afn_donuk_mizrakci': ('spear',.49),
@@ -40,7 +47,7 @@ MATCHUPS={
 
 async def check_case(host, peer, typ, effect, x, side):
     q='window.__AF285QA'
-    companion='af37_cuce_savasci' if effect=='horn' else None
+    companion='af37_cuce_savasci' if effect in {'horn','cover'} else None
     card,actor,target,friend,foe=await prepare(host,typ,companion,'mark',side)
     x=x if side=='ally' else 1-x
     await host.ev('([id,t,x])=>window.__AF285QA.move(id,t,x)',[target,foe,x])
@@ -71,6 +78,21 @@ async def check_case(host, peer, typ, effect, x, side):
     checks['etki_ani']=impact['hit']
     if not impact['hit']: return checks
     effects=cast_fx+await host.qa(f'{q}.fxList()')
+    if effect=='duel':
+        checks['gercek_sonuc']=await host.ev('''([id,side,t,foe])=>{
+          const q=window.__AF285QA,u=q.find(id,side),v=q.find(t,foe);
+          u._afTgt=v;
+          const fast=q.period(u),hit=q.testDamage(v,u,20);
+          u._af285DuelUntil=0;
+          return fast<q.period(u)&&hit>q.testDamage(v,u,20);
+        }''',[actor,side,target,foe])
+    if effect=='cover':
+        checks['gercek_sonuc']=await host.ev('''([id,side,friend,t,foe])=>{
+          const q=window.__AF285QA,u=q.find(id,side),v=q.find(t,foe),a=q.find(friend,side);
+          q.move(t,foe,u.x+(side==='ally'?.045:-.045));
+          const h=u.hp,enemy=v.hp,dealt=q.testDamage(a,v,40,'hit');
+          return dealt<40&&u.hp<h&&v.hp<enemy;
+        }''',[actor,side,friend,target,foe])
     if effect=='counter':
         counter=await host.ev('''([id,t,source,foe])=>{
           const q=window.__AF285QA,u=q.find(id,t),a=q.find(source,foe);
@@ -120,6 +142,17 @@ async def check_case(host, peer, typ, effect, x, side):
         checks['gercek_sonuc']=bool(damage) and (moved-x)*(1 if side=='ally' else -1)>.025
     elif effect=='slow':
         checks['gercek_sonuc']=bool(damage) and any(e['k']=='slow' and e.get('tu')==target for e in log)
+    elif effect=='bind':
+        checks['gercek_sonuc']=any(e['k']=='root' and e.get('tu')==target for e in log)
+    elif effect=='puppet':
+        moved=await host.ev('([t,foe])=>window.__AF285QA.find(t,foe).x',[target,foe])
+        checks['gercek_sonuc']=(x-moved)*(1 if side=='ally' else -1)>.035
+    elif effect=='clock':
+        slowed=await host.ev('''([t,foe])=>{
+          const q=window.__AF285QA,u=q.find(t,foe);
+          return u.slowUntil>q.state().elapsed&&q.period(u)>u.attackPeriod*1.45;
+        }''',[target,foe])
+        checks['gercek_sonuc']=slowed
     elif effect=='horn':
         buffed=await host.ev('([id,t])=>window.__AF285QA.find(id,t)._af267Tempo',[friend,side])
         checks['gercek_sonuc']=buffed==.78 and any(e['k']=='slow' and e.get('tu')==target for e in log)

@@ -29,7 +29,7 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 20 | 5 | İskelet Savaşçı | `af37_iskelet_savasci` | Sıradan | 2 | Son Kemik | çalışıyor |  | Son Kemik (dönüştürüldü) | ✔ test geçti |
 | 21 | 5 | Keşifçi | `af37_kesifci` | Sıradan | 2 | İz Oku | çalışıyor |  | İz Oku (dönüştürüldü) | ✔ test geçti |
 | 22 | 5 | Kılıçlı Asker | `af37_kilicli_asker` | Sıradan | 2 | Yan Yana | çalışıyor |  | Yan Yana (dönüştürüldü) | ✔ test geçti |
-| 23 | 10 | Kızıl Düellocu | `af37_kizil_duellocu` | Sıradan | 3 | Düello İmzası | çalışıyor |  | — | sırada |
+| 23 | 10 | Kızıl Düellocu | `af37_kizil_duellocu` | Sıradan | 3 | Düello İmzası | çalışıyor |  | Düello İmzası (dönüştürüldü) | ✔ test geçti |
 | 24 | 6 | Kristal Golem | `af37_kristal_golem` | Efsanevi | 7 | Kristal Karşı Siper | yalnızca görsel | Yalnız yetenek hasarı aldığında kalkan verir; sinyal görüldü, kalkan ölçümde kaynağa bağlanamadı. | Kristal Kabuk (dönüştürüldü) | ✔ test geçti |
 | 25 | 6 | Lav Golemi | `af37_lav_golemi` | Efsanevi | 7 | Lav Kuyruğu | çalışıyor |  | Lav Havuzu (dönüştürüldü) | ✔ test geçti |
 | 26 | 6 | Mavi Büyücü | `af37_mavi_buyucu` | Epik | 4 | İkiz Kıvılcım | çalışıyor |  | İkiz Kıvılcım (dönüştürüldü) | ✔ test geçti |
@@ -53,10 +53,10 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 44 | 9 | Gece Yırtıcısı | `afn_gece_yirticisi` | Nadir | 3 | Gece Açlığı | çalışıyor |  | Gölge Çenesi (dönüştürüldü) | ✔ test geçti |
 | 45 | 9 | Kapı Ustası | `afn_kapi_ustasi` | Nadir | 3 | Kapı Tamiri | çalışıyor |  | Kapı Tamiri (dönüştürüldü) | ✔ test geçti |
 | 46 | 5 | Kar Fenercisi | `afn_kar_fenercisi` | Nadir | 3 | Kar Feneri | çalışıyor |  | Kar Feneri (dönüştürüldü) | ✔ test geçti |
-| 47 | 10 | Kehribar Şövalye | `afn_kehribar_sovalye` | Nadir | 3 | Kehribar Kardeşliği | tetiklenmedi | Koşullu: yalnız yanında dost varken önden gelen yakın vuruşta çalışır; test sahnesinde koşul oluşmadı. | — | sırada |
-| 48 | 10 | Kırağı Dokuyucusu | `afn_kiragi_dokuyucusu` | Epik | 4 | Kırağı Düğümü | çalışıyor |  | — | sırada |
-| 49 | 10 | Kırık Kuklacı | `afn_kirik_kuklaci` | Epik | 4 | Kırık İp | çalışıyor |  | — | sırada |
-| 50 | 10 | Kırık Saat Efendisi | `afn_kirik_saat_efendisi` | Mitik | 4 | Geri Kalan Saniye | çalışıyor |  | — | sırada |
+| 47 | 10 | Kehribar Şövalye | `afn_kehribar_sovalye` | Nadir | 3 | Kehribar Kardeşliği | tetiklenmedi | Koşullu: yalnız yanında dost varken önden gelen yakın vuruşta çalışır; test sahnesinde koşul oluşmadı. | Kehribar Muhafaza (dönüştürüldü) | ✔ test geçti |
+| 48 | 10 | Kırağı Dokuyucusu | `afn_kiragi_dokuyucusu` | Epik | 4 | Kırağı Düğümü | çalışıyor |  | Kırağı Düğümü (dönüştürüldü) | ✔ test geçti |
+| 49 | 10 | Kırık Kuklacı | `afn_kirik_kuklaci` | Epik | 4 | Kırık İp | çalışıyor |  | Kırık İp (dönüştürüldü) | ✔ test geçti |
+| 50 | 10 | Kırık Saat Efendisi | `afn_kirik_saat_efendisi` | Mitik | 4 | Geri Kalan Saniye | çalışıyor |  | Kırık Saat Alanı (dönüştürüldü) | ✔ test geçti |
 | 51 | 11 | Kök Titanı | `afn_kok_titani` | Mitik | 7 | Kök Salma | çalışıyor |  | — | sırada |
 | 52 | 11 | Kutup Kırıcısı | `afn_kutup_kiricisi` | Epik | 5 | Kutup Çatlağı | çalışıyor |  | — | sırada |
 | 53 | 11 | Mantar Davulcusu | `afn_mantar_davulcusu` | Sıradan | 2 | Yürüyüş Davulu | çalışıyor |  | — | sırada |

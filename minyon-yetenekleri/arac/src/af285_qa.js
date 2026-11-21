@@ -133,6 +133,7 @@
  /* AF285 gecikmeli etkiler de kaynağa atfedilir */
  wrap('af285Later',()=>af285Later,v=>{af285Later=v;},o=>function(delay,fn){const ctx=QA.ctx;return o.call(this,delay,function(){const prev=QA.ctx;QA.ctx=ctx;try{return fn();}finally{QA.ctx=prev;}});});
  QA.find=function(uid,team){return units.find(v=>v&&af330Uid(v)===uid&&(!team||v.team===team))||null;};
+ QA.period=function(u){return af327Period(u);};
  QA.testDamage=function(target,source,amount,kind="af285Physical"){return af327DealDamage(target,amount,{source,team:source.team,kind});};
  QA.kill=function(uid,team){const u=QA.find(uid,team);if(!u)return false;u.hp=0;u.killedBy=u.team==='ally'?'enemy':'ally';return true;};
  QA.setHp=function(uid,team,ratio){const u=QA.find(uid,team);if(!u)return false;u.hp=Math.max(1,Math.round(u.maxHp*ratio));return u.hp;};

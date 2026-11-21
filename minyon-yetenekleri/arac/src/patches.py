@@ -53,7 +53,7 @@ PATCHES = [
      "function af264Pierce(att,kind){\n  if(kind==='af285Pierce')return .65;\n  if(kind!=='hit')return 0;"),
     ('melee-counter',
      " dr=Math.max(dr,crackedArmor);",
-     " d=af285CounterDamage(att,tgt,d,kind);dr=Math.max(dr,crackedArmor);"),
+     " d=af285CounterDamage(att,tgt,d,kind);d=af285CoverDamage(att,tgt,d,kind);if(att?._af285DuelTarget===tgt&&att._af285DuelUntil>elapsed)d*=1.22;dr=Math.max(dr,crackedArmor);"),
     ('ability-slow-gate',
      "function af264Slow(u,seconds,interval){\n  if(!af264Targetable(u)||u.isBarrier||u.immuneUntil>elapsed||!af264Ready(u,'_af264SlowGate',interval))return;",
      "function af264Slow(u,seconds,interval,gate='_af264SlowGate'){\n  if(!af264Targetable(u)||u.isBarrier||u.immuneUntil>elapsed||!af264Ready(u,gate,interval))return;"),
@@ -72,6 +72,9 @@ PATCHES = [
     ('ability-captive-damage',
      "team:eater.team,key:AFP177_KUL,kind:'afp177_stomach'",
      "team:eater.team,key:eater.heroType||AFP177_KUL,source:eater,kind:'afp177_stomach'"),
+    ('duel-period',
+     "if((u.tslowUntil||0)>elapsed)p*=u.tslow||1;if((u.afprRaidHasteUntil||0)>elapsed)",
+     "if((u.tslowUntil||0)>elapsed)p*=u.tslow||1;if(u._af285DuelUntil>elapsed&&u._af285DuelTarget?.hp>0&&u._afTgt===u._af285DuelTarget)p*=.76;if((u.afprRaidHasteUntil||0)>elapsed)"),
     # 0) Yapı adı: hangi dosyanın denendiği oyunda görülsün.
     ('title',
      "<title>Arena Forge Pro · v3.60.284 Minyon Geliştirme TEST</title>",
