@@ -8,6 +8,13 @@ from group5_battle import prepare
 from harness import Game
 
 MATCHUPS={
+  7: {
+    'af37_ork_savasci': ('ram',.42),
+    'af37_orman_okcu': ('slow',.48),
+    'af37_ruh_cagirici': ('summon',.46),
+    'af37_samuray': ('counter',.365),
+    'af37_savas_muhendisi': ('bomb',.51),
+  },
   6: {
     'af37_kristal_golem': ('crystal',.365),
     'af37_lav_golemi': ('lava',.39),
@@ -22,6 +29,10 @@ async def check_case(host, peer, typ, effect, x, side):
     card,actor,target,_,foe=await prepare(host,typ,None,'mark',side)
     x=x if side=='ally' else 1-x
     await host.ev('([id,t,x])=>window.__AF285QA.move(id,t,x)',[target,foe,x])
+    if effect=='bomb':
+        second_card=await host.play(foe,'af37_cuce_savasci',1,x)
+        second=second_card['uids'][0]
+        await host.ev('([id,t,x])=>{const q=window.__AF285QA;q.move(id,t,x);q.stun(id,t,8);}',[second,foe,x+(.055 if side=='ally' else -.055)])
     if effect=='soul':
         await host.ev('([id,t])=>window.__AF285QA.kill(id,t)',[target,foe])
     await host.qa(f'{q}.drawEvery=14')
@@ -36,12 +47,22 @@ async def check_case(host, peer, typ, effect, x, side):
     checks['etki_ani']=impact['hit']
     if not impact['hit']: return checks
     effects=cast_fx+await host.qa(f'{q}.fxList()')
+    if effect=='counter':
+        counter=await host.ev('''([id,t,source,foe])=>{
+          const q=window.__AF285QA,u=q.find(id,t),a=q.find(source,foe);
+          q.move(source,foe,u.x+(t==='ally'?.037:-.037));
+          const before=a.hp, damage=q.testDamage(u,a,28,'hit');
+          return {before,after:a.hp,damage};
+        }''',[actor,side,target,foe])
+        checks['gercek_sonuc']=counter['damage']<=7 and counter['before']>counter['after']
+
     if effect=='crystal':
         absorb=await host.ev('''([id,t,source,foe])=>{
           const q=window.__AF285QA,u=q.find(id,t),a=q.find(source,foe),before=u.absorb;
           q.testDamage(u,a,before+10);return [before,u.absorb];
         }''',[actor,side,target,foe])
         checks['kalkan_kirildi']=absorb[0]>0 and absorb[1]==0
+    beginning=await host.qa(f'{q}.snapshot().units.filter(u=>u.isSummon)') if effect in {'soul','summon'} else []
     await host.step(.08)
     effects.extend(await host.qa(f'{q}.fxList()'))
     await host.step(.70)
@@ -60,13 +81,26 @@ async def check_case(host, peer, typ, effect, x, side):
     elif effect=='pierce':
         values=[e for e in log if e['k']=='inc' and e.get('su')==actor and e.get('kind')=='af285Pierce']
         checks['gercek_sonuc']=bool(damage) and bool(values) and .86<values[0]['post']/values[0]['pre']<.95
-    else:
+    elif effect=='ram':
+        moved=await host.ev('([id,t])=>window.__AF285QA.find(id,t).x',[target,foe])
+        checks['gercek_sonuc']=bool(damage) and (moved-x)*(1 if side=='ally' else -1)>.025
+    elif effect=='slow':
+        checks['gercek_sonuc']=bool(damage) and any(e['k']=='slow' and e.get('tu')==target for e in log)
+    elif effect=='bomb':
+        victims={e.get('tu') for e in log if e['k']=='dmg' and e.get('su')==actor and e.get('kind')=='af285Physical'}
+        checks['gercek_sonuc']={target,second}<=victims
+    elif effect in {'summon','soul'}:
         summoned=await host.qa(f'{q}.snapshot().units.filter(u=>u.isSummon)')
-        checks['gercek_sonuc']=len(summoned)==1 and summoned[0]['team']==side and summoned[0]['summonUntil']>impact['t']+5
+        checks['gercek_sonuc']=len(summoned)==(2 if effect=='summon' else 1) and summoned[0]['team']==side and summoned[0]['summonUntil']>impact['t']+5
         if summoned:
-            await host.step(.65)
-            second=await host.qa(f'{q}.snapshot().units.find(u=>u.isSummon)')
-            checks['ruh_yurudu']=bool(second) and abs(second['x']-summoned[0]['x'])>.008
+            await host.step(.5)
+            advanced=await host.qa(f'{q}.snapshot().units.filter(u=>u.isSummon)')
+            history=await host.events(impact['t'])
+            checks['ruh_yurudu_veya_vurdu']=any(
+                b['uid']==a['uid'] and abs(b['x']-a['x'])>.008
+                for a in beginning for b in advanced) or any(
+                e['k']=='dmg' and any(s['uid']==e.get('su') for s in summoned)
+                for e in history)
     fx=effects+await host.qa(f'{q}.fxList()')
     checks['gorsel']=any(f['card']==typ and f['k'] not in {'fizzle','label'} for f in fx) or (
         effect in {'twin','pierce'} and cast['hit'] and bool(damage))

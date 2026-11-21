@@ -20,6 +20,7 @@ GROUPS = {
       'ally': [('af37_alev_silahcisi', 1, .24), ('af37_agir_zirhli', 1, .34)],
       'enemy': [('af37_iskelet_savasci', 1, .56), ('af37_kilicli_asker', 1, .64)],
       'kind': 'offense', 'coef': [.45], 'maxTargets': 3, 'statuses': ['dot'],
+      'cooldownTarget': .42,
     },
     'af37_altin_muhafiz': {
       'ally': [('af37_altin_muhafiz', 1, .28), ('af37_orman_okcu', 1, .12)],
@@ -31,6 +32,7 @@ GROUPS = {
       'ally': [('af37_arbaletci', 1, .24), ('af37_agir_zirhli', 1, .33)],
       'enemy': [('af37_kilicli_asker', 1, .55), ('af37_iskelet_savasci', 1, .62)],
       'kind': 'offense', 'coef': [.85, .70], 'maxTargets': 2, 'statuses': ['push', 'delay'],
+      'cooldownTarget': .42,
     },
   },
   2: {

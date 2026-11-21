@@ -119,10 +119,12 @@ var AF285_SOULS=[];
 function af285Spirit(u,life=7,hpMul=.3,atkMul=.40){
   if(units.filter(v=>v.isSummon&&v.hp>0&&v._af285SummonBy===u).length>=2||
      units.filter(v=>v.isSummon&&v.hp>0&&v.team===u.team&&v._af285SummonBy).length>=6)return null;
-  const at=u.x-af285Dir(u)*.032;
+  const count=units.filter(v=>v.hp>0&&v._af285SummonBy===u).length;
+  const at=Math.max(.055,Math.min(.945,u.x-af285Dir(u)*(.034+count*.034)));
   const side={team:u.team};
   const spirit=af332Summon(side,'af37_iskelet_savasci',u.lane,life,hpMul,atkMul,0,at);
   if(spirit){
+    spirit.x=at;
     spirit._af285SummonBy=u;
     af285Effect(u,'ability_burst',spirit.x,.55,4,.9);
   }

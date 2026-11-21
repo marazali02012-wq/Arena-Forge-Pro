@@ -93,9 +93,10 @@
   3,
   4,
   5,
-  6
+  6,
+  7
  ],
- "siradaki_grup": 7,
+ "siradaki_grup": 8,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -267,15 +268,15 @@
   },
   "af37_ork_savasci": {
    "grup": 7,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Omuz Darbesi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_orman_okcu": {
    "grup": 7,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Donduran Ok",
+   "durum": "eklendi",
+   "test": "geçti"
   },
   "af37_orman_ruhu": {
    "grup": 3,
@@ -285,21 +286,21 @@
   },
   "af37_ruh_cagirici": {
    "grup": 7,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Ruh Askerleri",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_samuray": {
    "grup": 7,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Karşı Kesik",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_savas_muhendisi": {
    "grup": 7,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Patlayıcı Mermi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_tas_devi": {
    "grup": 8,

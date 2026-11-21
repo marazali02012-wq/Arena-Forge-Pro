@@ -199,6 +199,17 @@ async def run_main(g, typ, spec, defn, outdir):
             res['notes'].append('ikinci dalga öncesi birim x=.30 konumuna alındı (test hazırlığı)')
     for (t_, lane_, x_) in spec.get('wave2', spec['enemy']):
         await g.play('enemy', t_, lane_, x_)
+    if 'cooldownTarget' in spec and me2:
+        await g.ev('''([id,x])=>{
+          const q=window.__AF285QA, actor=q.find(id,'ally');
+          const target=q.units().find(v=>v.team==='enemy'&&v.lane===actor.lane);
+          if(!target)return;
+          actor.x=.30;
+          const unit=q.find(target.uid,'enemy');
+          unit.x=x;
+          unit.stunUntil=q.state().elapsed+6;
+          unit.hp=unit.maxHp=2000;
+        }''',[caster,spec['cooldownTarget']])
     for (t_, ratio) in spec.get('hurt', []):
         for u_ in await g.units():
             if u_['team'] == 'ally' and u_['type'] == t_:
@@ -342,7 +353,7 @@ async def main(html, group, outdir, orig=None):
     outdir = pathlib.Path(outdir); outdir.mkdir(parents=True, exist_ok=True)
     report = {'group': group, 'minions': {}, 'system': {}}
     t0 = time.time()
-    async with Game(html) as g, Game(html) as peer:
+    async with Game(html) as g, Game(html,browser=g.browser) as peer:
         await g.start_battle()
         await peer.start_battle()
         defs = {d['id']: d for d in await g.qa('window.__AF285QA.defs()')}

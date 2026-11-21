@@ -35,12 +35,12 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 26 | 6 | Mavi Büyücü | `af37_mavi_buyucu` | Epik | 4 | İkiz Kıvılcım | çalışıyor |  | İkiz Kıvılcım (dönüştürüldü) | ✔ test geçti |
 | 27 | 6 | Mühendis Nişancı | `af37_muhendis_nisanci` | Epik | 4 | Zırh Delici Kurşun | çalışıyor |  | Zırh Delen Mermi (eklendi) | ✔ test geçti |
 | 28 | 6 | Nekromancı | `af37_nekromanci` | Efsanevi | 5 | Ruh Payı | tetiklenmedi | Koşullu: son vuruş + yakında yaralı dost gerekir; test sahnesinde oluşmadı. | Ruh Payı (dönüştürüldü) | ✔ test geçti |
-| 29 | 7 | Ork Savaşçı | `af37_ork_savasci` | Nadir | 4 | Omuz Darbesi | çalışıyor |  | — | sırada |
-| 30 | 7 | Orman Okçusu | `af37_orman_okcu` | Sıradan | 1 | Yavaşlatan Ok | çalışıyor |  | — | sırada |
+| 29 | 7 | Ork Savaşçı | `af37_ork_savasci` | Nadir | 4 | Omuz Darbesi | çalışıyor |  | Omuz Darbesi (dönüştürüldü) | ✔ test geçti |
+| 30 | 7 | Orman Okçusu | `af37_orman_okcu` | Sıradan | 1 | Yavaşlatan Ok | çalışıyor |  | Donduran Ok (eklendi) | ✔ test geçti |
 | 31 | 3 | Orman Ruhu | `af37_orman_ruhu` | Epik | 5 | Taze Filiz | çalışıyor |  | Taze Filiz (dönüştürüldü) | ✔ test geçti |
-| 32 | 7 | Ruh Çağırıcı | `af37_ruh_cagirici` | Efsanevi | 4 | Ruh Yankısı | çalışıyor |  | — | sırada |
-| 33 | 7 | Samuray | `af37_samuray` | Nadir | 4 | Denge Kesimi | çalışıyor |  | — | sırada |
-| 34 | 7 | Savaş Mühendisi | `af37_savas_muhendisi` | Efsanevi | 6 | Yer Sarsan Mermi | çalışıyor |  | — | sırada |
+| 32 | 7 | Ruh Çağırıcı | `af37_ruh_cagirici` | Efsanevi | 4 | Ruh Yankısı | çalışıyor |  | Ruh Askerleri (dönüştürüldü) | ✔ test geçti |
+| 33 | 7 | Samuray | `af37_samuray` | Nadir | 4 | Denge Kesimi | çalışıyor |  | Karşı Kesik (dönüştürüldü) | ✔ test geçti |
+| 34 | 7 | Savaş Mühendisi | `af37_savas_muhendisi` | Efsanevi | 6 | Yer Sarsan Mermi | çalışıyor |  | Patlayıcı Mermi (dönüştürüldü) | ✔ test geçti |
 | 35 | 8 | Taş Devi | `af37_tas_devi` | Efsanevi | 7 | Sabit Kaya | çalışıyor |  | — | sırada |
 | 36 | 8 | Zehirci | `af37_zehirci` | Efsanevi | 4 | Yoğun Zehir | çalışıyor |  | — | sırada |
 | 37 | 8 | Alize Bıçaklı | `afn_alize_bicakli` | Sıradan | 3 | Rüzgâr Aralığı | çalışıyor |  | — | sırada |

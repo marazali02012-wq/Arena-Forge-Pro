@@ -1,0 +1,134 @@
+{
+  "af37_ork_savasci": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_orman_okcu": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_ruh_cagirici": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "ruh_yurudu_veya_vurdu": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "ruh_yurudu_veya_vurdu": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_samuray": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_savas_muhendisi": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  }
+}

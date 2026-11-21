@@ -51,6 +51,12 @@ PATCHES = [
     ('ability-armor-pierce',
      "function af264Pierce(att,kind){\n  if(kind!=='hit')return 0;",
      "function af264Pierce(att,kind){\n  if(kind==='af285Pierce')return .65;\n  if(kind!=='hit')return 0;"),
+    ('melee-counter',
+     " dr=Math.max(dr,crackedArmor);",
+     " d=af285CounterDamage(att,tgt,d,kind);dr=Math.max(dr,crackedArmor);"),
+    ('ability-slow-gate',
+     "function af264Slow(u,seconds,interval){\n  if(!af264Targetable(u)||u.isBarrier||u.immuneUntil>elapsed||!af264Ready(u,'_af264SlowGate',interval))return;",
+     "function af264Slow(u,seconds,interval,gate='_af264SlowGate'){\n  if(!af264Targetable(u)||u.isBarrier||u.immuneUntil>elapsed||!af264Ready(u,gate,interval))return;"),
     # 0) Yapı adı: hangi dosyanın denendiği oyunda görülsün.
     ('title',
      "<title>Arena Forge Pro · v3.60.284 Minyon Geliştirme TEST</title>",
