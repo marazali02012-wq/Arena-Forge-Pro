@@ -62,7 +62,7 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 53 | 11 | Mantar Davulcusu | `afn_mantar_davulcusu` | Sıradan | 2 | Yürüyüş Davulu | çalışıyor |  | Spor Ritmi (dönüştürüldü) | ✔ test geçti |
 | 54 | 11 | Ocak Dövücüsü | `afn_ocak_dovucusu` | Sıradan | 3 | Ocak Alevi | çalışıyor |  | Ocak Kıvılcımı (dönüştürüldü) | ✔ test geçti |
 | 55 | 11 | Sedef Pervane | `afn_sedef_pervane` | Nadir | 3 | Sedef Sapması | çalışıyor |  | Sedef Saptırması (dönüştürüldü) | ✔ test geçti |
-| 56 | 12 | Sıçrayan Koçbaşı | `afn_sicrayan_kocbasi` | Epik | 5 | Kuşatma Sekişi | tetiklenmedi | Koşullu: heykel/engel hedefinde ve portal önceliğinde çalışır; test sahnesinde koşul oluşmadı. | — | sırada |
-| 57 | 12 | Toprak Yarıcı | `afn_toprak_yarici` | Mitik | 6 | Yeraltı Geçidi | yalnızca görsel | Tünel çalışıyor; çıkıştaki alan hasarı yalnız çıkış noktasında düşman varsa uygulanıyor, testte boşa düştü. | — | sırada |
-| 58 | 12 | Zincir Kıran | `afn_zincir_kiran` | Epik | 5 | Bağ Koparan | çalışıyor |  | — | sırada |
-| 59 | 12 | Büyücü | `mage` | Nadir | 3 | Mühür Çatlağı | çalışıyor |  | — | sırada |
+| 56 | 12 | Sıçrayan Koçbaşı | `afn_sicrayan_kocbasi` | Epik | 5 | Kuşatma Sekişi | tetiklenmedi | Koşullu: heykel/engel hedefinde ve portal önceliğinde çalışır; test sahnesinde koşul oluşmadı. | Koçbaşı İnişi (dönüştürüldü) | ✔ test geçti |
+| 57 | 12 | Toprak Yarıcı | `afn_toprak_yarici` | Mitik | 6 | Yeraltı Geçidi | yalnızca görsel | Tünel çalışıyor; çıkıştaki alan hasarı yalnız çıkış noktasında düşman varsa uygulanıyor, testte boşa düştü. | Toprak Çıkışı (dönüştürüldü) | ✔ test geçti |
+| 58 | 12 | Zincir Kıran | `afn_zincir_kiran` | Epik | 5 | Bağ Koparan | çalışıyor |  | Zincir Kancası (dönüştürüldü) | ✔ test geçti |
+| 59 | 12 | Büyücü | `mage` | Nadir | 3 | Mühür Çatlağı | çalışıyor |  | Büyü Mührü (dönüştürüldü) | ✔ test geçti |

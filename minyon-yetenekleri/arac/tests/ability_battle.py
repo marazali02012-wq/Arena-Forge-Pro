@@ -8,6 +8,12 @@ from group5_battle import prepare
 from harness import Game
 
 MATCHUPS={
+  12: {
+    'afn_sicrayan_kocbasi': ('leap',.55),
+    'afn_toprak_yarici': ('tunnel',.57),
+    'afn_zincir_kiran': ('hook',.62),
+    'mage': ('seal',.49),
+  },
   11: {
     'afn_kok_titani': ('roots',.41),
     'afn_kutup_kiricisi': ('strip',.38),
@@ -82,6 +88,17 @@ async def check_case(host, peer, typ, effect, x, side):
     cast=await host.ev('t=>window.__AF285QA.stepUntil(2,"ab-cast",t)',typ)
     checks['kullanim']=cast['hit']
     cast_fx=await host.qa(f'{q}.fxList()')
+    if effect in {'leap','tunnel'}:
+        await host.step(.18)
+        moving=await host.ev('''([id,t])=>{
+          const q=window.__AF285QA,u=q.find(id,t);
+          return {x:u.x,lane:u.lane,buried:u._af285TunnelUntil>q.state().elapsed};
+        }''',[actor,side])
+        checks['hareket']=abs(moving['x']-cast['e']['ux'])>.008 and moving['lane']==1
+        if effect=='tunnel': checks['yeralti']=moving['buried']
+    if effect=='hook':
+        checks['kanca_ucusta']=any(f['card']==typ and f['k']=='hook_throw' for f in cast_fx)
+
     if effect=='air':
         checks['havada_korunuyor']=await host.ev('''([id,side,a,foe])=>{
           const q=window.__AF285QA,u=q.find(id,side),s=q.find(a,foe),hp=u.hp;
@@ -91,6 +108,16 @@ async def check_case(host, peer, typ, effect, x, side):
     checks['etki_ani']=impact['hit']
     if not impact['hit']: return checks
     effects=cast_fx+await host.qa(f'{q}.fxList()')
+    if effect=='hook':
+        await host.step(.15)
+        tether=await host.ev('''([id,t])=>{
+          const q=window.__AF285QA,u=q.find(id,t);
+          return {x:u.x,lane:u.lane,attached:u._af285DragEnd>q.state().elapsed};
+        }''',[target,foe])
+        checks['zincir_bagli']=tether['attached'] and tether['lane']==1
+        checks['cekis_sirasinda_konum']=abs(tether['x']-x)>.007 and abs(tether['x']-x)<.21
+        effects.extend(await host.qa(f'{q}.fxList()'))
+
     if effect=='fan':
         await host.ev('''([actor,side,shooter,foe])=>{
           const q=window.__AF285QA,u=q.find(actor,side),s=q.find(shooter,foe);
@@ -160,6 +187,20 @@ async def check_case(host, peer, typ, effect, x, side):
         checks['gercek_sonuc']=bool(damage) and (moved-x)*(1 if side=='ally' else -1)>.025
     elif effect=='slow':
         checks['gercek_sonuc']=bool(damage) and any(e['k']=='slow' and e.get('tu')==target for e in log)
+    elif effect in {'leap','tunnel'}:
+        checks['gercek_sonuc']=bool(damage)
+    elif effect=='hook':
+        contact=await host.ev('''([id,t,source,s])=>{
+          const q=window.__AF285QA,u=q.find(id,t),v=q.find(source,s);
+          return {x:u.x,distance:Math.abs(u.x-v.x),free:!(u._af285DragEnd>q.state().elapsed)};
+        }''',[target,foe,actor,side])
+        checks['gercek_sonuc']=bool(damage) and abs(contact['x']-x)>.075 and contact['distance']<.09
+        checks['cekis_bitti']=contact['free']
+    elif effect=='seal':
+        checks['gercek_sonuc']=bool(damage) and damage[0]['t']>impact['e']['t']+.08
+        checks['savunma_zayifladi']=await host.ev('''([id,t])=>{
+          const q=window.__AF285QA,v=q.find(id,t);return v.vuln>.16&&v.vulnUntil>q.state().elapsed;
+        }''',[target,foe])
     elif effect=='roots':
         bound={e.get('tu') for e in log if e['k']=='root' and e.get('su')==actor}
         checks['gercek_sonuc']={target,second}<=bound

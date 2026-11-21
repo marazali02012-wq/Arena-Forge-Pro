@@ -98,9 +98,10 @@
   8,
   9,
   10,
-  11
+  11,
+  12
  ],
- "siradaki_grup": 12,
+ "siradaki_grup": null,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -434,27 +435,27 @@
   },
   "afn_sicrayan_kocbasi": {
    "grup": 12,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Koçbaşı İnişi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_toprak_yarici": {
    "grup": 12,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Toprak Çıkışı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_zincir_kiran": {
    "grup": 12,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Zincir Kancası",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "mage": {
    "grup": 12,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Büyü Mührü",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   }
  },
  "sistem_denetimi": {
