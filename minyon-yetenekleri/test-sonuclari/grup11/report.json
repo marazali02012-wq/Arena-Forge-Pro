@@ -1,0 +1,136 @@
+{
+  "afn_kok_titani": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "afn_kutup_kiricisi": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "afn_mantar_davulcusu": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "hiz_normale_dondu": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "hiz_normale_dondu": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "afn_ocak_dovucusu": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "yanma": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "yanma": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "afn_sedef_pervane": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  }
+}

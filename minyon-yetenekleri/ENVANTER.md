@@ -57,11 +57,11 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 48 | 10 | Kırağı Dokuyucusu | `afn_kiragi_dokuyucusu` | Epik | 4 | Kırağı Düğümü | çalışıyor |  | Kırağı Düğümü (dönüştürüldü) | ✔ test geçti |
 | 49 | 10 | Kırık Kuklacı | `afn_kirik_kuklaci` | Epik | 4 | Kırık İp | çalışıyor |  | Kırık İp (dönüştürüldü) | ✔ test geçti |
 | 50 | 10 | Kırık Saat Efendisi | `afn_kirik_saat_efendisi` | Mitik | 4 | Geri Kalan Saniye | çalışıyor |  | Kırık Saat Alanı (dönüştürüldü) | ✔ test geçti |
-| 51 | 11 | Kök Titanı | `afn_kok_titani` | Mitik | 7 | Kök Salma | çalışıyor |  | — | sırada |
-| 52 | 11 | Kutup Kırıcısı | `afn_kutup_kiricisi` | Epik | 5 | Kutup Çatlağı | çalışıyor |  | — | sırada |
-| 53 | 11 | Mantar Davulcusu | `afn_mantar_davulcusu` | Sıradan | 2 | Yürüyüş Davulu | çalışıyor |  | — | sırada |
-| 54 | 11 | Ocak Dövücüsü | `afn_ocak_dovucusu` | Sıradan | 3 | Ocak Alevi | çalışıyor |  | — | sırada |
-| 55 | 11 | Sedef Pervane | `afn_sedef_pervane` | Nadir | 3 | Sedef Sapması | çalışıyor |  | — | sırada |
+| 51 | 11 | Kök Titanı | `afn_kok_titani` | Mitik | 7 | Kök Salma | çalışıyor |  | Kök Kuşatması (dönüştürüldü) | ✔ test geçti |
+| 52 | 11 | Kutup Kırıcısı | `afn_kutup_kiricisi` | Epik | 5 | Kutup Çatlağı | çalışıyor |  | Kutup Çatlağı (dönüştürüldü) | ✔ test geçti |
+| 53 | 11 | Mantar Davulcusu | `afn_mantar_davulcusu` | Sıradan | 2 | Yürüyüş Davulu | çalışıyor |  | Spor Ritmi (dönüştürüldü) | ✔ test geçti |
+| 54 | 11 | Ocak Dövücüsü | `afn_ocak_dovucusu` | Sıradan | 3 | Ocak Alevi | çalışıyor |  | Ocak Kıvılcımı (dönüştürüldü) | ✔ test geçti |
+| 55 | 11 | Sedef Pervane | `afn_sedef_pervane` | Nadir | 3 | Sedef Sapması | çalışıyor |  | Sedef Saptırması (dönüştürüldü) | ✔ test geçti |
 | 56 | 12 | Sıçrayan Koçbaşı | `afn_sicrayan_kocbasi` | Epik | 5 | Kuşatma Sekişi | tetiklenmedi | Koşullu: heykel/engel hedefinde ve portal önceliğinde çalışır; test sahnesinde koşul oluşmadı. | — | sırada |
 | 57 | 12 | Toprak Yarıcı | `afn_toprak_yarici` | Mitik | 6 | Yeraltı Geçidi | yalnızca görsel | Tünel çalışıyor; çıkıştaki alan hasarı yalnız çıkış noktasında düşman varsa uygulanıyor, testte boşa düştü. | — | sırada |
 | 58 | 12 | Zincir Kıran | `afn_zincir_kiran` | Epik | 5 | Bağ Koparan | çalışıyor |  | — | sırada |

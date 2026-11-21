@@ -97,9 +97,10 @@
   7,
   8,
   9,
-  10
+  10,
+  11
  ],
- "siradaki_grup": 11,
+ "siradaki_grup": 12,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -403,33 +404,33 @@
   },
   "afn_kok_titani": {
    "grup": 11,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kök Kuşatması",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_kutup_kiricisi": {
    "grup": 11,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Kutup Çatlağı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_mantar_davulcusu": {
    "grup": 11,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Spor Ritmi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_ocak_dovucusu": {
    "grup": 11,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Ocak Kıvılcımı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_sedef_pervane": {
    "grup": 11,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Sedef Saptırması",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_sicrayan_kocbasi": {
    "grup": 12,

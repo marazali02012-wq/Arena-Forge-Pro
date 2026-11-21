@@ -8,6 +8,13 @@ from group5_battle import prepare
 from harness import Game
 
 MATCHUPS={
+  11: {
+    'afn_kok_titani': ('roots',.41),
+    'afn_kutup_kiricisi': ('strip',.38),
+    'afn_mantar_davulcusu': ('drum',.42),
+    'afn_ocak_dovucusu': ('forge',.40),
+    'afn_sedef_pervane': ('fan',.51),
+  },
   10: {
     'af37_kizil_duellocu': ('duel',.383),
     'afn_kehribar_sovalye': ('cover',.40),
@@ -47,7 +54,7 @@ MATCHUPS={
 
 async def check_case(host, peer, typ, effect, x, side):
     q='window.__AF285QA'
-    companion='af37_cuce_savasci' if effect in {'horn','cover'} else None
+    companion='af37_cuce_savasci' if effect in {'horn','cover','drum','forge'} else None
     card,actor,target,friend,foe=await prepare(host,typ,companion,'mark',side)
     x=x if side=='ally' else 1-x
     await host.ev('([id,t,x])=>window.__AF285QA.move(id,t,x)',[target,foe,x])
@@ -55,7 +62,13 @@ async def check_case(host, peer, typ, effect, x, side):
         await host.ev('t=>window.__AF285QA.setPortal(t,300)',side)
     if effect=='bite':
         await host.ev('([id,t])=>{const u=window.__AF285QA.find(id,t);u.hp=u.maxHp=200;}',[target,foe])
-    if effect in {'bomb','spear','artillery'}:
+    if effect=='strip':
+        await host.ev('([id,t])=>{const u=window.__AF285QA.find(id,t);u.absorb=180;u.absorbUntil=30;}',[target,foe])
+    if effect=='fan':
+        deployed=await host.play(foe,'af37_orman_okcu',1,.59 if foe=='enemy' else .41)
+        shooter=deployed['uids'][0]
+        await host.ev('([id,t,x])=>{const q=window.__AF285QA;q.move(id,t,x);q.stun(id,t,10);}',[shooter,foe,x])
+    if effect in {'bomb','spear','artillery','roots'}:
         second_card=await host.play(foe,'af37_cuce_savasci',1,max(.49,x) if foe=='enemy' else min(.47,x))
         second=second_card['uids'][0]
         await host.ev('([id,t,x])=>{const q=window.__AF285QA;q.move(id,t,x);q.stun(id,t,8);}',[second,foe,x+(.055 if side=='ally' else -.055)])
@@ -78,6 +91,11 @@ async def check_case(host, peer, typ, effect, x, side):
     checks['etki_ani']=impact['hit']
     if not impact['hit']: return checks
     effects=cast_fx+await host.qa(f'{q}.fxList()')
+    if effect=='fan':
+        await host.ev('''([actor,side,shooter,foe])=>{
+          const q=window.__AF285QA,u=q.find(actor,side),s=q.find(shooter,foe);
+          q.testProjectile(s,u,20);
+        }''',[actor,side,shooter,foe])
     if effect=='duel':
         checks['gercek_sonuc']=await host.ev('''([id,side,t,foe])=>{
           const q=window.__AF285QA,u=q.find(id,side),v=q.find(t,foe);
@@ -142,6 +160,33 @@ async def check_case(host, peer, typ, effect, x, side):
         checks['gercek_sonuc']=bool(damage) and (moved-x)*(1 if side=='ally' else -1)>.025
     elif effect=='slow':
         checks['gercek_sonuc']=bool(damage) and any(e['k']=='slow' and e.get('tu')==target for e in log)
+    elif effect=='roots':
+        bound={e.get('tu') for e in log if e['k']=='root' and e.get('su')==actor}
+        checks['gercek_sonuc']={target,second}<=bound
+    elif effect=='strip':
+        checks['gercek_sonuc']=await host.ev('''([t,foe])=>{
+           const q=window.__AF285QA,v=q.find(t,foe);
+           return v.absorb<180&&v._af264CrackUntil>q.state().elapsed;
+        }''',[target,foe])
+    elif effect=='drum':
+        record=await host.ev('''([t,side])=>{
+           const q=window.__AF285QA,v=q.find(t,side);return {now:q.period(v),base:v.attackPeriod};
+        }''',[friend,side])
+        checks['gercek_sonuc']=record['now']<record['base']*.8
+        await host.step(2.1)
+        checks['hiz_normale_dondu']=await host.ev('''([t,side])=>{
+           const q=window.__AF285QA,v=q.find(t,side);return v._af267TempoUntil<=q.state().elapsed;
+        }''',[friend,side])
+    elif effect=='forge':
+        checks['gercek_sonuc']=await host.ev('''([t,side,i,foe])=>{
+           const q=window.__AF285QA,u=q.find(t,side),v=q.find(i,foe);
+           const hit=q.attackStrength(u,v,40);u._af285ForgeUntil=0;
+           return hit>q.attackStrength(u,v,40);
+        }''',[friend,side,target,foe])
+        checks['yanma']=any(e['k']=='dot' and e.get('su')==actor and e.get('tu')==target for e in log)
+    elif effect=='fan':
+        ready=await host.ev('([id,t])=>window.__AF285QA.find(id,t)._af285FanReady',[actor,side])
+        checks['gercek_sonuc']=bool(ready) and not any(e['k']=='dmg' and e.get('su')==shooter and e.get('tu')==actor for e in log)
     elif effect=='bind':
         checks['gercek_sonuc']=any(e['k']=='root' and e.get('tu')==target for e in log)
     elif effect=='puppet':

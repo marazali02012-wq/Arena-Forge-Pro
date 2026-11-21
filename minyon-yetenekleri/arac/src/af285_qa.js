@@ -47,6 +47,17 @@
    if(team==='ally'){allySharedHP=hp;allyLaneHP.fill(hp);}
    else {enemySharedHP=hp;enemyLaneHP.fill(hp);}
  };
+ QA.enableBot=function(types){
+  const deck=types.map((type,i)=>({id:'qa-bot-'+i,type}));
+  af329.hand=deck.slice(0,4);af329.queue=deck.slice(4);af329.discard=[];
+  af329.think=0;af329.lastDeployAt=-10;enemyEnergy=4;enemyEnergyCap=7;
+  QA.lockEnemyEnergy=false;
+ };
+ QA.disableBot=function(){QA.lockEnemyEnergy=true;if(af329)af329.think=1e12;};
+ QA.battleReport=function(){
+  return {playing,elapsed,botCards:af329?.plays||0,botAbilities:QA.log.filter(e=>e.k==='ab-impact'&&e.team==='enemy').length,
+   tickErrors:window.__arenaForgeTickErrors||0,drawErrors:window.__afDrawErrors||0};
+ };
  QA.portal=function(){return {ally:allyTowerHP[0],enemy:enemyHP[0]};};
  QA.healPortals=function(){try{allySharedHP=allyTowerMax;allyLaneHP=[allySharedHP,allySharedHP,allySharedHP];enemySharedHP=TOWER_MAX_HP;enemyLaneHP=[enemySharedHP,enemySharedHP,enemySharedHP];}catch(e){}return QA.portal();};
  QA.play=function(team,type,lane,x){
@@ -133,6 +144,8 @@
  /* AF285 gecikmeli etkiler de kaynağa atfedilir */
  wrap('af285Later',()=>af285Later,v=>{af285Later=v;},o=>function(delay,fn){const ctx=QA.ctx;return o.call(this,delay,function(){const prev=QA.ctx;QA.ctx=ctx;try{return fn();}finally{QA.ctx=prev;}});});
  QA.find=function(uid,team){return units.find(v=>v&&af330Uid(v)===uid&&(!team||v.team===team))||null;};
+ QA.testProjectile=function(from,to,d){return af323Launch(from,to,d);};
+ QA.attackStrength=function(u,t,d){return af327AttackMods(u,t,d);};
  QA.period=function(u){return af327Period(u);};
  QA.testDamage=function(target,source,amount,kind="af285Physical"){return af327DealDamage(target,amount,{source,team:source.team,kind});};
  QA.kill=function(uid,team){const u=QA.find(uid,team);if(!u)return false;u.hp=0;u.killedBy=u.team==='ally'?'enemy':'ally';return true;};
