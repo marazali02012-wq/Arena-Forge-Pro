@@ -1,0 +1,81 @@
+{
+  "game": "Arena Forge Pro v3.60.263",
+  "purpose": "59 selected playable minions only; removed minions stay excluded",
+  "source_html": "ArenaForgePro_v3.60.263_59_MINYON_MOD_BAGLAM_ONARIM_TEST.html",
+  "generated_test_html": "ArenaForgePro_v3.60.263_59_MINYON_NADIRLIK_14_13_16_12_4_TEST.html",
+  "generated_test_html_sha256": "7e6dc2877bd1abd78b05accbf3729aeae885658ede005d67d2e9659ab912eef4",
+  "applied_to_generated_html": true,
+  "applied_to_github_app_html": false,
+  "combat_hp_atk_energy_unchanged": true,
+  "rarity_groups": {
+    "Sıradan": [
+      "af37_arbaletci",
+      "af37_cuce_savasci",
+      "af37_dovus_ustasi",
+      "af37_dovus_ustasi_ii",
+      "af37_iskelet_kalkanli",
+      "af37_iskelet_savasci",
+      "af37_kesifci",
+      "af37_kilicli_asker",
+      "af37_kizil_duellocu",
+      "af37_ork_savasci",
+      "af37_orman_okcu",
+      "afn_donuk_mizrakci",
+      "afn_kar_fenercisi",
+      "afn_mantar_davulcusu"
+    ],
+    "Nadir": [
+      "af37_ates_buyucusu",
+      "af37_buz_muhafizi",
+      "af37_golge_suikastci",
+      "af37_isik_sifacisi",
+      "af37_mavi_buyucu",
+      "af37_muhendis_nisanci",
+      "af37_zehirci",
+      "afn_alize_bicakli",
+      "afn_ayaz_kalkanlisi",
+      "afn_bulut_dalgici",
+      "afn_kapi_ustasi",
+      "afn_kehribar_sovalye",
+      "afn_ocak_dovucusu"
+    ],
+    "Epik": [
+      "af37_agir_zirhli",
+      "af37_elit_kadin_savasci",
+      "af37_golge_avcisi",
+      "af37_orman_ruhu",
+      "af37_ruh_cagirici",
+      "af37_samuray",
+      "af37_savas_muhendisi",
+      "afn_buz_zurnacisi",
+      "afn_el_arabali_topcu",
+      "afn_firtina_baglayici",
+      "afn_gece_yirticisi",
+      "afn_kirik_kuklaci",
+      "afn_kutup_kiricisi",
+      "afn_sedef_pervane",
+      "afn_toprak_yarici",
+      "mage"
+    ],
+    "Efsanevi": [
+      "af37_alev_muhafizi",
+      "af37_alev_silahcisi",
+      "af37_altin_muhafiz",
+      "af37_ates_elementali",
+      "af37_buz_elementali",
+      "af37_buz_sovalyesi",
+      "af37_golge_buyucusu",
+      "af37_lav_golemi",
+      "af37_nekromanci",
+      "afn_kiragi_dokuyucusu",
+      "afn_sicrayan_kocbasi",
+      "afn_zincir_kiran"
+    ],
+    "Mitik": [
+      "af37_kristal_golem",
+      "af37_tas_devi",
+      "afn_kirik_saat_efendisi",
+      "afn_kok_titani"
+    ]
+  }
+}
