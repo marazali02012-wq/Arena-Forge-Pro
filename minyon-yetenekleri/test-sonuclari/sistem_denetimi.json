@@ -1,0 +1,782 @@
+{
+ "control": {
+  "ok": true,
+  "type": "af37_ork_savasci",
+  "legacyEvents": 6
+ },
+ "legacy": {
+  "afp177": "TypeError: Cannot read properties of undefined (reading 'test')",
+  "afp179": "TypeError: Cannot read properties of undefined (reading 'test')",
+  "skeleton": {
+   "passed": true,
+   "failures": [],
+   "audit": {
+    "exists": true,
+    "unlocked": false,
+    "cost": 1,
+    "hp": 40,
+    "atk": 8,
+    "period": 0.8,
+    "range": 0.045,
+    "visualClass": 37,
+    "portrait": false,
+    "atlas": true,
+    "rig": true,
+    "deckCount": 12,
+    "deckIncludes": false,
+    "replacedStarter": true,
+    "portalHP": 430,
+    "saveKey": "arenaForgeProProfileV19"
+   }
+  },
+  "melee": {
+   "passed": true,
+   "meleeCases": 8,
+   "rangedCases": 6,
+   "failures": [],
+   "meleeRows": [
+    {
+     "type": "warrior",
+     "range": 0.075,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.075
+    },
+    {
+     "type": "guardian",
+     "range": 0.072,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.072
+    },
+    {
+     "type": "assassin",
+     "range": 0.072,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.072
+    },
+    {
+     "type": "paladin",
+     "range": 0.075,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.075
+    },
+    {
+     "type": "berserker",
+     "range": 0.073,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.073
+    },
+    {
+     "type": "orc",
+     "range": 0.078,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.078
+    },
+    {
+     "type": "golem",
+     "range": 0.07,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.07
+    },
+    {
+     "type": "skeleton_clone",
+     "range": 0.045,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.045
+    }
+   ],
+   "rangedRows": [
+    {
+     "type": "archer",
+     "range": 0.205,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "ranger",
+     "range": 0.17,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "mage",
+     "range": 0.13,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "healer",
+     "range": 0.095,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "frostmage",
+     "range": 0.12,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "necromancer",
+     "range": 0.12,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    }
+   ]
+  },
+  "hands": {
+   "iterations": 200,
+   "failures": 0,
+   "lowDeckCases": 0,
+   "passed": true
+  }
+ },
+ "roster": {
+  "count": 59,
+  "ids": [
+   "mage",
+   "afn_alize_bicakli",
+   "afn_ayaz_kalkanlisi",
+   "afn_bulut_dalgici",
+   "afn_buz_zurnacisi",
+   "afn_donuk_mizrakci",
+   "afn_el_arabali_topcu",
+   "afn_firtina_baglayici",
+   "afn_gece_yirticisi",
+   "afn_kapi_ustasi",
+   "afn_kar_fenercisi",
+   "afn_kehribar_sovalye",
+   "afn_kiragi_dokuyucusu",
+   "afn_kirik_kuklaci",
+   "afn_kirik_saat_efendisi",
+   "afn_kok_titani",
+   "afn_kutup_kiricisi",
+   "afn_mantar_davulcusu",
+   "afn_ocak_dovucusu",
+   "afn_sedef_pervane",
+   "afn_sicrayan_kocbasi",
+   "afn_toprak_yarici",
+   "afn_zincir_kiran",
+   "af37_kilicli_asker",
+   "af37_orman_okcu",
+   "af37_golge_suikastci",
+   "af37_mavi_buyucu",
+   "af37_isik_sifacisi",
+   "af37_cuce_savasci",
+   "af37_agir_zirhli",
+   "af37_kizil_duellocu",
+   "af37_kesifci",
+   "af37_ates_buyucusu",
+   "af37_nekromanci",
+   "af37_buz_sovalyesi",
+   "af37_alev_muhafizi",
+   "af37_golge_buyucusu",
+   "af37_muhendis_nisanci",
+   "af37_dovus_ustasi",
+   "af37_iskelet_savasci",
+   "af37_iskelet_kalkanli",
+   "af37_ork_savasci",
+   "af37_kristal_golem",
+   "af37_lav_golemi",
+   "af37_ates_elementali",
+   "af37_buz_elementali",
+   "af37_orman_ruhu",
+   "af37_tas_devi",
+   "af37_ruh_cagirici",
+   "af37_zehirci",
+   "af37_golge_avcisi",
+   "af37_elit_kadin_savasci",
+   "af37_buz_muhafizi",
+   "af37_altin_muhafiz",
+   "af37_samuray",
+   "af37_dovus_ustasi_ii",
+   "af37_arbaletci",
+   "af37_alev_silahcisi",
+   "af37_savas_muhendisi"
+  ],
+  "rarity": {
+   "Nadir": 13,
+   "Sıradan": 14,
+   "Epik": 16,
+   "Mitik": 4,
+   "Efsanevi": 12
+  },
+  "costs": {
+   "mage": 3,
+   "afn_alize_bicakli": 3,
+   "afn_ayaz_kalkanlisi": 4,
+   "afn_bulut_dalgici": 3,
+   "afn_buz_zurnacisi": 4,
+   "afn_donuk_mizrakci": 3,
+   "afn_el_arabali_topcu": 2,
+   "afn_firtina_baglayici": 3,
+   "afn_gece_yirticisi": 3,
+   "afn_kapi_ustasi": 3,
+   "afn_kar_fenercisi": 3,
+   "afn_kehribar_sovalye": 3,
+   "afn_kiragi_dokuyucusu": 4,
+   "afn_kirik_kuklaci": 4,
+   "afn_kirik_saat_efendisi": 4,
+   "afn_kok_titani": 7,
+   "afn_kutup_kiricisi": 5,
+   "afn_mantar_davulcusu": 2,
+   "afn_ocak_dovucusu": 3,
+   "afn_sedef_pervane": 3,
+   "afn_sicrayan_kocbasi": 5,
+   "afn_toprak_yarici": 6,
+   "afn_zincir_kiran": 5,
+   "af37_kilicli_asker": 2,
+   "af37_orman_okcu": 1,
+   "af37_golge_suikastci": 3,
+   "af37_mavi_buyucu": 4,
+   "af37_isik_sifacisi": 4,
+   "af37_cuce_savasci": 3,
+   "af37_agir_zirhli": 7,
+   "af37_kizil_duellocu": 3,
+   "af37_kesifci": 2,
+   "af37_ates_buyucusu": 5,
+   "af37_nekromanci": 5,
+   "af37_buz_sovalyesi": 6,
+   "af37_alev_muhafizi": 5,
+   "af37_golge_buyucusu": 5,
+   "af37_muhendis_nisanci": 4,
+   "af37_dovus_ustasi": 3,
+   "af37_iskelet_savasci": 2,
+   "af37_iskelet_kalkanli": 3,
+   "af37_ork_savasci": 4,
+   "af37_kristal_golem": 7,
+   "af37_lav_golemi": 7,
+   "af37_ates_elementali": 5,
+   "af37_buz_elementali": 5,
+   "af37_orman_ruhu": 5,
+   "af37_tas_devi": 7,
+   "af37_ruh_cagirici": 4,
+   "af37_zehirci": 4,
+   "af37_golge_avcisi": 4,
+   "af37_elit_kadin_savasci": 4,
+   "af37_buz_muhafizi": 4,
+   "af37_altin_muhafiz": 6,
+   "af37_samuray": 4,
+   "af37_dovus_ustasi_ii": 3,
+   "af37_arbaletci": 3,
+   "af37_alev_silahcisi": 4,
+   "af37_savas_muhendisi": 6
+  },
+  "saveKey": null,
+  "deckSize": 12
+ },
+ "modes": [
+  [
+   "arena",
+   96
+  ],
+  [
+   "duel",
+   76
+  ],
+  [
+   "tower",
+   89
+  ],
+  [
+   "campaign",
+   71
+  ],
+  [
+   "boss",
+   205
+  ],
+  [
+   "echo",
+   31
+  ],
+  [
+   "sky",
+   38
+  ],
+  [
+   "flag",
+   81
+  ],
+  [
+   "secret",
+   39
+  ]
+ ],
+ "saveKey": [
+  "arenaForgeProLastValidV19",
+  "arenaForgeProProfileV19",
+  "arenaForgeProSealV1"
+ ],
+ "state": {
+  "playing": true,
+  "elapsed": 11.99999999999992,
+  "gold": 12,
+  "enemyEnergy": 0,
+  "units": 2,
+  "mode": "duel",
+  "paused": false,
+  "tickErrors": 0,
+  "drawErrors": 0
+ },
+ "abilities": [
+  {
+   "id": "af37_agir_zirhli",
+   "group": 1,
+   "name": "Çelik Siper",
+   "role": "tank",
+   "status": "eklendi",
+   "cd": 11,
+   "wind": 0.48,
+   "cast": 0.14,
+   "rec": 0.32,
+   "desc": "Kalkanını yere çakar: önündeki en çok 3 düşmana %55 fiziksel hasar verir, onları geri iter ve saldırılarını geciktirir. Ardından 4 sn çelik siper kurar: kendisi %40, arkasındaki dostlar %22 daha az hasar alır."
+  },
+  {
+   "id": "af37_alev_muhafizi",
+   "group": 1,
+   "name": "Köz Zırhı",
+   "role": "tank",
+   "status": "dönüştürüldü",
+   "cd": 8,
+   "wind": 0.42,
+   "cast": 0.12,
+   "rec": 0.34,
+   "desc": "Yakın dövüşe girince zırhındaki közleri toplar ve patlatır: çevresindeki en çok 4 düşmana %35 büyü hasarı verir, 3 sn yakar (saniyede saldırısının %14’ü) ve hafifçe iter."
+  },
+  {
+   "id": "af37_alev_silahcisi",
+   "group": 1,
+   "name": "Köz Yelpazesi",
+   "role": "menzilli",
+   "status": "dönüştürüldü",
+   "cd": 8,
+   "wind": 0.38,
+   "cast": 0.52,
+   "rec": 0.28,
+   "desc": "Ayaklarını sabitleyip silahını ısıtır, ardından yelpaze biçiminde alev püskürtür: hedefe ve arkasındaki en çok 2 düşmana %45 büyü hasarı verir ve 2,5 sn yakar (saniyede saldırısının %10’u)."
+  },
+  {
+   "id": "af37_altin_muhafiz",
+   "group": 1,
+   "name": "Altın Nöbet",
+   "role": "destek",
+   "status": "dönüştürüldü",
+   "cd": 10,
+   "wind": 0.46,
+   "cast": 0.24,
+   "rec": 0.3,
+   "desc": "Canı %60’ın altına düşen en yaralı dostu (kendisi için %50) altın kubbeyle korur: kendi canının %8’i kadar kalkan (dostun canının en az %12’si, en çok %60’ı) ve %5 can verir; yanındaki dostlara bunun yarısı kadar kalkan verir. Kalkan 4 sn sürer, üst üste binmez; hasar aldıkça kubbe çatlar, bitince kırılır."
+  },
+  {
+   "id": "af37_arbaletci",
+   "group": 1,
+   "name": "Çifte Nişan",
+   "role": "okçu",
+   "status": "dönüştürüldü",
+   "cd": 7,
+   "wind": 0.56,
+   "cast": 0.17,
+   "rec": 0.26,
+   "desc": "Diz çöküp nişan alır (kırmızı nişan çizgisi görünür), sonra menzildeki en yaralı düşmana art arda iki ağır ok atar: %85 ve %70 fiziksel hasar. İkinci ok hedefi geri iter ve sıradaki saldırısını geciktirir."
+  },
+  {
+   "id": "afn_firtina_baglayici",
+   "group": 2,
+   "name": "Zincir Yıldırım",
+   "role": "büyücü",
+   "status": "dönüştürüldü",
+   "cd": 5.5,
+   "wind": 0.5,
+   "cast": 0.14,
+   "rec": 0.3,
+   "desc": "Elinde şimşek toplar, sonra şimşeği hedefe gönderir; şimşek aynı koridorda en yakın düşmana sıçrar. En çok 4 hedefe sırasıyla %130, %90, %60 ve %40 büyü hasarı verir; çarpmadan sağ çıkan ilk hedefi 0,6 sn yerinde tutar. Her sıçrama hedefe değdiği anda hasar verir; aynı hedefe iki kez sıçramaz."
+  },
+  {
+   "id": "af37_ates_buyucusu",
+   "group": 2,
+   "name": "Kor Çemberi",
+   "role": "büyücü",
+   "status": "dönüştürüldü",
+   "cd": 7,
+   "wind": 0.42,
+   "cast": 0.38,
+   "rec": 0.26,
+   "desc": "Avucunda ateş topu büyütür ve hedefe fırlatır: hedefe %55 büyü hasarı verir, düştüğü yerde kor çemberi bırakır. Çember 0,65 sn sonra patlar; içindeki en çok 3 düşmana %45 hasar verir ve 2 sn yakar. Çemberden zamanında çıkan birim patlamadan kurtulur."
+  },
+  {
+   "id": "af37_ates_elementali",
+   "group": 2,
+   "name": "Alev Dalgası",
+   "role": "savaşçı",
+   "status": "eklendi",
+   "cd": 9,
+   "wind": 0.45,
+   "cast": 0.36,
+   "rec": 0.3,
+   "desc": "Gövdesindeki közleri parlatıp yere vurur; önüne doğru yürüyen bir alev duvarı çıkarır. Önündeki en çok 3 düşmana %50 büyü hasarı verir, 2 sn yakar ve hafifçe geri iter."
+  },
+  {
+   "id": "af37_buz_elementali",
+   "group": 2,
+   "name": "Kırılgan Buz",
+   "role": "kontrol",
+   "status": "dönüştürüldü",
+   "cd": 8,
+   "wind": 0.45,
+   "cast": 0.32,
+   "rec": 0.3,
+   "desc": "Yumruklarında buz kristali toplar ve önüne buz dalgası gönderir: en çok 3 düşmana %40 büyü hasarı verir ve 1,6 sn yavaşlatır. Zaten yavaşlamış ya da kökü tutulmuş en çok 2 düşmanı buz kırar: %60 hasar alır ve 0,7 sn yerinde kalır."
+  },
+  {
+   "id": "af37_buz_muhafizi",
+   "group": 2,
+   "name": "Buz Siperi",
+   "role": "tank",
+   "status": "dönüştürüldü",
+   "cd": 9,
+   "wind": 0.4,
+   "cast": 0.14,
+   "rec": 0.3,
+   "desc": "Buz kılıcını yere saplar: önündeki en hızlı düşmanı 0,9 sn yerinde tutar ve %55 fiziksel hasar verir, yanındaki düşmanları 1,2 sn yavaşlatır. Kendini 4 sn boyunca canının %14’ü kadar mavi buz kubbesiyle korur; kubbe hasar aldıkça çatlar, bitince kırılır."
+  }
+ ],
+ "errors": [],
+ "legacyOrig": {
+  "afp177": "TypeError: Cannot read properties of undefined (reading 'test')",
+  "afp179": "TypeError: Cannot read properties of undefined (reading 'test')",
+  "skeleton": {
+   "passed": true,
+   "failures": [],
+   "audit": {
+    "exists": true,
+    "unlocked": false,
+    "cost": 1,
+    "hp": 40,
+    "atk": 8,
+    "period": 0.8,
+    "range": 0.045,
+    "visualClass": 37,
+    "portrait": false,
+    "atlas": true,
+    "rig": true,
+    "deckCount": 12,
+    "deckIncludes": false,
+    "replacedStarter": true,
+    "portalHP": 430,
+    "saveKey": "arenaForgeProProfileV19"
+   }
+  },
+  "melee": {
+   "passed": true,
+   "meleeCases": 8,
+   "rangedCases": 6,
+   "failures": [],
+   "meleeRows": [
+    {
+     "type": "warrior",
+     "range": 0.075,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.075
+    },
+    {
+     "type": "guardian",
+     "range": 0.072,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.072
+    },
+    {
+     "type": "assassin",
+     "range": 0.072,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.072
+    },
+    {
+     "type": "paladin",
+     "range": 0.075,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.075
+    },
+    {
+     "type": "berserker",
+     "range": 0.073,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.073
+    },
+    {
+     "type": "orc",
+     "range": 0.078,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.078
+    },
+    {
+     "type": "golem",
+     "range": 0.07,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.07
+    },
+    {
+     "type": "skeleton_clone",
+     "range": 0.045,
+     "engageRange": 0.2,
+     "closeCombat": true,
+     "strikeRange": 0.045
+    }
+   ],
+   "rangedRows": [
+    {
+     "type": "archer",
+     "range": 0.205,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "ranger",
+     "range": 0.17,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "mage",
+     "range": 0.13,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "healer",
+     "range": 0.095,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "frostmage",
+     "range": 0.12,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    },
+    {
+     "type": "necromancer",
+     "range": 0.12,
+     "engageRange": 0.2,
+     "closeCombat": false,
+     "strikeRange": 0.2
+    }
+   ]
+  },
+  "hands": {
+   "iterations": 200,
+   "failures": 0,
+   "lowDeckCases": 0,
+   "passed": true
+  }
+ },
+ "rosterOrig": {
+  "count": 59,
+  "ids": [
+   "mage",
+   "afn_alize_bicakli",
+   "afn_ayaz_kalkanlisi",
+   "afn_bulut_dalgici",
+   "afn_buz_zurnacisi",
+   "afn_donuk_mizrakci",
+   "afn_el_arabali_topcu",
+   "afn_firtina_baglayici",
+   "afn_gece_yirticisi",
+   "afn_kapi_ustasi",
+   "afn_kar_fenercisi",
+   "afn_kehribar_sovalye",
+   "afn_kiragi_dokuyucusu",
+   "afn_kirik_kuklaci",
+   "afn_kirik_saat_efendisi",
+   "afn_kok_titani",
+   "afn_kutup_kiricisi",
+   "afn_mantar_davulcusu",
+   "afn_ocak_dovucusu",
+   "afn_sedef_pervane",
+   "afn_sicrayan_kocbasi",
+   "afn_toprak_yarici",
+   "afn_zincir_kiran",
+   "af37_kilicli_asker",
+   "af37_orman_okcu",
+   "af37_golge_suikastci",
+   "af37_mavi_buyucu",
+   "af37_isik_sifacisi",
+   "af37_cuce_savasci",
+   "af37_agir_zirhli",
+   "af37_kizil_duellocu",
+   "af37_kesifci",
+   "af37_ates_buyucusu",
+   "af37_nekromanci",
+   "af37_buz_sovalyesi",
+   "af37_alev_muhafizi",
+   "af37_golge_buyucusu",
+   "af37_muhendis_nisanci",
+   "af37_dovus_ustasi",
+   "af37_iskelet_savasci",
+   "af37_iskelet_kalkanli",
+   "af37_ork_savasci",
+   "af37_kristal_golem",
+   "af37_lav_golemi",
+   "af37_ates_elementali",
+   "af37_buz_elementali",
+   "af37_orman_ruhu",
+   "af37_tas_devi",
+   "af37_ruh_cagirici",
+   "af37_zehirci",
+   "af37_golge_avcisi",
+   "af37_elit_kadin_savasci",
+   "af37_buz_muhafizi",
+   "af37_altin_muhafiz",
+   "af37_samuray",
+   "af37_dovus_ustasi_ii",
+   "af37_arbaletci",
+   "af37_alev_silahcisi",
+   "af37_savas_muhendisi"
+  ],
+  "rarity": {
+   "Nadir": 13,
+   "Sıradan": 14,
+   "Epik": 16,
+   "Mitik": 4,
+   "Efsanevi": 12
+  },
+  "costs": {
+   "mage": 3,
+   "afn_alize_bicakli": 3,
+   "afn_ayaz_kalkanlisi": 4,
+   "afn_bulut_dalgici": 3,
+   "afn_buz_zurnacisi": 4,
+   "afn_donuk_mizrakci": 3,
+   "afn_el_arabali_topcu": 2,
+   "afn_firtina_baglayici": 3,
+   "afn_gece_yirticisi": 3,
+   "afn_kapi_ustasi": 3,
+   "afn_kar_fenercisi": 3,
+   "afn_kehribar_sovalye": 3,
+   "afn_kiragi_dokuyucusu": 4,
+   "afn_kirik_kuklaci": 4,
+   "afn_kirik_saat_efendisi": 4,
+   "afn_kok_titani": 7,
+   "afn_kutup_kiricisi": 5,
+   "afn_mantar_davulcusu": 2,
+   "afn_ocak_dovucusu": 3,
+   "afn_sedef_pervane": 3,
+   "afn_sicrayan_kocbasi": 5,
+   "afn_toprak_yarici": 6,
+   "afn_zincir_kiran": 5,
+   "af37_kilicli_asker": 2,
+   "af37_orman_okcu": 1,
+   "af37_golge_suikastci": 3,
+   "af37_mavi_buyucu": 4,
+   "af37_isik_sifacisi": 4,
+   "af37_cuce_savasci": 3,
+   "af37_agir_zirhli": 7,
+   "af37_kizil_duellocu": 3,
+   "af37_kesifci": 2,
+   "af37_ates_buyucusu": 5,
+   "af37_nekromanci": 5,
+   "af37_buz_sovalyesi": 6,
+   "af37_alev_muhafizi": 5,
+   "af37_golge_buyucusu": 5,
+   "af37_muhendis_nisanci": 4,
+   "af37_dovus_ustasi": 3,
+   "af37_iskelet_savasci": 2,
+   "af37_iskelet_kalkanli": 3,
+   "af37_ork_savasci": 4,
+   "af37_kristal_golem": 7,
+   "af37_lav_golemi": 7,
+   "af37_ates_elementali": 5,
+   "af37_buz_elementali": 5,
+   "af37_orman_ruhu": 5,
+   "af37_tas_devi": 7,
+   "af37_ruh_cagirici": 4,
+   "af37_zehirci": 4,
+   "af37_golge_avcisi": 4,
+   "af37_elit_kadin_savasci": 4,
+   "af37_buz_muhafizi": 4,
+   "af37_altin_muhafiz": 6,
+   "af37_samuray": 4,
+   "af37_dovus_ustasi_ii": 3,
+   "af37_arbaletci": 3,
+   "af37_alev_silahcisi": 4,
+   "af37_savas_muhendisi": 6
+  },
+  "saveKey": null,
+  "deckSize": 12
+ },
+ "modesOrig": [
+  [
+   "arena",
+   96
+  ],
+  [
+   "duel",
+   76
+  ],
+  [
+   "tower",
+   89
+  ],
+  [
+   "campaign",
+   71
+  ],
+  [
+   "boss",
+   205
+  ],
+  [
+   "echo",
+   31
+  ],
+  [
+   "sky",
+   38
+  ],
+  [
+   "flag",
+   81
+  ],
+  [
+   "secret",
+   39
+  ]
+ ],
+ "unchanged": {
+  "count59": true,
+  "ids": true,
+  "rarity": true,
+  "costs": true,
+  "deck12": true,
+  "legacySame": true,
+  "openingHandsOk": true,
+  "modesPresent": true,
+  "noErrors": true,
+  "controlLegacyRule": true
+ }
+}

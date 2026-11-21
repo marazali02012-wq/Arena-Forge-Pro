@@ -1,0 +1,7395 @@
+{
+ "mage": {
+  "type": "mage",
+  "info": {
+   "name": "Büyücü",
+   "rarity": "Nadir",
+   "hp": 89,
+   "atk": 17,
+   "period": 0.92,
+   "speed": 0.111,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": null,
+   "ability": "Mühür Çatlağı: Hedefin yanında rakip varsa 0,45 sn sonra mühür patlar ve en çok 2 rakibi %32 hasarla vurur. 4 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Mühür Çatlağı",
+   "d": "Hedefin yanında rakip varsa 0,45 sn sonra mühür patlar ve en çok 2 rakibi %32 hasarla vurur. 4 sn ara.",
+   "event": "hit",
+   "effect": "delay",
+   "when": "group",
+   "cd": 4,
+   "q": 0.32,
+   "t": 0.45,
+   "r": 0.081,
+   "num": 2
+  },
+  "af264": false,
+  "profile": [
+   "cast_valen",
+   "arcane_burst",
+   "delay",
+   "Mühür alanından uzaklaş veya birliklerini ayır."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "dmg": 2
+   },
+   "dmgKinds": {
+    "af267Magic": 2
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 12,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "mage",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "dmg": 2
+   },
+   "dmgKinds": {
+    "af267Magic": 2
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 12,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "mage",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_alize_bicakli": {
+  "type": "afn_alize_bicakli",
+  "info": {
+   "name": "Alize Bıçaklı",
+   "rarity": "Sıradan",
+   "hp": 97,
+   "atk": 26,
+   "period": 0.7051999999999999,
+   "speed": 0.15729,
+   "role": "fast",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "assassin",
+   "ability": "Rüzgâr Aralığı: İlk isabette hedefi geriye iter ve 1,7 sn boyunca hareket hızı artar."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Rüzgâr Aralığı",
+   "d": "İlk isabette hedefi geriye iter ve 1,7 sn boyunca hareket hızı artar.",
+   "event": "hit",
+   "effect": "dart",
+   "s": "other",
+   "once": true,
+   "q": 0.023,
+   "t": 1.7
+  },
+  "af264": false,
+  "profile": [
+   "afnew_va_wind",
+   "dagger_stab",
+   "flight",
+   "İlk isabetini ağır birlikle karşıla."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "push": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "dart": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_alize_bicakli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "push": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "dart": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_alize_bicakli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_ayaz_kalkanlisi": {
+  "type": "afn_ayaz_kalkanlisi",
+  "info": {
+   "name": "Ayaz Kalkanlısı",
+   "rarity": "Epik",
+   "hp": 304,
+   "atk": 23,
+   "period": 1.1124,
+   "speed": 0.08556,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "guardian",
+   "ability": "Ayaz Kalkanı: Bir kez azami canının %24’ü kadar buz kalkanı kazanır. Kalkan 7 sn sürer. Yakın saldırgan 0,8 sn yavaşlar."
+  },
+  "cost": 4,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "ice_ground",
+   "crystal_burst",
+   "body",
+   "Kalkanı uzaktan tüket veya delici saldırı kullan."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "start": 1,
+    "ice": 6
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_ayaz_kalkanlisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "start": 1,
+    "ice": 3
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_ayaz_kalkanlisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_bulut_dalgici": {
+  "type": "afn_bulut_dalgici",
+  "info": {
+   "name": "Bulut Dalgıcı",
+   "rarity": "Nadir",
+   "hp": 103,
+   "atk": 25,
+   "period": 0.7051999999999999,
+   "speed": 0.14231000000000002,
+   "role": "fast",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.16,
+   "arch": "ranger",
+   "ability": "Bulut Perdesi: İlk menzilli darbeyi %50 azaltır. Sonra 4,4 sn koruma arası."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Bulut Perdesi",
+   "d": "İlk menzilli darbeyi %50 azaltır. Sonra 4,4 sn koruma arası.",
+   "event": "guard",
+   "effect": "guard",
+   "when": "ranged",
+   "cd": 4.4,
+   "q": 0.5
+  },
+  "af264": false,
+  "profile": [
+   "afnew_va_wind",
+   "ice_ground",
+   "body",
+   "Hasarı yakın dövüşten ver."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 1,
+    "guard": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_bulut_dalgici",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 1,
+    "guard": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_bulut_dalgici",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_buz_zurnacisi": {
+  "type": "afn_buz_zurnacisi",
+  "info": {
+   "name": "Buz Zurnacısı",
+   "rarity": "Epik",
+   "hp": 191,
+   "atk": 33,
+   "period": 0.99,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.12,
+   "arch": "frostmage",
+   "ability": "Soğuk Nefes: Uzak isabette hedefi ve gerisindeki bir rakibi 1,2 sn yavaşlatır. 4 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Soğuk Nefes",
+   "d": "Uzak isabette hedefi ve gerisindeki bir rakibi 1,2 sn yavaşlatır. 4 sn ara.",
+   "event": "hit",
+   "effect": "slow",
+   "s": "impactRear",
+   "when": "long",
+   "cd": 4,
+   "t": 1.2,
+   "r": 0.055,
+   "num": 2
+  },
+  "af264": false,
+  "profile": [
+   "ice_bolt",
+   "crystal_burst",
+   "flight",
+   "Yakından baskı yap veya arka hattı ayır."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_buz_zurnacisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "slow": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "slow": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_buz_zurnacisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_donuk_mizrakci": {
+  "type": "afn_donuk_mizrakci",
+  "info": {
+   "name": "Donuk Mızrakçı",
+   "rarity": "Sıradan",
+   "hp": 141,
+   "atk": 23,
+   "period": 0.91,
+   "speed": 0.113,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.115,
+   "arch": "spearman",
+   "ability": "Hat Dikişi: Düşmanın arkasındaki tek hedefe %37 hasar verir. Darbe alan ikinci hedefin saldırısı gecikir. 3,5 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Hat Dikişi",
+   "d": "Düşmanın arkasındaki tek hedefe %37 hasar verir. Darbe alan ikinci hedefin saldırısı gecikir. 3,5 sn ara.",
+   "event": "hit",
+   "effect": "pin",
+   "s": "rear",
+   "cd": 3.5,
+   "q": 0.37,
+   "t": 0.25,
+   "r": 0.135,
+   "num": 1,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "ice_bolt",
+   "spear_thrust",
+   "flight",
+   "Hedefin hemen arkasında ikinci birlik tutma."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 2,
+    "dmg": 2,
+    "delay": 2,
+    "signal": 2
+   },
+   "dmgKinds": {
+    "af267Physical": 2
+   },
+   "stages": {
+    "result": 2
+   },
+   "ruleEffects": {
+    "pin": 2
+   },
+   "abilityDamage": 14,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_donuk_mizrakci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "delay": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "pin": 1
+   },
+   "abilityDamage": 9,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_donuk_mizrakci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_el_arabali_topcu": {
+  "type": "afn_el_arabali_topcu",
+  "info": {
+   "name": "El Arabalı Topçu",
+   "rarity": "Sıradan",
+   "hp": 83,
+   "atk": 16,
+   "period": 0.83,
+   "speed": 0.127,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.43,
+   "arch": "archer",
+   "ability": "Topçu Mermisi: Düşmanları ve portalı yarı sahaya yakın mesafeden bombalar. Patlama aynı koridorda en çok altı birime yayılır. Yakın baskına karşı zayıftır."
+  },
+  "cost": 2,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "sparks_light",
+   "fire_explosion",
+   "ground",
+   "Ayrık birliklerle yaklaş ve yakın menzilde sıkıştır."
+  ],
+  "S1": {
+   "counts": {
+    "start": 1,
+    "signal": 22,
+    "dmg": 17
+   },
+   "dmgKinds": {
+    "af264Shell": 17
+   },
+   "stages": {
+    "wind": 11,
+    "impact": 11
+   },
+   "ruleEffects": {},
+   "abilityDamage": 140.1,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_el_arabali_topcu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "start": 1,
+    "signal": 10,
+    "dmg": 10
+   },
+   "dmgKinds": {
+    "af264Shell": 10
+   },
+   "stages": {
+    "wind": 5,
+    "impact": 5
+   },
+   "ruleEffects": {},
+   "abilityDamage": 84,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_el_arabali_topcu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_firtina_baglayici": {
+  "type": "afn_firtina_baglayici",
+  "info": {
+   "name": "Fırtına Bağlayıcı",
+   "rarity": "Mitik",
+   "hp": 135,
+   "atk": 26,
+   "period": 0.96,
+   "speed": 0.108,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "Zincir Yıldırım: Şimşek yan yana en çok üç hedefe %100, %55 ve %30 hasar verir. İlk hedef zaman zaman 0,55 sn köklenir."
+  },
+  "cost": 3,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "afnew_va_bolt",
+   "electric_sparks",
+   "flight",
+   "Minyonları aralıklı yerleştir."
+  ],
+  "S1": {
+   "counts": {
+    "start": 1,
+    "signal": 10,
+    "root": 2,
+    "dmg": 4
+   },
+   "dmgKinds": {
+    "af264Lightning": 4
+   },
+   "stages": {
+    "travel": 4,
+    "result": 2,
+    "impact": 4
+   },
+   "ruleEffects": {},
+   "abilityDamage": 58,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_firtina_baglayici",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "start": 1,
+    "signal": 7,
+    "root": 1,
+    "dmg": 3
+   },
+   "dmgKinds": {
+    "af264Lightning": 3
+   },
+   "stages": {
+    "travel": 3,
+    "result": 1,
+    "impact": 3
+   },
+   "ruleEffects": {},
+   "abilityDamage": 51,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_firtina_baglayici",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_gece_yirticisi": {
+  "type": "afn_gece_yirticisi",
+  "info": {
+   "name": "Gece Yırtıcısı",
+   "rarity": "Nadir",
+   "hp": 98,
+   "atk": 26,
+   "period": 0.7051999999999999,
+   "speed": 0.15729,
+   "role": "fast",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "assassin",
+   "ability": "Gece Açlığı: Son darbeyi vurunca %9 can yeniler ve 1,25 sn hızlanır. 4 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Gece Açlığı",
+   "d": "Son darbeyi vurunca %9 can yeniler ve 1,25 sn hızlanır. 4 sn ara.",
+   "event": "kill",
+   "effect": "hunt",
+   "s": "self",
+   "cd": 4,
+   "q": 0.09,
+   "t": 1.25
+  },
+  "af264": false,
+  "profile": [
+   "shadow_wave",
+   "heal_glow",
+   "return",
+   "Bitirebileceği düşük canlı hedefi çek."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "heal": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "hunt": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 9,
+   "placed": [
+    [
+     "ally",
+     "afn_gece_yirticisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_gece_yirticisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_kapi_ustasi": {
+  "type": "afn_kapi_ustasi",
+  "info": {
+   "name": "Kapı Ustası",
+   "rarity": "Nadir",
+   "hp": 228,
+   "atk": 18,
+   "period": 1.1124,
+   "speed": 0.08556,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "guardian",
+   "ability": "Kapı Tamiri: Kendi portalına yakınken önündeki en yaralı dosta %11 kalkan verir. 5,5 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Kapı Tamiri",
+   "d": "Kendi portalına yakınken önündeki en yaralı dosta %11 kalkan verir. 5,5 sn ara.",
+   "event": "tick",
+   "effect": "shield",
+   "s": "ahead",
+   "when": "home",
+   "cd": 5.5,
+   "q": 0.11,
+   "t": 2.8,
+   "r": 0.16
+  },
+  "af264": false,
+  "profile": [
+   "gold_runes",
+   "shield_bubble",
+   "flight",
+   "Destek hattını it veya portal dışındaki birimleri hedefle."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_kapi_ustasi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "shield": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "shield": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_kapi_ustasi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_kar_fenercisi": {
+  "type": "afn_kar_fenercisi",
+  "info": {
+   "name": "Kar Fenercisi",
+   "rarity": "Nadir",
+   "hp": 174,
+   "atk": 20,
+   "period": 0.96,
+   "speed": 0.105,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.095,
+   "arch": "healer",
+   "ability": "Kar Feneri: Yakındaki yaralı dostu kısaca hızlandırıp %7 iyileştirir. 4,7 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Kar Feneri",
+   "d": "Yakındaki yaralı dostu kısaca hızlandırıp %7 iyileştirir. 4,7 sn ara.",
+   "event": "tick",
+   "effect": "escort",
+   "s": "friend",
+   "when": "hurt",
+   "cd": 4.7,
+   "q": 0.07,
+   "t": 1.6,
+   "r": 0.14
+  },
+  "af264": false,
+  "profile": [
+   "ice_bolt",
+   "heal_glow",
+   "flight",
+   "Fenercinin önündeki yaralı hedefi desteğinden ayır."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_kar_fenercisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "heal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "escort": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 3,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_kar_fenercisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_kehribar_sovalye": {
+  "type": "afn_kehribar_sovalye",
+  "info": {
+   "name": "Kehribar Şövalye",
+   "rarity": "Nadir",
+   "hp": 150,
+   "atk": 22,
+   "period": 0.91,
+   "speed": 0.109,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "warrior",
+   "ability": "Kehribar Kardeşliği: Yanında bir dost varken önden gelen ilk yakın darbeyi %32 azaltır. 4 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Kehribar Kardeşliği",
+   "d": "Yanında bir dost varken önden gelen ilk yakın darbeyi %32 azaltır. 4 sn ara.",
+   "event": "guard",
+   "effect": "guard",
+   "when": "paired",
+   "cd": 4,
+   "q": 0.32
+  },
+  "af264": false,
+  "profile": [
+   "cast_ruul",
+   "shield_bubble",
+   "body",
+   "Yanındaki dostu ayır veya uzaktan vur."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_kehribar_sovalye",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_kehribar_sovalye",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "tetiklenmedi"
+ },
+ "afn_kiragi_dokuyucusu": {
+  "type": "afn_kiragi_dokuyucusu",
+  "info": {
+   "name": "Kırağı Dokuyucusu",
+   "rarity": "Epik",
+   "hp": 191,
+   "atk": 33,
+   "period": 0.99,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.12,
+   "arch": "frostmage",
+   "ability": "Kırağı Düğümü: Daha önce yavaşlatılan hedefi kökler. Yavaşlatılmamış hedefe kısa buz uygular. 4 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Kırağı Düğümü",
+   "d": "Daha önce yavaşlatılan hedefi kökler. Yavaşlatılmamış hedefe kısa buz uygular. 4 sn ara.",
+   "event": "hit",
+   "effect": "weave",
+   "s": "other",
+   "cd": 4,
+   "t": 0.95
+  },
+  "af264": false,
+  "profile": [
+   "ice_bolt",
+   "afnew_te_roots",
+   "flight",
+   "Yavaşlamayı temizle veya etki aralarında gir."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 2,
+    "slow": 2,
+    "signal": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 2
+   },
+   "ruleEffects": {
+    "weave": 2
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_kiragi_dokuyucusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "slow": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "weave": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_kiragi_dokuyucusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_kirik_kuklaci": {
+  "type": "afn_kirik_kuklaci",
+  "info": {
+   "name": "Kırık Kuklacı",
+   "rarity": "Epik",
+   "hp": 172,
+   "atk": 36,
+   "period": 0.98,
+   "speed": 0.107,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.12,
+   "arch": "necromancer",
+   "ability": "Kırık İp: Kalkanlı veya zırhlı rakibe vurunca kalkanının en çok atkısının %60’ı kadarını aşındırır ve zırhını zayıflatır. 4 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Kırık İp",
+   "d": "Kalkanlı veya zırhlı rakibe vurunca kalkanının en çok atkısının %60’ı kadarını aşındırır ve zırhını zayıflatır. 4 sn ara.",
+   "event": "hit",
+   "effect": "strip",
+   "s": "other",
+   "when": "armored",
+   "cd": 4,
+   "q": 0.6,
+   "t": 2.4
+  },
+  "af264": false,
+  "profile": [
+   "shadow_orb",
+   "claw_marks",
+   "flight",
+   "Dayanıklılığı kalkan yerine yüksek canla sağla."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "timed": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "strip": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_kirik_kuklaci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_kirik_kuklaci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_kirik_saat_efendisi": {
+  "type": "afn_kirik_saat_efendisi",
+  "info": {
+   "name": "Kırık Saat Efendisi",
+   "rarity": "Mitik",
+   "hp": 180,
+   "atk": 34,
+   "period": 0.96,
+   "speed": 0.108,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "Geri Kalan Saniye: Kendisine ve yakındaki en yaralı dosta 2 sn hızlı saldırı ritmi kazandırır. 6 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Geri Kalan Saniye",
+   "d": "Kendisine ve yakındaki en yaralı dosta 2 sn hızlı saldırı ritmi kazandırır. 6 sn ara.",
+   "event": "tick",
+   "effect": "tempo",
+   "s": "selfPair",
+   "cd": 6,
+   "q": 0.85,
+   "t": 2,
+   "r": 0.11
+  },
+  "af264": false,
+  "profile": [
+   "cast_noella",
+   "gold_runes",
+   "body",
+   "Kısa hızlanma penceresinde dövüşü ertele."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 4,
+    "rule": 2,
+    "timed": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 2,
+    "impact": 2
+   },
+   "ruleEffects": {
+    "tempo": 2
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_kirik_saat_efendisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "timed": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "tempo": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_kirik_saat_efendisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_kok_titani": {
+  "type": "afn_kok_titani",
+  "info": {
+   "name": "Kök Titanı",
+   "rarity": "Mitik",
+   "hp": 584,
+   "atk": 43,
+   "period": 1.296,
+   "speed": 0.06882,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Kök Salma: 0,95 sn kökler. Canı %72’nin altındayken 7 sn arayla azami canının %8’ini yeniler. Toplam yenileme %24."
+  },
+  "cost": 7,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "leaves_burst",
+   "afnew_te_roots",
+   "ground",
+   "Zehirle yenilenmeye karşı koy, uzaktan baskı kur."
+  ],
+  "S1": {
+   "counts": {
+    "start": 1,
+    "root": 2,
+    "signal": 3,
+    "heal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 2,
+    "recover": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 47,
+   "placed": [
+    [
+     "ally",
+     "afn_kok_titani",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "start": 1,
+    "root": 1,
+    "signal": 2,
+    "heal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1,
+    "recover": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 47,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_kok_titani",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_kutup_kiricisi": {
+  "type": "afn_kutup_kiricisi",
+  "info": {
+   "name": "Kutup Kırıcısı",
+   "rarity": "Epik",
+   "hp": 418,
+   "atk": 31,
+   "period": 1.296,
+   "speed": 0.06882,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Kutup Çatlağı: Azami canı kendisininkinden yüksek rakibi vurduğunda %40 ek fiziksel hasar verir. 4,5 sn ara."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Kutup Çatlağı",
+   "d": "Azami canı kendisininkinden yüksek rakibi vurduğunda %40 ek fiziksel hasar verir. 4,5 sn ara.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "other",
+   "when": "big",
+   "cd": 4.5,
+   "q": 0.4,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "heavy_impact",
+   "crystal_burst",
+   "body",
+   "Azami canı düşük birkaç farklı birlik kullan."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dmg": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 6,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_kutup_kiricisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_kutup_kiricisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_mantar_davulcusu": {
+  "type": "afn_mantar_davulcusu",
+  "info": {
+   "name": "Mantar Davulcusu",
+   "rarity": "Sıradan",
+   "hp": 116,
+   "atk": 13,
+   "period": 0.96,
+   "speed": 0.105,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.095,
+   "arch": "healer",
+   "ability": "Yürüyüş Davulu: Doğduktan sonra bir kez önündeki en çok 2 dosta 2,4 sn hareket hızı verir."
+  },
+  "cost": 2,
+  "rule": {
+   "cost": 2,
+   "n": "Yürüyüş Davulu",
+   "d": "Doğduktan sonra bir kez önündeki en çok 2 dosta 2,4 sn hareket hızı verir.",
+   "event": "tick",
+   "effect": "haste",
+   "s": "ahead",
+   "once": true,
+   "window": 3,
+   "t": 2.4,
+   "r": 0.14,
+   "num": 2
+  },
+  "af264": false,
+  "profile": [
+   "cast_terrin",
+   "grow_aura",
+   "flight",
+   "Davulun önünde dost birim birikmesini önle."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_mantar_davulcusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "haste": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_mantar_davulcusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_ocak_dovucusu": {
+  "type": "afn_ocak_dovucusu",
+  "info": {
+   "name": "Ocak Dövücüsü",
+   "rarity": "Sıradan",
+   "hp": 141,
+   "atk": 22,
+   "period": 0.87,
+   "speed": 0.114,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.073,
+   "arch": "berserker",
+   "ability": "Ocak Alevi: Canı %55’in altındayken vuruşu komşu rakipleri kısa süre yakar. 4 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Ocak Alevi",
+   "d": "Canı %55’in altındayken vuruşu komşu rakipleri kısa süre yakar. 4 sn ara.",
+   "event": "hit",
+   "effect": "burn",
+   "s": "side",
+   "when": "below55",
+   "cd": 4,
+   "q": 0.12,
+   "t": 2,
+   "r": 0.075,
+   "num": 2
+  },
+  "af264": false,
+  "profile": [
+   "slash_arc_red",
+   "fire_ring",
+   "ground",
+   "Canı azalınca yakınında ikinci hedef bırakma."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_ocak_dovucusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dot": 1,
+    "dmg": 4
+   },
+   "dmgKinds": {
+    "dot": 4
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "burn": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 5,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_ocak_dovucusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_sedef_pervane": {
+  "type": "afn_sedef_pervane",
+  "info": {
+   "name": "Sedef Pervane",
+   "rarity": "Nadir",
+   "hp": 103,
+   "atk": 25,
+   "period": 0.7051999999999999,
+   "speed": 0.14231000000000002,
+   "role": "fast",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.16,
+   "arch": "ranger",
+   "ability": "Sedef Sapması: İlk menzilli darbenin %34’ünü saptırır ve 1,2 sn hızlanır. 4,5 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Sedef Sapması",
+   "d": "İlk menzilli darbenin %34’ünü saptırır ve 1,2 sn hızlanır. 4,5 sn ara.",
+   "event": "guard",
+   "effect": "dodge",
+   "when": "ranged",
+   "cd": 4.5,
+   "q": 0.34,
+   "t": 1.2
+  },
+  "af264": false,
+  "profile": [
+   "afnew_va_wind",
+   "shield_bubble",
+   "body",
+   "Yakın dövüşle karşıla."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 1,
+    "guard": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_sedef_pervane",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 1,
+    "guard": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_sedef_pervane",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "afn_sicrayan_kocbasi": {
+  "type": "afn_sicrayan_kocbasi",
+  "info": {
+   "name": "Sıçrayan Koçbaşı",
+   "rarity": "Epik",
+   "hp": 418,
+   "atk": 31,
+   "period": 1.296,
+   "speed": 0.06882,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Kuşatma Sekişi: Kupa Savaşı’nda portala öncelik verir. Diğer modlarda ilk birlik vuruşu ×1,5. Heykellere %40 ek darbe."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Kuşatma Sekişi",
+   "d": "Kupa Savaşı’nda portala öncelik verir. Diğer modlarda ilk birlik vuruşu ×1,5. Heykellere %40 ek darbe.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "other",
+   "when": "barrier",
+   "cd": 3.8,
+   "q": 0.4,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "afnew_te_fury",
+   "heavy_impact",
+   "flight",
+   "Portala gelmeden tut veya savunmayı heykelsiz kur."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_sicrayan_kocbasi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_sicrayan_kocbasi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "tetiklenmedi"
+ },
+ "afn_toprak_yarici": {
+  "type": "afn_toprak_yarici",
+  "info": {
+   "name": "Toprak Yarıcı",
+   "rarity": "Mitik",
+   "hp": 501,
+   "atk": 37,
+   "period": 1.296,
+   "speed": 0.06882,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Yeraltı Geçidi: Kısa süre yer altından ilerler ve çıkarken yakın düşmanlara bir kez alan hasarı verir. Düşman arkasına yerleşebilir."
+  },
+  "cost": 6,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "quake_wave",
+   "heavy_impact",
+   "ground",
+   "Hedef bölgeden ayrıl ve çıktıktan sonra alan hasarı kullan."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "start": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_toprak_yarici",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "start": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_toprak_yarici",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "yalnızca görsel"
+ },
+ "afn_zincir_kiran": {
+  "type": "afn_zincir_kiran",
+  "info": {
+   "name": "Zincir Kıran",
+   "rarity": "Epik",
+   "hp": 418,
+   "atk": 31,
+   "period": 1.296,
+   "speed": 0.06882,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Bağ Koparan: Kalkanlı veya ağır hedefi geriye iter. 3,8 sn ara."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Bağ Koparan",
+   "d": "Kalkanlı veya ağır hedefi geriye iter. 3,8 sn ara.",
+   "event": "hit",
+   "effect": "push",
+   "s": "other",
+   "when": "armored",
+   "cd": 3.8,
+   "q": 0.043
+  },
+  "af264": false,
+  "profile": [
+   "spear_thrust",
+   "quake_wave",
+   "body",
+   "Kalkanı olmayan hareketli birlik kullan."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 2,
+    "push": 2,
+    "signal": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 2
+   },
+   "ruleEffects": {
+    "push": 2
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "afn_zincir_kiran",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "afn_zincir_kiran",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_kilicli_asker": {
+  "type": "af37_kilicli_asker",
+  "info": {
+   "name": "Kılıçlı Asker",
+   "rarity": "Sıradan",
+   "hp": 82,
+   "atk": 14,
+   "period": 0.9,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 2,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "warrior",
+   "ability": "Yan Yana: Kardeş asker yakındaysa ikiliden birinin darbesi %36 ek hasar verir. 3,2 sn ara."
+  },
+  "cost": 2,
+  "rule": {
+   "cost": 2,
+   "n": "Yan Yana",
+   "d": "Kardeş asker yakındaysa ikiliden birinin darbesi %36 ek hasar verir. 3,2 sn ara.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "other",
+   "when": "wing",
+   "cd": 3.2,
+   "q": 0.36,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "cast_valen",
+   "slash_arc",
+   "body",
+   "İki askeri itmeyle birbirinden ayır."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 3,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 3,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_orman_okcu": {
+  "type": "af37_orman_okcu",
+  "info": {
+   "name": "Orman Okçusu",
+   "rarity": "Sıradan",
+   "hp": 28,
+   "atk": 11,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 2,
+   "shooter": true,
+   "range": 0.195,
+   "arch": "archer",
+   "ability": "Yavaşlatan Ok: İki okçu aynı hedefi 0,85 sn yavaşlatabilir. Hedef başına 2,8 sn ara vardır."
+  },
+  "cost": 1,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "leaves_burst",
+   "ice_ground",
+   "flight",
+   "Birlikleri ayrı çıkar veya alan hasarıyla ikiliyi hedefle."
+  ],
+  "S1": {
+   "counts": {
+    "start": 2,
+    "slow": 8,
+    "signal": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 2
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_orman_okcu",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "start": 2,
+    "slow": 8,
+    "signal": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 2
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_orman_okcu",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_golge_suikastci": {
+  "type": "af37_golge_suikastci",
+  "info": {
+   "name": "Gölge Suikastçı",
+   "rarity": "Epik",
+   "hp": 86,
+   "atk": 22,
+   "period": 0.64,
+   "speed": 0.155,
+   "role": "fast",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "assassin",
+   "ability": "Gölge Pususu: En çok 2,2 sn görünmez kalır. İlk birlik vuruşu %45 güçlüdür ve gizliliği bitirir. Düşman arkasına yerleşebilir."
+  },
+  "cost": 3,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "shadow_wave",
+   "dagger_stab",
+   "flight",
+   "Alan hasarıyla örtüyü aş veya ilk darbeyi tanka aldır."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 3,
+    "start": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "result": 2
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_golge_suikastci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "start": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_golge_suikastci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "yalnızca görsel"
+ },
+ "af37_mavi_buyucu": {
+  "type": "af37_mavi_buyucu",
+  "info": {
+   "name": "Mavi Büyücü",
+   "rarity": "Epik",
+   "hp": 112,
+   "atk": 44,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "İkiz Kıvılcım: Her üçüncü isabet bir yakındaki düşmana %47 büyü hasarı sıçratır. 3 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "İkiz Kıvılcım",
+   "d": "Her üçüncü isabet bir yakındaki düşmana %47 büyü hasarı sıçratır. 3 sn ara.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "side",
+   "when": "third",
+   "cd": 3,
+   "q": 0.47,
+   "r": 0.13,
+   "num": 1
+  },
+  "af264": false,
+  "profile": [
+   "energy_orb_arcane",
+   "electric_sparks",
+   "flight",
+   "Üçüncü isabette yan hedef bırakma."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dmg": 1
+   },
+   "dmgKinds": {
+    "af267Magic": 1
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 15,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_mavi_buyucu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_mavi_buyucu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_isik_sifacisi": {
+  "type": "af37_isik_sifacisi",
+  "info": {
+   "name": "Işık Şifacısı",
+   "rarity": "Nadir",
+   "hp": 143,
+   "atk": 34,
+   "period": 0.95,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.095,
+   "arch": "healer",
+   "ability": "İlk Işık: Yakındaki en yaralı dosta canının %12’sini verir. Dosta zehir veya yanma varsa ilkini temizler. 5 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "İlk Işık",
+   "d": "Yakındaki en yaralı dosta canının %12’sini verir. Dosta zehir veya yanma varsa ilkini temizler. 5 sn ara.",
+   "event": "tick",
+   "effect": "cleanHeal",
+   "s": "friend",
+   "when": "hurt",
+   "cd": 5,
+   "q": 0.12,
+   "r": 0.15
+  },
+  "af264": false,
+  "profile": [
+   "cast_terrin",
+   "heal_glow",
+   "flight",
+   "Şifacıyla yaralı dostun arasını aç."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_isik_sifacisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "heal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "cleanHeal": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 5,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_isik_sifacisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_cuce_savasci": {
+  "type": "af37_cuce_savasci",
+  "info": {
+   "name": "Cüce Savaşçı",
+   "rarity": "Sıradan",
+   "hp": 209,
+   "atk": 16,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.078,
+   "arch": "orc",
+   "ability": "Kısa Çekiç: Vuruşu hızlı hedefin sıradaki saldırısını 0,28 sn geciktirir. 3 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Kısa Çekiç",
+   "d": "Vuruşu hızlı hedefin sıradaki saldırısını 0,28 sn geciktirir. 3 sn ara.",
+   "event": "hit",
+   "effect": "delayAttack",
+   "s": "other",
+   "when": "fast",
+   "cd": 3,
+   "t": 0.28
+  },
+  "af264": false,
+  "profile": [
+   "punch_shock",
+   "heavy_impact",
+   "body",
+   "Hızlı kırılgan asker yerine ağır birlik çıkar."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_cuce_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "delay": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "delayAttack": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_cuce_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_agir_zirhli": {
+  "type": "af37_agir_zirhli",
+  "info": {
+   "name": "Ağır Zırhlı",
+   "rarity": "Efsanevi",
+   "hp": 463,
+   "atk": 35,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "guardian",
+   "ability": "Çelik Ön Saf: Fiziksel hasarı %28 azaltır. Önünde durduğu yakın destek ve menzilli birlikleri önden gelen fiziksel hasara karşı %12 korur."
+  },
+  "cost": 7,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "spear_thrust",
+   "shield_bubble",
+   "body",
+   "Büyü, zehir veya zırh delme kullan."
+  ],
+  "S1": {
+   "counts": {
+    "start": 1,
+    "armor": 31,
+    "signal": 13
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 13
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "start": 1,
+    "armor": 24,
+    "signal": 10
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 10
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_kizil_duellocu": {
+  "type": "af37_kizil_duellocu",
+  "info": {
+   "name": "Kızıl Düellocu",
+   "rarity": "Sıradan",
+   "hp": 80,
+   "atk": 22,
+   "period": 0.6,
+   "speed": 0.155,
+   "role": "fast",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "warrior",
+   "ability": "Düello İmzası: Komşu rakibi bulunmayan hedefe ilk isabette %55 ek hasar verir."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Düello İmzası",
+   "d": "Komşu rakibi bulunmayan hedefe ilk isabette %55 ek hasar verir.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "other",
+   "when": "isolated",
+   "once": true,
+   "q": 0.55,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "dagger_stab",
+   "slash_arc_red",
+   "flight",
+   "Tek başına hedef bırakma."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 12,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kizil_duellocu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_kizil_duellocu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_kesifci": {
+  "type": "af37_kesifci",
+  "info": {
+   "name": "Keşifçi",
+   "rarity": "Sıradan",
+   "hp": 56,
+   "atk": 22,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 6,
+   "shooter": true,
+   "range": 0.195,
+   "arch": "archer",
+   "ability": "İz Oku: İsabetin ardından hedefin sonraki saldırısı gecikir. Her sürü koridorunda 4 sn ara."
+  },
+  "cost": 2,
+  "rule": {
+   "cost": 2,
+   "n": "İz Oku",
+   "d": "İsabetin ardından hedefin sonraki saldırısı gecikir. Her sürü koridorunda 4 sn ara.",
+   "event": "hit",
+   "effect": "delayAttack",
+   "s": "other",
+   "cd": 4,
+   "t": 0.22
+  },
+  "af264": false,
+  "profile": [
+   "sparks_light",
+   "afnew_va_wind",
+   "flight",
+   "İz okunu yüksek canlı birimle karşıla."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "delay": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "delayAttack": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kesifci",
+     true,
+     6
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "delay": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "delayAttack": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_kesifci",
+     true,
+     6
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_ates_buyucusu": {
+  "type": "af37_ates_buyucusu",
+  "info": {
+   "name": "Ateş Büyücüsü",
+   "rarity": "Epik",
+   "hp": 140,
+   "atk": 55,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "Kor Çemberi: Vurulan noktada 0,65 sn sonra en çok 3 düşmanı %28 hasarla yakalar. 4,5 sn ara."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Kor Çemberi",
+   "d": "Vurulan noktada 0,65 sn sonra en çok 3 düşmanı %28 hasarla yakalar. 4,5 sn ara.",
+   "event": "hit",
+   "effect": "delay",
+   "cd": 4.5,
+   "q": 0.28,
+   "t": 0.65,
+   "r": 0.059,
+   "num": 3
+  },
+  "af264": false,
+  "profile": [
+   "cast_ruul",
+   "fire_explosion",
+   "delay",
+   "İşaretlenen noktadan çık veya ilk isabeti engelle."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 4,
+    "dmg": 2
+   },
+   "dmgKinds": {
+    "af267Magic": 2
+   },
+   "stages": {
+    "wind": 2,
+    "impact": 2
+   },
+   "ruleEffects": {},
+   "abilityDamage": 30,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_ates_buyucusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "dmg": 2
+   },
+   "dmgKinds": {
+    "af267Magic": 2
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 36,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_ates_buyucusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_nekromanci": {
+  "type": "af37_nekromanci",
+  "info": {
+   "name": "Nekromancı",
+   "rarity": "Efsanevi",
+   "hp": 140,
+   "atk": 55,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "Ruh Payı: Son darbeyi vurunca en yaralı dostu %11 can iyileştirir ve kısa kalkan verir. 4,5 sn ara."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Ruh Payı",
+   "d": "Son darbeyi vurunca en yaralı dostu %11 can iyileştirir ve kısa kalkan verir. 4,5 sn ara.",
+   "event": "kill",
+   "effect": "soul",
+   "s": "friend",
+   "when": "hurt",
+   "cd": 4.5,
+   "q": 0.11,
+   "t": 2.5,
+   "r": 0.15
+  },
+  "af264": false,
+  "profile": [
+   "death_dissolve_necro",
+   "heal_glow",
+   "flight",
+   "Son vuruşu engelle veya çevresinde yaralı dost bırakma."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_nekromanci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_nekromanci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "tetiklenmedi"
+ },
+ "af37_buz_sovalyesi": {
+  "type": "af37_buz_sovalyesi",
+  "info": {
+   "name": "Buz Şövalyesi",
+   "rarity": "Efsanevi",
+   "hp": 397,
+   "atk": 30,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "paladin",
+   "ability": "Kar Hattı: Canı ilk kez %55’in altındayken aynı koridordaki en çok 3 düşmanı 1,6 sn yavaşlatır."
+  },
+  "cost": 6,
+  "rule": {
+   "cost": 6,
+   "n": "Kar Hattı",
+   "d": "Canı ilk kez %55’in altındayken aynı koridordaki en çok 3 düşmanı 1,6 sn yavaşlatır.",
+   "event": "tick",
+   "effect": "slow",
+   "s": "around",
+   "when": "below55",
+   "once": true,
+   "t": 1.6,
+   "r": 0.15,
+   "num": 3
+  },
+  "af264": false,
+  "profile": [
+   "shield_bubble",
+   "ice_ground",
+   "ground",
+   "Canı düşerken tek dayanıklı birimle yaklaş."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "slow": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "slow": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_buz_sovalyesi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "slow": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "slow": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_buz_sovalyesi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_alev_muhafizi": {
+  "type": "af37_alev_muhafizi",
+  "info": {
+   "name": "Alev Bekçisi",
+   "rarity": "Epik",
+   "hp": 331,
+   "atk": 25,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.073,
+   "arch": "berserker",
+   "ability": "Köz Zırhı: Yakın saldırı aldığında saldırganı 2,5 sn yakar. 4 sn ara."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Köz Zırhı",
+   "d": "Yakın saldırı aldığında saldırganı 2,5 sn yakar. 4 sn ara.",
+   "event": "damaged",
+   "effect": "burn",
+   "s": "other",
+   "when": "melee",
+   "cd": 4,
+   "q": 0.12,
+   "t": 2.5
+  },
+  "af264": false,
+  "profile": [
+   "punch_shock",
+   "fire_ring",
+   "body",
+   "Uzak saldırıyla kalkanın menzili dışında kal."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 2,
+    "dot": 2,
+    "signal": 2,
+    "dmg": 2
+   },
+   "dmgKinds": {
+    "dot": 2
+   },
+   "stages": {
+    "result": 2
+   },
+   "ruleEffects": {
+    "burn": 2
+   },
+   "abilityDamage": 0,
+   "otherDamage": 3,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_alev_muhafizi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "dot": 1,
+    "signal": 1,
+    "dmg": 5
+   },
+   "dmgKinds": {
+    "dot": 5
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "burn": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 7,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_alev_muhafizi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_golge_buyucusu": {
+  "type": "af37_golge_buyucusu",
+  "info": {
+   "name": "Gece Büyücüsü",
+   "rarity": "Epik",
+   "hp": 140,
+   "atk": 55,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "Kesilen Soluk: Hedefin saldırı aralığını 2,2 sn boyunca %22 uzatır. 4 sn ara."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Kesilen Soluk",
+   "d": "Hedefin saldırı aralığını 2,2 sn boyunca %22 uzatır. 4 sn ara.",
+   "event": "hit",
+   "effect": "attackSlow",
+   "s": "other",
+   "cd": 4,
+   "q": 1.22,
+   "t": 2.2
+  },
+  "af264": false,
+  "profile": [
+   "shadow_orb",
+   "curse_mark",
+   "flight",
+   "Yavaş ama güçlü vuruş kullan veya zamanlamayı başka hatta değiştir."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "timed": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "attackSlow": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_golge_buyucusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "timed": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "attackSlow": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_golge_buyucusu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_muhendis_nisanci": {
+  "type": "af37_muhendis_nisanci",
+  "info": {
+   "name": "Mühendis Nişancı",
+   "rarity": "Epik",
+   "hp": 112,
+   "atk": 44,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.16,
+   "arch": "ranger",
+   "ability": "Zırh Delici Kurşun: Atış zırhın ve buz kalkanının %65’ini aşar. Zırhlı hedefin savunması 2,2 sn boyunca azalabilir."
+  },
+  "cost": 4,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "energy_orb_arcane",
+   "spear_thrust",
+   "flight",
+   "Önüne küçük hedefler koy veya yakından baskı kur."
+  ],
+  "S1": {
+   "counts": {
+    "start": 1,
+    "pierce": 12,
+    "timed": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_muhendis_nisanci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "start": 1,
+    "pierce": 6
+   },
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_muhendis_nisanci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_dovus_ustasi": {
+  "type": "af37_dovus_ustasi",
+  "info": {
+   "name": "Dövüş Ustası",
+   "rarity": "Sıradan",
+   "hp": 80,
+   "atk": 22,
+   "period": 0.6,
+   "speed": 0.155,
+   "role": "fast",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "warrior",
+   "ability": "Asa Karşılığı: Yakın darbe aldıktan sonraki ilk vuruş %32 ek hasar verir. 3,5 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Asa Karşılığı",
+   "d": "Yakın darbe aldıktan sonraki ilk vuruş %32 ek hasar verir. 3,5 sn ara.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "other",
+   "when": "counter",
+   "cd": 3.5,
+   "q": 0.32,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "punch_shock",
+   "spear_thrust",
+   "body",
+   "Yakın karşı darbeyi tetiklemeden menzilden hasar ver."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 7,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_dovus_ustasi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 7,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_dovus_ustasi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_iskelet_savasci": {
+  "type": "af37_iskelet_savasci",
+  "info": {
+   "name": "İskelet Savaşçı",
+   "rarity": "Sıradan",
+   "hp": 82,
+   "atk": 14,
+   "period": 0.9,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 3,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "warrior",
+   "ability": "Son Kemik: Grubun düşen ilk iskeleti hayatta kalan en yakın kardeşine küçük bir kalkan bırakır."
+  },
+  "cost": 2,
+  "rule": {
+   "cost": 2,
+   "n": "Son Kemik",
+   "d": "Grubun düşen ilk iskeleti hayatta kalan en yakın kardeşine küçük bir kalkan bırakır.",
+   "event": "death",
+   "effect": "shield",
+   "s": "squad",
+   "once": true,
+   "q": 0.23,
+   "t": 2.2,
+   "r": 0.16,
+   "num": 1
+  },
+  "af264": false,
+  "profile": [
+   "death_dissolve_necro",
+   "shield_bubble",
+   "flight",
+   "İskeletleri ayır veya aynı anda temizle."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "shield": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "shield": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_iskelet_savasci",
+     true,
+     3
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "shield": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "shield": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_iskelet_savasci",
+     true,
+     3
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_iskelet_kalkanli": {
+  "type": "af37_iskelet_kalkanli",
+  "info": {
+   "name": "İskelet Kalkanlı",
+   "rarity": "Sıradan",
+   "hp": 206,
+   "atk": 16,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 9,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "guardian",
+   "ability": "Kemik Duvarı: Aynı koridordaki kardeşlerine doğuşta kısa kemik kalkan verir. Koridor başına bir kez."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Kemik Duvarı",
+   "d": "Aynı koridordaki kardeşlerine doğuşta kısa kemik kalkan verir. Koridor başına bir kez.",
+   "event": "tick",
+   "effect": "shield",
+   "s": "squad",
+   "once": true,
+   "window": 2,
+   "q": 0.14,
+   "t": 2.8,
+   "r": 0.075,
+   "num": 3
+  },
+  "af264": false,
+  "profile": [
+   "summon_circle_spirit",
+   "shield_bubble",
+   "ground",
+   "Kalkan bitince alan hasarı kullan."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 6,
+    "rule": 3,
+    "shield": 6
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 3,
+    "impact": 3
+   },
+   "ruleEffects": {
+    "shield": 3
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_iskelet_kalkanli",
+     true,
+     9
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 6,
+    "rule": 3,
+    "shield": 6
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 3,
+    "impact": 3
+   },
+   "ruleEffects": {
+    "shield": 3
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_iskelet_kalkanli",
+     true,
+     9
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_ork_savasci": {
+  "type": "af37_ork_savasci",
+  "info": {
+   "name": "Ork Savaşçı",
+   "rarity": "Nadir",
+   "hp": 161,
+   "atk": 29,
+   "period": 0.9,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.078,
+   "arch": "orc",
+   "ability": "Omuz Darbesi: Çevresinde başka rakip varsa ana hedefi iter ve komşusuna %25 hasar verir. 3,2 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Omuz Darbesi",
+   "d": "Çevresinde başka rakip varsa ana hedefi iter ve komşusuna %25 hasar verir. 3,2 sn ara.",
+   "event": "hit",
+   "effect": "sweep",
+   "s": "side",
+   "cd": 3.2,
+   "q": 0.25,
+   "r": 0.085,
+   "num": 1,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "punch_shock",
+   "quake_wave",
+   "ground",
+   "İtişin arkasında ikinci hedef bırakma."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "push": 1,
+    "dmg": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "sweep": 1
+   },
+   "abilityDamage": 8,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "push": 1,
+    "dmg": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "sweep": 1
+   },
+   "abilityDamage": 8,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_kristal_golem": {
+  "type": "af37_kristal_golem",
+  "info": {
+   "name": "Kristal Golem",
+   "rarity": "Efsanevi",
+   "hp": 463,
+   "atk": 35,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Kristal Karşı Siper: Bir yetenek isabeti aldığında kısa süreli %13 kalkan kazanır. 5 sn ara."
+  },
+  "cost": 7,
+  "rule": {
+   "cost": 7,
+   "n": "Kristal Karşı Siper",
+   "d": "Bir yetenek isabeti aldığında kısa süreli %13 kalkan kazanır. 5 sn ara.",
+   "event": "guard",
+   "effect": "shield",
+   "s": "self",
+   "when": "indirect",
+   "cd": 5,
+   "q": 0.13,
+   "t": 3
+  },
+  "af264": false,
+  "profile": [
+   "crystal_burst",
+   "shield_bubble",
+   "body",
+   "Tekli fiziksel vuruşları tercih et."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kristal_golem",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_kristal_golem",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "yalnızca görsel"
+ },
+ "af37_lav_golemi": {
+  "type": "af37_lav_golemi",
+  "info": {
+   "name": "Lav Golemi",
+   "rarity": "Efsanevi",
+   "hp": 463,
+   "atk": 35,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Lav Kuyruğu: Canı yarıdan azaldığında ilk vuruşu çevresindeki en çok 3 düşmanı 3 sn yakar."
+  },
+  "cost": 7,
+  "rule": {
+   "cost": 7,
+   "n": "Lav Kuyruğu",
+   "d": "Canı yarıdan azaldığında ilk vuruşu çevresindeki en çok 3 düşmanı 3 sn yakar.",
+   "event": "hit",
+   "effect": "burn",
+   "s": "impact",
+   "when": "below55",
+   "once": true,
+   "q": 0.11,
+   "t": 3,
+   "r": 0.11,
+   "num": 3
+  },
+  "af264": false,
+  "profile": [
+   "cast_ruul",
+   "fire_ring",
+   "ground",
+   "Golem yarı cana indiğinde çevresine sıkışma."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dot": 1,
+    "dmg": 6
+   },
+   "dmgKinds": {
+    "dot": 6
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "burn": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 11,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_lav_golemi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dot": 2,
+    "dmg": 8
+   },
+   "dmgKinds": {
+    "dot": 8
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "burn": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 14,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_lav_golemi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_ates_elementali": {
+  "type": "af37_ates_elementali",
+  "info": {
+   "name": "Ateş Elementali",
+   "rarity": "Efsanevi",
+   "hp": 202,
+   "atk": 36,
+   "period": 0.9,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.073,
+   "arch": "berserker",
+   "ability": "Kül Yağmuru: Savaşta düşerse yakınındaki en çok 3 düşmana %50 alan hasarı verir."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Kül Yağmuru",
+   "d": "Savaşta düşerse yakınındaki en çok 3 düşmana %50 alan hasarı verir.",
+   "event": "death",
+   "effect": "damage",
+   "s": "around",
+   "once": true,
+   "q": 0.5,
+   "r": 0.09,
+   "num": 3
+  },
+  "af264": false,
+  "profile": [
+   "death_dissolve",
+   "fire_explosion",
+   "ground",
+   "Uzaktan bitir ve patlama alanından uzak dur."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Magic": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 18,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_ates_elementali",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "dmg": 2,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Magic": 2
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 36,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_ates_elementali",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_buz_elementali": {
+  "type": "af37_buz_elementali",
+  "info": {
+   "name": "Buz Elementali",
+   "rarity": "Efsanevi",
+   "hp": 191,
+   "atk": 34,
+   "period": 0.9,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Kırılgan Buz: Yavaşlamış hedefe vurunca çevresindeki en çok 2 düşmanı 0,7 sn kökler. 4,5 sn ara."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Kırılgan Buz",
+   "d": "Yavaşlamış hedefe vurunca çevresindeki en çok 2 düşmanı 0,7 sn kökler. 4,5 sn ara.",
+   "event": "hit",
+   "effect": "root",
+   "s": "side",
+   "when": "slowed",
+   "cd": 4.5,
+   "t": 0.7,
+   "r": 0.075,
+   "num": 2
+  },
+  "af264": false,
+  "profile": [
+   "crystal_burst",
+   "afnew_te_roots",
+   "ground",
+   "Yavaşlatmayı temizle veya dostlarını ayrı tut."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_buz_elementali",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_buz_elementali",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "tetiklenmedi"
+ },
+ "af37_orman_ruhu": {
+  "type": "af37_orman_ruhu",
+  "info": {
+   "name": "Orman Ruhu",
+   "rarity": "Epik",
+   "hp": 171,
+   "atk": 40,
+   "period": 0.95,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "guardian",
+   "ability": "Taze Filiz: İlk yaralı dostun yanında kısa süre boyunca %14 can yeniler. 6 sn ara."
+  },
+  "cost": 5,
+  "rule": {
+   "cost": 5,
+   "n": "Taze Filiz",
+   "d": "İlk yaralı dostun yanında kısa süre boyunca %14 can yeniler. 6 sn ara.",
+   "event": "tick",
+   "effect": "regen",
+   "s": "friend",
+   "when": "hurt",
+   "cd": 6,
+   "q": 0.14,
+   "t": 3,
+   "r": 0.135
+  },
+  "af264": false,
+  "profile": [
+   "cast_terrin",
+   "leaves_burst",
+   "flight",
+   "Yaralı birimi yenilenme alanından ayır."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_orman_ruhu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "timed": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "regen": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_orman_ruhu",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_tas_devi": {
+  "type": "af37_tas_devi",
+  "info": {
+   "name": "Taş Devi",
+   "rarity": "Efsanevi",
+   "hp": 463,
+   "atk": 35,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.07,
+   "arch": "golem",
+   "ability": "Sabit Kaya: Önden gelen ilk fiziksel darbede aldığı hasar %45 azalır. 4,8 sn koruma arası."
+  },
+  "cost": 7,
+  "rule": {
+   "cost": 7,
+   "n": "Sabit Kaya",
+   "d": "Önden gelen ilk fiziksel darbede aldığı hasar %45 azalır. 4,8 sn koruma arası.",
+   "event": "guard",
+   "effect": "guard",
+   "when": "front",
+   "cd": 4.8,
+   "q": 0.45
+  },
+  "af264": false,
+  "profile": [
+   "heavy_impact",
+   "shield_bubble",
+   "body",
+   "Arkadan saldır veya büyü kullan."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 3,
+    "guard": 3
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 3
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_tas_devi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 1,
+    "guard": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_tas_devi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_ruh_cagirici": {
+  "type": "af37_ruh_cagirici",
+  "info": {
+   "name": "Ruh Çağırıcı",
+   "rarity": "Efsanevi",
+   "hp": 112,
+   "atk": 44,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "Ruh Yankısı: Son darbede yakın düşmana %48 hasar sıçratır (3,5 sn ara). İlk başarılı yankıda 3 sn süren zayıf bir ruh çağırır."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Ruh Yankısı",
+   "d": "Son darbede yakın düşmana %48 hasar sıçratır (3,5 sn ara). İlk başarılı yankıda 3 sn süren zayıf bir ruh çağırır.",
+   "event": "kill",
+   "effect": "damage",
+   "s": "side",
+   "cd": 3.5,
+   "q": 0.48,
+   "r": 0.14,
+   "num": 1
+  },
+  "af264": false,
+  "profile": [
+   "shadow_orb",
+   "summon_circle_spirit",
+   "ground",
+   "Son vuruşu engelle veya çağrılan ruhu alan hasarıyla temizle."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dmg": 1
+   },
+   "dmgKinds": {
+    "af267Magic": 1
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 21,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_ruh_cagirici",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_ruh_cagirici",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_zehirci": {
+  "type": "af37_zehirci",
+  "info": {
+   "name": "Zehirci",
+   "rarity": "Efsanevi",
+   "hp": 112,
+   "atk": 44,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "Yoğun Zehir: Vurduğu tek hedef 3 sn zehirlenir. Hasar azami cana bağlıdır, katlanmaz ve iyileşmeyi %30 azaltır."
+  },
+  "cost": 4,
+  "rule": null,
+  "af264": true,
+  "profile": [
+   "shadow_orb",
+   "leaves_burst",
+   "flight",
+   "Büyük dış iyileştirmeyle zehri temizle veya erken bastır."
+  ],
+  "S1": {
+   "counts": {
+    "start": 1,
+    "dot": 3,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_zehirci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "start": 1,
+    "dot": 2,
+    "signal": 2
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 2
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_zehirci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_golge_avcisi": {
+  "type": "af37_golge_avcisi",
+  "info": {
+   "name": "Gölge Avcı",
+   "rarity": "Epik",
+   "hp": 119,
+   "atk": 27,
+   "period": 0.7,
+   "speed": 0.155,
+   "role": "fast",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.072,
+   "arch": "assassin",
+   "ability": "Yaranın Peşinde: Canı %40’ın altındaki rakibe vurunca verdiği hasarın %45’ini iyileşme olarak kazanır. 3,5 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Yaranın Peşinde",
+   "d": "Canı %40’ın altındaki rakibe vurunca verdiği hasarın %45’ini iyileşme olarak kazanır. 3,5 sn ara.",
+   "event": "hit",
+   "effect": "leech",
+   "s": "self",
+   "when": "wounded",
+   "cd": 3.5,
+   "q": 0.45
+  },
+  "af264": false,
+  "profile": [
+   "shadow_orb",
+   "heal_glow",
+   "return",
+   "Canı düşük hedefi iyileştir veya başka birlikle perdele."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "heal": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "leech": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 11,
+   "placed": [
+    [
+     "ally",
+     "af37_golge_avcisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_golge_avcisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_elit_kadin_savasci": {
+  "type": "af37_elit_kadin_savasci",
+  "info": {
+   "name": "Elit Kadın Savaşçı",
+   "rarity": "Nadir",
+   "hp": 153,
+   "atk": 27,
+   "period": 0.9,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.073,
+   "arch": "berserker",
+   "ability": "Orak Geçidi: Hedefin yanında düşman varsa en çok iki komşuya %33 savurma hasarı verir. 3,5 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Orak Geçidi",
+   "d": "Hedefin yanında düşman varsa en çok iki komşuya %33 savurma hasarı verir. 3,5 sn ara.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "side",
+   "when": "group",
+   "cd": 3.5,
+   "q": 0.33,
+   "r": 0.075,
+   "num": 2,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "slash_arc_red",
+   "claw_marks",
+   "ground",
+   "Rakiplerini aynı koridorda birbirinden uzak tut."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dmg": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 9,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_elit_kadin_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dmg": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 9,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_elit_kadin_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_buz_muhafizi": {
+  "type": "af37_buz_muhafizi",
+  "info": {
+   "name": "Buz Muhafızı",
+   "rarity": "Nadir",
+   "hp": 264,
+   "atk": 20,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "warrior",
+   "ability": "Ayak Kesme: Vurduğu hızlı düşmanı 0,75 sn yerinde tutar. 3,8 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Ayak Kesme",
+   "d": "Vurduğu hızlı düşmanı 0,75 sn yerinde tutar. 3,8 sn ara.",
+   "event": "hit",
+   "effect": "root",
+   "s": "other",
+   "when": "fast",
+   "cd": 3.8,
+   "t": 0.75
+  },
+  "af264": false,
+  "profile": [
+   "ice_bolt",
+   "ice_ground",
+   "flight",
+   "Yavaş ve dayanıklı ön hatla karşıla."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_buz_muhafizi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "root": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "root": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_buz_muhafizi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_altin_muhafiz": {
+  "type": "af37_altin_muhafiz",
+  "info": {
+   "name": "Altın Muhafız",
+   "rarity": "Efsanevi",
+   "hp": 397,
+   "atk": 30,
+   "period": 1.15,
+   "speed": 0.07,
+   "role": "tank",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "paladin",
+   "ability": "Altın Nöbet: Yakındaki canı %55’in altındaki dosta %13 kalkan verir. 6 sn ara."
+  },
+  "cost": 6,
+  "rule": {
+   "cost": 6,
+   "n": "Altın Nöbet",
+   "d": "Yakındaki canı %55’in altındaki dosta %13 kalkan verir. 6 sn ara.",
+   "event": "tick",
+   "effect": "shield",
+   "s": "friend",
+   "when": "hurt",
+   "cd": 6,
+   "q": 0.13,
+   "t": 3,
+   "r": 0.14
+  },
+  "af264": false,
+  "profile": [
+   "cast_valen",
+   "shield_bubble",
+   "flight",
+   "Yaralı desteği muhafızın çevresinden ayır."
+  ],
+  "S1": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_altin_muhafiz",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "wind": 1
+   },
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_altin_muhafiz",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "yalnızca görsel"
+ },
+ "af37_samuray": {
+  "type": "af37_samuray",
+  "info": {
+   "name": "Samuray",
+   "rarity": "Nadir",
+   "hp": 107,
+   "atk": 29,
+   "period": 0.6,
+   "speed": 0.155,
+   "role": "fast",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.075,
+   "arch": "warrior",
+   "ability": "Denge Kesimi: Şu an saldıran hedefe %34 ek hasar vurur. 3,4 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Denge Kesimi",
+   "d": "Şu an saldıran hedefe %34 ek hasar vurur. 3,4 sn ara.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "other",
+   "when": "swing",
+   "cd": 3.4,
+   "q": 0.34,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "dagger_stab",
+   "slash_arc",
+   "body",
+   "Saldırı hazırlığındaki birimini koruyan bir ön hat koy."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 10,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 10,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_dovus_ustasi_ii": {
+  "type": "af37_dovus_ustasi_ii",
+  "info": {
+   "name": "Mızrak Ustası",
+   "rarity": "Nadir",
+   "hp": 120,
+   "atk": 22,
+   "period": 0.9,
+   "speed": 0.1,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": false,
+   "range": 0.115,
+   "arch": "spearman",
+   "ability": "İkinci Basış: Aynı hedefe üçüncü vuruş onu geriye iter. 4 sn ara."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "İkinci Basış",
+   "d": "Aynı hedefe üçüncü vuruş onu geriye iter. 4 sn ara.",
+   "event": "hit",
+   "effect": "push",
+   "s": "other",
+   "when": "triple",
+   "cd": 4,
+   "q": 0.034
+  },
+  "af264": false,
+  "profile": [
+   "dagger_stab",
+   "quake_wave",
+   "body",
+   "Üçüncü isabetten önce hedef değiştir."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "push": 1,
+    "signal": 1
+   },
+   "dmgKinds": {},
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "push": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_dovus_ustasi_ii",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {},
+   "dmgKinds": {},
+   "stages": {},
+   "ruleEffects": {},
+   "abilityDamage": 0,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_dovus_ustasi_ii",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_arbaletci": {
+  "type": "af37_arbaletci",
+  "info": {
+   "name": "Arbaletçi",
+   "rarity": "Sıradan",
+   "hp": 84,
+   "atk": 33,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.195,
+   "arch": "archer",
+   "ability": "Çifte Nişan: Aynı düşmana ikinci isabet %45 ek fiziksel hasar verir. Hedef değişince sayım yeniden başlar."
+  },
+  "cost": 3,
+  "rule": {
+   "cost": 3,
+   "n": "Çifte Nişan",
+   "d": "Aynı düşmana ikinci isabet %45 ek fiziksel hasar verir. Hedef değişince sayım yeniden başlar.",
+   "event": "hit",
+   "effect": "damage",
+   "s": "other",
+   "when": "repeat",
+   "cd": 2.5,
+   "q": 0.45,
+   "physical": true
+  },
+  "af264": false,
+  "profile": [
+   "sparks_light",
+   "spear_thrust",
+   "flight",
+   "Önüne farklı bir hedef koyarak vuruş sayacını sıfırla."
+  ],
+  "S1": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 7,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_arbaletci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "rule": 1,
+    "dmg": 1,
+    "signal": 1
+   },
+   "dmgKinds": {
+    "af267Physical": 1
+   },
+   "stages": {
+    "result": 1
+   },
+   "ruleEffects": {
+    "damage": 1
+   },
+   "abilityDamage": 16,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_arbaletci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_alev_silahcisi": {
+  "type": "af37_alev_silahcisi",
+  "info": {
+   "name": "Alev Silahçısı",
+   "rarity": "Epik",
+   "hp": 105,
+   "atk": 42,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.13,
+   "arch": "mage",
+   "ability": "Köz Yelpazesi: İsabetin arkasındaki en çok 2 düşmanı 2 sn yakar. 3 sn ara."
+  },
+  "cost": 4,
+  "rule": {
+   "cost": 4,
+   "n": "Köz Yelpazesi",
+   "d": "İsabetin arkasındaki en çok 2 düşmanı 2 sn yakar. 3 sn ara.",
+   "event": "hit",
+   "effect": "burn",
+   "s": "rear",
+   "cd": 3,
+   "q": 0.085,
+   "t": 2,
+   "r": 0.095,
+   "num": 2
+  },
+  "af264": false,
+  "profile": [
+   "fireball",
+   "fire_explosion",
+   "flight",
+   "Aynı hatta birimlerini art arda yığma."
+  ],
+  "S1": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dot": 1,
+    "dmg": 1
+   },
+   "dmgKinds": {
+    "dot": 1
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "burn": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 1,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_alev_silahcisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "signal": 2,
+    "rule": 1,
+    "dot": 1,
+    "dmg": 4
+   },
+   "dmgKinds": {
+    "dot": 4
+   },
+   "stages": {
+    "wind": 1,
+    "impact": 1
+   },
+   "ruleEffects": {
+    "burn": 1
+   },
+   "abilityDamage": 0,
+   "otherDamage": 7,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_alev_silahcisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ },
+ "af37_savas_muhendisi": {
+  "type": "af37_savas_muhendisi",
+  "info": {
+   "name": "Savaş Mühendisi",
+   "rarity": "Efsanevi",
+   "hp": 167,
+   "atk": 66,
+   "period": 0.95,
+   "speed": 0.12,
+   "role": "balanced",
+   "squad": 1,
+   "shooter": true,
+   "range": 0.38,
+   "arch": "mage",
+   "ability": "Yer Sarsan Mermi: Uzun menzilden yörüngeli mermi atar. Ana hedefe isabeti yakındaki en çok 2 düşmanın saldırısını 0,4 sn geciktirir. 3,6 sn ara."
+  },
+  "cost": 6,
+  "rule": {
+   "cost": 6,
+   "n": "Yer Sarsan Mermi",
+   "d": "Uzun menzilden yörüngeli mermi atar. Ana hedefe isabeti yakındaki en çok 2 düşmanın saldırısını 0,4 sn geciktirir. 3,6 sn ara.",
+   "event": "hit",
+   "effect": "delayAttack",
+   "s": "impact",
+   "cd": 3.6,
+   "t": 0.4,
+   "r": 0.075,
+   "num": 2
+  },
+  "af264": false,
+  "profile": [
+   "sparks_light",
+   "quake_wave",
+   "ground",
+   "Aynı isabet alanına birden fazla hedef koyma."
+  ],
+  "S1": {
+   "counts": {
+    "dmg": 16,
+    "rule": 4,
+    "delay": 4,
+    "signal": 4
+   },
+   "dmgKinds": {
+    "af264Shell": 16
+   },
+   "stages": {
+    "result": 4
+   },
+   "ruleEffects": {
+    "delayAttack": 4
+   },
+   "abilityDamage": 484,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_savas_muhendisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_agir_zirhli",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "enemy",
+     "af37_orman_okcu",
+     true,
+     2
+    ]
+   ]
+  },
+  "S2": {
+   "counts": {
+    "dmg": 9,
+    "rule": 2,
+    "delay": 3,
+    "signal": 2
+   },
+   "dmgKinds": {
+    "af264Shell": 9
+   },
+   "stages": {
+    "result": 2
+   },
+   "ruleEffects": {
+    "delayAttack": 2
+   },
+   "abilityDamage": 347,
+   "otherDamage": 0,
+   "heal": 0,
+   "placed": [
+    [
+     "ally",
+     "af37_kilicli_asker",
+     true,
+     2
+    ],
+    [
+     "ally",
+     "af37_savas_muhendisi",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_ork_savasci",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_samuray",
+     true,
+     1
+    ],
+    [
+     "enemy",
+     "af37_arbaletci",
+     true,
+     1
+    ]
+   ]
+  },
+  "status": "çalışıyor"
+ }
+}

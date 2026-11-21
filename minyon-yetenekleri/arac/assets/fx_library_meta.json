@@ -1,0 +1,92 @@
+{
+ "fx_dome12": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 48742
+ },
+ "fx_storm_bind": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 56320
+ },
+ "fx_earth_burst": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 45398
+ },
+ "fx_holy_light": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 49942
+ },
+ "fx_poison_flask": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 51182
+ },
+ "fx_fire_shield": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 60026
+ },
+ "fx_ice_slash": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 50764
+ },
+ "fx_shadow_strike": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 44212
+ },
+ "fx_chains": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 56076
+ },
+ "fx_vines12": {
+  "cols": 3,
+  "rows": 4,
+  "fw": 100,
+  "fh": 124,
+  "ground": 0.9354838709677419,
+  "center": 0.5,
+  "bytes": 66398
+ }
+}

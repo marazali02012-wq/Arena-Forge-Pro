@@ -1,0 +1,1416 @@
+{
+ "group": 1,
+ "minions": {
+  "af37_agir_zirhli": {
+   "checks": {
+    "kart": true,
+    "tetik": true,
+    "zamanlama": true,
+    "poz": true,
+    "hedef": true,
+    "hesap": true,
+    "grup": true,
+    "bekleme": true,
+    "yenihedef": true,
+    "kesinti": true,
+    "pvp": true
+   },
+   "notes": [],
+   "card": {
+    "ok": true,
+    "spawned": 1,
+    "spent": 7,
+    "cost": 7
+   },
+   "wind": {
+    "t": 3.6800000000000024,
+    "k": "ab-wind",
+    "src": "af37_agir_zirhli",
+    "team": "ally",
+    "su": 1,
+    "tu": 6,
+    "tt": "enemy",
+    "tx": 0.4214,
+    "ux": 0.321,
+    "wind": 0.48,
+    "cast": 0.14,
+    "hit": 1
+   },
+   "timing": {
+    "wind_at": 3.68,
+    "impact_at": 4.32,
+    "expected": 4.3
+   },
+   "pose": {
+    "wind": {
+     "s": 1,
+     "p": 0.583,
+     "dx": -0.01458333333333336,
+     "dy": 0.032638888888888974,
+     "tau": -0.4749999999999991,
+     "atlas": {
+      "state": "attack",
+      "frame": 1
+     }
+    },
+    "cast": {
+     "s": 2,
+     "p": 0.571,
+     "dx": 0.037857142857143054,
+     "dy": 0.02,
+     "tau": 0.20000000000000065,
+     "atlas": {
+      "state": "attack",
+      "frame": 4
+     }
+    }
+   },
+   "targets": {
+    "planned": 6,
+    "hit": [
+     7
+    ],
+    "wrongTeam": 0
+   },
+   "calc": {
+    "atk": 35,
+    "hits": [
+     {
+      "pre": 19.25,
+      "post": 19.25,
+      "dealt": 19,
+      "hpBefore": 43,
+      "raw_ok": true,
+      "applied_ok": true,
+      "mitigated": 0.0
+     }
+    ],
+    "statuses": [
+     "delay",
+     "push",
+     "timed"
+    ],
+    "selfDr": 0.4
+   },
+   "group": {
+    "distinctTargets": 1,
+    "max": 3
+   },
+   "cooldownReadyIn": 8.24,
+   "cooldown": {
+    "gap": 11.04,
+    "cd": 11,
+    "reused": true
+   },
+   "snapshot": {
+    "unitFields": {
+     "_af285S": 1,
+     "_af285A": 3.6800000000000024,
+     "_af285B": 4.160000000000002,
+     "_af285X": 0.42144025568543125,
+     "_af285N": 1
+    },
+    "fx": [
+     "label"
+    ]
+   },
+   "snapshot_ok": true,
+   "caster": 1,
+   "retarget": {
+    "ok": true,
+    "result": "yeni hedef",
+    "from": 6,
+    "to": null,
+    "killed": true
+   },
+   "interrupt": {
+    "ok": true,
+    "cancelled": true,
+    "impact": false,
+    "readyIn": 2.92,
+    "expected": 2.88,
+    "reusedAfter": true
+   },
+   "casterDeath": {
+    "ok": true,
+    "impact": false,
+    "dropped": true,
+    "damage": 0
+   },
+   "pvp": {
+    "ok": true,
+    "peerSawCast": true,
+    "peerFx": [
+     "label",
+     "steel_slam"
+    ],
+    "hpSync": true,
+    "peerSimulatedAbilities": 0,
+    "mirroredTargetX": true,
+    "peerErrors": [
+     0,
+     0
+    ]
+   },
+   "passed": true
+  },
+  "af37_alev_muhafizi": {
+   "checks": {
+    "kart": true,
+    "tetik": true,
+    "zamanlama": true,
+    "poz": true,
+    "hedef": true,
+    "hesap": true,
+    "grup": true,
+    "bekleme": true,
+    "yenihedef": true,
+    "kesinti": true,
+    "pvp": true
+   },
+   "notes": [],
+   "card": {
+    "ok": true,
+    "spawned": 1,
+    "spent": 5,
+    "cost": 5
+   },
+   "wind": {
+    "t": 3.400000000000002,
+    "k": "ab-wind",
+    "src": "af37_alev_muhafizi",
+    "team": "ally",
+    "su": 1,
+    "tu": 3,
+    "tt": "enemy",
+    "tx": 0.3087,
+    "ux": 0.3087,
+    "wind": 0.42,
+    "cast": 0.12,
+    "hit": 1
+   },
+   "timing": {
+    "wind_at": 3.4,
+    "impact_at": 3.96,
+    "expected": 3.94
+   },
+   "pose": {
+    "wind": {
+     "s": 1,
+     "p": 0.571,
+     "dx": 0,
+     "dy": 0.028469387755102094,
+     "tau": -0.571428571428571,
+     "atlas": {
+      "state": "attack",
+      "frame": 1
+     }
+    },
+    "cast": {
+     "s": 2,
+     "p": 0.667,
+     "dx": 0,
+     "dy": -0.008333333333333331,
+     "tau": 0.18333333333333335,
+     "atlas": {
+      "state": "attack",
+      "frame": 5
+     }
+    }
+   },
+   "targets": {
+    "planned": 3,
+    "hit": [
+     3
+    ],
+    "wrongTeam": 0
+   },
+   "calc": {
+    "atk": 25,
+    "hits": [
+     {
+      "pre": 8.75,
+      "post": 8.75,
+      "dealt": 9,
+      "hpBefore": 44,
+      "raw_ok": true,
+      "applied_ok": true,
+      "mitigated": 0.0
+     }
+    ],
+    "statuses": [
+     "dot",
+     "push"
+    ]
+   },
+   "group": {
+    "distinctTargets": 1,
+    "max": 4
+   },
+   "cooldownReadyIn": 5.32,
+   "cooldown": {
+    "gap": 8.04,
+    "cd": 8,
+    "reused": true
+   },
+   "snapshot": {
+    "unitFields": {
+     "_af285S": 1,
+     "_af285A": 3.400000000000002,
+     "_af285B": 3.820000000000002,
+     "_af285X": 0.3087107571322633,
+     "_af285N": 1
+    },
+    "fx": [
+     "label"
+    ]
+   },
+   "snapshot_ok": true,
+   "caster": 1,
+   "retarget": {
+    "ok": true,
+    "result": "yeni hedef",
+    "from": 3,
+    "to": null,
+    "killed": true
+   },
+   "interrupt": {
+    "ok": true,
+    "cancelled": true,
+    "impact": false,
+    "readyIn": 2.92,
+    "expected": 2.88,
+    "reusedAfter": true
+   },
+   "casterDeath": {
+    "ok": true,
+    "impact": false,
+    "dropped": true,
+    "damage": 0
+   },
+   "pvp": {
+    "ok": true,
+    "peerSawCast": true,
+    "peerFx": [
+     "ember_nova",
+     "label"
+    ],
+    "hpSync": true,
+    "peerSimulatedAbilities": 0,
+    "mirroredTargetX": true,
+    "peerErrors": [
+     0,
+     0
+    ]
+   },
+   "passed": true
+  },
+  "af37_alev_silahcisi": {
+   "checks": {
+    "kart": true,
+    "tetik": true,
+    "zamanlama": true,
+    "poz": true,
+    "hedef": true,
+    "hesap": true,
+    "grup": true,
+    "bekleme": true,
+    "yenihedef": true,
+    "kesinti": true,
+    "pvp": true
+   },
+   "notes": [],
+   "card": {
+    "ok": true,
+    "spawned": 1,
+    "spent": 4,
+    "cost": 4
+   },
+   "wind": {
+    "t": 2.200000000000001,
+    "k": "ab-wind",
+    "src": "af37_alev_silahcisi",
+    "team": "ally",
+    "su": 1,
+    "tu": 5,
+    "tt": "enemy",
+    "tx": 0.5392,
+    "ux": 0.4067,
+    "wind": 0.38,
+    "cast": 0.52,
+    "hit": 0.38
+   },
+   "timing": {
+    "wind_at": 2.2,
+    "impact_at": 2.8,
+    "expected": 2.778
+   },
+   "pose": {
+    "wind": {
+     "s": 1,
+     "p": 0.526,
+     "dx": -0.012127423822714707,
+     "dy": 0.010526315789473698,
+     "tau": -0.49999999999999944,
+     "atlas": {
+      "state": "attack",
+      "frame": 1
+     }
+    },
+    "cast": {
+     "s": 2,
+     "p": 0.308,
+     "dx": -0.024558030565291697,
+     "dy": 0.02,
+     "tau": 0.02,
+     "atlas": {
+      "state": "attack",
+      "frame": 3
+     }
+    }
+   },
+   "targets": {
+    "planned": 5,
+    "hit": [
+     5,
+     6,
+     8
+    ],
+    "wrongTeam": 0
+   },
+   "calc": {
+    "atk": 42,
+    "hits": [
+     {
+      "pre": 18.9,
+      "post": 12.9,
+      "dealt": 13,
+      "hpBefore": 27,
+      "raw_ok": true,
+      "applied_ok": true,
+      "mitigated": 0.317
+     },
+     {
+      "pre": 18.9,
+      "post": 18.9,
+      "dealt": 19,
+      "hpBefore": 27,
+      "raw_ok": true,
+      "applied_ok": true,
+      "mitigated": 0.0
+     },
+     {
+      "pre": 18.9,
+      "post": 18.9,
+      "dealt": 19,
+      "hpBefore": 44,
+      "raw_ok": true,
+      "applied_ok": true,
+      "mitigated": 0.0
+     }
+    ],
+    "statuses": [
+     "dot"
+    ]
+   },
+   "group": {
+    "distinctTargets": 3,
+    "max": 3
+   },
+   "cooldownReadyIn": 5.28,
+   "cooldown": {
+    "gap": 8.04,
+    "cd": 8,
+    "reused": true
+   },
+   "snapshot": {
+    "unitFields": {
+     "_af285S": 1,
+     "_af285A": 2.200000000000001,
+     "_af285B": 2.580000000000001,
+     "_af285X": 0.5232002023533276,
+     "_af285N": 1
+    },
+    "fx": [
+     "label"
+    ]
+   },
+   "snapshot_ok": true,
+   "caster": 1,
+   "retarget": {
+    "ok": true,
+    "result": "iptal",
+    "killed": true
+   },
+   "interrupt": {
+    "ok": true,
+    "cancelled": true,
+    "impact": false,
+    "readyIn": 2.92,
+    "expected": 2.88,
+    "reusedAfter": true
+   },
+   "casterDeath": {
+    "ok": true,
+    "impact": false,
+    "dropped": true,
+    "damage": 0
+   },
+   "pvp": {
+    "ok": true,
+    "peerSawCast": true,
+    "peerFx": [
+     "label",
+     "scorch"
+    ],
+    "hpSync": true,
+    "peerSimulatedAbilities": 0,
+    "mirroredTargetX": true,
+    "peerErrors": [
+     0,
+     0
+    ]
+   },
+   "passed": true
+  },
+  "af37_altin_muhafiz": {
+   "checks": {
+    "kart": true,
+    "tetik": true,
+    "zamanlama": true,
+    "poz": true,
+    "hedef": true,
+    "hesap": true,
+    "grup": true,
+    "bekleme": true,
+    "yenihedef": true,
+    "kesinti": true,
+    "pvp": true
+   },
+   "notes": [],
+   "card": {
+    "ok": true,
+    "spawned": 1,
+    "spent": 6,
+    "cost": 6
+   },
+   "wind": {
+    "t": 1.6000000000000008,
+    "k": "ab-wind",
+    "src": "af37_altin_muhafiz",
+    "team": "ally",
+    "su": 1,
+    "tu": 4,
+    "tt": "ally",
+    "tx": 0.1456,
+    "ux": 0.2223,
+    "wind": 0.46,
+    "cast": 0.24,
+    "hit": 1
+   },
+   "timing": {
+    "wind_at": 1.6,
+    "impact_at": 2.32,
+    "expected": 2.3
+   },
+   "pose": {
+    "wind": {
+     "s": 1,
+     "p": 0.522,
+     "dx": 0,
+     "dy": -0.006260869565217394,
+     "tau": -0.6347826086956521,
+     "atlas": {
+      "state": "attack",
+      "frame": 1
+     }
+    },
+    "cast": {
+     "s": 2,
+     "p": 0.5,
+     "dx": 0.01,
+     "dy": -0.012,
+     "tau": 0.15,
+     "atlas": {
+      "state": "attack",
+      "frame": 4
+     }
+    }
+   },
+   "targets": {
+    "planned": 4,
+    "hit": [
+     1,
+     3,
+     4
+    ],
+    "wrongTeam": 0
+   },
+   "dome": {
+    "4": {
+     "c": 1,
+     "m": 9,
+     "b": 0
+    },
+    "3": {
+     "c": 1,
+     "m": 5,
+     "b": 0
+    },
+    "1": {
+     "c": 1,
+     "m": 24,
+     "b": 2.84
+    }
+   },
+   "calc": {
+    "atk": 30,
+    "hits": [],
+    "statuses": [
+     "heal",
+     "shield"
+    ]
+   },
+   "group": {
+    "distinctTargets": 3,
+    "max": 4
+   },
+   "cooldownReadyIn": 7.16,
+   "cooldown": {
+    "gap": 10.08,
+    "cd": 10,
+    "reused": true
+   },
+   "snapshot": {
+    "unitFields": {
+     "_af285S": 1,
+     "_af285A": 1.6000000000000008,
+     "_af285B": 2.060000000000001,
+     "_af285X": 0.14564319999999994,
+     "_af285N": 1
+    },
+    "fx": [
+     "label"
+    ]
+   },
+   "snapshot_ok": true,
+   "caster": 1,
+   "retarget": {
+    "ok": true,
+    "result": "yeni hedef",
+    "from": 4,
+    "to": 3,
+    "killed": true
+   },
+   "interrupt": {
+    "ok": true,
+    "cancelled": true,
+    "impact": false,
+    "readyIn": 2.92,
+    "expected": 2.88,
+    "reusedAfter": true
+   },
+   "casterDeath": {
+    "ok": true,
+    "impact": false,
+    "dropped": true,
+    "damage": 0
+   },
+   "pvp": {
+    "ok": true,
+    "peerSawCast": true,
+    "peerFx": [
+     "gold_burst",
+     "label"
+    ],
+    "hpSync": true,
+    "peerSimulatedAbilities": 0,
+    "mirroredTargetX": true,
+    "peerErrors": [
+     0,
+     0
+    ]
+   },
+   "passed": true
+  },
+  "af37_arbaletci": {
+   "checks": {
+    "kart": true,
+    "tetik": true,
+    "zamanlama": true,
+    "poz": true,
+    "hedef": true,
+    "hesap": true,
+    "grup": true,
+    "bekleme": true,
+    "yenihedef": true,
+    "kesinti": true,
+    "pvp": true
+   },
+   "notes": [],
+   "card": {
+    "ok": true,
+    "spawned": 1,
+    "spent": 3,
+    "cost": 3
+   },
+   "wind": {
+    "t": 1.7200000000000009,
+    "k": "ab-wind",
+    "src": "af37_arbaletci",
+    "team": "ally",
+    "su": 1,
+    "tu": 4,
+    "tt": "enemy",
+    "tx": 0.5256,
+    "ux": 0.3588,
+    "wind": 0.56,
+    "cast": 0.17,
+    "hit": 1
+   },
+   "timing": {
+    "wind_at": 1.72,
+    "impact_at": 2.48,
+    "expected": 2.45
+   },
+   "pose": {
+    "wind": {
+     "s": 1,
+     "p": 0.571,
+     "dx": 0,
+     "dy": 0.049265306122448976,
+     "tau": -0.4514285714285716,
+     "atlas": {
+      "state": "attack",
+      "frame": 1
+     }
+    },
+    "cast": {
+     "s": 2,
+     "p": 0.471,
+     "dx": -0.02987202528885104,
+     "dy": 0.05,
+     "tau": 0.16117647058823545,
+     "atlas": {
+      "state": "attack",
+      "frame": 4
+     }
+    }
+   },
+   "targets": {
+    "planned": 4,
+    "hit": [
+     4,
+     5
+    ],
+    "wrongTeam": 0
+   },
+   "calc": {
+    "atk": 33,
+    "hits": [
+     {
+      "pre": 28.05,
+      "post": 28.05,
+      "dealt": 11,
+      "hpBefore": 11,
+      "raw_ok": true,
+      "applied_ok": true,
+      "mitigated": 0.0
+     },
+     {
+      "pre": 23.1,
+      "post": 23.1,
+      "dealt": 23,
+      "hpBefore": 43,
+      "raw_ok": true,
+      "applied_ok": true,
+      "mitigated": 0.0
+     }
+    ],
+    "statuses": [
+     "delay",
+     "push"
+    ]
+   },
+   "group": {
+    "distinctTargets": 2,
+    "max": 2
+   },
+   "cooldownReadyIn": 4.12,
+   "cooldown": {
+    "gap": 7.08,
+    "cd": 7,
+    "reused": true
+   },
+   "snapshot": {
+    "unitFields": {
+     "_af285S": 1,
+     "_af285A": 1.7200000000000009,
+     "_af285B": 2.280000000000001,
+     "_af285X": 0.5000001714858708,
+     "_af285N": 1
+    },
+    "fx": [
+     "label"
+    ]
+   },
+   "snapshot_ok": true,
+   "caster": 1,
+   "retarget": {
+    "ok": true,
+    "result": "yeni hedef",
+    "from": 4,
+    "to": 5,
+    "killed": true
+   },
+   "interrupt": {
+    "ok": true,
+    "cancelled": true,
+    "impact": false,
+    "readyIn": 2.72,
+    "expected": 2.68,
+    "reusedAfter": true
+   },
+   "casterDeath": {
+    "ok": true,
+    "impact": false,
+    "dropped": true,
+    "damage": 0
+   },
+   "pvp": {
+    "ok": true,
+    "peerSawCast": true,
+    "peerFx": [
+     "bolt",
+     "bolt_hit",
+     "label"
+    ],
+    "hpSync": true,
+    "peerSimulatedAbilities": 0,
+    "mirroredTargetX": true,
+    "peerErrors": [
+     0,
+     0
+    ]
+   },
+   "passed": true
+  }
+ },
+ "system": {
+  "control": {
+   "ok": false,
+   "legacyEvents": 0
+  },
+  "legacy": {
+   "afp177": "TypeError: Cannot read properties of undefined (reading 'test')",
+   "afp179": "TypeError: Cannot read properties of undefined (reading 'test')",
+   "skeleton": {
+    "passed": true,
+    "failures": [],
+    "audit": {
+     "exists": true,
+     "unlocked": false,
+     "cost": 1,
+     "hp": 40,
+     "atk": 8,
+     "period": 0.8,
+     "range": 0.045,
+     "visualClass": 37,
+     "portrait": false,
+     "atlas": true,
+     "rig": true,
+     "deckCount": 12,
+     "deckIncludes": false,
+     "replacedStarter": true,
+     "portalHP": 430,
+     "saveKey": "arenaForgeProProfileV19"
+    }
+   },
+   "melee": {
+    "passed": true,
+    "meleeCases": 8,
+    "rangedCases": 6,
+    "failures": [],
+    "meleeRows": [
+     {
+      "type": "warrior",
+      "range": 0.075,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.075
+     },
+     {
+      "type": "guardian",
+      "range": 0.072,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.072
+     },
+     {
+      "type": "assassin",
+      "range": 0.072,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.072
+     },
+     {
+      "type": "paladin",
+      "range": 0.075,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.075
+     },
+     {
+      "type": "berserker",
+      "range": 0.073,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.073
+     },
+     {
+      "type": "orc",
+      "range": 0.078,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.078
+     },
+     {
+      "type": "golem",
+      "range": 0.07,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.07
+     },
+     {
+      "type": "skeleton_clone",
+      "range": 0.045,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.045
+     }
+    ],
+    "rangedRows": [
+     {
+      "type": "archer",
+      "range": 0.205,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "ranger",
+      "range": 0.17,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "mage",
+      "range": 0.13,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "healer",
+      "range": 0.095,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "frostmage",
+      "range": 0.12,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "necromancer",
+      "range": 0.12,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     }
+    ]
+   },
+   "hands": {
+    "iterations": 200,
+    "failures": 0,
+    "lowDeckCases": 0,
+    "passed": true
+   }
+  },
+  "abilityStats": {
+   "af37_agir_zirhli": {
+    "start": 14,
+    "damage": 99,
+    "cast": 7,
+    "interrupt": 1,
+    "dropped": 1
+   },
+   "af37_alev_muhafizi": {
+    "start": 7,
+    "damage": 27,
+    "cast": 3,
+    "interrupt": 1,
+    "dropped": 1
+   },
+   "af37_alev_silahcisi": {
+    "start": 7,
+    "damage": 102,
+    "cast": 2,
+    "interrupt": 2,
+    "dropped": 1
+   },
+   "af37_altin_muhafiz": {
+    "start": 7,
+    "shielded": 8,
+    "cast": 3,
+    "retarget": 1,
+    "interrupt": 1,
+    "dropped": 1
+   },
+   "af37_arbaletci": {
+    "start": 7,
+    "damage": 96,
+    "cast": 3,
+    "retarget": 1,
+    "interrupt": 1,
+    "dropped": 1
+   },
+   "af37_ates_buyucusu": {
+    "start": 1,
+    "damage": 84,
+    "cast": 1
+   }
+  },
+  "roster": {
+   "count": 59,
+   "ids": [
+    "mage",
+    "afn_alize_bicakli",
+    "afn_ayaz_kalkanlisi",
+    "afn_bulut_dalgici",
+    "afn_buz_zurnacisi",
+    "afn_donuk_mizrakci",
+    "afn_el_arabali_topcu",
+    "afn_firtina_baglayici",
+    "afn_gece_yirticisi",
+    "afn_kapi_ustasi",
+    "afn_kar_fenercisi",
+    "afn_kehribar_sovalye",
+    "afn_kiragi_dokuyucusu",
+    "afn_kirik_kuklaci",
+    "afn_kirik_saat_efendisi",
+    "afn_kok_titani",
+    "afn_kutup_kiricisi",
+    "afn_mantar_davulcusu",
+    "afn_ocak_dovucusu",
+    "afn_sedef_pervane",
+    "afn_sicrayan_kocbasi",
+    "afn_toprak_yarici",
+    "afn_zincir_kiran",
+    "af37_kilicli_asker",
+    "af37_orman_okcu",
+    "af37_golge_suikastci",
+    "af37_mavi_buyucu",
+    "af37_isik_sifacisi",
+    "af37_cuce_savasci",
+    "af37_agir_zirhli",
+    "af37_kizil_duellocu",
+    "af37_kesifci",
+    "af37_ates_buyucusu",
+    "af37_nekromanci",
+    "af37_buz_sovalyesi",
+    "af37_alev_muhafizi",
+    "af37_golge_buyucusu",
+    "af37_muhendis_nisanci",
+    "af37_dovus_ustasi",
+    "af37_iskelet_savasci",
+    "af37_iskelet_kalkanli",
+    "af37_ork_savasci",
+    "af37_kristal_golem",
+    "af37_lav_golemi",
+    "af37_ates_elementali",
+    "af37_buz_elementali",
+    "af37_orman_ruhu",
+    "af37_tas_devi",
+    "af37_ruh_cagirici",
+    "af37_zehirci",
+    "af37_golge_avcisi",
+    "af37_elit_kadin_savasci",
+    "af37_buz_muhafizi",
+    "af37_altin_muhafiz",
+    "af37_samuray",
+    "af37_dovus_ustasi_ii",
+    "af37_arbaletci",
+    "af37_alev_silahcisi",
+    "af37_savas_muhendisi"
+   ],
+   "rarity": {
+    "Nadir": 13,
+    "Sıradan": 14,
+    "Epik": 16,
+    "Mitik": 4,
+    "Efsanevi": 12
+   },
+   "costs": {
+    "mage": 3,
+    "afn_alize_bicakli": 3,
+    "afn_ayaz_kalkanlisi": 4,
+    "afn_bulut_dalgici": 3,
+    "afn_buz_zurnacisi": 4,
+    "afn_donuk_mizrakci": 3,
+    "afn_el_arabali_topcu": 2,
+    "afn_firtina_baglayici": 3,
+    "afn_gece_yirticisi": 3,
+    "afn_kapi_ustasi": 3,
+    "afn_kar_fenercisi": 3,
+    "afn_kehribar_sovalye": 3,
+    "afn_kiragi_dokuyucusu": 4,
+    "afn_kirik_kuklaci": 4,
+    "afn_kirik_saat_efendisi": 4,
+    "afn_kok_titani": 7,
+    "afn_kutup_kiricisi": 5,
+    "afn_mantar_davulcusu": 2,
+    "afn_ocak_dovucusu": 3,
+    "afn_sedef_pervane": 3,
+    "afn_sicrayan_kocbasi": 5,
+    "afn_toprak_yarici": 6,
+    "afn_zincir_kiran": 5,
+    "af37_kilicli_asker": 2,
+    "af37_orman_okcu": 1,
+    "af37_golge_suikastci": 3,
+    "af37_mavi_buyucu": 4,
+    "af37_isik_sifacisi": 4,
+    "af37_cuce_savasci": 3,
+    "af37_agir_zirhli": 7,
+    "af37_kizil_duellocu": 3,
+    "af37_kesifci": 2,
+    "af37_ates_buyucusu": 5,
+    "af37_nekromanci": 5,
+    "af37_buz_sovalyesi": 6,
+    "af37_alev_muhafizi": 5,
+    "af37_golge_buyucusu": 5,
+    "af37_muhendis_nisanci": 4,
+    "af37_dovus_ustasi": 3,
+    "af37_iskelet_savasci": 2,
+    "af37_iskelet_kalkanli": 3,
+    "af37_ork_savasci": 4,
+    "af37_kristal_golem": 7,
+    "af37_lav_golemi": 7,
+    "af37_ates_elementali": 5,
+    "af37_buz_elementali": 5,
+    "af37_orman_ruhu": 5,
+    "af37_tas_devi": 7,
+    "af37_ruh_cagirici": 4,
+    "af37_zehirci": 4,
+    "af37_golge_avcisi": 4,
+    "af37_elit_kadin_savasci": 4,
+    "af37_buz_muhafizi": 4,
+    "af37_altin_muhafiz": 6,
+    "af37_samuray": 4,
+    "af37_dovus_ustasi_ii": 3,
+    "af37_arbaletci": 3,
+    "af37_alev_silahcisi": 4,
+    "af37_savas_muhendisi": 6
+   },
+   "saveKey": null,
+   "deckSize": 12
+  },
+  "state": {
+   "playing": true,
+   "elapsed": 11.99999999999992,
+   "gold": 12,
+   "enemyEnergy": 0,
+   "units": 2,
+   "mode": "duel",
+   "paused": false,
+   "tickErrors": 0,
+   "drawErrors": 0
+  },
+  "errors": [],
+  "rosterOrig": {
+   "count": 59,
+   "ids": [
+    "mage",
+    "afn_alize_bicakli",
+    "afn_ayaz_kalkanlisi",
+    "afn_bulut_dalgici",
+    "afn_buz_zurnacisi",
+    "afn_donuk_mizrakci",
+    "afn_el_arabali_topcu",
+    "afn_firtina_baglayici",
+    "afn_gece_yirticisi",
+    "afn_kapi_ustasi",
+    "afn_kar_fenercisi",
+    "afn_kehribar_sovalye",
+    "afn_kiragi_dokuyucusu",
+    "afn_kirik_kuklaci",
+    "afn_kirik_saat_efendisi",
+    "afn_kok_titani",
+    "afn_kutup_kiricisi",
+    "afn_mantar_davulcusu",
+    "afn_ocak_dovucusu",
+    "afn_sedef_pervane",
+    "afn_sicrayan_kocbasi",
+    "afn_toprak_yarici",
+    "afn_zincir_kiran",
+    "af37_kilicli_asker",
+    "af37_orman_okcu",
+    "af37_golge_suikastci",
+    "af37_mavi_buyucu",
+    "af37_isik_sifacisi",
+    "af37_cuce_savasci",
+    "af37_agir_zirhli",
+    "af37_kizil_duellocu",
+    "af37_kesifci",
+    "af37_ates_buyucusu",
+    "af37_nekromanci",
+    "af37_buz_sovalyesi",
+    "af37_alev_muhafizi",
+    "af37_golge_buyucusu",
+    "af37_muhendis_nisanci",
+    "af37_dovus_ustasi",
+    "af37_iskelet_savasci",
+    "af37_iskelet_kalkanli",
+    "af37_ork_savasci",
+    "af37_kristal_golem",
+    "af37_lav_golemi",
+    "af37_ates_elementali",
+    "af37_buz_elementali",
+    "af37_orman_ruhu",
+    "af37_tas_devi",
+    "af37_ruh_cagirici",
+    "af37_zehirci",
+    "af37_golge_avcisi",
+    "af37_elit_kadin_savasci",
+    "af37_buz_muhafizi",
+    "af37_altin_muhafiz",
+    "af37_samuray",
+    "af37_dovus_ustasi_ii",
+    "af37_arbaletci",
+    "af37_alev_silahcisi",
+    "af37_savas_muhendisi"
+   ],
+   "rarity": {
+    "Nadir": 13,
+    "Sıradan": 14,
+    "Epik": 16,
+    "Mitik": 4,
+    "Efsanevi": 12
+   },
+   "costs": {
+    "mage": 3,
+    "afn_alize_bicakli": 3,
+    "afn_ayaz_kalkanlisi": 4,
+    "afn_bulut_dalgici": 3,
+    "afn_buz_zurnacisi": 4,
+    "afn_donuk_mizrakci": 3,
+    "afn_el_arabali_topcu": 2,
+    "afn_firtina_baglayici": 3,
+    "afn_gece_yirticisi": 3,
+    "afn_kapi_ustasi": 3,
+    "afn_kar_fenercisi": 3,
+    "afn_kehribar_sovalye": 3,
+    "afn_kiragi_dokuyucusu": 4,
+    "afn_kirik_kuklaci": 4,
+    "afn_kirik_saat_efendisi": 4,
+    "afn_kok_titani": 7,
+    "afn_kutup_kiricisi": 5,
+    "afn_mantar_davulcusu": 2,
+    "afn_ocak_dovucusu": 3,
+    "afn_sedef_pervane": 3,
+    "afn_sicrayan_kocbasi": 5,
+    "afn_toprak_yarici": 6,
+    "afn_zincir_kiran": 5,
+    "af37_kilicli_asker": 2,
+    "af37_orman_okcu": 1,
+    "af37_golge_suikastci": 3,
+    "af37_mavi_buyucu": 4,
+    "af37_isik_sifacisi": 4,
+    "af37_cuce_savasci": 3,
+    "af37_agir_zirhli": 7,
+    "af37_kizil_duellocu": 3,
+    "af37_kesifci": 2,
+    "af37_ates_buyucusu": 5,
+    "af37_nekromanci": 5,
+    "af37_buz_sovalyesi": 6,
+    "af37_alev_muhafizi": 5,
+    "af37_golge_buyucusu": 5,
+    "af37_muhendis_nisanci": 4,
+    "af37_dovus_ustasi": 3,
+    "af37_iskelet_savasci": 2,
+    "af37_iskelet_kalkanli": 3,
+    "af37_ork_savasci": 4,
+    "af37_kristal_golem": 7,
+    "af37_lav_golemi": 7,
+    "af37_ates_elementali": 5,
+    "af37_buz_elementali": 5,
+    "af37_orman_ruhu": 5,
+    "af37_tas_devi": 7,
+    "af37_ruh_cagirici": 4,
+    "af37_zehirci": 4,
+    "af37_golge_avcisi": 4,
+    "af37_elit_kadin_savasci": 4,
+    "af37_buz_muhafizi": 4,
+    "af37_altin_muhafiz": 6,
+    "af37_samuray": 4,
+    "af37_dovus_ustasi_ii": 3,
+    "af37_arbaletci": 3,
+    "af37_alev_silahcisi": 4,
+    "af37_savas_muhendisi": 6
+   },
+   "saveKey": null,
+   "deckSize": 12
+  },
+  "legacyOrig": {
+   "afp177": "TypeError: Cannot read properties of undefined (reading 'test')",
+   "afp179": "TypeError: Cannot read properties of undefined (reading 'test')",
+   "skeleton": {
+    "passed": true,
+    "failures": [],
+    "audit": {
+     "exists": true,
+     "unlocked": false,
+     "cost": 1,
+     "hp": 40,
+     "atk": 8,
+     "period": 0.8,
+     "range": 0.045,
+     "visualClass": 37,
+     "portrait": false,
+     "atlas": true,
+     "rig": true,
+     "deckCount": 12,
+     "deckIncludes": false,
+     "replacedStarter": true,
+     "portalHP": 430,
+     "saveKey": "arenaForgeProProfileV19"
+    }
+   },
+   "melee": {
+    "passed": true,
+    "meleeCases": 8,
+    "rangedCases": 6,
+    "failures": [],
+    "meleeRows": [
+     {
+      "type": "warrior",
+      "range": 0.075,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.075
+     },
+     {
+      "type": "guardian",
+      "range": 0.072,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.072
+     },
+     {
+      "type": "assassin",
+      "range": 0.072,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.072
+     },
+     {
+      "type": "paladin",
+      "range": 0.075,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.075
+     },
+     {
+      "type": "berserker",
+      "range": 0.073,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.073
+     },
+     {
+      "type": "orc",
+      "range": 0.078,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.078
+     },
+     {
+      "type": "golem",
+      "range": 0.07,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.07
+     },
+     {
+      "type": "skeleton_clone",
+      "range": 0.045,
+      "engageRange": 0.2,
+      "closeCombat": true,
+      "strikeRange": 0.045
+     }
+    ],
+    "rangedRows": [
+     {
+      "type": "archer",
+      "range": 0.205,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "ranger",
+      "range": 0.17,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "mage",
+      "range": 0.13,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "healer",
+      "range": 0.095,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "frostmage",
+      "range": 0.12,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     },
+     {
+      "type": "necromancer",
+      "range": 0.12,
+      "engageRange": 0.2,
+      "closeCombat": false,
+      "strikeRange": 0.2
+     }
+    ]
+   },
+   "hands": {
+    "iterations": 200,
+    "failures": 0,
+    "lowDeckCases": 0,
+    "passed": true
+   }
+  },
+  "unchanged": {
+   "count": true,
+   "ids": true,
+   "rarity": true,
+   "costs": true
+  }
+ },
+ "seconds": 164.3
+}

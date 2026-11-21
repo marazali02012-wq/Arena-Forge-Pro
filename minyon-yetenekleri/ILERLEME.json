@@ -1,0 +1,478 @@
+{
+ "surum": "3.60.285",
+ "oyun_dosyasi": "ArenaForgePro_v3_60_285_Minyon_Yetenek_TEST.html",
+ "temel_dosya": "ArenaForgePro_v3_60_284_Minyon_Gelistirme_TEST.html (build.py --strip ile geri üretilir)",
+ "grup_sirasi": {
+  "1": [
+   "af37_agir_zirhli",
+   "af37_alev_muhafizi",
+   "af37_alev_silahcisi",
+   "af37_altin_muhafiz",
+   "af37_arbaletci"
+  ],
+  "2": [
+   "afn_firtina_baglayici",
+   "af37_ates_buyucusu",
+   "af37_ates_elementali",
+   "af37_buz_elementali",
+   "af37_buz_muhafizi"
+  ],
+  "3": [
+   "af37_orman_ruhu",
+   "af37_buz_sovalyesi",
+   "af37_cuce_savasci",
+   "af37_dovus_ustasi",
+   "af37_dovus_ustasi_ii"
+  ],
+  "4": [
+   "af37_elit_kadin_savasci",
+   "af37_golge_avcisi",
+   "af37_golge_buyucusu",
+   "af37_golge_suikastci",
+   "af37_isik_sifacisi"
+  ],
+  "5": [
+   "af37_iskelet_kalkanli",
+   "af37_iskelet_savasci",
+   "af37_kesifci",
+   "af37_kilicli_asker",
+   "af37_kizil_duellocu"
+  ],
+  "6": [
+   "af37_kristal_golem",
+   "af37_lav_golemi",
+   "af37_mavi_buyucu",
+   "af37_muhendis_nisanci",
+   "af37_nekromanci"
+  ],
+  "7": [
+   "af37_ork_savasci",
+   "af37_orman_okcu",
+   "af37_ruh_cagirici",
+   "af37_samuray",
+   "af37_savas_muhendisi"
+  ],
+  "8": [
+   "af37_tas_devi",
+   "af37_zehirci",
+   "afn_alize_bicakli",
+   "afn_ayaz_kalkanlisi",
+   "afn_bulut_dalgici"
+  ],
+  "9": [
+   "afn_buz_zurnacisi",
+   "afn_donuk_mizrakci",
+   "afn_el_arabali_topcu",
+   "afn_gece_yirticisi",
+   "afn_kapi_ustasi"
+  ],
+  "10": [
+   "afn_kar_fenercisi",
+   "afn_kehribar_sovalye",
+   "afn_kiragi_dokuyucusu",
+   "afn_kirik_kuklaci",
+   "afn_kirik_saat_efendisi"
+  ],
+  "11": [
+   "afn_kok_titani",
+   "afn_kutup_kiricisi",
+   "afn_mantar_davulcusu",
+   "afn_ocak_dovucusu",
+   "afn_sedef_pervane"
+  ],
+  "12": [
+   "afn_sicrayan_kocbasi",
+   "afn_toprak_yarici",
+   "afn_zincir_kiran",
+   "mage"
+  ]
+ },
+ "tamamlanan_gruplar": [
+  1,
+  2
+ ],
+ "siradaki_grup": 3,
+ "minyonlar": {
+  "af37_agir_zirhli": {
+   "grup": 1,
+   "yetenek": "Çelik Siper",
+   "durum": "eklendi",
+   "test": "geçti"
+  },
+  "af37_alev_muhafizi": {
+   "grup": 1,
+   "yetenek": "Köz Zırhı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
+  },
+  "af37_alev_silahcisi": {
+   "grup": 1,
+   "yetenek": "Köz Yelpazesi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
+  },
+  "af37_altin_muhafiz": {
+   "grup": 1,
+   "yetenek": "Altın Nöbet",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
+  },
+  "af37_arbaletci": {
+   "grup": 1,
+   "yetenek": "Çifte Nişan",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
+  },
+  "af37_ates_buyucusu": {
+   "grup": 2,
+   "yetenek": "Kor Çemberi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
+  },
+  "af37_ates_elementali": {
+   "grup": 2,
+   "yetenek": "Alev Dalgası",
+   "durum": "eklendi",
+   "test": "geçti"
+  },
+  "af37_buz_elementali": {
+   "grup": 2,
+   "yetenek": "Kırılgan Buz",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
+  },
+  "af37_buz_muhafizi": {
+   "grup": 2,
+   "yetenek": "Buz Siperi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
+  },
+  "af37_buz_sovalyesi": {
+   "grup": 3,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_cuce_savasci": {
+   "grup": 3,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_dovus_ustasi": {
+   "grup": 3,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_dovus_ustasi_ii": {
+   "grup": 3,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_elit_kadin_savasci": {
+   "grup": 4,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_golge_avcisi": {
+   "grup": 4,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_golge_buyucusu": {
+   "grup": 4,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_golge_suikastci": {
+   "grup": 4,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_isik_sifacisi": {
+   "grup": 4,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_iskelet_kalkanli": {
+   "grup": 5,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_iskelet_savasci": {
+   "grup": 5,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_kesifci": {
+   "grup": 5,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_kilicli_asker": {
+   "grup": 5,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_kizil_duellocu": {
+   "grup": 5,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_kristal_golem": {
+   "grup": 6,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_lav_golemi": {
+   "grup": 6,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_mavi_buyucu": {
+   "grup": 6,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_muhendis_nisanci": {
+   "grup": 6,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_nekromanci": {
+   "grup": 6,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_ork_savasci": {
+   "grup": 7,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_orman_okcu": {
+   "grup": 7,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_orman_ruhu": {
+   "grup": 3,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_ruh_cagirici": {
+   "grup": 7,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_samuray": {
+   "grup": 7,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_savas_muhendisi": {
+   "grup": 7,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_tas_devi": {
+   "grup": 8,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "af37_zehirci": {
+   "grup": 8,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_alize_bicakli": {
+   "grup": 8,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_ayaz_kalkanlisi": {
+   "grup": 8,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_bulut_dalgici": {
+   "grup": 8,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_buz_zurnacisi": {
+   "grup": 9,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_donuk_mizrakci": {
+   "grup": 9,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_el_arabali_topcu": {
+   "grup": 9,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_firtina_baglayici": {
+   "grup": 2,
+   "yetenek": "Zincir Yıldırım",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
+  },
+  "afn_gece_yirticisi": {
+   "grup": 9,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_kapi_ustasi": {
+   "grup": 9,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_kar_fenercisi": {
+   "grup": 10,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_kehribar_sovalye": {
+   "grup": 10,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_kiragi_dokuyucusu": {
+   "grup": 10,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_kirik_kuklaci": {
+   "grup": 10,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_kirik_saat_efendisi": {
+   "grup": 10,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_kok_titani": {
+   "grup": 11,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_kutup_kiricisi": {
+   "grup": 11,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_mantar_davulcusu": {
+   "grup": 11,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_ocak_dovucusu": {
+   "grup": 11,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_sedef_pervane": {
+   "grup": 11,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_sicrayan_kocbasi": {
+   "grup": 12,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_toprak_yarici": {
+   "grup": 12,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "afn_zincir_kiran": {
+   "grup": 12,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  },
+  "mage": {
+   "grup": 12,
+   "yetenek": null,
+   "durum": "sırada",
+   "test": null
+  }
+ },
+ "sistem_denetimi": {
+  "count59": true,
+  "ids": true,
+  "rarity": true,
+  "costs": true,
+  "deck12": true,
+  "legacySame": true,
+  "openingHandsOk": true,
+  "modesPresent": true,
+  "noErrors": true,
+  "controlLegacyRule": true
+ },
+ "gorsel_eslestirme": {
+  "dome_gold / dome_blue (kalkan kubbesi, 16 kare)": "af37_altin_muhafiz (altın), af37_buz_muhafizi (mavi); sıradaki kalkanlı yetenekler: afn_ayaz_kalkanlisi, afn_kapi_ustasi, af37_iskelet_kalkanli",
+  "chain_lightning (zincir yıldırım, 16 kare)": "afn_firtina_baglayici",
+  "vine_heal (sarmaşık şifası, 16 kare)": "af37_orman_ruhu",
+  "fx_fire_shield": "af37_alev_muhafizi",
+  "fx_storm_bind": "afn_firtina_baglayici (bağlama anı)",
+  "fx_ice_slash": "af37_buz_sovalyesi",
+  "fx_holy_light": "af37_isik_sifacisi (grup 4)",
+  "fx_shadow_strike": "af37_golge_suikastci (grup 4)",
+  "fx_poison_flask": "af37_zehirci (grup 8)",
+  "fx_vines12": "afn_kok_titani (grup 11)",
+  "fx_earth_burst": "afn_toprak_yarici (grup 12)",
+  "fx_chains": "afn_zincir_kiran (grup 12)",
+  "fx_dome12": "yedek mavi kubbe (12 kare)"
+ }
+}
