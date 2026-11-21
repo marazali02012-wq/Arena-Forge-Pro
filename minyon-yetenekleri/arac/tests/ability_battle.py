@@ -8,6 +8,13 @@ from group5_battle import prepare
 from harness import Game
 
 MATCHUPS={
+  8: {
+    'af37_tas_devi': ('quake',.375),
+    'af37_zehirci': ('poison',.49),
+    'afn_alize_bicakli': ('dash',.425),
+    'afn_ayaz_kalkanlisi': ('ice_shell',.37),
+    'afn_bulut_dalgici': ('air',.48),
+  },
   7: {
     'af37_ork_savasci': ('ram',.42),
     'af37_orman_okcu': ('slow',.48),
@@ -43,6 +50,11 @@ async def check_case(host, peer, typ, effect, x, side):
     cast=await host.ev('t=>window.__AF285QA.stepUntil(2,"ab-cast",t)',typ)
     checks['kullanim']=cast['hit']
     cast_fx=await host.qa(f'{q}.fxList()')
+    if effect=='air':
+        checks['havada_korunuyor']=await host.ev('''([id,side,a,foe])=>{
+          const q=window.__AF285QA,u=q.find(id,side),s=q.find(a,foe),hp=u.hp;
+          return u._af285AirUntil>q.state().elapsed&&q.testDamage(u,s,12)===0&&u.hp===hp;
+        }''',[actor,side,target,foe])
     impact=await host.ev('t=>window.__AF285QA.stepUntil(2,"ab-impact",t)',typ)
     checks['etki_ani']=impact['hit']
     if not impact['hit']: return checks
@@ -56,10 +68,11 @@ async def check_case(host, peer, typ, effect, x, side):
         }''',[actor,side,target,foe])
         checks['gercek_sonuc']=counter['damage']<=7 and counter['before']>counter['after']
 
-    if effect=='crystal':
+    if effect in {'crystal','ice_shell'}:
         absorb=await host.ev('''([id,t,source,foe])=>{
           const q=window.__AF285QA,u=q.find(id,t),a=q.find(source,foe),before=u.absorb;
-          q.testDamage(u,a,before+10);return [before,u.absorb];
+          for(let i=0;i<30&&u.hp>0&&u.absorb>0;i++)q.testDamage(u,a,12);
+          return [before,u.absorb];
         }''',[actor,side,target,foe])
         checks['kalkan_kirildi']=absorb[0]>0 and absorb[1]==0
     beginning=await host.qa(f'{q}.snapshot().units.filter(u=>u.isSummon)') if effect in {'soul','summon'} else []
@@ -81,7 +94,16 @@ async def check_case(host, peer, typ, effect, x, side):
     elif effect=='pierce':
         values=[e for e in log if e['k']=='inc' and e.get('su')==actor and e.get('kind')=='af285Pierce']
         checks['gercek_sonuc']=bool(damage) and bool(values) and .86<values[0]['post']/values[0]['pre']<.95
-    elif effect=='ram':
+    elif effect=='ice_shell':
+        checks['gercek_sonuc']=any(e['k']=='slow' and e.get('tu')==target for e in log)
+    elif effect=='poison':
+        checks['gercek_sonuc']=any(e['k']=='dot' and e.get('su')==actor and e.get('tu')==target for e in log)
+        ticks=[e for e in log if e['k']=='dmg' and e.get('tu')==target and e.get('kind')=='dot']
+        checks['can_azaldi']=bool(ticks) or any(e['k']=='dmg' and e.get('tu')==target and 'poison' in str(e.get('kind')) for e in log)
+    elif effect in {'dash','air'}:
+        position=await host.ev('([id,t])=>window.__AF285QA.find(id,t).x',[actor,side])
+        checks['gercek_sonuc']=bool(damage) and (position-(.32 if side=='ally' else .68))*(1 if side=='ally' else -1)>.05
+    elif effect in {'ram','quake'}:
         moved=await host.ev('([id,t])=>window.__AF285QA.find(id,t).x',[target,foe])
         checks['gercek_sonuc']=bool(damage) and (moved-x)*(1 if side=='ally' else -1)>.025
     elif effect=='slow':
@@ -121,12 +143,14 @@ async def check_case(host, peer, typ, effect, x, side):
     checks['savas_hatasi']=report['tickErrors']==report['drawErrors']==0
     return checks
 
-async def main(html, number, report):
-    out={}
+async def main(html, number, report, only=None):
+    output=pathlib.Path(report)
+    out=json.loads(output.read_text()) if only and output.exists() else {}
     async with Game(html,740,360,mobile=True) as host, Game(html,667,375,mobile=True,browser=host.browser) as peer:
         await host.start_battle()
         await peer.start_battle()
         for typ,(effect,x) in MATCHUPS[int(number)].items():
+            if only and typ not in only.split(','): continue
             out[typ]={}
             for side in ('ally','enemy'):
                 try:
@@ -136,7 +160,7 @@ async def main(html, number, report):
                     checks={'exception':False}
                 out[typ][side]=checks
                 print(typ,side,checks,flush=True)
-    pathlib.Path(report).write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+    output.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
     return all(all(all(checks.values()) for checks in sides.values()) for sides in out.values())
 
 if __name__=='__main__':

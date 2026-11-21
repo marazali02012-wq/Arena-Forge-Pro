@@ -1,0 +1,138 @@
+{
+  "af37_tas_devi": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "af37_zehirci": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "can_azaldi": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "can_azaldi": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "afn_alize_bicakli": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "afn_ayaz_kalkanlisi": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "kalkan_kirildi": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "etki_ani": true,
+      "kalkan_kirildi": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  },
+  "afn_bulut_dalgici": {
+    "ally": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "havada_korunuyor": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    },
+    "enemy": {
+      "kart": true,
+      "hazirlik": true,
+      "kullanim": true,
+      "havada_korunuyor": true,
+      "etki_ani": true,
+      "gercek_sonuc": true,
+      "gorsel": true,
+      "toparlanma": true,
+      "esitleme": true,
+      "tek_yetkili": true,
+      "savas_hatasi": true
+    }
+  }
+}

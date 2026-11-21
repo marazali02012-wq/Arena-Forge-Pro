@@ -94,9 +94,10 @@
   4,
   5,
   6,
-  7
+  7,
+  8
  ],
- "siradaki_grup": 8,
+ "siradaki_grup": 9,
  "minyonlar": {
   "af37_agir_zirhli": {
    "grup": 1,
@@ -304,33 +305,33 @@
   },
   "af37_tas_devi": {
    "grup": 8,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Yer Sarsıntısı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "af37_zehirci": {
    "grup": 8,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Zehir Şişesi",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_alize_bicakli": {
    "grup": 8,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Rüzgâr Kesiği",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_ayaz_kalkanlisi": {
    "grup": 8,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Ayaz Kabuğu",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_bulut_dalgici": {
    "grup": 8,
-   "yetenek": null,
-   "durum": "sırada",
-   "test": null
+   "yetenek": "Bulut Dalışı",
+   "durum": "dönüştürüldü",
+   "test": "geçti"
   },
   "afn_buz_zurnacisi": {
    "grup": 9,

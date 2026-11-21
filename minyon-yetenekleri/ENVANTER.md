@@ -41,11 +41,11 @@ Hiçbirinde birimin kendisi hazırlık hareketi yapmıyor, yetenek bir durum ola
 | 32 | 7 | Ruh Çağırıcı | `af37_ruh_cagirici` | Efsanevi | 4 | Ruh Yankısı | çalışıyor |  | Ruh Askerleri (dönüştürüldü) | ✔ test geçti |
 | 33 | 7 | Samuray | `af37_samuray` | Nadir | 4 | Denge Kesimi | çalışıyor |  | Karşı Kesik (dönüştürüldü) | ✔ test geçti |
 | 34 | 7 | Savaş Mühendisi | `af37_savas_muhendisi` | Efsanevi | 6 | Yer Sarsan Mermi | çalışıyor |  | Patlayıcı Mermi (dönüştürüldü) | ✔ test geçti |
-| 35 | 8 | Taş Devi | `af37_tas_devi` | Efsanevi | 7 | Sabit Kaya | çalışıyor |  | — | sırada |
-| 36 | 8 | Zehirci | `af37_zehirci` | Efsanevi | 4 | Yoğun Zehir | çalışıyor |  | — | sırada |
-| 37 | 8 | Alize Bıçaklı | `afn_alize_bicakli` | Sıradan | 3 | Rüzgâr Aralığı | çalışıyor |  | — | sırada |
-| 38 | 8 | Ayaz Kalkanlısı | `afn_ayaz_kalkanlisi` | Epik | 4 | Ayaz Kalkanı | çalışıyor |  | — | sırada |
-| 39 | 8 | Bulut Dalgıcı | `afn_bulut_dalgici` | Nadir | 3 | Bulut Perdesi | çalışıyor |  | — | sırada |
+| 35 | 8 | Taş Devi | `af37_tas_devi` | Efsanevi | 7 | Sabit Kaya | çalışıyor |  | Yer Sarsıntısı (dönüştürüldü) | ✔ test geçti |
+| 36 | 8 | Zehirci | `af37_zehirci` | Efsanevi | 4 | Yoğun Zehir | çalışıyor |  | Zehir Şişesi (dönüştürüldü) | ✔ test geçti |
+| 37 | 8 | Alize Bıçaklı | `afn_alize_bicakli` | Sıradan | 3 | Rüzgâr Aralığı | çalışıyor |  | Rüzgâr Kesiği (dönüştürüldü) | ✔ test geçti |
+| 38 | 8 | Ayaz Kalkanlısı | `afn_ayaz_kalkanlisi` | Epik | 4 | Ayaz Kalkanı | çalışıyor |  | Ayaz Kabuğu (dönüştürüldü) | ✔ test geçti |
+| 39 | 8 | Bulut Dalgıcı | `afn_bulut_dalgici` | Nadir | 3 | Bulut Perdesi | çalışıyor |  | Bulut Dalışı (dönüştürüldü) | ✔ test geçti |
 | 40 | 9 | Buz Zurnacısı | `afn_buz_zurnacisi` | Epik | 4 | Soğuk Nefes | çalışıyor |  | — | sırada |
 | 41 | 9 | Donuk Mızrakçı | `afn_donuk_mizrakci` | Sıradan | 3 | Hat Dikişi | çalışıyor |  | — | sırada |
 | 42 | 9 | El Arabalı Topçu | `afn_el_arabali_topcu` | Sıradan | 2 | Topçu Mermisi | çalışıyor |  | — | sırada |
