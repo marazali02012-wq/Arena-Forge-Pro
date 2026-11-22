@@ -22,6 +22,6 @@ jobs:
         working-directory: denge-v288
         run: |
           zip -9 ArenaForgePro_v288.zip ArenaForgePro_v288.html qa-*.json
-          git add ArenaForgePro_v288.html ArenaForgePro_v288.zip qa-*.json
+          git add ArenaForgePro_v288.html ArenaForgePro_v288.zip qa-*.json saha-*.png
           git -c user.name=github-actions -c user.email=41898282+github-actions[bot]@users.noreply.github.com commit -m "Test edilen v288 HTML ve ZIP"
           git push origin HEAD:refs/heads/denge/v288

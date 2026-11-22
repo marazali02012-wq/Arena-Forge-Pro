@@ -41,6 +41,14 @@ async def run(w,h):
   assert await g.qa('AF285Abilities.list().length')==59
   await g.start_battle()
   cards=await g.qa('audit288()')
+  await g.qa('__AF285QA.clearUnits()')
+  for card, x in [('af37_iskelet_savasci',.18),('af37_orman_okcu',.46),('af37_tas_devi',.73)]:
+   play=await g.play('ally',card,1,.2)
+   assert play['ok'],play
+   for i,uid in enumerate(play['uids']):
+    await g.ev('([id,x])=>__AF285QA.move(id,"ally",x)',[uid,x+i*.065])
+  await g.page.wait_for_timeout(600)
+  await g.canvas_png(p/f'saha-{w}.png')
   rows=await g.qa('audit287()')
   modes={}
   for m in 'arena campaign tower sky flag dark secret echo colossus'.split():
