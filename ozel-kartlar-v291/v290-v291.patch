@@ -1,0 +1,420 @@
+--- v290
++++ v291
+@@ -10504,4 +10504,13 @@
+ @media(max-width:450px){.af282-offers{grid-template-columns:1fr}.af282-offer{grid-template-columns:34px minmax(0,1fr) auto;grid-template-rows:auto}.af282-offer>button{grid-column:3}}
+ </style>
++<style id="af291-cards-css">
++.af291-card-trim{position:absolute;inset:2px;z-index:3;border-radius:inherit;pointer-events:none;
++ background:linear-gradient(145deg,#ffdcaece,transparent 45%) top left/24% 2px no-repeat,
++ linear-gradient(235deg,#ffdcaece,transparent 45%) top right/24% 2px no-repeat,
++ linear-gradient(325deg,#d5a8fbcc,transparent 50%) bottom right/24% 2px no-repeat,
++ linear-gradient(35deg,#d5a8fbcc,transparent 50%) bottom left/24% 2px no-repeat;
++ box-shadow:inset 0 0 7px #d7a9fc70}
++.afp132-tabs .af291-filter{--g:#d5acfa;color:#f4dfff}
++</style>
+ </head>
+ <!-- v3.34.73: exact duplicate embedded ar
+@@ -13560,4 +13569,21 @@
+ }
+ 
++// Playable card class. Event bosses continue to use the separate isBoss/enemyType path.
++const AF291_BOSS_CARDS=Object.freeze({
++  afn_gece_yirticisi:'Hafif hedefi sahadan geçici olarak alır.',
++  afn_zincir_kiran:'Hattaki ilk hedefi yakın dövüş mesafesine çeker.',
++  afn_kirik_saat_efendisi:'Sınırlı bir alanın ilk temasında kısa duraklama ve devamında zaman yavaşlaması.',
++  af37_ruh_cagirici:'Süreli iki bağımsız birlikle koridoru takviye eder.',
++  afn_toprak_yarici:'Koridor içinde yeraltından ilerleyip çıkışta yerel alan hasarı verir.'
++});
++const AF291_NORMAL_CARDS=new Set(['af37_iskelet_savasci','af37_kilicli_asker']);
++function af291BossCard(type){return Object.hasOwn(AF291_BOSS_CARDS,type);}
++function af291CardClass(type){
++  if(!Object.hasOwn(AF290_CARDS,type))return null;
++  return af291BossCard(type)?'boss':AF291_NORMAL_CARDS.has(type)?'normal':'special';
++}
++function af291Trim(type){
++  return af291BossCard(type)?'<span class="af291-card-trim" aria-hidden="true"></span>':'';
++}
+ function energyCost(type){
+   if(Object.hasOwn(AF290_CARDS,type))return AF290_CARDS[type].energy;
+@@ -13692,5 +13718,5 @@
+       if(!src&&window.AF37_FULL&&window.AF37_FULL[artType])src=window.AF37_FULL[artType];
+     }catch(_){src=(HERO_PORTRAITS&&HERO_PORTRAITS[artType])||'';}
+-    b.innerHTML=(af215GroupCardArt(card.type)||(src?'<img alt="'+info.name+'" src="'+src+'" loading="eager" decoding="sync" referrerpolicy="no-referrer">':'<span class="battlePickEmoji"></span>'))+'<span class="battleEnergyCost">'+af334CardCost(card.type,'ally')+'</span><span class="battlePickName">'+info.name+'</span>';
++    b.innerHTML=(af215GroupCardArt(card.type)||(src?'<img alt="'+info.name+'" src="'+src+'" loading="eager" decoding="sync" referrerpolicy="no-referrer">':'<span class="battlePickEmoji"></span>'))+'<span class="battleEnergyCost">'+af334CardCost(card.type,'ally')+'</span><span class="battlePickName">'+(af291BossCard(card.type)?'SV '+heroLevel(card.type):info.name)+'</span>'+af291Trim(card.type);
+     
+     // v3.78.19: only the in-battle hand card owns drag input. A tap/click never selects or plays it.
+@@ -14126,4 +14152,5 @@
+  // Keep the saved order and every legal duplicate copy.
+  for(const t of values)add(af59PlayableReplacement(t)||t);
++ if(out.length===values.length)return out;
+  // Prefer distinct unlocked cards before filling with an additional legal copy.
+  for(const t of PREP_HERO_TYPES){if(out.length>=12)break;if(isUnlocked(t)&&!counts[t])add(t);}
+@@ -14173,5 +14200,5 @@
+     }
+     /* v3.40.46 U-BUG-3: v3.40.37-45 arasında 11 kartla kurulan, dokunulmamış başlangıç destesi bir kez tamamlanır. */
+-    {const oldStarter=AF3411_STARTER_DECK_IDS.filter(t=>t!=='af37_iskelet_kalkanli');if(Array.isArray(preparedDeckTypes)&&preparedDeckTypes.length===11&&oldStarter.length===11&&preparedDeckTypes.every(t=>oldStarter.includes(t))){preparedDeckTypes=preparedDeckTypes.concat('af37_iskelet_kalkanli');if(!Array.isArray(preparedDeckPresets))preparedDeckPresets=Array(5).fill(null);preparedDeckPresets[activeDeckPresetIndex]=preparedDeckTypes.slice();profile.preparedDeckTypes=preparedDeckTypes.slice();profile.preparedDeckPresets=preparedDeckPresets.map(d=>Array.isArray(d)?d.slice():null);}}
++    if(!profile.af291StarterRepair){profile.af291StarterRepair=true;const oldStarter=AF3411_STARTER_DECK_IDS.filter(t=>t!=='af37_iskelet_kalkanli');if(Array.isArray(preparedDeckTypes)&&preparedDeckTypes.length===11&&oldStarter.length===11&&preparedDeckTypes.every(t=>oldStarter.includes(t))){preparedDeckTypes=preparedDeckTypes.concat('af37_iskelet_kalkanli');if(!Array.isArray(preparedDeckPresets))preparedDeckPresets=Array(5).fill(null);preparedDeckPresets[activeDeckPresetIndex]=preparedDeckTypes.slice();profile.preparedDeckTypes=preparedDeckTypes.slice();profile.preparedDeckPresets=preparedDeckPresets.map(d=>Array.isArray(d)?d.slice():null);}}
+   }else{
+     // Keep legacy unlock behavior for existing profiles; don't replace their saved deck.
+@@ -14229,5 +14256,5 @@
+   }
+   const partialCounts=Object.create(null);
+-  const intentionallyPartial=before.length>0&&before.length<=12&&before.every(t=>{
++  const intentionallyPartial=before.length<=12&&before.every(t=>{
+     if(!available.includes(t))return false;
+     partialCounts[t]=(partialCounts[t]||0)+1;
+@@ -14273,4 +14300,5 @@
+     if(filter==='magic')return /büyü|şifa|destek|karanlık|alan|element|ruh|dondur/.test(role)||['mage','healer','necromancer','frostmage','sunpriest','emberwitch','ravenmage','crystalpriest','bogshaman','staroracle','wilddruid','phoenixadept'].includes(type);
+     if(filter==='cheap')return energyCost(type)<=3;
++    if(filter==='boss')return af291BossCard(type);
+     return true;
+   }function unitAttackRange(u){if(gameMode==='boss'&&u&&u.team==='enemy'&&u.isBoss)return .155;const card=af290Unit(u);if(card)return card.range;const type=u&&(u.heroType||u.enemyType)||'';if(type==='skeleton_clone')return .045;if(type==='shaman')return .15;const gun=af268Gun(u);if(gun)return gun.range;const archetype=(typeof SPELL_ARCHETYPE!=='undefined'&&SPELL_ARCHETYPE[type])||type;/* v3.40.50: if a true AF37 close-combat unit inherited a ranged archetype from an art/rig alias, do not inherit the long ranged envelope. Preserve legitimate spear reach and ordinary ranged archetypes. */const meta=(window.__AF37Meta&&window.__AF37Meta[type])||null;if(meta&&['melee','tank','undead','brute','golem','platinum'].includes(meta.group)&&['archer','ranger','mage','healer','necromancer','frostmage'].includes(archetype))return .075;if(archetype==='archer')return type==='archer'?.205:.195;if(archetype==='ranger')return type==='ranger'?.17:.16;if(archetype==='mage')return .13;if(archetype==='healer')return .095;if(archetype==='spearman')return .115;if(archetype==='warrior')return .075;if(archetype==='guardian')return .072;if(archetype==='orc')return .078;if(archetype==='assassin')return .072;if(archetype==='paladin')return .075;if(archetype==='berserker')return .073;if(archetype==='frostmage')return .12;if(archetype==='necromancer')return type==='voidreaper'?.075:.12;/* v3.60.130: Ölüm Büyücüsü ailesi menzil tablosunda unutulmuştu (en kısa menzil .067'ye düşüyordu) */if(archetype==='golem')return .07;return .067;}
+@@ -14366,5 +14394,5 @@
+       <section class="hmdCollectionPanel" aria-label="Birlik kartı koleksiyonu">
+         <div class="hmdSectionHead hmdCollectionHead" aria-hidden="true"><div><h2>BİRLİK KARTI KOLEKSİYONU</h2><small>12 kartlık savaş destene birlik ekle veya değiştir</small></div><b id="hmdPoolCount">${PREP_HERO_TYPES.length} BİRLİK</b></div>
+-        <div class="hmdPoolTools"><label class="hmdSearch"><span>⌕</span><input id="hmdDeckSearch" type="search" placeholder="Birlik ara..." autocomplete="off" aria-label="Birlik ara"></label><div class="hmdFilters" role="group" aria-label="Kart filtresi"><button type="button" class="active" data-deck-filter="all">TÜMÜ</button><button type="button" data-deck-filter="front">ÖNCÜ</button><button type="button" data-deck-filter="ranged">MENZİLLİ</button><button type="button" data-deck-filter="magic">BÜYÜ</button><button type="button" data-deck-filter="cheap">DÜŞÜK ENERJİ</button></div></div>
++        <div class="hmdPoolTools"><label class="hmdSearch"><span>⌕</span><input id="hmdDeckSearch" type="search" placeholder="Birlik ara..." autocomplete="off" aria-label="Birlik ara"></label><div class="hmdFilters" role="group" aria-label="Kart filtresi"><button type="button" class="active" data-deck-filter="all">TÜMÜ</button><button type="button" data-deck-filter="front">ÖNCÜ</button><button type="button" data-deck-filter="ranged">MENZİLLİ</button><button type="button" data-deck-filter="magic">BÜYÜ</button><button type="button" data-deck-filter="cheap">DÜŞÜK ENERJİ</button><button type="button" data-deck-filter="boss">BOSS KARTLAR</button></div></div>
+         <div id="hmdPoolGrid" class="hmdPoolGrid" aria-live="polite"></div>
+       </section>
+@@ -14402,4 +14430,5 @@
+       b.innerHTML=`<span class="hmdCostBadge">${energyCost(type)}</span>${afMinionCardArt(type)||(AF324?AF324.deckArt(type):(src?`<img loading="lazy" alt="" src="${src}">`:`<span class="hmdCardEmoji">${HERO_EMOJI[type]||'⚔️'}</span>`))}<strong></strong><small></small>${!unlocked?'<span class="afp99-lock" aria-hidden="true">🔒</span>':''}`;
+       
++      b.insertAdjacentHTML('beforeend',af291Trim(type));
+       b.querySelector('strong').textContent='';b.querySelector('small').innerHTML='<span>LVL</span><b>'+heroLevel(type)+'</b>';b.setAttribute('aria-label',heroName(type)+af214SquadLabel(type)+' · '+energyCost(type)+' enerji · seviye '+heroLevel(type)+(unlocked?'':' · kilitli'));b.title=heroName(type)+af214SquadLabel(type)+' · Ayrıntıları aç';
+       // A tap opens details. Deck edits are done by dragging the card, never via +/- chips.
+@@ -14470,5 +14499,5 @@
+     const period=Number(stats.period||0),speed=Number(stats.speed||0);
+     set('.hmdHeroDetailMeta','Enerji '+energyCost(type)+af214SquadLabel(type)+' · Saldırı aralığı '+(period?period.toLocaleString('tr-TR',{maximumFractionDigits:2})+' sn':'—')+' · Hız '+(speed?speed.toLocaleString('tr-TR',{maximumFractionDigits:3}):'—'));
+-    const spell=HERO_SPELLS[type]||{},ability=spell.name||spell.title||spell.description||spell.desc||'';
++    const spell=HERO_SPELLS[type]||{},ability=HERO_ABILITIES[type]||spell.name||spell.title||spell.description||spell.desc||'';
+     set('.hmdHeroDetailAbility',ability?('Yetenek: '+(typeof ability==='string'?ability:'Özel savaş yeteneği')):'');
+     const lv=heroLevel(type),req=af132ShardReq(type,lv),cost=50+(lv-1)*25;
+@@ -14494,4 +14523,5 @@
+         b.dataset.copyNumber=String(copyNo);b.dataset.copyLimit=String(copyLimit);
+         b.innerHTML=`<span class="hmdCostBadge">${energyCost(type)}</span>${afMinionCardArt(type,false,true)||(AF324?AF324.deckArt(type):(src?`<img loading="lazy" alt="" src="${src}">`:`<span class="hmdCardEmoji">${HERO_EMOJI[type]||'⚔️'}</span>`))}<strong></strong><small><span>LVL</span><b>${heroLevel(type)}</b></small>`;
++        b.insertAdjacentHTML('beforeend',af291Trim(type));
+         b.querySelector('strong').textContent='';b.setAttribute('aria-label',heroName(type)+af214SquadLabel(type)+' · '+energyCost(type)+' enerji · seviye '+heroLevel(type));b.title=`${heroName(type)+af214SquadLabel(type)} · Sürükleyerek yerini değiştir veya ayrıntıyı aç.`;
+       }else{b.innerHTML='<span class="hmdEmptyGlyph">↥</span><strong>BOŞ YUVA</strong><small>SÜRÜKLE VE BIRAK</small>';}
+@@ -14528,5 +14558,5 @@
+   }
+   function addCardToDeck(type,targetSlot=null){
+-    if(!type)return;
++    if(!type||!AF59_ACTIVE_SET.has(type))return;
+     if(!isUnlocked(type)){const milestone=getTrophyMilestones().find(m=>m.hero===type);setHint(heroName(type)+' kilitli. '+(milestone?(milestone.cups+' kupada açılır.'):'Kupa yolundan açılmalı.'),'warning');return;}
+     const to=(targetSlot!==null&&Number.isInteger(targetSlot))?Math.max(0,Math.min(11,targetSlot)):null;
+@@ -16536,4 +16566,5 @@
+ }
+ function drawHero(u){
++  if(u._afp177CaptiveBy||u._afp177CaptiveUntil>elapsed){u._vis=null;return;}
+   if(gameMode==='boss'&&u.team==='enemy'&&!af290Unit(u)){
+     u._vis=null;
+@@ -23878,5 +23909,5 @@
+  if(!af333SpellsOk(d.hero,d.spells))d.spells=af333DefSpells(d.hero);
+  p.sel=d.hero;p.heroes[d.hero].load=d.spells.slice(0,2);
+- {const clean=afDeckFilterCopies((Array.isArray(d.cards)?d.cards:[]).filter(t=>PREP_HERO_TYPES.includes(t)),12);d.cards=clean.length?clean:(normalizePreparedDeck(preparedDeckPresets[i])||normalizePreparedDeck(preparedDeckTypes)||PREP_HERO_TYPES.filter(t=>isUnlocked(t)).slice(0,12));} // v3.40.46 U-BUG-4 · HMD copy caps
++ {const clean=afDeckFilterCopies((Array.isArray(d.cards)?d.cards:[]).filter(t=>PREP_HERO_TYPES.includes(t)),12);d.cards=(clean.length||(Array.isArray(d.cards)&&d.cards.length===0))?clean:(normalizePreparedDeck(preparedDeckPresets[i])||normalizePreparedDeck(preparedDeckTypes)||PREP_HERO_TYPES.filter(t=>isUnlocked(t)).slice(0,12));} // v3.40.46 U-BUG-4 · HMD copy caps
+  activeDeckPresetIndex=i;preparedDeckTypes=d.cards.slice(0,12);preparedDeckPresets[i]=d.cards.slice(0,12);
+ }
+@@ -24672,5 +24703,5 @@
+   forgeView:t=>{if(PREP_HERO_TYPES.includes(t))af284OpenForge(t);},
+   pu:t=>{if(!HERO_INFO[t])return;const r=af132PowerUp(t);if(!r.ok){hubToast(r.why||'Güçlendirilemedi.');return;}const en=af132EN();hubToast(r.leveled?((en?'Power-ups complete · LV ':'Güç aşamaları tamam · SV ')+r.level+'!'):((en?'Power-up ':'Güç aşaması ')+r.pu+'/5 · −'+r.cost+' '+af132RName(r.group)));try{updateProfileUI();}catch(_){}afterHeroAction();},
+-  mgroup:k=>{A4.hRarity=(k==='all'||AF132_BY[k])?k:'all';renderNow();},
++  mgroup:k=>{A4.hRarity=(k==='all'||k==='boss'||AF132_BY[k])?k:'all';if(k==='boss'&&!af291BossCard(A4.heroFocus)){const options=PREP_HERO_TYPES.filter(af291BossCard);A4.heroFocus=options.find(isUnlocked)||options[0];}renderNow();},
+   runebuy:k=>{if(!AF132_BY[k])return;const r=af132Buy(k);if(!r.ok){hubToast(r.why||'Satın alınamadı.');return;}hubToast('+'+r.n+' '+af132RName(k)+' · −'+r.c+' '+(af132EN()?'credits':'kredi'));try{updateProfileUI();}catch(_){}afterHeroAction();},
+   train:t=>{if(!HERO_INFO[t])return;const why=trainWhy(t);if(why){hubToast(why);return;}const r=trainHeroType(t);if(r?.why)hubToast(r.why);afterHeroAction();},
+@@ -24921,5 +24952,6 @@
+    if(A4.hFilter==='ready'&&(!un||heroLevel(t)>=30||(af132Pu(t)<5?!!af132PuWhy(t):!upInfo(t).can)))return false;
+    if((A4.hFilter==='front'||A4.hFilter==='ranged'||A4.hFilter==='magic')&&!heroRoleMatch(t,A4.hFilter))return false;
+-   if(A4.hRarity&&A4.hRarity!=='all'&&af132Group(t)!==A4.hRarity)return false;
++   if(A4.hRarity==='boss'&&!af291BossCard(t))return false;
++   if(A4.hRarity&&A4.hRarity!=='all'&&A4.hRarity!=='boss'&&af132Group(t)!==A4.hRarity)return false;
+    if(q&&!((info.name+' '+info.rarity+' '+(HERO_ROLES[t]||'')).toLocaleLowerCase('tr-TR').includes(q)))return false;
+    return true;}).sort((a,b)=>(isUnlocked(b)-isUnlocked(a))||(PREP_HERO_TYPES.indexOf(a)-PREP_HERO_TYPES.indexOf(b)));
+@@ -24932,5 +24964,5 @@
+   return '<button type="button" class="afp134-card r-'+rk(t)+(u.un?'':' is-locked')+(t===focus?' is-focus':'')+(u.un&&u.can?' is-ready':'')+'" data-act="hero:'+t+'" aria-pressed="'+(t===focus)+'" aria-label="'+esc(info.name)+' · '+esc(info.rarity)+(u.un?' · seviye '+u.lv:' · kilitli')+'" title="'+esc(info.name)+'">'+
+    '<span class="afp134-art">'+(afMinionCardArt(t)||bust(t)+af284Emblem(t,af284ArtLevel(t)))+'</span>'+
+-   '<span class="afp134-cost">'+energyCost(t)+'</span>'+
++   '<span class="afp134-cost">'+energyCost(t)+'</span>'+af291Trim(t)+
+    (u.un?(u.can?'<span class="afp134-up" title="'+(en?'Ready to upgrade':'Geliştirilebilir')+'">'+ico('arrow-up')+'</span>':''):'<span class="afp134-lock">'+ico('lock')+'</span>')+
+    '<span class="afp134-foot"><span class="afp134-lv">'+(u.un?(u.max?(en?'MAX':'MAKS'):'SV '+u.lv):esc(src.short))+'</span>'+(u.un&&!u.max?af132Pips(u.pu):'')+'</span>'+
+@@ -24977,4 +25009,5 @@
+   const en=af132EN(),all=PREP_HERO_TYPES.length,own=PREP_HERO_TYPES.filter(isUnlocked).length,cur=A4.hRarity||'all';
+   let h='<button type="button" class="afp132-tab'+(cur==='all'?' is-on':'')+'" data-act="mgroup:all" aria-pressed="'+(cur==='all')+'"><b>'+(en?'ALL':'TÜMÜ')+'</b><small>'+own+'/'+all+'</small></button>';
++  h+='<button type="button" class="afp132-tab af291-filter'+(cur==='boss'?' is-on':'')+'" data-act="mgroup:boss" aria-pressed="'+(cur==='boss')+'"><b>'+(en?'BOSS CARDS':'BOSS KARTLAR')+'</b></button>';
+   for(const G of AF132_GROUPS){const st=af132GroupStats(G.k);if(!st.total)continue;h+='<button type="button" class="afp132-tab'+(cur===G.k?' is-on':'')+'" style="--g:'+G.c+'" data-act="mgroup:'+G.k+'" aria-pressed="'+(cur===G.k)+'"><b>'+esc(af132GName(G.k))+'</b><small>'+st.owned+'/'+st.total+'</small></button>';}
+   return h;
+@@ -25735,4 +25768,5 @@
+       const item={uid:af330Uid(u),team:u.team==='enemy'?'enemy':'ally',type:String(u.heroType||u.enemyType||(u.isBarrier?'barrier':'')),lane:Math.max(0,Math.min(2,Math.floor(cleanNum(u.lane)))),x:Math.max(0,Math.min(1,cleanNum(u.x))),hp:Math.max(0,cleanNum(u.hp)),maxHp:Math.max(1,cleanNum(u.maxHp,1))};
+       for(const k of unitFields){if(k==='uid'||k==='lane'||k==='x'||k==='hp'||k==='maxHp')continue;const v=u[k];if(typeof v==='boolean')item[k]=v;else if(Number.isFinite(Number(v)))item[k]=Number(v);}
++      if(u._afp177CaptiveBy)item.af291Captor=af330Uid(u._afp177CaptiveBy);
+       if(u.dots?.poison?.key===AF264.poison)item.af264PoisonUntil=u.dots.poison.until;
+       if(u.dots?.burn?.source)item.af267BurnUntil=u.dots.burn.until;
+@@ -25769,4 +25803,6 @@
+       }
+       Object.assign(u,raw,{uid,team,heroType:String(raw.type||u.heroType||''),lane:clamp(raw.lane,0,2,1),x,hp:clamp(raw.hp,0,100000,0),maxHp:clamp(raw.maxHp,1,100000,1),speed,facingDir:-clamp(raw.facingDir,-1,1,team==='ally'?-1:1)});
++      u.af291Captor=clamp(raw.af291Captor,0,100000000,0);
++      u._afp177CaptiveUntil=clamp(raw._afp177CaptiveUntil,0,3600,0);
+       for(const k of ['_af264TunnelFrom','_af264TunnelTo','_af285X'])if(Number.isFinite(raw[k]))u[k]=1-clamp(raw[k],0,1);
+       if((raw.af264PoisonUntil||0)>snapshot.elapsed){
+@@ -25782,4 +25818,16 @@
+      if(!mirrored.some(u=>u.team==='ally'&&u.heroType===p.heroType&&u.lane===p.lane&&Math.abs(u.x-p.x)<.18))mirrored.push(p);
+     }
++    // Link after both mirrored teams exist. A missing field also clears the old capture.
++    const mirrorUid=new Map(mirrored.map(u=>[u.uid,u]));
++    for(const u of mirrored){
++      u._afp177Held=null;
++      u._afp177CaptiveBy=null;
++    }
++    for(const u of mirrored){
++      const captor=mirrorUid.get(u.af291Captor);
++      if(captor&&captor.team!==u.team&&captor.lane===u.lane&&u._afp177CaptiveUntil>snapshot.elapsed){
++        u._afp177CaptiveBy=captor;captor._afp177Held=u;
++      }else {u.af291Captor=0;u._afp177CaptiveUntil=0;}
++    }
+     units=mirrored;
+     const shells=Array.isArray(snapshot.shellShots)?snapshot.shellShots.slice(0,20):[];
+@@ -27666,5 +27714,5 @@
+    - Kart enerji bedelleri, nadirlik, deste, kayıt şeması değişmez. Rastgelelik kullanılmaz (tekrar oynatma ile uyumlu). */
+ /* var: motor kapanışı kurulurken erken bir çizim çağrısı gelse bile geçici ölü bölge (TDZ) hatası oluşmaz. */
+-var AF285_VER='3.60.290';
++var AF285_VER='3.60.291';
+ var AF285_IDLE=0,AF285_WIND=1,AF285_CAST=2,AF285_REC=3;
+ var AF285_DEFS=Object.create(null);   // tür -> yetenek tanımı
+@@ -27709,5 +27757,5 @@
+   }
+   const def=af285Def(u);
+-  if(def?.onDeath)def.onDeath(u);
++  if(def?.onDeath)af291Observe(u,()=>def.onDeath(u));
+ }
+ function af285FrostDamage(att,tgt,d,kind){
+@@ -27724,5 +27772,5 @@
+   const d=af327DealDamage(v,Math.max(1,amount),{team:u.team,source:u,key:u.heroType,
+     kind:phys?'af285Physical':'af285Magic',color:color||(phys?'#f4d6a6':'#ffc48c')});
+-  if(d>0)af285Stat(u.heroType,'damage',d);
++  if(d>0){af285Stat(u.heroType,'damage',d);if(!af291EffectSource)af291Effect(u,v,0);}
+   return d;
+ }
+@@ -27741,5 +27789,46 @@
+ function af285Delay(u,v,s){if(v&&v.hp>0&&!v.isBarrier)af267DelayAttack(v,v.isBoss?s*.35:s);}
+ function af285Burn(u,v,dps,dur){if(v&&v.hp>0&&!v.isBarrier&&(v.immuneUntil||0)<=elapsed)af327AddDot(v,Math.max(1,dps),dur,'burn',u.team,u.heroType,u);}
+-function af285Later(delay,fn){if(AF285_LATER.length<48)AF285_LATER.push({t:elapsed+delay,fn});}
++function af285Later(delay,fn){
++  if(AF285_LATER.length<48)AF285_LATER.push({t:elapsed+delay,fn,source:af291EffectSource});
++}
++let af291EffectSource=null;
++const AF291_EFFECT_COLORS=['#ffc294','#78efcf','#a7c9ff','#e5b1ff','#ffd786'];
++function af291Effect(source,target,kind){
++  if(!source||!target||!AF285_DEFS[source.heroType]||target._afBattleGhost)return;
++  if(af285Fx.some(f=>f.k==='ability_result'&&f.lane===target.lane&&f.b===kind&&
++      Math.abs(f.x0-target.x)<.022&&elapsed-f.t0<.22))return;
++  af285Emit('ability_result',source,{lane:target.lane,x0:target.x,life:.58,a:target.isPortal?0:af330Uid(target),b:kind});
++  af285Stat(source.heroType,'effect');
++}
++function af291Observe(source,run){
++  if(!source)return run();
++  const now=elapsed,prior=af291EffectSource;
++  const clock=u=>Math.max(u.stunUntil||0,u.slowUntil||0,u.tslowUntil||0,u._af285MarkUntil||0,
++    u._af264RootUntil||0,u._af285DragEnd||0,u._afp177CaptiveUntil||0,u.vulnUntil||0);
++  const boon=u=>Math.max(u.buffUntil||0,u._af267TempoUntil||0,u.hasteUntil||0,u.hotUntil||0,u.drUntil||0);
++  const seen=new Map(units.filter(v=>v.hp>0&&v.lane===source.lane).map(v=>[v,
++    [v.hp,v.absorbUntil>now?v.absorb||0:0,clock(v),boon(v),v.x,Object.keys(v.dots||{}).length]]));
++  af291EffectSource=source;
++  try{return run();}
++  finally{
++    af291EffectSource=prior;
++    let shown=0;
++    for(const v of units){
++      if(v.lane!==source.lane||shown>=5)continue;
++      const was=seen.get(v);
++      let kind=-1;
++      if(!was&&v._af285SummonBy===source)kind=4;
++      else if(was){
++        const [hp,shield,control,tempo,x,dots]=was;
++        if(v.team!==source.team&&(clock(v)>Math.max(control,now)||Math.abs(v.x-x)>.012))kind=3;
++        else if((v.absorbUntil>now?v.absorb||0:0)>shield||boon(v)>Math.max(tempo,now))kind=2;
++        else if(v.hp>hp)kind=1;
++        else if(v.hp<hp||Object.keys(v.dots||{}).length>dots)kind=0;
++        else if(v===source&&Math.abs(v.x-x)>.017)kind=4;
++      }
++      if(kind>=0){af291Effect(source,v,kind);shown++;}
++    }
++  }
++}
+ 
+ /* ---- görsel olay kuyruğu (çevrim içinde seat 2'ye aynalanır) ---- */
+@@ -27775,5 +27864,5 @@
+   af285Phase(u,AF285_WIND,def.wind);
+   af285Emit('label',u,{life:Math.max(1.1,def.wind+def.cast+def.rec+.35)});
+-  if(def.onWind)def.onWind(u,c);
++  if(def.onWind)af291Observe(u,()=>def.onWind(u,c));
+   af285Stat(u.heroType,'start');
+ }
+@@ -27796,5 +27885,5 @@
+   af285Phase(u,AF285_CAST,def.cast);
+   c.hitAt=elapsed+def.cast*(def.hit==null?1:def.hit);
+-  if(def.onCast)def.onCast(u,c);
++  if(def.onCast)af291Observe(u,()=>def.onCast(u,c));
+   try{if(def.sfx&&af222Ok('af285-'+u.heroType,180,1))af222Snd(def.sfx[0],def.sfx[1]);}catch(_){}
+ }
+@@ -27802,5 +27891,5 @@
+   if(c.done)return;c.done=true;
+   if(c.t&&c.t.hp>0&&c.t.lane===c.lane)c.x=c.t.x;
+-  try{def.impact(u,c);}catch(e){console.warn('[AF285] etki hatası',u.heroType,e);}
++  try{af291Observe(u,()=>def.impact(u,c));}catch(e){console.warn('[AF285] etki hatası',u.heroType,e);}
+   af285Stat(u.heroType,'cast');
+ }
+@@ -27838,5 +27927,5 @@
+     if(elapsed<p.t){i++;continue;}
+     AF285_LATER.splice(i,1);
+-    try{p.fn();}catch(e){console.warn('[AF285] gecikmeli etki',e);}
++    try{af291Observe(p.source,p.fn);}catch(e){console.warn('[AF285] gecikmeli etki',e);}
+   }
+   const scan=(af285Scan+=dt)>=.1;if(scan)af285Scan=0;
+@@ -27949,9 +28038,28 @@
+   const pos=u?af285Pos(u):af285At(f.lane,f.x0);
+   const rise=Math.min(1,p*6),fade=p>.78?1-(p-.78)/.22:1;
+-  const size=Math.max(10,Math.min(15,H*.021));
+-  const y=pos.y-(pos.top||pos.px)-size*.9-rise*4;
++  const size=af291BossCard(f.card)?Math.max(12,Math.min(17,H*.032)):Math.max(10,Math.min(14,H*.026));
++  const y=Math.max(H*.18,pos.y-(pos.top||pos.px)-size*.65-rise*4);
+   ctx.globalAlpha=fade*Math.min(1,p*8);
+   const col=f.team==='ally'?'#bfe4ff':'#ffc4b8';
+-  af285Text(pos.x,y,(def.icon?def.icon+' ':'')+def.name.toLocaleUpperCase('tr-TR'),col,size);
++  const text=def.name.toLocaleUpperCase('tr-TR');
++  ctx.font='900 '+size+'px system-ui,sans-serif';
++  const half=ctx.measureText(text).width*.5+6;
++  const x=Math.max(half,Math.min(W-half,pos.x));
++  ctx.fillStyle='rgba(9,14,22,.78)';
++  ctx.fillRect(x-half,y-size-2,half*2,size+4);
++  af285Text(x,y,text,col,size);
++};
++AF285_VFX.ability_result=function(f,p){
++  const target=f.a?units.find(u=>u.uid===f.a&&u.lane===f.lane):null;
++  const at=target?af285Pos(target):af285At(f.lane,f.x0);
++  const r=Math.max(9,Math.min(30,at.px*.35))*(.64+.44*p);
++  ctx.globalAlpha=Math.min(1,.38+p*5)*(1-p*.85);
++  ctx.strokeStyle=AF291_EFFECT_COLORS[f.b]||AF291_EFFECT_COLORS[0];
++  ctx.lineWidth=f.b===3?2.8:2;
++  ctx.beginPath();ctx.ellipse(at.x,at.y-2,r,r*.3,0,0,Math.PI*2);ctx.stroke();
++  if(f.b===3||f.b===4||f.b===0){
++    ctx.beginPath();ctx.moveTo(at.x-r*.48,at.y-r*.7);ctx.lineTo(at.x,at.y-r*1.1);
++    ctx.lineTo(at.x+r*.48,at.y-r*.7);ctx.stroke();
++  }
+ };
+ AF285_VFX.fizzle=function(f,p){
+@@ -29482,5 +29590,5 @@
+ }
+ function af285Pushable(v){
+-  return af285Hittable(v)&&!v.isBoss&&!v.isBarrier&&!v.isCommander&&(v.immuneUntil||0)<=elapsed;
++  return af285Hittable(v)&&!v.isBoss&&v.enemyType!=='boss'&&!v._af205Boss&&!v.isBarrier&&!v.isCommander&&(v.immuneUntil||0)<=elapsed;
+ }
+ 
+@@ -29520,4 +29628,5 @@
+     return af285Front(u,.22).length&&!units.some(v=>v.hp>0&&v._af285SummonBy===u)?{t:u}:null;
+   },
++  check(u){return af285Front(u,.24).length>0&&af331CombatUnitCount()<MAX_UNITS;},
+   onWind(u){af285Effect(u,'ability_burst',u.x,this.wind,4,.88);},
+   impact(u){for(let i=0;i<2;i++)af285Spirit(u,8,.49,.49);}
+@@ -29688,9 +29797,10 @@
+     const q=Math.min(1,(elapsed-p.start)/(p.end-p.start));
+     t.x=p.from+(p.to-p.from)*af285Ease(q);
++    if(!p.moved&&Math.abs(t.x-p.from)>.012){p.moved=true;af291Effect(u,t,3);}
+     t._afTgt=null;
+     if(q>=1){
+       t._af285DragEnd=0;
+       AF285_PULLS.splice(i,1);
+-      p.finish(u,t);
++      af291Observe(u,()=>p.finish(u,t));
+     }
+   }
+@@ -29765,4 +29875,15 @@
+ };
+ 
++AF285_VFX.jaw_hold=function(f,p){
++  const carrier=af285Unit(f.a,f.team);
++  const captive=af285Unit(f.b,f.team==='ally'?'enemy':'ally');
++  if(!carrier||captive?._afp177CaptiveBy!==carrier)return;
++  const at=af285Pos(carrier),r=Math.max(10,at.px*.47);
++  ctx.strokeStyle='#edb7ff';ctx.lineWidth=2.2;ctx.globalAlpha=.72;
++  for(const side of [-1,1]){
++    ctx.beginPath();
++    ctx.ellipse(at.x,at.y-r*.8,r,r*.55,0,side>0?0:Math.PI,side>0?Math.PI:Math.PI*2);ctx.stroke();
++  }
++};
+ function af285Bite(u,t){
+   if(!af285ValidTarget(u,t,.081)||!af285Pushable(t))return;
+@@ -29772,4 +29893,5 @@
+   t._afp177CaptiveBy=u;t._afp177CaptiveUntil=elapsed+1.58;t._afp177CaptiveDamageClock=0;
+   t._afTgt=null;t._vis=null;
++  af285Emit('jaw_hold',u,{x0:u.x,life:1.58,a:af330Uid(u),b:af330Uid(t)});
+   af285LibEmit(u,'fx_shadow_strike',u.x,u.lane,.66,3,11,1.52);
+ }
+@@ -29808,5 +29930,9 @@
+   onCast(u,c){af285Bolt(u,c,this.cast,3,.5);},
+   impact(u,c){
+-    if(c.data.portal&&af285PortalRepair(u,12)){af285Effect(u,'ability_burst',c.x,.7,3,1.25);return;}
++    if(c.data.portal&&af285PortalRepair(u,12)){
++      af291Effect(u,{isPortal:true,lane:u.lane,x:c.x},1);
++      af285Effect(u,'ability_burst',c.x,.7,3,1.25);
++      return;
++    }
+     const t=c.t;
+     if(!t||!af285Allies(u,.17).includes(t))return;
+@@ -29907,4 +30033,8 @@
+       if(t.isBarrier||(t.immuneUntil||0)>elapsed)continue;
+       const span=t.isBoss?.20:.38;
++      if(!t.isBoss&&!field.seen.has(t)){
++        field.seen.add(t);
++        if(af285Stun(field.source,t,.52))af291Effect(field.source,t,3);
++      }
+       t.slowUntil=Math.max(t.slowUntil||0,elapsed+span);
+       af327Timed(t,'tslow','tslowUntil',t.isBoss?1.15:1.55,span);
+@@ -29913,5 +30043,5 @@
+ }
+ AF285_VFX.clock_field=function(f,p){
+-  const at=af285At(f.lane,f.x0),r=at.px*1.16;
++  const at=af285At(f.lane,f.x0),r=Math.abs(laneX(f.x0+.105)-at.x);
+   ctx.save();ctx.translate(at.x,at.y);
+   ctx.scale(1,.32);ctx.globalAlpha=Math.min(.87,p*9,(1-p)*5);
+@@ -29930,10 +30060,10 @@
+   group:10,role:'kontrol',status:'dönüştürüldü',name:'Kırık Saat Alanı',icon:'🕰️',
+   cd:10,first:1.18,wind:.44,cast:.28,rec:.30,retarget:true,sfx:['spell','dark'],
+-  desc:'Zemine geçici altın saat alanı kurar. Alana giren düşmanların yürüyüşü yavaşlar ve saldırı aralığı uzar.',
++  desc:'2,6 saniyeliğine saat alanı kurar. Alan uygun rakipleri ilk temasında 0,52 sn durdurur. Sonraki darbeler hareketi ve saldırıyı yavaşlatır. Dev etkinlik bosslarına sadece kısa yavaşlatma işler.', 
+   plan(u){const t=af285Front(u,.27)[0];return t?{t}:null;},
+   onCast(u,c){af285Bolt(u,c,this.cast,3,.56);},
+   impact(u,c){
+     if(!af285ValidTarget(u,c.t,.31)||AF285_CLOCKS.length>=8)return;
+-    AF285_CLOCKS.push({source:u,lane:u.lane,x:c.x,until:elapsed+2.6,next:elapsed});
++    AF285_CLOCKS.push({source:u,lane:u.lane,x:c.x,until:elapsed+2.6,next:elapsed,seen:new WeakSet()});
+     af285Emit('clock_field',u,{x0:c.x,life:2.6});
+   }
+@@ -30017,4 +30147,5 @@
+   af285Effect(t,'ability_burst',t.x,.46,5,.84);
+   af285Stat(t.heroType,'deflected');
++  af291Effect(t,t,2);
+   return true;
+ }
+@@ -30108,5 +30239,6 @@
+ AF285_VFX.hook_throw=function(f,p){
+   const a=af285At(f.lane,f.x0),b=af285At(f.lane,f.x1),q=af285Ease(p),dir=b.x>=a.x?1:-1;
+-  const x=a.x+(b.x-a.x)*q,y=a.y+(b.y-a.y)*q-a.px*.58,r=a.px*.15;
++  const reach=f.b===1?1:q;
++  const x=a.x+(b.x-a.x)*reach,y=a.y+(b.y-a.y)*reach-a.px*.58,r=a.px*.15;
+   ctx.lineWidth=2.7;ctx.strokeStyle='#d6c4a2';ctx.setLineDash([4,2]);
+   ctx.beginPath();ctx.moveTo(a.x,a.y-a.px*.58);ctx.quadraticCurveTo((a.x+x)*.5,y+r*.73,x,y);ctx.stroke();
+@@ -30143,4 +30275,5 @@
+   const visual=hook.visual;
+   visual.x1=target.x;
++  visual.b=1;
+   visual.life=Math.min(visual.life,Math.max(.05,elapsed-visual.t0));
+   af285Impact(u,c.def,c);
+@@ -30305,4 +30438,8 @@
+     x:Number.isFinite(u._af285X)?+u._af285X.toFixed(4):null,ward:Math.max(0,(u._af285Ward||0)-elapsed),aegis:Math.max(0,(u._af285Aegis||0)-elapsed)};
+ }
++window.AF291Cards=Object.freeze({
++  classify:af291CardClass,
++  list:()=>PREP_HERO_TYPES.map(id=>({id,classification:af291CardClass(id),reason:AF291_BOSS_CARDS[id]||null}))
++});
+ window.AF285Abilities=Object.freeze({
+   version:AF285_VER,
