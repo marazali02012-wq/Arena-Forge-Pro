@@ -1,0 +1,996 @@
+--- v288
++++ v290
+@@ -11572,12 +11572,13 @@
+  }
+ 
+- function drawFrame(ctx, type, state, frame, x, y, px, team, alpha, invalid = false) {
++ function drawFrame(ctx, type, state, frame, x, y, px, team, alpha, invalid = false, facing = 0) {
+    const img = get(type, state);
+    if (!ready(img)) return null;
+    const meta = geometry[type];
+    const [top, feet, front, muzzleY] = meta[state][frame];
+-   const scale = scaleFor(meta, px), size = meta.cell * scale, direction = team === 'ally' ? 1 : -1;
++   const scale = /^(af37_|afn_)/.test(type) ? px / meta.height : scaleFor(meta, px);
++   const size = meta.cell * scale, direction = facing || (team === 'ally' ? 1 : -1);
+    const lift = state === 'death' ? meta.hover * (1 - frame / 7) : meta.hover;
+-   const y0 = y - lift * px - (meta.anchor ?? feet) * scale;
++   const y0 = y - lift * px - (state === 'death' ? (meta.anchor ?? feet) : feet) * scale;
+    const col = frame % meta.cols, row = Math.floor(frame / meta.cols);
+    ctx.save();
+@@ -11628,4 +11629,5 @@
+    let state = 'idle';
+    let frame = Math.floor(Math.max(0, now + (u.phase || 0) * .21) * 6) % frames;
++   const realWind = u._af290WindEnd > now && u._af290WindEnd > u._af290WindAt;
+    const windup = Math.min(.22, Math.max(.11, (u.attackPeriod || .9) * .24));
+    const attackAge = now - st.attackAt, recovery = Math.min(.33, (u.attackPeriod || .9) * .4);
+@@ -11633,5 +11635,8 @@
+      state = 'attack';
+      frame = 3 + Math.min(4, Math.floor(attackAge / recovery * 5));
+-   } else if (!u._afBattleGhost && u._afEng && (u.stunUntil || 0) <= now && u.cd > 0 && u.cd <= windup) {
++   } else if (!u._afBattleGhost && realWind && (u.stunUntil || 0) <= now) {
++     state = 'attack';
++     frame = Math.max(0, Math.min(2, Math.floor(3 * (now-u._af290WindAt)/(u._af290WindEnd-u._af290WindAt))));
++   } else if (!u._afBattleGhost && !u._af290WindAt && u._afEng && (u.stunUntil || 0) <= now && u.cd > 0 && u.cd <= windup && !/^(af37_|afn_)/.test(type)) {
+      state = 'attack';
+      frame = Math.min(2, Math.floor((1 - u.cd / windup) * 3));
+@@ -11647,6 +11652,6 @@
+    const alpha = u._afBattleGhost ? (u._afBattleGhostValid ? .63 : .42) : (u.isEcho ? .67 : 1);
+    const useSpecial = type === 'afn_alize_bicakli' && state === 'attack' && !u._afBattleGhost;
+-   const sprite = drawFrame(ctx, type, useSpecial ? 'skill' : state, frame, x, y, px, u.team, alpha, u._afBattleGhostInvalid);
+-   return sprite || (state !== 'idle' ? drawFrame(ctx, type, 'idle', 0, x, y, px, u.team, alpha, u._afBattleGhostInvalid) : null);
++   const sprite = drawFrame(ctx, type, useSpecial ? 'skill' : state, frame, x, y, px, u.team, alpha, u._afBattleGhostInvalid, u.facingDir);
++   return sprite || (state !== 'idle' ? drawFrame(ctx, type, 'idle', 0, x, y, px, u.team, alpha, u._afBattleGhostInvalid, u.facingDir) : null);
+  }
+ 
+@@ -11815,6 +11820,6 @@
+ // The three existing cards keep their identities and cost. Placement and preview share the same geometry.
+ const AF214_SQUADS=Object.freeze({
+-  af37_kesifci:[[.020,-1,0],[-.020,1,0],[.020,-1,1],[-.020,1,1],[.020,-1,2],[-.020,1,2]],
+-  af37_iskelet_kalkanli:[[.026,0,0],[-.013,-1.25,0],[-.020,1.25,0],[.026,0,1],[-.013,-1.25,1],[-.020,1.25,1],[.026,0,2],[-.013,-1.25,2],[-.020,1.25,2]],
++  af37_kesifci:[[.033,-1,0],[-.033,1,0],[.033,-1,1],[-.033,1,1],[.033,-1,2],[-.033,1,2]],
++  af37_iskelet_kalkanli:[[.038,0,0],[0,-1.35,0],[-.038,1.35,0],[.038,0,1],[0,-1.35,1],[-.038,1.35,1],[.038,0,2],[0,-1.35,2],[-.038,1.35,2]],
+   af37_iskelet_savasci:[[.044,0],[-.008,-1.35],[-.046,1.35]],
+   af37_orman_okcu:[[.025,-1],[-.025,1]],
+@@ -11871,10 +11876,11 @@
+   const pack='group-'+team+'-'+af330Uid({});
+   return squad.map((entry,i)=>{
++    const rank=squad.slice(0,i).filter(member=>member[2]===entry[2]).length;
+     const hp=af214Share(stats.hp,i,count);
+     const unit={team,lane:entry[2]??lane,x:xs[i],hp,maxHp:hp,speed:(enemy?-1:1)*stats.speed,
+       mass:Math.max(45,stats.mass/Math.sqrt(count)),power:af214Share(stats.power,i,count),
+-      atk:af214Share(stats.atk,i,count),cd:.17+.12*i,attackPeriod:stats.period,phase:Math.random()*7,
++      atk:af214Share(stats.atk,i,count),cd:.17+.12*rank,attackPeriod:stats.period,phase:Math.random()*7,
+       heroType:type,level,isHero:false,isRoster:true,spawnedAt:elapsed,showLabelUntil:0,
+-      facingDir:enemy?-1:1,_af214GroupMember:true,_afSkeletonPack:pack,_afSkeletonCloneSide:entry[1]};
++      facingDir:enemy?-1:1,_af214GroupMember:true,_af290Group:pack,_afSkeletonCloneSide:entry[1]};
+     units.push(unit);
+     af264Start(unit);
+@@ -11912,4 +11918,16 @@
+ // v3.78.63: captures actual portal damage within the current simulation frame during overtime.
+ let af327OTDamageFrame=null;
++// v3.79.00 FIX: portal canı tek gerçek değerdir. Doğrudan yazılan yollar (uzatma baskısı, onarım, eşitleme) kesirli
++// veya geçersiz değer bırakabiliyordu: 0 < can < 1 değeri ekranda "0" görünürken portal yıkılmıyor, NaN ise
++// "can<=0" kontrolünü hiç geçmediği için savaş bitmiyordu. Her karede son geçerli değere döner, <1 kalıntı 0 olur.
++const af379PortalLast={enemy:null,ally:null};
++function af379NormalizePortalHP(){
++  const fix=(v,max,last)=>{let n=Number(v);if(!Number.isFinite(n))n=Number.isFinite(last)?last:max;n=Math.max(0,n);if(n>0&&n<1)n=0;return n;};
++  const e=fix(enemySharedHP,TOWER_MAX_HP,af379PortalLast.enemy),a=fix(allySharedHP,Math.max(1,allyTowerMax),af379PortalLast.ally);
++  if(e!==enemySharedHP||enemyLaneHP[0]!==e||enemyLaneHP[1]!==e||enemyLaneHP[2]!==e){enemySharedHP=e;enemyLaneHP=[e,e,e];}
++  if(a!==allySharedHP||allyLaneHP[0]!==a||allyLaneHP[1]!==a||allyLaneHP[2]!==a){allySharedHP=a;allyLaneHP=[a,a,a];}
++  af379PortalLast.enemy=e;af379PortalLast.ally=a;
++}
++function af379PortalHPText(v){v=Number(v)||0;return String(v<=0?0:Math.max(1,Math.ceil(v-1e-9)));}
+ function af347SharedHPProxy(side){
+   const target=[0,0,0];
+@@ -11919,5 +11937,8 @@
+       if(p==='0'||p==='1'||p==='2'){
+         const max=side==='enemy'?TOWER_MAX_HP:allyTowerMax;
+-        const rawV=Number(v)||0;let next=Math.max(0,Math.min(max,rawV));
++        // v3.79.00 FIX: Number(NaN)||0 used to turn an invalid hit into an instant 0 HP portal.
++        // A non-finite value is rejected and the current, valid HP is kept.
++        if(!Number.isFinite(Number(v))){window.__afPortalInvalidWrites=(window.__afPortalInvalidWrites||0)+1;return true;}
++        const rawV=Number(v);let next=Math.max(0,Math.min(max,rawV));
+         /* v3.40.57: one portal-damage normaliser for every source (melee, ranged, splash, spells). Damage dealt to a lane's portal is scaled so that
+            more than 3 simultaneous attackers on that lane never out-damage 3 (loss * 3/n). Heals, regen and resets (increases) are untouched. */
+@@ -13402,8 +13423,8 @@
+ 
+ const AF268_GUNS=Object.freeze({
+- afn_el_arabali_topcu:{range:.43,portal:.43,portalMul:.58,unitMul:.78,area:.106,reload:1.13},
+- af37_savas_muhendisi:{range:.38,portal:.37,portalMul:.78,unitMul:1,area:.092,reload:1.08}
++ afn_el_arabali_topcu:{range:.349,portal:.329,portalMul:.58,unitMul:1,area:.096,reload:1},
++ af37_savas_muhendisi:{range:.325,portal:.305,portalMul:.78,unitMul:1,area:.087,reload:1}
+ });
+-function af268Gun(u){return u&&!u.enemyType?AF268_GUNS[u.heroType]||null:null;}
++function af268Gun(u){return u&&!u.enemyType&&!u.isBoss?AF268_GUNS[u.heroType]||null:null;}
+ const AF264_COST=Object.freeze({
+   afn_ayaz_kalkanlisi:4,afn_el_arabali_topcu:2,af37_orman_okcu:1,af37_golge_suikastci:3,
+@@ -13411,68 +13432,134 @@
+   afn_kok_titani:7,af37_zehirci:4,afn_toprak_yarici:6
+ });
+-// Base energy, total card HP, basic attack DPS and individual body height.
+-const AF288_CARDS=Object.freeze({
+-  af37_agir_zirhli: [5, 245, 17, 76],
+-  af37_alev_muhafizi: [4, 210, 18, 72],
+-  af37_alev_silahcisi: [4, 96, 31, 59],
+-  af37_altin_muhafiz: [5, 211, 19, 72],
+-  af37_arbaletci: [3, 80, 28, 58],
+-  afn_firtina_baglayici: [4, 98, 24, 61],
+-  af37_ates_buyucusu: [5, 105, 34, 63],
+-  af37_ates_elementali: [4, 165, 29, 68],
+-  af37_buz_elementali: [4, 155, 24, 67],
+-  af37_buz_muhafizi: [4, 220, 16, 73],
+-  af37_orman_ruhu: [4, 128, 21, 63],
+-  af37_buz_sovalyesi: [5, 248, 21, 74],
+-  af37_cuce_savasci: [2, 140, 14, 53],
+-  af37_dovus_ustasi: [2, 85, 22, 56],
+-  af37_dovus_ustasi_ii: [3, 117, 26, 61],
+-  af37_elit_kadin_savasci: [4, 150, 30, 64],
+-  af37_golge_avcisi: [3, 91, 27, 56],
+-  af37_golge_buyucusu: [4, 96, 28, 61],
+-  af37_golge_suikastci: [4, 102, 32, 56],
+-  af37_isik_sifacisi: [3, 96, 15, 57],
+-  afn_kar_fenercisi: [2, 81, 12, 54],
+-  af37_iskelet_kalkanli: [5, 198, 27, 47],
+-  af37_iskelet_savasci: [1, 54, 15, 46],
+-  af37_kesifci: [4, 102, 29, 48],
+-  af37_kilicli_asker: [2, 100, 22, 52],
+-  af37_kristal_golem: [7, 348, 26, 84],
+-  af37_lav_golemi: [6, 276, 27, 81],
+-  af37_mavi_buyucu: [3, 84, 25, 58],
+-  af37_muhendis_nisanci: [4, 90, 30, 60],
+-  af37_nekromanci: [5, 118, 24, 64],
+-  af37_ork_savasci: [3, 142, 25, 66],
+-  af37_orman_okcu: [2, 66, 22, 52],
+-  af37_ruh_cagirici: [4, 105, 19, 60],
+-  af37_samuray: [4, 126, 32, 62],
+-  af37_savas_muhendisi: [5, 118, 32, 68],
+-  af37_tas_devi: [6, 304, 25, 83],
+-  af37_zehirci: [3, 82, 22, 57],
+-  afn_alize_bicakli: [3, 98, 27, 56],
+-  afn_ayaz_kalkanlisi: [3, 176, 15, 65],
+-  afn_bulut_dalgici: [4, 108, 29, 59],
+-  afn_buz_zurnacisi: [3, 102, 16, 57],
+-  afn_donuk_mizrakci: [3, 105, 24, 62],
+-  afn_el_arabali_topcu: [5, 108, 35, 69],
+-  afn_gece_yirticisi: [5, 137, 26, 70],
+-  afn_kapi_ustasi: [3, 112, 16, 60],
+-  af37_kizil_duellocu: [3, 108, 28, 59],
+-  afn_kehribar_sovalye: [4, 203, 19, 70],
+-  afn_kiragi_dokuyucusu: [3, 89, 21, 58],
+-  afn_kirik_kuklaci: [4, 106, 21, 60],
+-  afn_kirik_saat_efendisi: [5, 121, 23, 66],
+-  afn_kok_titani: [7, 322, 28, 85],
+-  afn_kutup_kiricisi: [5, 205, 30, 75],
+-  afn_mantar_davulcusu: [2, 88, 13, 51],
+-  afn_ocak_dovucusu: [3, 127, 20, 62],
+-  afn_sedef_pervane: [3, 143, 17, 58],
+-  afn_sicrayan_kocbasi: [5, 196, 27, 73],
+-  afn_toprak_yarici: [6, 198, 30, 74],
+-  afn_zincir_kiran: [4, 164, 22, 69],
+-  mage: [3, 85, 24, 59],
++/* v290: visual height, body radius and attack reach are independent.
++   HP and hit points are card totals, deterministically shared across group members. */
++const AF290_ROLES=Object.freeze({
++  tank:          ['melee', .105, .16, .024],
++  giant:         ['melee', .090, .23, .029],
++  giant_area:    ['melee', .090, .19, .029, .084, .40],
++  heavy:         ['melee', .115, .10, .022],
++  fighter:       ['melee', .155, .04, .018],
++  fast:          ['melee', .180, .02, .016],
++  assassin:      ['melee', .195, .00, .015],
++  spear:         ['melee', .155, .03, .017],
++  hook:          ['melee', .145, .08, .020],
++  swarm:         ['melee', .175, .00, .012],
++  swarm_archer:  ['bow',   .170, .00, .012, 0, 0, 1.17],
++  archer:        ['bow',   .155, .00, .016, 0, 0, 1.32],
++  shooter:       ['bow',   .150, .01, .017, 0, 0, 1.31],
++  artillery:     ['shell', .140, .03, .022, 0, 0, .70],
++  magic:         ['cast',  .140, .03, .018, 0, 0, .91],
++  area:          ['cast',  .135, .02, .018, .078, .46, .87],
++  area_melee:    ['melee', .145, .06, .022, .074, .38],
++  support:       ['cast',  .155, .02, .018, 0, 0, .94],
++  support_melee: ['melee', .155, .05, .018],
++  control:       ['cast',  .140, .03, .018, 0, 0, .92]
+ });
++const AF290_CARDS=Object.freeze(Object.fromEntries(Object.entries({
++  af37_agir_zirhli: ['tank', 5, 258, 26, 1.46, .052, .075, 1.36],
++  af37_alev_muhafizi: ['tank', 4, 202, 24, 1.32, .059, .075, 1.28],
++  af37_alev_silahcisi: ['shooter', 3, 99, 28, 1.05, .071, .19, 1.00],
++  af37_altin_muhafiz: ['tank', 5, 213, 25, 1.42, .056, .078, 1.30],
++  af37_arbaletci: ['archer', 3, 82, 31, 1.23, .079, .245, .93],
++  afn_firtina_baglayici: ['magic', 4, 104, 24, 1.15, .071, .192, 1.03],
++  af37_ates_buyucusu: ['area', 5, 107, 31, 1.36, .067, .206, 1.06],
++  af37_ates_elementali: ['fighter', 4, 155, 28, 1.12, .076, .071, 1.19],
++  af37_buz_elementali: ['fighter', 4, 162, 25, 1.23, .069, .075, 1.20],
++  af37_buz_muhafizi: ['tank', 4, 216, 23, 1.43, .052, .079, 1.33],
++  af37_orman_ruhu: ['support_melee', 3, 140, 20, 1.24, .069, .080, 1.15],
++  af37_buz_sovalyesi: ['tank', 5, 236, 29, 1.43, .057, .080, 1.38],
++  af37_cuce_savasci: ['tank', 2, 133, 18, 1.22, .065, .065, .94],
++  af37_dovus_ustasi: ['fast', 2, 92, 18, .86, .105, .061, .92],
++  af37_dovus_ustasi_ii: ['fighter', 3, 123, 24, 1.03, .091, .067, 1.00],
++  af37_elit_kadin_savasci: ['fighter', 4, 151, 29, 1.03, .088, .071, 1.00],
++  af37_golge_avcisi: ['assassin', 3, 89, 22, .88, .110, .066, .88],
++  af37_golge_buyucusu: ['magic', 4, 101, 27, 1.25, .072, .191, 1.00],
++  af37_golge_suikastci: ['assassin', 4, 99, 26, .84, .117, .064, .91],
++  af37_isik_sifacisi: ['support', 3, 97, 16, 1.14, .073, .153, .93],
++  afn_kar_fenercisi: ['support', 2, 84, 11, 1.16, .075, .145, .88],
++  af37_iskelet_kalkanli: ['swarm', 5, 261, 45, .94, .101, .074, .72],
++  af37_iskelet_savasci: ['swarm', 1, 69, 15, 1.00, .095, .056, .68],
++  af37_kesifci: ['swarm_archer', 4, 216, 36, 1.04, .095, .196, .79],
++  af37_kilicli_asker: ['swarm', 2, 106, 22, 1.03, .088, .066, .79],
++  af37_kristal_golem: ['giant', 7, 338, 42, 1.76, .040, .092, 1.74],
++  af37_lav_golemi: ['giant_area', 6, 277, 38, 1.70, .045, .090, 1.65],
++  af37_mavi_buyucu: ['area', 3, 84, 22, 1.22, .075, .165, .97],
++  af37_muhendis_nisanci: ['archer', 4, 89, 39, 1.46, .067, .270, 1.00],
++  af37_nekromanci: ['support', 5, 123, 24, 1.28, .068, .172, 1.05],
++  af37_ork_savasci: ['area_melee', 3, 137, 25, 1.16, .076, .076, 1.23],
++  af37_orman_okcu: ['swarm_archer', 2, 76, 22, 1.08, .082, .192, .88],
++  af37_ruh_cagirici: ['support', 4, 109, 20, 1.23, .070, .155, 1.00],
++  af37_samuray: ['fast', 4, 132, 25, .88, .100, .071, 1.00],
++  af37_savas_muhendisi: ['artillery', 5, 112, 36, 1.52, .052, .325, 1.18],
++  af37_tas_devi: ['giant_area', 6, 303, 39, 1.67, .043, .092, 1.69],
++  af37_zehirci: ['shooter', 3, 90, 22, 1.12, .083, .177, .90],
++  afn_alize_bicakli: ['assassin', 3, 97, 19, .73, .115, .061, .87],
++  afn_ayaz_kalkanlisi: ['tank', 3, 166, 20, 1.24, .063, .073, 1.16],
++  afn_bulut_dalgici: ['assassin', 4, 110, 24, .91, .109, .064, .93],
++  afn_buz_zurnacisi: ['support', 3, 102, 14, 1.16, .076, .154, .94],
++  afn_donuk_mizrakci: ['spear', 3, 110, 24, 1.08, .084, .109, 1.00],
++  afn_el_arabali_topcu: ['artillery', 5, 104, 41, 1.60, .049, .349, 1.19],
++  afn_gece_yirticisi: ['assassin', 5, 132, 26, 1.06, .100, .075, 1.23],
++  afn_kapi_ustasi: ['support_melee', 3, 118, 18, 1.22, .070, .067, 1.00],
++  af37_kizil_duellocu: ['fast', 3, 111, 22, .85, .101, .067, 1.00],
++  afn_kehribar_sovalye: ['tank', 4, 196, 25, 1.33, .062, .081, 1.26],
++  afn_kiragi_dokuyucusu: ['magic', 3, 91, 22, 1.20, .075, .172, .94],
++  afn_kirik_kuklaci: ['control', 4, 111, 21, 1.25, .074, .169, 1.00],
++  afn_kirik_saat_efendisi: ['control', 5, 124, 24, 1.40, .065, .171, 1.10],
++  afn_kok_titani: ['giant_area', 7, 324, 45, 1.88, .041, .097, 1.78],
++  afn_kutup_kiricisi: ['heavy', 5, 211, 35, 1.32, .065, .084, 1.36],
++  afn_mantar_davulcusu: ['support_melee', 2, 91, 13, 1.16, .077, .063, .86],
++  afn_ocak_dovucusu: ['fighter', 3, 133, 22, 1.10, .082, .073, 1.08],
++  afn_sedef_pervane: ['tank', 3, 145, 20, 1.23, .067, .069, 1.04],
++  afn_sicrayan_kocbasi: ['heavy', 5, 190, 33, 1.45, .072, .083, 1.32],
++  afn_toprak_yarici: ['heavy', 5, 194, 31, 1.15, .076, .077, 1.36],
++  afn_zincir_kiran: ['hook', 4, 169, 24, 1.15, .077, .078, 1.20],
++  mage: ['area', 3, 85, 22, 1.24, .077, .176, 1.00],
++}).map(([id,row])=>{
++  const [role,energy,maxHp,hit,period,moveSpeed,range,renderScale]=row;
++  const [delivery,tempo,armor,radius,splashRadius=0,splash=0,projectileSpeed=0]=AF290_ROLES[role];
++  const wind=+Math.min(.29,Math.max(.11,period*(1-tempo*5))).toFixed(3);
++  return [id,Object.freeze({id,role,energy,maxHp,hit,period,moveSpeed,range,renderScale,
++    delivery,wind,armor,radius,splashRadius,splash,projectileSpeed,target:'same-lane-enemy-or-portal',
++    count:af214MemberCount(id),dps:hit/period,wait:period-wind,get name(){return HERO_INFO[id].name;},
++    get ability(){return AF285_DEFS[id];}})];
++})));
++function af290Unit(u){
++  return u&&!u.enemyType&&!u.isBoss&&!u.isCommander&&!u._af205Boss&&!u.isBarrier&&!u.isSummon
++    ? AF290_CARDS[u.heroType] : undefined;
++}
++function af290BasicReady(u,target){
++  const card=af290Unit(u);
++  if(!card)return u.cd<=0;
++  const wind=Math.min(card.wind,u.attackPeriod*.47);
++  if(u._af290WindEnd&&u._af290Target!==target)af290CancelBasic(u);
++  if(!u._af290WindEnd&&u.cd<=wind+.025){
++    u._af290Target=target;
++    u.cd=Math.max(u.cd,wind);
++    u._af290WindAt=elapsed;
++    u._af290WindEnd=elapsed+u.cd;
++    return false;
++  }
++  if(!u._af290WindEnd||u.cd>1e-8)return false;
++  af290CancelBasic(u);
++  return true;
++}
++function af290CancelBasic(u){
++  if(!u._af290WindEnd)return;
++  u._af290WindAt=0;u._af290WindEnd=0;u._af290Target=null;
++}
++function af290Matchup(attacker,target){
++  const a=af290Unit(attacker),b=af290Unit(target);
++  if(!a||!b)return null;
++  if(af287Answer(attacker,target))return 1.10;
++  if(a.role==='assassin'&&b.delivery!=='melee')return 1.12;
++  if(a.role==='magic'&&b.armor>=.14)return 1.10;
++  if(a.splash>0&&b.count>=3)return 1.08;
++  if(a.role==='hook'&&b.delivery!=='melee')return 1.10;
++  return 1;
++}
++
+ function energyCost(type){
+-  if(Object.hasOwn(AF288_CARDS,type))return AF288_CARDS[type][0];
++  if(Object.hasOwn(AF290_CARDS,type))return AF290_CARDS[type].energy;
+   const explicit={afn_lav_kiskaci:6,archer:2,warrior:3,spearman:2,guardian:4,assassin:3,healer:3,ranger:2,mage:4,orc:6,paladin:4,necromancer:4,berserker:3,frostmage:4,golem:6,
+     stormknight:3,shadowblade:3,sunpriest:4,emberwitch:4,thornbeast:4,moonarcher:2,ironbrawler:3,windrider:3,stormcaller:4,venomassassin:3,runeguard:4,flameguard:4,crystalpriest:4,duskrogue:3,lava_giant:6,frostwolf:4,skyknight:4,bogshaman:4,sandstriker:3,voidreaper:5,goldenlion:5,ravenmage:4,wilddruid:4,boneknight:4,thunderbeast:5,mistwalker:3,bloodduelist:3,staroracle:5,deepguard:4,ashranger:3,riftwalker:4,spiritfox:3,warboar:5,glacierguard:4,nightprince:5,phoenixadept:5,skeleton_clone:1};
+@@ -13582,5 +13669,10 @@
+ }
+ function renderBattleRoster(){
+-  const root=$('battleRoster');if(!root)return;root.innerHTML='';
++  const root=$('battleRoster');if(!root)return;
++  // v3.79.00 FIX: never destroy the card the finger is holding. A rebuild requested during a drag
++  // (timed card draw, spell draw, discount) is applied as soon as the drag ends.
++  if(afBattleDragState&&!afBattleDragState.finishing){afBattleRosterRebuildPending=true;try{updateBattleRosterLive();}catch(_){}return;}
++  afBattleRosterRebuildPending=false;
++  root.innerHTML='';
+   const roster=battleHandSlots.map(id=>battleCardMap[id]).filter(card=>card&&HERO_INFO[card.type]&&isUnlocked(card.type));
+   roster.forEach((card,displayIndex)=>{
+@@ -13604,9 +13696,8 @@
+     // v3.78.19: only the in-battle hand card owns drag input. A tap/click never selects or plays it.
+     b.addEventListener('pointerdown',ev=>afBattleDragStart(ev,b,card));
+-    b.addEventListener('pointermove',ev=>afBattleDragMove(ev));
+-    b.addEventListener('pointerup',ev=>afBattleDragFinish(ev,false));
+-    b.addEventListener('pointercancel',ev=>afBattleDragFinish(ev,true));
+-    b.addEventListener('lostpointercapture',ev=>{if(afBattleDragState&&afBattleDragState.pointerId===ev.pointerId)afBattleDragFinish(ev,true,true);});
++    // v3.79.00 FIX: move/up/cancel are tracked on window (afBattleDragBindGlobal). A button-only listener
++    // lost the release whenever the hand was rebuilt mid-drag (card draw), leaving a stuck ghost and no spawn.
+     b.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();});
++    b.addEventListener('contextmenu',ev=>{ev.preventDefault();});
+     root.appendChild(b);
+   });
+@@ -13637,14 +13728,53 @@
+ 
+ // v3.78.19 — battle-hand drag/drop coordinator. It never inserts preview objects into units[].
++// v3.79.00 FIX (kök neden): pointermove/up/cancel olayları yalnızca kart düğmesine bağlıydı. Sürükleme sırasında el
++// yeniden çizildiğinde (kart çekme, büyü etkisi) düğme DOM'dan sökülüyor, pointer yakalama belgeye düşüyor ve parmak
++// kalkınca hiçbir dinleyici çalışmıyordu: afBattleDragState sonsuza dek dolu kalıyor, şeffaf hayalet sahada asılı
++// kalıyor ve minyon çıkmıyordu. Artık sürükleme pencere düzeyinde izlenir, el yenilemesi sürükleme bitene kadar ertelenir
++// ve oturum her çıkış yolunda (bırakma, iptal, touchcancel, odak kaybı, savaş sonu/başlangıcı) tek noktada temizlenir.
++var afBattleRosterRebuildPending=false;
++function afBattleDragFlushRoster(){
++  if(!afBattleRosterRebuildPending||afBattleDragState)return;
++  afBattleRosterRebuildPending=false;
++  try{if(playing)renderBattleRoster();else updateBattleRosterLive();}catch(_){}
++}
++function afBattleDragRelease(d,lostCapture){
++  try{if(d&&d.button){d.button.classList.remove('af-battle-dragging');if(!lostCapture&&d.button.hasPointerCapture&&d.button.hasPointerCapture(d.pointerId))d.button.releasePointerCapture(d.pointerId);}}catch(_){}
++  if(d){d.preview=false;d.ghostUnits=[];d.result=null;}
++}
++function afBattleDragAbort(reason){
++  const d=afBattleDragState;if(!d)return false;
++  afBattleDragCancel(d);
++  window.__afBattleDragAborts=(window.__afBattleDragAborts||0)+1;window.__afBattleDragLastAbort=String(reason||'abort');
++  return true;
++}
++function afBattleDragBindGlobal(){
++  if(window.__afBattleDragGlobalBound)return;window.__afBattleDragGlobalBound=true;
++  const opt={capture:true,passive:false};
++  window.addEventListener('pointermove',ev=>{if(afBattleDragState&&ev.pointerId===afBattleDragState.pointerId)afBattleDragMove(ev);},opt);
++  window.addEventListener('pointerup',ev=>{if(afBattleDragState&&ev.pointerId===afBattleDragState.pointerId)afBattleDragFinish(ev,false);},opt);
++  window.addEventListener('pointercancel',ev=>{if(afBattleDragState&&ev.pointerId===afBattleDragState.pointerId)afBattleDragFinish(ev,true);},opt);
++  // Android WebView güvenlik ağı: touchcancel her zaman pointercancel üretmez; touchend gelip pointerup kaybolursa son konumda bırakılır.
++  window.addEventListener('touchcancel',()=>{const d=afBattleDragState;if(d&&d.pointerType==='touch')afBattleDragAbort('touchcancel');},{capture:true,passive:true});
++  window.addEventListener('touchend',ev=>{
++    const d=afBattleDragState;if(!d||d.pointerType!=='touch'||(ev.touches&&ev.touches.length))return;
++    const t=ev.changedTouches&&ev.changedTouches[0],cx=t?t.clientX:d.clientX,cy=t?t.clientY:d.clientY;
++    setTimeout(()=>{if(afBattleDragState===d)afBattleDragFinish({pointerId:d.pointerId,clientX:cx,clientY:cy},false,true);},0);
++  },{capture:true,passive:true});
++  window.addEventListener('blur',()=>afBattleDragAbort('blur'));
++  window.addEventListener('pagehide',()=>afBattleDragAbort('pagehide'));
++  document.addEventListener('visibilitychange',()=>{if(document.hidden)afBattleDragAbort('hidden');});
++}
+ function afBattleDragStart(ev,button,card){
+   if(!playing||battlePaused||!card||!battleHandSlots.includes(card.id))return;
+   if(ev.isPrimary===false||(ev.pointerType==='mouse'&&ev.button!==0))return;
++  afBattleDragBindGlobal();
+   if(afBattleDragState)afBattleDragCancel(afBattleDragState);
+   ev.preventDefault();
+   button._afSuppressClick=true;
+-  const state={pointerId:ev.pointerId,button,cardId:card.id,type:card.type,startX:ev.clientX,startY:ev.clientY,clientX:ev.clientX,clientY:ev.clientY,moved:false,preview:false,previousSelectedId:selectedBattleCardId,previousSelectedSlot:selectedBattleSlot,previousSelectedType:selectedBattleType,ghostUnits:[],result:null};
++  const state={pointerId:ev.pointerId,pointerType:ev.pointerType||'',button,cardId:card.id,type:card.type,startX:ev.clientX,startY:ev.clientY,clientX:ev.clientX,clientY:ev.clientY,moved:false,preview:false,finishing:false,previousSelectedId:selectedBattleCardId,previousSelectedSlot:selectedBattleSlot,previousSelectedType:selectedBattleType,ghostUnits:[],result:null,startedAt:elapsed};
+   afBattleDragState=state;
+   button.classList.add('af-battle-dragging');
+-  try{button.setPointerCapture(ev.pointerId);}catch(_){/* Pointer capture is supported by current Android Chromium; cancellation remains safe without it. */}
++  try{button.setPointerCapture(ev.pointerId);}catch(_){/* Pointer capture is optional; window listeners own the drag. */}
+   af274Audio();af274Beep('card');af274Vibrate(8);
+   if(tutorialActive&&tutorialStep===1)af274TutorialAdvance(2);
+@@ -13652,5 +13782,5 @@
+ function afBattleDragMove(ev){
+   const d=afBattleDragState;if(!d||ev.pointerId!==d.pointerId)return;
+-  ev.preventDefault();d.clientX=ev.clientX;d.clientY=ev.clientY;
++  if(ev.cancelable)ev.preventDefault();d.clientX=ev.clientX;d.clientY=ev.clientY;
+   if(!d.moved&&Math.hypot(d.clientX-d.startX,d.clientY-d.startY)>=7){d.moved=true;d.preview=true;}
+ }
+@@ -13658,34 +13788,40 @@
+   d=d||afBattleDragState;if(!d)return;
+   if(afBattleDragState===d)afBattleDragState=null;
+-  try{if(d.button){d.button.classList.remove('af-battle-dragging');if(d.button.hasPointerCapture&&d.button.hasPointerCapture(d.pointerId))d.button.releasePointerCapture(d.pointerId);}}catch(_){}
++  afBattleDragRelease(d,false);
+   // A cancelled drag does not leave a selected card or mutate hand/energy state.
+   selectedBattleCardId=d.previousSelectedId;selectedBattleSlot=d.previousSelectedSlot;selectedBattleType=d.previousSelectedType;
+   try{updateBattleRosterLive();}catch(_){}
++  afBattleDragFlushRoster();
+ }
+ function afBattleDragFinish(ev,cancelled=false,lostCapture=false){
+-  const d=afBattleDragState;if(!d||ev.pointerId!==d.pointerId)return;
++  const d=afBattleDragState;if(!d||ev.pointerId!==d.pointerId||d.finishing)return;
+   if(ev.clientX!=null){d.clientX=ev.clientX;d.clientY=ev.clientY;}
+   if(cancelled||!d.moved||!playing||battlePaused){afBattleDragCancel(d);return;}
+-  const lastResult=d.result;
+-  const pointerStillAtPreview=!!(lastResult&&Number.isFinite(lastResult.pointerX)&&Math.hypot(d.clientX-lastResult.pointerX,d.clientY-lastResult.pointerY)<=1.5);
+-  const result=pointerStillAtPreview?lastResult:afBattleResolveGhostPlacement(d);d.result=result;
+-  if(!result||!result.fieldValid||!result.valid){
+-    showNotice(result&&result.code==='energy'?'Enerji yetersiz.':result&&result.code==='cooldown'?'Kart beklemede.':'Birliği taş yola, düşmanın arkasındaki boş alana bırak.');
+-    afBattleDragCancel(d);return;
+-  }
+-  const previous={id:d.previousSelectedId,slot:d.previousSelectedSlot,type:d.previousSelectedType,lane:selectedLane,laneChosen,tutorialStep};
+-  selectedBattleCardId=d.cardId;selectedBattleSlot=battleHandSlots.indexOf(d.cardId);selectedBattleType=d.type;
+-  const played=chooseLane(result.lane,result.deployMode==='behind-enemy'?'drag-behind':'drag',result.requestedX,result.deployMode==='behind-enemy'?result.xs:null);
+-  if(!played){
+-    const draggedCardStillInHand=battleHandSlots.includes(d.cardId);
+-    selectedBattleCardId=draggedCardStillInHand?d.cardId:previous.id;
+-    selectedBattleSlot=draggedCardStillInHand?battleHandSlots.indexOf(d.cardId):previous.slot;
+-    selectedBattleType=draggedCardStillInHand?d.type:previous.type;
+-    selectedLane=previous.lane;laneChosen=previous.laneChosen;tutorialStep=previous.tutorialStep;
+-    updateBattleRosterLive();updateHUD();
++  d.finishing=true;
++  try{
++    // v3.79.00 FIX: the drop is always resolved against the current battlefield at release time.
++    // Reusing the previous frame's preview could hand stale enemy-rear coordinates to the validator.
++    const result=afBattleResolveGhostPlacement(d);d.result=result;
++    if(!result||!result.fieldValid||!result.valid){
++      showNotice(result&&result.code==='energy'?'Enerji yetersiz.':result&&result.code==='cooldown'?'Kart beklemede.':result&&result.code==='field_full'?'Saha dolu! Yeni birlik gönderilemiyor.':'Birliği taş yola, düşmanın arkasındaki boş alana bırak.');
++      afBattleDragCancel(d);return;
++    }
++    const previous={id:d.previousSelectedId,slot:d.previousSelectedSlot,type:d.previousSelectedType,lane:selectedLane,laneChosen,tutorialStep};
++    selectedBattleCardId=d.cardId;selectedBattleSlot=battleHandSlots.indexOf(d.cardId);selectedBattleType=d.type;
++    let played=false;
++    try{played=chooseLane(result.lane,result.deployMode==='behind-enemy'?'drag-behind':'drag',result.requestedX,result.deployMode==='behind-enemy'?result.xs:null);}
++    catch(err){played=false;console.error('[v3.79.00] Kart bırakma hatası',err);}
++    if(!played){
++      // Failed command: no energy was spent (af330ApplyAllyPlay is the only place that subtracts it).
++      selectedBattleCardId=previous.id;selectedBattleSlot=previous.slot;selectedBattleType=previous.type;
++      selectedLane=previous.lane;laneChosen=previous.laneChosen;tutorialStep=previous.tutorialStep;
++      try{updateBattleRosterLive();updateHUD();}catch(_){}
++    }
++    // On success chooseLane has already cycled the card and cleared active selection.
++  }finally{
++    if(afBattleDragState===d)afBattleDragState=null;
++    afBattleDragRelease(d,lostCapture);
++    afBattleDragFlushRoster();
+   }
+-  // On success chooseLane has already cycled the card and cleared active selection.
+-  if(afBattleDragState===d)afBattleDragState=null;
+-  try{d.button.classList.remove('af-battle-dragging');if(!lostCapture&&d.button.hasPointerCapture&&d.button.hasPointerCapture(d.pointerId))d.button.releasePointerCapture(d.pointerId);}catch(_){}
+ }
+ function afBattleGhostXs(type,lane,requestedX,behindEnemy=false){
+@@ -13708,5 +13844,6 @@
+   const x=(d.clientX-rect.left)*(W/rect.width),y=(d.clientY-rect.top)*(H/rect.height);
+   const panel=document.querySelector('.bottom'),panelRect=panel?panel.getBoundingClientRect():null;
+-  const panelTopLocal=panelRect?panelRect.top-rect.top:H*.62;
++  // v3.79.00: the panel edge is converted with the same CSS→canvas scale as the pointer (was mixed units).
++  const panelTopLocal=panelRect?(panelRect.top-rect.top)*(H/rect.height):H*.62;
+   let lane=0,bestDist=Infinity;
+   for(let i=0;i<3;i++){const dist=Math.abs(y-laneY(i,Math.max(0,Math.min(W,x))));if(dist<bestDist){bestDist=dist;lane=i;}}
+@@ -13737,5 +13874,6 @@
+ }
+ function afBattleDrawGhost(){
+-  const d=afBattleDragState;if(!d||!d.preview||!playing||battlePaused)return;
++  const d=afBattleDragState;if(d&&!playing){afBattleDragAbort('not-playing');return;}
++  if(!d||!d.preview||!playing||battlePaused)return;
+   try{
+     const r=afBattleResolveGhostPlacement(d);if(!r)return;d.result=r;
+@@ -13749,5 +13887,5 @@
+       u._afSkeletonCloneSide=squad?squad[i][1]:d.type==='skeleton_clone'?(i===1?-.65:i===2?.65:0):0;
+       u._afBattleGhostValid=r.valid;u._afBattleGhostInvalid=!r.valid;u._afBattleGhostDirect=directReady;
+-      if(directReady){const R=af320Resolve(u),px=af320PxFor(R.cls,u.lane,R.artBulk??R.bulk);u._vis={x:laneX(u.x),y:u._afBattleGhostY,top:px,px,cls:R.cls,C:AF320_CLASSES[R.cls],blue:true};}
++      if(directReady){const R=af320Resolve(u),px=af320PxFor(R.cls,u.lane,R.artBulk??R.bulk,!!af290Unit(u));u._vis={x:laneX(u.x),y:u._afBattleGhostY,top:px,px,cls:R.cls,C:AF320_CLASSES[R.cls],blue:true};}
+       else drawHero(u);
+     }
+@@ -13782,5 +13920,5 @@
+     let saved=false;
+     try{
+-      const R=af320Resolve(u),px=af320PxFor(R.cls,u.lane,R.artBulk??R.bulk),x=laneX(u.x),y=(Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))+(u._af214GroupMember?u._afSkeletonCloneSide*px*.15:0);
++      const R=af320Resolve(u),px=af320PxFor(R.cls,u.lane,R.artBulk??R.bulk,!!af290Unit(u)),x=laneX(u.x),y=(Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))+(u._af214GroupMember?u._afSkeletonCloneSide*px*.15:0);
+       let k=px/m.coreH;
+       if(m.b.w*k>px*1.3)k=px*1.3/m.b.w;
+@@ -13833,5 +13971,7 @@
+  for(const id of equipped){const r=relicTable[id];if(r)for(const k of Object.keys(r))relicMods[k]*=r[k];}
+  relicMods.hp=Math.min(1.2,relicMods.hp);relicMods.atk=Math.min(1.15,relicMods.atk);relicMods.speed=Math.min(1.1,relicMods.speed);relicMods.interval=Math.max(.88,relicMods.interval);
+- const moveSpeed=af268WalkSpeed(type,(info.speed*massFactor*powerDrag+gear.speed)*arenaPower.speed*relicMods.speed);
++ const card=AF290_CARDS[type];
++ const moveSpeed=card?(card.moveSpeed/UNIT_MOVE_PACING+gear.speed)*arenaPower.speed*relicMods.speed:
++   af268WalkSpeed(type,(info.speed*massFactor*powerDrag+gear.speed)*arenaPower.speed*relicMods.speed);
+  return {hp:Math.round((info.hp*bonus+gear.hp)*arenaPower.hp*relicMods.hp),atk:Math.round((info.atk*bonus+gear.atk)*arenaPower.atk*relicMods.atk),speed:moveSpeed,period:info.period*arenaPower.interval*(arenaPower.affinity?.97:1)*relicMods.interval,level:lv,mass,power,arenaAffinity:arenaPower.affinity,arenaName:arenaPower.name,relicMods};
+ }
+@@ -14134,5 +14274,5 @@
+     if(filter==='cheap')return energyCost(type)<=3;
+     return true;
+-  }function unitAttackRange(u){if(gameMode==='boss'&&u&&u.team==='enemy'&&u.isBoss)return .155;const type=u&&(u.heroType||u.enemyType)||'';if(type==='skeleton_clone')return .045;if(type==='shaman')return .15;const gun=af268Gun(u);if(gun)return gun.range;const archetype=(typeof SPELL_ARCHETYPE!=='undefined'&&SPELL_ARCHETYPE[type])||type;/* v3.40.50: if a true AF37 close-combat unit inherited a ranged archetype from an art/rig alias, do not inherit the long ranged envelope. Preserve legitimate spear reach and ordinary ranged archetypes. */const meta=(window.__AF37Meta&&window.__AF37Meta[type])||null;if(meta&&['melee','tank','undead','brute','golem','platinum'].includes(meta.group)&&['archer','ranger','mage','healer','necromancer','frostmage'].includes(archetype))return .075;if(archetype==='archer')return type==='archer'?.205:.195;if(archetype==='ranger')return type==='ranger'?.17:.16;if(archetype==='mage')return .13;if(archetype==='healer')return .095;if(archetype==='spearman')return .115;if(archetype==='warrior')return .075;if(archetype==='guardian')return .072;if(archetype==='orc')return .078;if(archetype==='assassin')return .072;if(archetype==='paladin')return .075;if(archetype==='berserker')return .073;if(archetype==='frostmage')return .12;if(archetype==='necromancer')return type==='voidreaper'?.075:.12;/* v3.60.130: Ölüm Büyücüsü ailesi menzil tablosunda unutulmuştu (en kısa menzil .067'ye düşüyordu) */if(archetype==='golem')return .07;return .067;}
++  }function unitAttackRange(u){if(gameMode==='boss'&&u&&u.team==='enemy'&&u.isBoss)return .155;const card=af290Unit(u);if(card)return card.range;const type=u&&(u.heroType||u.enemyType)||'';if(type==='skeleton_clone')return .045;if(type==='shaman')return .15;const gun=af268Gun(u);if(gun)return gun.range;const archetype=(typeof SPELL_ARCHETYPE!=='undefined'&&SPELL_ARCHETYPE[type])||type;/* v3.40.50: if a true AF37 close-combat unit inherited a ranged archetype from an art/rig alias, do not inherit the long ranged envelope. Preserve legitimate spear reach and ordinary ranged archetypes. */const meta=(window.__AF37Meta&&window.__AF37Meta[type])||null;if(meta&&['melee','tank','undead','brute','golem','platinum'].includes(meta.group)&&['archer','ranger','mage','healer','necromancer','frostmage'].includes(archetype))return .075;if(archetype==='archer')return type==='archer'?.205:.195;if(archetype==='ranger')return type==='ranger'?.17:.16;if(archetype==='mage')return .13;if(archetype==='healer')return .095;if(archetype==='spearman')return .115;if(archetype==='warrior')return .075;if(archetype==='guardian')return .072;if(archetype==='orc')return .078;if(archetype==='assassin')return .072;if(archetype==='paladin')return .075;if(archetype==='berserker')return .073;if(archetype==='frostmage')return .12;if(archetype==='necromancer')return type==='voidreaper'?.075:.12;/* v3.60.130: Ölüm Büyücüsü ailesi menzil tablosunda unutulmuştu (en kısa menzil .067'ye düşüyordu) */if(archetype==='golem')return .07;return .067;}
+ window.__skeletonCloneQA={
+   audit:()=>({exists:!!HERO_INFO.skeleton_clone,unlocked:!!profile.unlocked.skeleton_clone,cost:energyCost('skeleton_clone'),hp:heroStats('skeleton_clone').hp,atk:heroStats('skeleton_clone').atk,period:heroStats('skeleton_clone').period,range:unitAttackRange({heroType:'skeleton_clone'}),visualClass:AF320_CLASSES.skeletonSmall.h,portrait:!!HERO_PORTRAITS.skeleton_clone,atlas:!!AF321_ATLAS.skeleton_clone,rig:!!AF321_RIGS.skeleton_clone,deckCount:preparedDeckTypes.length,deckIncludes:preparedDeckTypes.includes('skeleton_clone'),replacedStarter:!preparedDeckTypes.includes('archer'),portalHP:TOWER_MAX_HP,saveKey:'arenaForgeProProfileV19'}),
+@@ -15238,10 +15378,10 @@
+ }
+ function af320SceneScale(){return Math.max(.78,Math.min(1.16,H/590));}
+-function af320PxFor(cls,lane,bulk){
++function af320PxFor(cls,lane,bulk,cardSized=false){
+   const C=AF320_CLASSES[cls]||AF320_CLASSES.soldier,l=Math.max(0,Math.min(2,Math.round(+lane||0)));
+   const px=C.h*(bulk||1)*af320SceneScale()*AF320_LANE_SCALE[l];
+-  return Math.min(px,H*.205*.88);               // never taller than the corridor allows
++  return Math.min(px,H*(cardSized?.1945:.205*.88));               // never taller than the corridor allows
+ }
+-function af320ChestY(u){const r=af320Resolve(u);return af320PxFor(r.cls,u.lane,r.artBulk??r.bulk)*.62;}
++function af320ChestY(u){const r=af320Resolve(u);return af320PxFor(r.cls,u.lane,r.artBulk??r.bulk,!!af290Unit(u))*.62;}
+ 
+ // ---- sprite measurement (true figure bounds, foot point, head line) + device-resolution cache ----
+@@ -15302,5 +15442,5 @@
+   if(af264Hidden(u)&&playing&&!u._af262StealthPass)return;
+   const R=af320Resolve(u),C=AF320_CLASSES[R.cls],blue=R.blue,heroUnit=R.heroUnit,heroKind=R.heroKind;
+-  const x=laneX(u.x),px=af320PxFor(R.cls,u.lane,R.artBulk??R.bulk),y=(u._afBattleGhost&&Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))+(u._afSkeletonCloneSide||0)*px*.15+af34034MeleeFlankOffset(u,px),k2=px/C.h;
++  const x=laneX(u.x),px=af320PxFor(R.cls,u.lane,R.artBulk??R.bulk,!!af290Unit(u)),y=(u._afBattleGhost&&Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))+(u._afSkeletonCloneSide||0)*px*.15+af34034MeleeFlankOffset(u,px),k2=px/C.h;
+   const attackPose=Math.max(0,Math.min(1,(u.attackPulse||0)/.22));
+   const moving=(u.animMove||0)>.12,ph=u.phase||0;
+@@ -16396,5 +16536,5 @@
+ }
+ function drawHero(u){
+-  if(gameMode==='boss'&&u.team==='enemy'){
++  if(gameMode==='boss'&&u.team==='enemy'&&!af290Unit(u)){
+     u._vis=null;
+     if(window.__AFPColossusPvEContext?.active){
+@@ -16424,5 +16564,5 @@
+   }
+   const R=af320Resolve(u),C=AF320_CLASSES[R.cls],blue=R.blue,heroUnit=R.heroUnit;
+-  const px=af320PxFor(R.cls,u.lane,R.artBulk??R.bulk)*(u._af205Boss?1.32:1),x=laneX(u.x)+af285PoseDX(u,px),k2=px/C.h;
++  const px=af320PxFor(R.cls,u.lane,R.artBulk??R.bulk,!!af290Unit(u))*(u._af205Boss?1.32:1),x=laneX(u.x)+af285PoseDX(u,px),k2=px/C.h;
+   const y=(u._afBattleGhost&&Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))
+     +(u._afSkeletonCloneSide||0)*px*.15+af34034MeleeFlankOffset(u,px)+af285PoseDY(u,px);
+@@ -16938,5 +17078,5 @@
+    const v=u._vis;
+    if(v)return [v.x,v.y-v.top*.52,v.px];
+-   const x=laneX(u.x),r=af320Resolve(u),px=af320PxFor(r.cls,u.lane,r.artBulk??r.bulk);
++   const x=laneX(u.x),r=af320Resolve(u),px=af320PxFor(r.cls,u.lane,r.artBulk??r.bulk,!!af290Unit(u));
+    return [x,laneY(u.lane,x)-px*.59,px];
+  }
+@@ -17321,5 +17461,5 @@
+     const K321=r&&af321Mode!=='legacy'?af321Ready(r.kind):null;
+     if(K321){
+-      const px=af320PxFor(r.cls,f.lane,r.artBulk??r.bulk),C=AF320_CLASSES[r.cls],rr=C.ring*px/C.h,k=af321Scale(K321,px);
++      const px=af320PxFor(r.cls,f.lane,r.artBulk??r.bulk,!!af290Unit(f)),C=AF320_CLASSES[r.cls],rr=C.ring*px/C.h,k=af321Scale(K321,px);
+       const st=f.st||(f.st=AF321.newState());const tt=elapsed,ddt=st.lastT===null?0:Math.max(0,Math.min(.1,tt-st.lastT));st.lastT=tt;
+       if(st.fs===undefined)st.fs=r.flip;
+@@ -17347,5 +17487,5 @@
+     ctx.save();ctx.translate(x,y);
+     if(r){
+-      const px=af320PxFor(r.cls,f.lane,r.artBulk??r.bulk),C=AF320_CLASSES[r.cls],rr=C.ring*px/C.h;
++      const px=af320PxFor(r.cls,f.lane,r.artBulk??r.bulk,!!af290Unit(f)),C=AF320_CLASSES[r.cls],rr=C.ring*px/C.h;
+       ctx.globalAlpha=a*.4;ctx.fillStyle='#05060a';ctx.beginPath();ctx.ellipse(0,1.5,rr,rr*.34,0,0,Math.PI*2);ctx.fill();
+       ctx.globalAlpha=a;ctx.rotate(-r.flip*Math.min(1,t*2.2)*1.35);ctx.translate(0,Math.min(1,t*2)*px*.05);ctx.scale(r.flip,1);
+@@ -17521,4 +17661,11 @@
+   // v3.35.4: skeleton-clone members belong to one tightly packed formation; keep normal collision rules for all other units.
+   if(a&&b&&a._afSkeletonPack&&a._afSkeletonPack===b._afSkeletonPack)return .003;
++  const aCard=af290Unit(a),bCard=af290Unit(b);
++  if(aCard&&bCard)return aCard.radius+bCard.radius+.005;
++  if(aCard||bCard){
++    const other=aCard?b:a;
++    const radius=other?.isBoss?.070:other?.isBarrier?.027:other?.isCommander?.028:.021;
++    return (aCard||bCard).radius+radius+.005;
++  }
+ 
+   // v3.41.03: Örümcek Akını custom PNG spiders are wider than the former vector art. Reserve their actual visible silhouette width
+@@ -17907,6 +18054,6 @@
+   const duelMode=gameMode==='duel',hud=$('hud');if(hud)hud.classList.toggle('duel-mode',duelMode);
+   const allyTotal=Math.max(0,allySharedHP),enemyTotal=Math.max(0,enemySharedHP),maxTotal=TOWER_MAX_HP,allyMaxTotal=allyTowerMax;
+-  if($('homeTowerScore'))$('homeTowerScore').textContent=Math.round(allyTotal)+'/'+allyMaxTotal;
+-  if($('enemyTowerScore'))$('enemyTowerScore').textContent=Math.round(enemyTotal)+'/'+maxTotal;
++  if($('homeTowerScore'))$('homeTowerScore').textContent=af379PortalHPText(allyTotal)+'/'+allyMaxTotal;
++  if($('enemyTowerScore'))$('enemyTowerScore').textContent=af379PortalHPText(enemyTotal)+'/'+maxTotal;
+   if($('homeTowerBar'))$('homeTowerBar').style.width=(Math.max(0,Math.min(1,allyTotal/allyMaxTotal))*100)+'%';
+   if($('enemyTowerBar'))$('enemyTowerBar').style.width=(Math.max(0,Math.min(1,enemyTotal/maxTotal))*100)+'%';
+@@ -18040,4 +18187,5 @@
+   af330MarkEnd(v,customText); // v3.30: maç sonu tek kez kaydedilir (BattleState.result)
+   playing=false;
++  try{afBattleDragAbort('battle-end');}catch(_){} // v3.79.00: no drag preview survives the result screen
+   let af203Settlement=null;
+   if(af203WasEcho){
+@@ -18136,4 +18284,6 @@
+ }
+ function counterDamageMultiplier(attacker,target){
++  const balanced=af290Matchup(attacker,target);
++  if(balanced!==null)return balanced;
+   if(af287Answer(attacker,target))return 1.10;
+   const a=(attacker.heroType&&typeof SPELL_ARCHETYPE!=='undefined'&&SPELL_ARCHETYPE[attacker.heroType])||attacker.heroType||attacker.enemyType||''; // v3.27: prototip kartlar arketip rolünü kullanır
+@@ -18174,6 +18324,10 @@
+ let af323Shots=[],af323Resolved=[];
+ const AF323_SPEED={bow:1.25,cast:.85};   // world (battlefield) widths per second -> resolution independent
+-function af323Style(u){try{const r=af320Resolve(u),rigs=(typeof AF321_RIGS!=='undefined')?AF321_RIGS:null;let rig=rigs&&rigs[r.kind];if(!rig&&u&&u.heroType&&typeof SPELL_ARCHETYPE!=='undefined')rig=rigs&&rigs[SPELL_ARCHETYPE[u.heroType]];if(rig&&u&&(u.isRoster||u.isHero||u.isCommander)&&rig.atk!=='bow'&&rig.atk!=='cast'&&unitAttackRange(u)>=.12)return 'cast';/* v3.25.9 */return rig?rig.atk:null;}catch(e){return null;}}
+-function af323IsShooter(u){if(!u||(u.team==='enemy'&&u.enemyType==='shaman'))return false;const type=u.heroType||u.enemyType||'';const archetype=(typeof SPELL_ARCHETYPE==='object'&&SPELL_ARCHETYPE[type])||type;const meta=(window.__AF37Meta&&window.__AF37Meta[type])||null;/* v3.40.50: gameplay role is authoritative; borrowed visual rigs must never turn melee units into projectile users. */if(['warrior','guardian','assassin','paladin','berserker','orc','golem','spearman'].includes(archetype))return false;if(meta&&['melee','tank','undead','brute','golem','platinum'].includes(meta.group))return false;const st=af323Style(u);return st==='bow'||st==='cast';}
++function af323Style(u){
++  const card=af290Unit(u);if(card)return card.delivery;
++  try{const r=af320Resolve(u),rigs=(typeof AF321_RIGS!=='undefined')?AF321_RIGS:null;let rig=rigs&&rigs[r.kind];if(!rig&&u&&u.heroType&&typeof SPELL_ARCHETYPE!=='undefined')rig=rigs&&rigs[SPELL_ARCHETYPE[u.heroType]];if(rig&&u&&(u.isRoster||u.isHero||u.isCommander)&&rig.atk!=='bow'&&rig.atk!=='cast'&&unitAttackRange(u)>=.12)return 'cast';/* v3.25.9 */return rig?rig.atk:null;}catch(e){return null;}}
++function af323IsShooter(u){
++  const card=af290Unit(u);if(card)return card.delivery!=='melee'&&card.delivery!=='shell';
++  if(!u||(u.team==='enemy'&&u.enemyType==='shaman'))return false;const type=u.heroType||u.enemyType||'';const archetype=(typeof SPELL_ARCHETYPE==='object'&&SPELL_ARCHETYPE[type])||type;const meta=(window.__AF37Meta&&window.__AF37Meta[type])||null;/* v3.40.50: gameplay role is authoritative; borrowed visual rigs must never turn melee units into projectile users. */if(['warrior','guardian','assassin','paladin','berserker','orc','golem','spearman'].includes(archetype))return false;if(meta&&['melee','tank','undead','brute','golem','platinum'].includes(meta.group))return false;const st=af323Style(u);return st==='bow'||st==='cast';}
+ // v3.40.33: combat-role classification must win over an inconsistent custom art/rig.
+ // Close combatants never gain a longer attack envelope just because a friendly unit is engaging the same target.
+@@ -18182,4 +18336,5 @@
+ function af34033IsCloseCombat(u){
+   if(!u)return false;
++  const card=af290Unit(u);if(card)return card.delivery==='melee';
+   const type=u.heroType||u.enemyType||'';
+   const archetype=(typeof SPELL_ARCHETYPE!=='undefined'&&SPELL_ARCHETYPE[type])||type;
+@@ -18226,5 +18381,7 @@
+ }
+ function af323Launch(u,target,damage,tower){
+-  const style=af323Style(u),tx=target?target.x:tower.x,flight=Math.max(.06,Math.min(.24,Math.abs(tx-u.x)/(AF323_SPEED[style]||1)));
++  const style=af323Style(u),tx=target?target.x:tower.x;
++  const speed=af290Unit(u)?.projectileSpeed||AF323_SPEED[style]||1;
++  const flight=Math.max(.045,Math.min(af290Unit(u) ? .8 : .24,Math.abs(tx-u.x)/speed));
+   af323Shots.push({u,target:target||null,tower:tower||null,damage,team:u.team,lane:u.lane,kind:style==='bow'?'arrow':'bolt',t0:elapsed,t1:elapsed+flight});
+ }
+@@ -18385,5 +18542,5 @@
+   const forward=(u.team==='ally'?target.x>=u.x:target.x<=u.x)||af264RearAttack(u,target,d);
+   const melee=af34033IsCloseCombat(u),gun=af268Gun(u);
+-  const range=gun?.range??(melee?attackRange:Math.max(attackRange,requiredUnitGap(u,target,u.lane)*.96));
++  const range=af290Unit(u)?.range??gun?.range??(melee?attackRange:Math.max(attackRange,requiredUnitGap(u,target,u.lane)*.96));
+   return d<=range+1e-6&&(forward||!!gun&&d<=.105);
+ }
+@@ -18537,5 +18694,5 @@
+ function afp177DrawDeath(f,x,y){
+   if(f.heroType!==AFP177_KUL)return false;
+-  const r=f.ref;const px=af320PxFor(r.cls,f.lane,r.artBulk??r.bulk);
++  const r=f.ref;const px=af320PxFor(r.cls,f.lane,r.artBulk??r.bulk,!!af290Unit(f));
+   const t=Math.max(0,Math.min(1,1-f.life/f.max));
+   const frame=Math.min(7,Math.floor(t*8));
+@@ -18959,20 +19116,12 @@
+ }
+ function af267ArtBulk(u,original,cls){
+-  const id=u._afBattleGhost?u.heroType:af264Type(u),info=id&&HERO_INFO[id];
++  const id=u.heroType,info=id&&HERO_INFO[id];
+   if(!info||!AF59_ACTIVE_SET.has(id))return original;
+-  const body=AF288_CARDS[id][3];
++  const card=af290Unit(u);
++  if(!card)return original;
++  const body=Math.min(H*.121*card.renderScale,H*.1945)/af320SceneScale();
+   return body/(AF320_CLASSES[cls]||AF320_CLASSES.soldier).h;
+ }
+-function af268WalkSpeed(type,raw){
+-  if(!AF59_ACTIVE_SET.has(type))return Math.max(.052,Math.min(.19,raw));
+-  const info=HERO_INFO[type],arch=SPELL_ARCHETYPE[type]||type;
+-  let floor=.053,cap=.085,mul=.78;
+-  if(AF268_GUNS[type]){floor=.048;cap=.070;mul=.69;}
+-  else if(arch==='golem'||info.mass>=270){floor=.038;cap=.057;mul=.78;}
+-  else if(info.combatRole==='tank'){floor=.042;cap=.064;mul=.77;}
+-  else if(arch==='assassin'||info.combatRole==='fast'||type==='af37_kesifci'){floor=.067;cap=.109;mul=.76;}
+-  else if(['archer','ranger','mage','healer','frostmage','necromancer'].includes(arch)){floor=.05;cap=.081;mul=.75;}
+-  return Math.max(floor,Math.min(cap,raw*mul));
+-}
++function af268WalkSpeed(type,raw){return Math.max(.052,Math.min(.19,raw));}
+ function af268PortalAim(u,range,siege){
+   const ally=u.team==='ally',portalX=ally?.965:.035;
+@@ -18996,7 +19145,6 @@
+ }
+ function af265RamBlocker(u,e,distance){
+-  if(!e.isBarrier)return false;
+   const forward=(e.x-u.x)*af264Dir(u.team);
+-  return forward>=-.003&&distance<=Math.max(.15,unitAttackRange(u));
++  return forward>=-.003&&distance<=(e.isBarrier?Math.max(.15,unitAttackRange(u)):unitAttackRange(u));
+ }
+ function af265RamDamage(u,damage){
+@@ -19030,5 +19178,5 @@
+   u._af264Born=1;
+   af264CombatEvent('spawn',u);
+-  if(type===AF264.ayaz){
++  if(type===AF264.ayaz&&!AF285_CONVERTED.has(type)){
+     u._af264Ice=Math.max(1,Math.round(u.maxHp*.24));
+     u._af264IceUntil=elapsed+7;
+@@ -19147,4 +19295,5 @@
+ function af264RearAttack(u,v,d){
+   const reach=unitAttackRange(u);
++  if(u._af290RearUntil>elapsed&&u._af290RearTarget===v&&d<=reach+.028)return true;
+   return (af264Type(u)===AF264.assassin&&!u._af264First&&d<=reach+.025)||
+     (af264Type(v)===AF264.assassin&&!af264Hidden(v)&&d<=Math.min(.13,reach+.007));
+@@ -19176,5 +19325,5 @@
+   const net=window.__AFPOnlineContext;if(net?.active&&!net.localBot&&!net.authority)return;
+   const x=Math.max(.035,Math.min(.965,target.x)),travel=Math.abs(u.x-x),lane=target.lane??u.lane;
+-  const flight=Math.max(.25,Math.min(.85,.17+travel*1.43+(lane===u.lane?0:.07)));
++  const flight=Math.max(.25,Math.min(.85,.17+travel/(af290Unit(u)?.projectileSpeed||.70)+(lane===u.lane?0:.07)));
+   af323Shots.push({u,team:u.team,lane,fromLane:u.lane,kind:'shell',color:'#ffc46f',atX:x,fromX:u.x,
+     t0:elapsed,t1:elapsed+flight,damage,portalOnly,primary:portalOnly?null:target});
+@@ -19190,7 +19339,13 @@
+   if(s.visualOnly)return;
+   if(af264Type(s.u)===AF264.artillery)af273Signal(s.u,{x:s.atX,lane:s.lane},'impact',.57);
+-  af264Area(s.u,s.lane,s.atX,s.damage*(s.portalOnly?.68:1),r,'af264Shell',6,(v,dealt)=>{
+-    if(s.u.heroType==='af37_savas_muhendisi'&&v===s.primary&&s.u.hp>0)af267Run('hit',s.u,v,dealt,'hit');
+-  });
++  if(af290Unit(s.u)){
++    const foes=af264Victims(s.team,s.lane,s.atX,r)
++      .sort((a,b)=>Math.abs(a.x-s.atX)-Math.abs(b.x-s.atX));
++    const primary=s.primary&&foes.includes(s.primary)?s.primary:foes[0];
++    for(const v of foes.slice(0,5)){
++      const hit=s.damage*(s.portalOnly?.55:v===primary?1:.48);
++      af327DealDamage(v,hit,{team:s.team,source:s.u,key:s.u.heroType,kind:'af264Shell',color:'#ffc46f'});
++    }
++  }else af264Area(s.u,s.lane,s.atX,s.damage*(s.portalOnly?.68:1),r,'af264Shell',6);
+   af265ShellPortal(s);
+ }
+@@ -19343,5 +19498,7 @@
+ 
+ function attack(u,target){
+-  if(afp179IsBuried(u)||afp179IsBuried(target)||af264Buried(u)||af264Buried(target)||af264Hidden(target))return false;
++  if(afp179IsBuried(u)||afp179IsBuried(target)||af264Buried(u)||af264Buried(target)||af264Hidden(target)||target.hp<=0)return false;
++  const card=af290Unit(u);
++  if(card&&(af378InLoop?af378D(u,target):Math.abs(u.x-target.x))>card.range+1e-6)return false;
+   const gun=af268Gun(u);
+   if(gun&&Math.abs(u.x-target.x)>gun.range+.001)return false;
+@@ -19354,5 +19511,5 @@
+       packAssist=units.reduce((r,o)=>o!==u&&o.hp>0&&o.team===u.team&&o.lane===u.lane&&o._afSkeletonPack===u._afSkeletonPack&&o._afEng===1&&o._afTgt===target?Math.max(r,Math.min(.02,Math.abs(o.x-u.x))+.001):r,0);
+     }
+-    if(Math.abs(target.x-u.x)>trueRange+packAssist+1e-6)return false;
++    if(!card&&Math.abs(target.x-u.x)>trueRange+packAssist+1e-6)return false;
+   }
+   if(afp177Devour(u,target))return true;
+@@ -19365,5 +19522,5 @@
+   const sourceX=laneX(u.x),sourceY=laneY(u.lane,sourceX)-af320ChestY(u);
+   const ranged=(u.team==='enemy'&&u.enemyType==='shaman')||af323IsShooter(u);
+-  if(ranged&&!gun)af321QueueShot(u,x,y,.14,u.team==='ally'?(u.heroType==='mage'?'#c39aff':u.heroType==='healer'?'#8dfff0':'#ffdf92'):'#ff806c',sourceX,sourceY);
++  if(ranged&&!gun&&!card)af321QueueShot(u,x,y,.14,u.team==='ally'?(u.heroType==='mage'?'#c39aff':u.heroType==='healer'?'#8dfff0':'#ffdf92'):'#ff806c',sourceX,sourceY);
+   let damage=u.atk;
+   // Heroic-style unit identities: temporary spell buffs, rage, life-siphon and frost control all affect combat values.
+@@ -19400,14 +19557,16 @@
+   damage=af327AttackMods(u,target,damage); // v3.27: komutan kritiği + kart pasifleri
+   // v3.34.63: Heroic-style area splash can hit the tower while the lane-end unit is also fighting a blocker.
+-  if(gun){af264Shell(u,target,damage*gun.unitMul*(Math.abs(u.x-target.x)<.075?.62:1));return;}
++  if(gun){af264Shell(u,target,damage*gun.unitMul*(Math.abs(u.x-target.x)<.075?.80:1));return;}
+   const ambush=af264Attacker===AF264.assassin&&!u._af264First;
+   if(ambush){u._af264First=1;damage=Math.max(1,Math.round(damage*1.45));}
+   if(!Object.prototype.hasOwnProperty.call(AF264_PASSIVES,af264Attacker))af334TryAreaPortalSplash(u,damage);
+-  if(af323IsShooter(u)){af222LaunchShooter(u,target,damage);return;}
++  if(af323IsShooter(u)){if(card)af323Launch(u,target,damage,null);else af222LaunchShooter(u,target,damage);return;}
+   af323ApplyHit(u,target,damage,ambush);
+ }
+ // v3.23: the unchanged hit / damage code of attack(); melee calls it immediately, projectiles call it on arrival.
+ function af323ApplyHit(u,target,damage,ambush=false){
+- if(afp179IsBuried(u)||afp179IsBuried(target)||af264Buried(target)||af264Hidden(target))return;
++ const card=af290Unit(u);
++ if((!card||card.delivery==='melee')&&(afp179IsBuried(u)||u._afp177CaptiveBy))return;
++ if(afp179IsBuried(target)||af264Buried(target)||af264Hidden(target))return;
+   // v3.40.54: enforce range at the damage sink too; visual movement/collision clearance
+   // and ranged-support envelopes never authorize a melee hit.
+@@ -19418,5 +19577,5 @@
+       packAssist=units.reduce((r,o)=>o!==u&&o.hp>0&&o.team===u.team&&o.lane===u.lane&&o._afSkeletonPack===u._afSkeletonPack&&o._afEng===1&&o._afTgt===target?Math.max(r,Math.min(.02,Math.abs(o.x-u.x))+.001):r,0);
+     }
+-    if(Math.abs(target.x-u.x)>trueRange+packAssist+1e-6)return;
++    if((card&&af378InLoop?af378D(u,target):Math.abs(target.x-u.x))>trueRange+(card?0:packAssist)+1e-6)return;
+   }
+   // v3.27: tek isabet hattı iki taraf için aynıdır. Kahraman kartlarının imza yetenekleri hangi takımda olursa olsun çalışır;
+@@ -19451,4 +19610,11 @@
+   if(dealt>0)addCombatText(x,y-20,'-'+dealt,ally?'#ffe08b':'#ffaaa0');
+   if(dealt>0){if(ambush)af273Signal(u,target);try{AFX.hit(u,target,ranged);}catch(_){}}
++  if(card?.splash&&dealt>0){
++    const nearby=af264Victims(u.team,target.lane,target.x,card.splashRadius)
++      .filter(other=>other!==target).sort((a,b)=>Math.abs(a.x-target.x)-Math.abs(b.x-target.x));
++    for(const other of nearby.slice(0,3)){
++      af327DealDamage(other,u.atk*card.splash,{...opt,source:u,color:'#ffd0a0'});
++    }
++  }
+   if(!hero)return;
+   const foeTeam=target.team;
+@@ -19466,5 +19632,5 @@
+     for(const f of units){if(f.team===mine&&f!==u&&f.lane===u.lane&&f.hp>0){if(af327HealUnit(f,6,u)>0){f._afHealAt=elapsed;f._afHealBy=u;}}}
+   }
+-  if(u.heroType==='mage'&&foeTeam!==mine&&!af267Rule(u)){
++  if(!card&&u.heroType==='mage'&&foeTeam!==mine&&!af267Rule(u)){
+     for(const other of units.slice()){if(other!==target&&other.team===foeTeam&&other.hp>0&&other.lane===u.lane&&Math.abs(other.x-target.x)<.105){const splash=Math.max(1,Math.round(damage*.55));if(af327DealDamage(other,splash,Object.assign({},opt,{color:'#d8b6ff'}))>0)burst(laneX(other.x),laneY(other.lane,laneX(other.x))-22,'#b98cff',5)}}
+     burst(x,y,'#b98cff',5);
+@@ -19621,7 +19787,7 @@
+     const wasEngaged=u._afEng===1;
+     u._afEng=0;u._afGap=null;
+-    if(u._afp177CaptiveBy||(u._afp177CaptiveUntil||0)>elapsed||afp179IsBuried(u)||af264Buried(u)){u._vis=null;u._afTgt=null;continue;}
+-    if(u.hp<=0&&u._af378Live!==af378F)continue;u._af378Q=++af378Seq;u.cd-=dt;if((u._af378Live===af378F?u._af378St:u.stunUntil)>elapsed)continue;let target=null,dist=Infinity; // v3.77.01/03: bu karede ölen ya da sersemletilen birlik de karedeki sırasını kullanır
+-    if(af285Busy(u)){u._afTower=0;u._afEng=1;continue;}if((u._af279SupportUntil||0)>elapsed){u._afTower=0;continue;}
++    if(u._afp177CaptiveBy||(u._afp177CaptiveUntil||0)>elapsed||afp179IsBuried(u)||af264Buried(u)){af290CancelBasic(u);u._vis=null;u._afTgt=null;continue;}
++    if(u.hp<=0&&u._af378Live!==af378F)continue;u._af378Q=++af378Seq;u.cd-=dt;if((u._af378Live===af378F?u._af378St:u.stunUntil)>elapsed){af290CancelBasic(u);continue;}let target=null,dist=Infinity; // v3.77.01/03: bu karede ölen ya da sersemletilen birlik de karedeki sırasını kullanır
++    if(af285Busy(u)){af290CancelBasic(u);u._afTower=0;u._afEng=1;continue;}if((u._af279SupportUntil||0)>elapsed){af290CancelBasic(u);u._afTower=0;continue;}
+     const attackRange=unitAttackRange(u),af265IsSiege=af265Siege(u),gun=af268Gun(u); // v3.24: same table, shared with the hero screen
+     // v3.34.63: retain the first enemy already engaged inside this unit's attack range.
+@@ -19706,9 +19872,9 @@
+     }
+     const rangedSupport=!!(friendlyBlocker&&af323IsShooter(u)&&!af34033IsCloseCombat(u));
+-    const supportRangeFactor=rangedSupport?1.55:1;
+-    const geometrySupportRange=(blockerNearTarget&&!u._afSkeletonPack&&rangedSupport)?requiredUnitGap(u,friendlyBlocker,u.lane)+blockerToTarget+Math.max(.014,attackRange*.35):0;
++    const supportRangeFactor=rangedSupport&&!af290Unit(u)?1.55:1;
++    const geometrySupportRange=(blockerNearTarget&&!u._afSkeletonPack&&rangedSupport&&!af290Unit(u))?requiredUnitGap(u,friendlyBlocker,u.lane)+blockerToTarget+Math.max(.014,attackRange*.35):0;
+     const af34048ClonePackAssistRange=u._afSkeletonPack&&target?units.reduce((r,o)=>o!==u&&o.hp>0&&o.team===u.team&&o.lane===u.lane&&o._afSkeletonPack===u._afSkeletonPack&&o._afEng===1&&o._afTgt===target?Math.max(r,attackRange+Math.min(.02,Math.abs(o.x-u.x))+.001):r,0):0;
+     const engageRange=target?Math.max(attackRange*supportRangeFactor,requiredUnitGap(u,target,u.lane)*.96,geometrySupportRange,af34048ClonePackAssistRange):attackRange; // v3.40.48: movement/support envelope; not automatically a melee hit range
+-    const strikeRange=gun?gun.range:af34052StrikeRange(u,attackRange,engageRange,af34048ClonePackAssistRange);
++    const strikeRange=af290Unit(u)?attackRange:gun?gun.range:af34052StrikeRange(u,attackRange,engageRange,af34048ClonePackAssistRange);
+     const approachRange=gun||af34033IsCloseCombat(u)?strikeRange:engageRange;
+     const keepCover=!!target&&af378D(u,target)<=strikeRange+1e-6&&af279SupportHolds(u,target);
+@@ -19719,9 +19885,9 @@
+     if(target&&af378d<=strikeRange+1e-6&&!blockedMeleePass){
+       u._afEng=1;u._afTgt=target;u._afTower=0;
+-      if(u.cd<=0){attack(u,target);const af378c=Math.max(u.cd,-dt),reload=gun?.reload||1;u.cd=af327Period(u)*reload+af378c;if(af378InLoop)af378Cd.push([u,af378c,reload]);} // v3.77.05: aralık karenin sonunda yeniden hesaplanır
++      if(af290BasicReady(u,target)){attack(u,target);const af378c=Math.max(u.cd,-dt),reload=gun?.reload||1;u.cd=af327Period(u)*reload+af378c;if(af378InLoop)af378Cd.push([u,af378c,reload]);} // v3.77.05: aralık karenin sonunda yeniden hesaplanır
+       /* v3.40.46 U-BUG-1: menzilli kuyruk sıkıştırma */ if(!keepCover&&!gun&&rangedSupport&&dist>attackRange+.004&&!(u.stunUntil>elapsed)&&units.some(o=>o!==u&&o.hp>0&&o.team===u.team&&o.lane===u.lane&&!o.isBarrier&&(u.team==='ally'?o.x<u.x:o.x>u.x)&&Math.abs(o.x-u.x)<=requiredUnitGap(u,o,u.lane)*1.35+.006)){const qStep=Math.abs(u.speed)*dt*UNIT_MOVE_PACING*(u.slowUntil>elapsed?.55:1)*(u.hasteUntil>elapsed?(((u.afprRaidHasteUntil||0)>elapsed)?1.5:1.3):1),qAdv=Math.min(qStep,dist-attackRange);if(qAdv>0){u._afCrowdWantsMove=1;moveUnitWithSpacing(u,target.x>=u.x?qAdv:-qAdv);}} // v3.27: tek saldırı aralığı hesabı (iki taraf) // v3.23: no frame rounding of the attack interval
+     }
+     else if(target&&(af378d>=strikeRange||blockedMeleePass)){
+-      u._afTgt=target;u._afTower=0;u._afGap=Math.max(0,dist-approachRange*.96);
++      af290CancelBasic(u);u._afTgt=target;u._afTower=0;u._afGap=Math.max(0,dist-approachRange*.96);
+       // Movement/collision still uses physical spacing, but being inside that clearance
+       // margin no longer grants a close-combat unit a longer hit window.
+@@ -19737,9 +19903,9 @@
+       // Units in a short same-lane queue can attack from their real positions, without teleporting/overlapping.
+       u.facingDir=1;u._afEng=1;u._afTgt=null;u._afTower=1;af34055PortalSlot(u);
+-      if(u.cd<=0){if(af264Type(u)===AF264.assassin)af264Reveal(u);af321MarkHit(u,null);const damage=af265RamDamage(u,u.atk*(u.heroType==='orc'?1.25:1)*(u.buffUntil>elapsed?(u.buffDamage||1):1)*(u.siegeMul||1));const af323Hit=()=>{if(enemyHP[u.lane]<=0)return;const beforeTower=enemyHP[u.lane],af327f=af327EnemyPortalFactor(u.lane)*(+window.__AF36PortalScale||1),af327pd=af327f<1?Math.max(1,Math.round(damage*af327f)):damage;enemyHP[u.lane]=Math.max(0,enemyHP[u.lane]-af327pd);try{af334NoteSiege(af327E,u.lane,beforeTower-enemyHP[u.lane]);}catch(_){}if(beforeTower>0&&enemyHP[u.lane]<=0){af274Beep('tower');af274Vibrate(45);}matchStats.towerDamage+=beforeTower-enemyHP[u.lane];const tx=W*.92,ty=laneY(u.lane,tx)-8,sx=laneX(u.x),sy=laneY(u.lane,sx)-af320ChestY(u);addCombatText(tx,ty-10,'-'+Math.round(beforeTower-enemyHP[u.lane]),af327f<AF332_PORTAL_TAKEN-1e-9?'#9ee8ff':'#ffcf82');!af34033IsCloseCombat(u)&&af321QueueShot(u,tx,ty,.16,u.heroType==='mage'?'#c39aff':u.heroType==='archer'||u.heroType==='ranger'?'#ffdf92':'#ffad51',sx,sy);burst(tx,ty,u.heroType==='mage'?'#b98cff':'#ffad51',u.heroType==='mage'?8:5);try{AFX.portal(tx,ty,u);}catch(_){}};if(gun)af264Shell(u,{x:.965},damage*gun.portalMul,true);else if(af323IsShooter(u))af323Launch(u,null,damage,{x:1,apply:af323Hit});else af323Hit();u.cd=af327Period(u)*(gun?.reload||1)+Math.max(u.cd,-dt);if(!(af323IsShooter(u)&&af222IsFire(u)))af274Beep('hit',af323IsShooter(u)?'ranged':(u.atk>=30?'heavy':'melee'))}
++      if(af290BasicReady(u,null)){if(af264Type(u)===AF264.assassin)af264Reveal(u);af321MarkHit(u,null);const damage=af265RamDamage(u,u.atk*(u.heroType==='orc'?1.25:1)*(u.buffUntil>elapsed?(u.buffDamage||1):1)*(u.siegeMul||1));const af323Hit=()=>{if(enemyHP[u.lane]<=0)return;const beforeTower=enemyHP[u.lane],af327f=af327EnemyPortalFactor(u.lane)*(+window.__AF36PortalScale||1),af327pd=af327f<1?Math.max(1,Math.round(damage*af327f)):damage;enemyHP[u.lane]=Math.max(0,enemyHP[u.lane]-af327pd);try{af334NoteSiege(af327E,u.lane,beforeTower-enemyHP[u.lane]);}catch(_){}if(beforeTower>0&&enemyHP[u.lane]<=0){af274Beep('tower');af274Vibrate(45);}matchStats.towerDamage+=beforeTower-enemyHP[u.lane];const tx=W*.92,ty=laneY(u.lane,tx)-8,sx=laneX(u.x),sy=laneY(u.lane,sx)-af320ChestY(u);addCombatText(tx,ty-10,'-'+Math.round(beforeTower-enemyHP[u.lane]),af327f<AF332_PORTAL_TAKEN-1e-9?'#9ee8ff':'#ffcf82');!af34033IsCloseCombat(u)&&af321QueueShot(u,tx,ty,.16,u.heroType==='mage'?'#c39aff':u.heroType==='archer'||u.heroType==='ranger'?'#ffdf92':'#ffad51',sx,sy);burst(tx,ty,u.heroType==='mage'?'#b98cff':'#ffad51',u.heroType==='mage'?8:5);try{AFX.portal(tx,ty,u);}catch(_){}};if(gun)af264Shell(u,{x:.965},damage*gun.portalMul,true);else if(af323IsShooter(u))af323Launch(u,null,damage,{x:1,apply:af323Hit});else af323Hit();u.cd=af327Period(u)*(gun?.reload||1)+Math.max(u.cd,-dt);if(!(af323IsShooter(u)&&af222IsFire(u)))af274Beep('hit',af323IsShooter(u)?'ranged':(u.atk>=30?'heavy':'melee'))}
+     }else if(u.team==='enemy'&&af268PortalAim(u,attackRange,af265IsSiege)){
+       // v1.92: same queue fix for enemies attacking the blue tower; keep formation spacing intact.
+       u.facingDir=-1;u._afEng=1;u._afTgt=null;u._afTower=1;af34055PortalSlot(u);
+-      if(u.cd<=0){if(af264Type(u)===AF264.assassin)af264Reveal(u);if(gameMode==='boss'&&u.team==='enemy'){u.attackPulse=.30;u._afSpiderBiteUntil=elapsed+.30;u._afSpiderBiteSeq=(u._afSpiderBiteSeq||0)+1;}af321MarkHit(u,null);const af327buff=u.buffUntil>elapsed?(u.buffDamage||1):1;const damage=af265RamDamage(u,(u.heroType&&!u.enemyType)?u.atk*(u.heroType==='orc'?1.25:1)*af327buff:Math.max(4,Math.round(u.atk*(u.enemyType==='brute'?1.0:.88)*af327buff)));const af323Hit=()=>{if(allyTowerHP[u.lane]<=0)return;const af327b=allyTowerHP[u.lane],af327f=af327PortalFactor(u.lane)*(+window.__AF36PortalScale||1),af327pd=af327f<1?Math.max(1,Math.round(damage*af327f)):damage;allyTowerHP[u.lane]=Math.max(0,af327b-af327pd);const af327real=af327b-allyTowerHP[u.lane];try{af334NoteSiege(af327S,u.lane,af327real);}catch(_){}if(af327b>0&&allyTowerHP[u.lane]<=0){af274Beep('tower');af274Vibrate(60);}if(af327real>0)af332PortalHit(af327S);matchStats.portalTaken=(matchStats.portalTaken||0)+af327real;const tx=W*.08,ty=laneY(u.lane,tx)-7,sx=laneX(u.x),sy=laneY(u.lane,sx)-af320ChestY(u);addCombatText(tx,ty-10,'-'+Math.round(af327real),af327f<AF332_PORTAL_TAKEN-1e-9?'#9ee8ff':'#ff9990');!af34033IsCloseCombat(u)&&af321QueueShot(u,tx,ty,.16,'#ff786b',sx,sy);burst(tx,ty,'#ff786b',6);try{AFX.portal(tx,ty,u);}catch(_){}if(allyTowerHP[u.lane]<=0)showNotice('ANA KALE HASAR ALDI! Üç kapının ortak canı azaldı.');};if(gun)af264Shell(u,{x:.035},damage*gun.portalMul,true);else if(af323IsShooter(u))af323Launch(u,null,damage,{x:0,apply:af323Hit});else af323Hit();u.cd=af327Period(u)*(gun?.reload||1)+Math.max(u.cd,-dt);}
++      if(af290BasicReady(u,null)){if(af264Type(u)===AF264.assassin)af264Reveal(u);if(gameMode==='boss'&&u.team==='enemy'){u.attackPulse=.30;u._afSpiderBiteUntil=elapsed+.30;u._afSpiderBiteSeq=(u._afSpiderBiteSeq||0)+1;}af321MarkHit(u,null);const af327buff=u.buffUntil>elapsed?(u.buffDamage||1):1;const damage=af265RamDamage(u,(u.heroType&&!u.enemyType)?u.atk*(u.heroType==='orc'?1.25:1)*af327buff:Math.max(4,Math.round(u.atk*(u.enemyType==='brute'?1.0:.88)*af327buff)));const af323Hit=()=>{if(allyTowerHP[u.lane]<=0)return;const af327b=allyTowerHP[u.lane],af327f=af327PortalFactor(u.lane)*(+window.__AF36PortalScale||1),af327pd=af327f<1?Math.max(1,Math.round(damage*af327f)):damage;allyTowerHP[u.lane]=Math.max(0,af327b-af327pd);const af327real=af327b-allyTowerHP[u.lane];try{af334NoteSiege(af327S,u.lane,af327real);}catch(_){}if(af327b>0&&allyTowerHP[u.lane]<=0){af274Beep('tower');af274Vibrate(60);}if(af327real>0)af332PortalHit(af327S);matchStats.portalTaken=(matchStats.portalTaken||0)+af327real;const tx=W*.08,ty=laneY(u.lane,tx)-7,sx=laneX(u.x),sy=laneY(u.lane,sx)-af320ChestY(u);addCombatText(tx,ty-10,'-'+Math.round(af327real),af327f<AF332_PORTAL_TAKEN-1e-9?'#9ee8ff':'#ff9990');!af34033IsCloseCombat(u)&&af321QueueShot(u,tx,ty,.16,'#ff786b',sx,sy);burst(tx,ty,'#ff786b',6);try{AFX.portal(tx,ty,u);}catch(_){}if(allyTowerHP[u.lane]<=0)showNotice('ANA KALE HASAR ALDI! Üç kapının ortak canı azaldı.');};if(gun)af264Shell(u,{x:.035},damage*gun.portalMul,true);else if(af323IsShooter(u))af323Launch(u,null,damage,{x:0,apply:af323Hit});else af323Hit();u.cd=af327Period(u)*(gun?.reload||1)+Math.max(u.cd,-dt);}
+     }else if(u.team==='ally'&&!u.isCommander&&enemyHP[u.lane]<=0&&!units.some(other=>other.team==='enemy'&&other.hp>0&&other.lane===u.lane)){
+       // v3.34.100: a destroyed outer portal redirects survivors to the middle/live portal instead of letting them walk off-screen.
+@@ -19751,5 +19917,5 @@
+       // v3.78.26: with no valid forward target, keep the unit visually facing its
+       // advance direction as well; never leave a stale backward-facing attack pose.
+-      if(!target)u.facingDir=u.team==='ally'?1:-1;
++      af290CancelBasic(u);if(!target)u.facingDir=u.team==='ally'?1:-1;
+       if(u.isCommander)af327CommanderIdle(u,dt);else moveUnitWithSpacing(u,u.speed*dt*UNIT_MOVE_PACING*(u.slowUntil>elapsed?.55:1)*(u.hasteUntil>elapsed?(((u.afprRaidHasteUntil||0)>elapsed)?1.5:1.3):1));
+       if(gameMode!=='duel'&&u.team==='enemy'&&allyTowerHP[u.lane]<=0&&u.x<=.03){const baseDamage=u.isBoss?17:u.enemyType==='brute'?12:u.enemyType==='raider'?5:7;baseHP=Math.max(0,baseHP-baseDamage);u.hp=0;showNotice((u.enemyType==='brute'?'AĞIR DÜŞMAN ':u.enemyType==='shaman'?'DÜŞMAN ŞAMANI ':u.enemyType==='raider'?'AKINCI ':'Düşman ')+'üssüne sızdı ve '+baseDamage+' hasar verdi!');}
+@@ -19777,4 +19943,5 @@
+     return u.x>=-.03&&u.x<=.99;
+   });
++  af379NormalizePortalHP();
+   if(af285PrepareModeResult()){updateHUD();draw(dt);return;}
+   if(gameMode==='echo'&&af203EchoStep(dt)){updateHUD();draw(dt);return;}
+@@ -19880,4 +20047,5 @@
+ function startGame(mode='arena'){
+   if(playing)return; // v3.60.216 motor repair: one active battle only.
++  try{afBattleDragAbort('battle-start');afBattleRosterRebuildPending=false;}catch(_){} // v3.79.00: previous match ghosts never carry over
+   // v3.34.40 guided training intentionally uses the existing local bot battle; never enters matchmaking.
+   if(window.__AFPTrainingBypass){tutorialActive=false;tutorialStep=0;const tut=document.getElementById('af274Tutorial');if(tut)tut.hidden=true;} /* v3.40.61: battlefield tutorial temporarily disabled; combat flow preserved. */
+@@ -20573,8 +20741,8 @@
+  if(kind==='hit'){let dodge=0;if(ps&&ps.dodge)dodge=Math.max(dodge,ps.dodge);if((tgt.dodgeUntil||0)>elapsed)dodge=Math.max(dodge,tgt.dodgeBuff||0);
+   if(dodge>0&&af330Rand()<dodge){af327Text(tgt,'KAÇTI','#e8ecff');af263MarkDefense(tgt,'dodge',.4);af222Badge(tgt,'dodge','#e8ecff',(ps&&ps.n)||'KAÇINMA',null,2.2);if(ps&&ps.blink&&ps.blink.dodge)tgt._af222Blink=1;return -1;}}
+- if((kind==='af285Physical'||kind==='af285Magic')&&af287Answer(att,tgt))dmg*=1.10;
++ if(['af285Physical','af285Magic','af285Pierce','af264Shell','splash'].includes(kind)&&af287Answer(att,tgt))dmg*=1.10;
+  let d=af267Run('guard',tgt,att,dmg,kind);if(att&&att!==tgt._af285MarkBy&&att.team!==tgt.team&&tgt._af285MarkBy?.team===att.team&&(tgt._af285MarkUntil||0)>elapsed)d*=tgt.isBoss?1.06:1.15;
+  if((tgt.vulnUntil||0)>elapsed)d*=1+(tgt.vuln||0);
+- let dr=0;if(ps&&ps.dr)dr=Math.max(dr,ps.dr);if((tgt.drUntil||0)>elapsed)dr=Math.max(dr,tgt.dr||0);const aDr=af327AuraFrom(tgt,'dr');if(aDr)dr=Math.max(dr,aDr);
++ let dr=af290Unit(tgt)?.armor||0;if(ps&&ps.dr)dr=Math.max(dr,ps.dr);if((tgt.drUntil||0)>elapsed)dr=Math.max(dr,tgt.dr||0);const aDr=af327AuraFrom(tgt,'dr');if(aDr)dr=Math.max(dr,aDr);
+  const pierce=af264Pierce(att,kind),armor=af264Armor(att,tgt,kind);
+  if(kind==='hit'&&(tgt._af264CrackUntil||0)>elapsed){dr=Math.max(0,dr-tgt._af264Crack);}
+@@ -21470,5 +21638,5 @@
+  const info=HERO_INFO[type]||HERO_INFO.archer,bonus=1+(lv-1)*.06,mass=Math.max(45,+info.mass||100),power=Math.max(1,+info.power||info.atk);
+  const massFactor=Math.pow(100/mass,.16),powerDrag=Math.max(.94,1-Math.max(0,power-20)*.002),ap=heroArenaPower(type);
+- return {hp:Math.round(info.hp*bonus*ap.hp),atk:Math.round(info.atk*bonus*ap.atk),speed:af268WalkSpeed(type,info.speed*massFactor*powerDrag*ap.speed),period:info.period*ap.interval*(ap.affinity?.97:1),mass,power};
++ return {hp:Math.round(info.hp*bonus*ap.hp),atk:Math.round(info.atk*bonus*ap.atk),speed:AF290_CARDS[type]?AF290_CARDS[type].moveSpeed/UNIT_MOVE_PACING*ap.speed:af268WalkSpeed(type,info.speed*massFactor*powerDrag*ap.speed),period:info.period*ap.interval*(ap.affinity?.97:1),mass,power};
+ }
+ /* v3.60.72: otomatik eşleşen rakibin destesi gerçek bir oyuncunun destesi gibi kurulur: yalnız oyuncu kartları (canavar/minyon yok);
+@@ -25562,5 +25730,5 @@
+   createOnlineSnapshot:function(){
+     const cleanNum=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
+-    const abilityFields=['_af264Born','_af264Ice','_af264IceUntil','_af264Stealth','_af264RootUntil','_af264Crack','_af264CrackUntil','_af264TunnelStart','_af264TunnelEnd','_af264TunnelFrom','_af264TunnelTo','_af264Emerging','_af264First','_af327FirstUsed','_af264HealBudget','_af264HealUses','_af264HealReady','_af264RootReady','_af264RootGate','_af264SlowGate','_af264StormReady','_af264ArmorReady','_af267Tempo','_af267TempoUntil','hot','hotUntil','tslow','tslowUntil','hasteUntil','dr','drUntil','attackPulse','hitFlash','animMove','_afSkeletonCloneSide','_af214GroupMember','_af285S','_af285A','_af285B','_af285R','_af285X','_af285L','_af285N','_af285Ward','_af285Aegis','_af285Dome','_af285DomeM','_af285DomeC','_af285Dizzy','_af285Vine','_af285VineEnd','_af285AirUntil','_afp177CaptiveUntil','_af285DragEnd','_af285TunnelUntil','_af285ForgeUntil','_af285Forge'];
++    const abilityFields=['_af290WindAt','_af290WindEnd','_af264Born','_af264Ice','_af264IceUntil','_af264Stealth','_af264RootUntil','_af264Crack','_af264CrackUntil','_af264TunnelStart','_af264TunnelEnd','_af264TunnelFrom','_af264TunnelTo','_af264Emerging','_af264First','_af327FirstUsed','_af264HealBudget','_af264HealUses','_af264HealReady','_af264RootReady','_af264RootGate','_af264SlowGate','_af264StormReady','_af264ArmorReady','_af267Tempo','_af267TempoUntil','hot','hotUntil','tslow','tslowUntil','hasteUntil','dr','drUntil','attackPulse','hitFlash','animMove','_afSkeletonCloneSide','_af214GroupMember','_af285S','_af285A','_af285B','_af285R','_af285X','_af285L','_af285N','_af285Ward','_af285Aegis','_af285Dome','_af285DomeM','_af285DomeC','_af285Dizzy','_af285Vine','_af285VineEnd','_af285AirUntil','_afp177CaptiveUntil','_af285DragEnd','_af285TunnelUntil','_af285ForgeUntil','_af285Forge'];
+     const unitFields=[...abilityFields,'uid','lane','x','hp','maxHp','speed','mass','power','atk','cd','attackPeriod','phase','level','isCommander','isHero','isRoster','isBarrier','isSummon','summonUntil','spawnedAt','showLabelUntil','facingDir','def','crit','critDmg','stunUntil','slowUntil','absorb','absorbUntil','immuneUntil','vulnUntil','range','attackRange'];
+     const list=units.filter(u=>u&&u.hp>0).slice(0,60).map(u=>{
+@@ -27498,5 +27666,5 @@
+    - Kart enerji bedelleri, nadirlik, deste, kayıt şeması değişmez. Rastgelelik kullanılmaz (tekrar oynatma ile uyumlu). */
+ /* var: motor kapanışı kurulurken erken bir çizim çağrısı gelse bile geçici ölü bölge (TDZ) hatası oluşmaz. */
+-var AF285_VER='3.60.287';
++var AF285_VER='3.60.290';
+ var AF285_IDLE=0,AF285_WIND=1,AF285_CAST=2,AF285_REC=3;
+ var AF285_DEFS=Object.create(null);   // tür -> yetenek tanımı
+@@ -27711,5 +27879,13 @@
+ function af285PoseDY(u,px){const P=af285PoseOf(u);return P&&P.pose.dy?P.pose.dy*px:0;}
+ function af285PoseEnv(u,env){
+-  const P=af285PoseOf(u);if(!P)return;
++  const P=af285PoseOf(u);
++  if(!P){
++    if(u._af290WindEnd>elapsed&&u._af290WindEnd>u._af290WindAt){
++      const phase=Math.max(0,Math.min(1,(elapsed-u._af290WindAt)/(u._af290WindEnd-u._af290WindAt)));
++      env.dbg={tau:-1+.99*phase};
++      env.eng=true;
++    }
++    return;
++  }
+   env.X=laneX(u.x);
+   let tau=P.pose.tau;
+@@ -29043,11 +29219,11 @@
+ AF285_DEFS.af37_iskelet_kalkanli={
+   group:5,role:'tank',status:'dönüştürüldü',name:'Kemik Duvarı',icon:'🛡️',
+-  cd:6.4,first:.7,wind:.28,cast:.15,rec:.22,sfx:['hit','block'],
++  cd:6.4,first:.60,wind:.18,cast:.10,rec:.18,sfx:['hit','block'],
+   desc:'Önünde düşman varken kemik siperini kaldırır. Siper 2,8 saniye boyunca canının %22’si kadar hasar emer.',
+   plan(u){
+     if(u.absorb>0&&u.absorbUntil>elapsed)return null;
+-    return af285Front(u,.15).length?{t:u,x:u.x}:null;
++    return af285Front(u,.185).length?{t:u,x:u.x}:null;
+   },
+-  check(u){return af285Front(u,.18).length>0;},
++  check(u){return af285Front(u,.205).length>0;},
+   impact(u){af285BoneWall(u,Math.ceil(u.maxHp*.22),2.8);af285Emit('bone_wall',u,{life:.58});},
+   pose(s,p){return s===AF285_WIND?{dy:.045*p,tau:-1+.78*p}:{dx:.035*(1-p),dy:.045*(1-p),tau:.14+.65*p};}
+@@ -29079,10 +29255,10 @@
+ AF285_DEFS.af37_kesifci={
+   group:5,role:'menzilli',status:'dönüştürüldü',name:'İz Oku',icon:'🏹',
+-  cd:5.2,first:1.05,wind:.28,cast:.36,rec:.22,retarget:true,sfx:['hit','shoot'],
++  cd:5.2,first:.82,wind:.18,cast:.27,rec:.19,retarget:true,sfx:['hit','shoot'],
+   desc:'Öndeki düşmana işaret oku atar. Ok isabet ederse diğer dost saldırganlar 3 saniye boyunca bu hedefe %15 ek hasar verir.',
+-  plan(u){const t=af285Front(u,.30).find(v=>!v.isBarrier&&Math.abs(v.x-u.x)>.07);return t?{t}:null;},
++  plan(u){const t=af285Front(u,.30).find(v=>!v.isBarrier&&Math.abs(v.x-u.x)>.07&&(v._af285MarkUntil||0)<=elapsed);return t?{t}:null;},
+   onCast(u,c){af285Emit('scout_arrow',u,{x1:c.x,life:this.cast});},
+   impact(u,c){
+-    const t=c.t;if(!af285ValidTarget(u,t,.34))return;
++    const t=c.t;if(!af285ValidTarget(u,t,.34)||(t._af285MarkUntil||0)>elapsed)return;
+     if(af285Dmg(u,t,u.atk*.6,true,'#ebee95')>0&&t.hp>0){
+       t._af285MarkBy=u;
+@@ -29429,4 +29605,6 @@
+     const stop=next?Math.min(.042,Math.abs(next.x-t.x)*.5):.042;
+     u.x=Math.max(.035,Math.min(.965,t.x+dir*stop));
++    u._af290RearUntil=elapsed+1.15;
++    u._af290RearTarget=t;
+     af285Dmg(u,t,u.atk*.95,true,'#d4f8ff');
+     if(next&&Math.abs(next.x-u.x)<.08)af285Dmg(u,next,u.atk*.58,true,'#c0ecff');
+@@ -29970,5 +30148,5 @@
+ AF285_DEFS.afn_zincir_kiran={
+   group:12,role:'kontrol',status:'dönüştürüldü',name:'Zincir Kancası',icon:'⛓️',
+-  cd:9.4,first:1.2,wind:.33,cast:.49,rec:.52,retarget:true,sfx:['hit','throw'],
++  cd:9.4,first:.77,wind:.24,cast:.43,rec:.48,retarget:true,sfx:['hit','throw'],
+   desc:'Uzaktaki rakibe fiziksel kanca fırlatır. Kanca çarparsa zincir rakibi yanına çeker, ardından yakın saldırı yapar.',
+   plan(u){const t=af285Front(u,.33).find(v=>af285Pushable(v)&&Math.abs(v.x-u.x)>=.095);return t?{t}:null;},
+@@ -29987,5 +30165,5 @@
+       af327Text(t,'SİPER','#bdeaff');return;
+     }
+-    af285PullStart(u,t,.39,af285HookStrike);
++    af285PullStart(u,t,.32,af285HookStrike);
+   }
+ };
+@@ -30055,6 +30233,6 @@
+   "af37_isik_sifacisi": "af37_golge_suikastci",
+   "afn_kar_fenercisi": "afn_bulut_dalgici",
+-  "af37_iskelet_kalkanli": "afn_firtina_baglayici",
+-  "af37_iskelet_savasci": "af37_alev_silahcisi",
++  "af37_iskelet_kalkanli": "af37_ates_buyucusu",
++  "af37_iskelet_savasci": "af37_mavi_buyucu",
+   "af37_kesifci": "af37_savas_muhendisi",
+   "af37_kilicli_asker": "af37_lav_golemi",
+@@ -30095,13 +30273,4 @@
+ };
+ 
+-// Per-role offsets are applied to base stats before account and mode scaling.
+-var AF287_TEMPO={
+-  // HP, hit damage, movement, attack interval, body scale
+-  tank:[1.07,1.02,.96,1.06,1.045], destek:[.97,.96,1.02,1.02,.96],
+-  menzilli:[.96,.99,1,1.025,.965], okçu:[.96,.99,1,1.025,.965],
+-  büyücü:[.96,1.025,.98,1.045,.98], kontrol:[1,.97,.99,1.025,.99],
+-  alan:[1.02,1.035,.97,1.055,1.03], savaşçı:[1.02,1.01,1.025,.985,1],
+-  'hızlı savaşçı':[.98,.98,1.05,.96,.96], suikastçı:[.96,.99,1.045,.975,.95]
+-};
+ function af287Answer(att,tgt){
+   if(!att||!tgt||att.team===tgt.team||att.lane!==tgt.lane)return false;
+@@ -30111,17 +30280,16 @@
+ function af287MatchedHit(att,tgt,amount,kind){
+   if(tgt._af285S!==AF285_WIND||!(amount>0)||tgt.hp<=0||
+-     (tgt._af287SafeUntil||0)>elapsed||!['hit','af285Magic','af285Physical'].includes(kind)||
++     (tgt._af287SafeUntil||0)>elapsed||!['hit','af285Magic','af285Physical','af285Pierce','af264Shell','splash'].includes(kind)||
+      !af287Answer(att,tgt))return;
+   tgt._af287SafeUntil=elapsed+5;
+   af285Cancel(tgt,AF285_DEFS[tgt.heroType],'karşı hamle');
+ }
+-for(const [id,def] of Object.entries(AF285_DEFS)){
+-  const stats=HERO_INFO[id],p=AF287_TEMPO[def.role];
+-  stats.speed*=p[2];stats.period*=p[3];
+-  const [,hp,dps]=AF288_CARDS[id];
+-  stats.hp=hp;
+-  stats.atk=Math.max(1,Math.round(dps*stats.period));
+-  stats.power=stats.atk;
+-  def.desc+=' Karşı kart: '+HERO_INFO[AF287_ANSWERS[id]].name+'. Hazırlık sırasında isabet ettirirse yeteneği keser.';
++for(const [id,card] of Object.entries(AF290_CARDS)){
++  const def=AF285_DEFS[id],stats=HERO_INFO[id];
++  stats.hp=card.maxHp;
++  stats.atk=stats.power=card.hit;
++  stats.speed=card.moveSpeed/UNIT_MOVE_PACING;
++  stats.period=card.period;
++  def.desc+=' Karşı kart: '+HERO_INFO[AF287_ANSWERS[id]].name+'. Hazırlığı isabetle kesebilir.';
+ }
+ 
+@@ -31663,6 +31831,7 @@
+          otPulseCount++;
+          const blueMax=Math.max(1,allyTowerMax),redMax=Math.max(1,TOWER_MAX_HP);
+-         allySharedHP=Math.max(0,allySharedHP-blueMax*OT_DAMAGE_FRACTION);
+-         enemySharedHP=Math.max(0,enemySharedHP-redMax*OT_DAMAGE_FRACTION);
++         allySharedHP=Math.max(0,Math.round(allySharedHP-blueMax*OT_DAMAGE_FRACTION));
++         enemySharedHP=Math.max(0,Math.round(enemySharedHP-redMax*OT_DAMAGE_FRACTION));
++         allyLaneHP=[allySharedHP,allySharedHP,allySharedHP];enemyLaneHP=[enemySharedHP,enemySharedHP,enemySharedHP]; // v3.79.00
+          try{af327Fx({kind:'blink',lane:1,x0:.04,life:.55,color:'#62c7ff'});af327Fx({kind:'blink',lane:1,x0:.96,life:.55,color:'#ff624d'});}catch(e){}
+        }
