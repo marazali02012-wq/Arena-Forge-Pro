@@ -1,0 +1,9378 @@
+[
+ {
+  "key": "boss.ancient_giant",
+  "name": "Kadim Dev",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (warden)",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.11,
+    "above": 0.01,
+    "below": 0.11,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     18,
+     19
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 79,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_ancient_giant"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_ancient_giant",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_ancient_giant",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_ancient_giant__1_spawn.png",
+   "walk": "finalrun/shots/boss_ancient_giant__2_walk.png",
+   "stop": "finalrun/shots/boss_ancient_giant__3_stop.png",
+   "attack": "finalrun/shots/boss_ancient_giant__4_attack.png",
+   "hurt": "finalrun/shots/boss_ancient_giant__5_hurt.png",
+   "death": "finalrun/shots/boss_ancient_giant__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.11
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.ancient_giant",
+  "name": "Kadim Dev",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (warden)",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.11,
+    "above": 0.01,
+    "below": 0.11,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     18,
+     19
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 79,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_ancient_giant"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_ancient_giant",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_ancient_giant",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.11
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.death_lord",
+  "name": "Ölüm Lordu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (executioner)",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     25,
+     14
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_death_lord"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_death_lord",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_death_lord",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_death_lord__1_spawn.png",
+   "walk": "finalrun/shots/boss_death_lord__2_walk.png",
+   "stop": "finalrun/shots/boss_death_lord__3_stop.png",
+   "attack": "finalrun/shots/boss_death_lord__4_attack.png",
+   "hurt": "finalrun/shots/boss_death_lord__5_hurt.png",
+   "death": "finalrun/shots/boss_death_lord__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    1.9,
+    1.9
+   ],
+   "walk": [
+    0.91,
+    1.9
+   ],
+   "stop": [
+    1.67,
+    1.9
+   ],
+   "turn": [
+    1.9,
+    1.9
+   ],
+   "atk": [
+    0,
+    1.9
+   ],
+   "back": [
+    0,
+    1.9
+   ],
+   "hurt": [
+    1.9,
+    1.9
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.death_lord",
+  "name": "Ölüm Lordu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (executioner)",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     25,
+     14
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_death_lord"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_death_lord",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_death_lord",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    1.9,
+    1.9
+   ],
+   "walk": [
+    1.15,
+    1.9
+   ],
+   "stop": [
+    0.9,
+    1.9
+   ],
+   "turn": [
+    1.9,
+    1.9
+   ],
+   "atk": [
+    0,
+    1.9
+   ],
+   "back": [
+    0,
+    1.9
+   ],
+   "hurt": [
+    1.9,
+    1.9
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.forest_guardian",
+  "name": "Orman Koruyucusu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (mender)",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0.01,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     26,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 82,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_forest_guardian"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_forest_guardian",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_forest_guardian",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_forest_guardian__1_spawn.png",
+   "walk": "finalrun/shots/boss_forest_guardian__2_walk.png",
+   "stop": "finalrun/shots/boss_forest_guardian__3_stop.png",
+   "attack": "finalrun/shots/boss_forest_guardian__4_attack.png",
+   "hurt": "finalrun/shots/boss_forest_guardian__5_hurt.png",
+   "death": "finalrun/shots/boss_forest_guardian__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.13
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.forest_guardian",
+  "name": "Orman Koruyucusu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (mender)",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0.01,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     26,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 82,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_forest_guardian"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_forest_guardian",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_forest_guardian",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.13
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.infernal_behemoth",
+  "name": "Cehennem Behemotu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (berserker)",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.82,
+    "above": 0,
+    "below": 0.82,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     27,
+     14
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_infernal_behemoth"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_infernal_behemoth",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_infernal_behemoth",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_infernal_behemoth__1_spawn.png",
+   "walk": "finalrun/shots/boss_infernal_behemoth__2_walk.png",
+   "stop": "finalrun/shots/boss_infernal_behemoth__3_stop.png",
+   "attack": "finalrun/shots/boss_infernal_behemoth__4_attack.png",
+   "hurt": "finalrun/shots/boss_infernal_behemoth__5_hurt.png",
+   "death": "finalrun/shots/boss_infernal_behemoth__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.82
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.infernal_behemoth",
+  "name": "Cehennem Behemotu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (berserker)",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.82,
+    "above": 0,
+    "below": 0.82,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     27,
+     14
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_infernal_behemoth"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_infernal_behemoth",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_infernal_behemoth",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.82
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.shadow_stalker",
+  "name": "Gölge Avcısı",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (stalker)",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.2,
+    "above": 0,
+    "below": 0.2,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     31,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 73,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_shadow_stalker"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_shadow_stalker",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_shadow_stalker",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_shadow_stalker__1_spawn.png",
+   "walk": "finalrun/shots/boss_shadow_stalker__2_walk.png",
+   "stop": "finalrun/shots/boss_shadow_stalker__3_stop.png",
+   "attack": "finalrun/shots/boss_shadow_stalker__4_attack.png",
+   "hurt": "finalrun/shots/boss_shadow_stalker__5_hurt.png",
+   "death": "finalrun/shots/boss_shadow_stalker__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.05,
+    0.18
+   ],
+   "walk": [
+    0,
+    0.2
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.18
+   ],
+   "back": [
+    0,
+    0.18
+   ],
+   "hurt": [
+    0,
+    0.18
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.shadow_stalker",
+  "name": "Gölge Avcısı",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (stalker)",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.2,
+    "above": 0,
+    "below": 0.2,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     31,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 73,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_shadow_stalker"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_shadow_stalker",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_shadow_stalker",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.18,
+    0.18
+   ],
+   "walk": [
+    0,
+    0.2
+   ],
+   "stop": [
+    0,
+    0.18
+   ],
+   "turn": [
+    0,
+    0.18
+   ],
+   "atk": [
+    0,
+    0.18
+   ],
+   "back": [
+    0,
+    0.18
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.lava_dragon",
+  "name": "Lav Ejderhası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (siege)",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.01,
+    "above": 0.01,
+    "below": 0.01,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     18,
+     13,
+     29,
+     17
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_lava_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_lava_dragon",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_lava_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_lava_dragon__1_spawn.png",
+   "walk": "finalrun/shots/boss_lava_dragon__2_walk.png",
+   "stop": "finalrun/shots/boss_lava_dragon__3_stop.png",
+   "attack": "finalrun/shots/boss_lava_dragon__4_attack.png",
+   "hurt": "finalrun/shots/boss_lava_dragon__5_hurt.png",
+   "death": "finalrun/shots/boss_lava_dragon__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0.01
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.lava_dragon",
+  "name": "Lav Ejderhası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (siege)",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.01,
+    "above": 0.01,
+    "below": 0.01,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     18,
+     13,
+     29,
+     17
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_lava_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_lava_dragon",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_lava_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0.01
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.storm_dragon",
+  "name": "Fırtına Ejderi",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (storm)",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.11,
+    "above": 0.01,
+    "below": 0.11,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     36,
+     9,
+     40,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.69,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_storm_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_storm_dragon",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_storm_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_storm_dragon__1_spawn.png",
+   "walk": "finalrun/shots/boss_storm_dragon__2_walk.png",
+   "stop": "finalrun/shots/boss_storm_dragon__3_stop.png",
+   "attack": "finalrun/shots/boss_storm_dragon__4_attack.png",
+   "hurt": "finalrun/shots/boss_storm_dragon__5_hurt.png",
+   "death": "finalrun/shots/boss_storm_dragon__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.11
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.storm_dragon",
+  "name": "Fırtına Ejderi",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (storm)",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.14,
+    "above": 0.01,
+    "below": 0.14,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     36,
+     9,
+     40,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.68,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_storm_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_storm_dragon",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_storm_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.14
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.venom_hydra",
+  "name": "Zehir Hidrası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (venom)",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.1,
+    "above": 0.01,
+    "below": 2.1,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     24,
+     17,
+     6,
+     23
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_venom_hydra"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_venom_hydra",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_venom_hydra",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_venom_hydra__1_spawn.png",
+   "walk": "finalrun/shots/boss_venom_hydra__2_walk.png",
+   "stop": "finalrun/shots/boss_venom_hydra__3_stop.png",
+   "attack": "finalrun/shots/boss_venom_hydra__4_attack.png",
+   "hurt": "finalrun/shots/boss_venom_hydra__5_hurt.png",
+   "death": "finalrun/shots/boss_venom_hydra__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    2.1
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.venom_hydra",
+  "name": "Zehir Hidrası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (venom)",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.1,
+    "above": 0.01,
+    "below": 2.1,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     23,
+     17,
+     8,
+     18
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.12,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_venom_hydra"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_venom_hydra",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_venom_hydra",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    2.1
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.spider_queen",
+  "name": "Örümcek Kraliçe",
+  "modes": "Örümcek Akını",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     30,
+     15,
+     23,
+     19
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 148,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_spider_queen"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_spider_queen",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_spider_queen",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/boss_spider_queen__1_spawn.png",
+   "walk": "finalrun/shots/boss_spider_queen__2_walk.png",
+   "stop": "finalrun/shots/boss_spider_queen__3_stop.png",
+   "attack": "finalrun/shots/boss_spider_queen__4_attack.png",
+   "hurt": "finalrun/shots/boss_spider_queen__5_hurt.png",
+   "death": "finalrun/shots/boss_spider_queen__6_death.png"
+  },
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.spider_queen",
+  "name": "Örümcek Kraliçe",
+  "modes": "Örümcek Akını",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     32,
+     15,
+     26,
+     22
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 148,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_spider_queen"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_spider_queen",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_spider_queen",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_kullerin_hukumdari",
+  "name": "Küllerin Hükümdarı",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.06,
+    "above": 0,
+    "below": 2.06,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     19,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 79,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/afp263_boss_kullerin_hukumdari__1_spawn.png",
+   "walk": "finalrun/shots/afp263_boss_kullerin_hukumdari__2_walk.png",
+   "stop": "finalrun/shots/afp263_boss_kullerin_hukumdari__3_stop.png",
+   "attack": "finalrun/shots/afp263_boss_kullerin_hukumdari__4_attack.png",
+   "hurt": "finalrun/shots/afp263_boss_kullerin_hukumdari__5_hurt.png",
+   "death": "finalrun/shots/afp263_boss_kullerin_hukumdari__6_death.png"
+  },
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    0,
+    2.06
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_kullerin_hukumdari",
+  "name": "Küllerin Hükümdarı",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.06,
+    "above": 0,
+    "below": 2.06,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     19,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 79,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    0,
+    2.06
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_ucurum_ejderi",
+  "name": "Uçurum Ejderi",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.49,
+    "above": 0.01,
+    "below": 2.49,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     30,
+     17,
+     0,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.88,
+    "plantedSamples": 149,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/afp263_boss_ucurum_ejderi__1_spawn.png",
+   "walk": "finalrun/shots/afp263_boss_ucurum_ejderi__2_walk.png",
+   "stop": "finalrun/shots/afp263_boss_ucurum_ejderi__3_stop.png",
+   "attack": "finalrun/shots/afp263_boss_ucurum_ejderi__4_attack.png",
+   "hurt": "finalrun/shots/afp263_boss_ucurum_ejderi__5_hurt.png",
+   "death": "finalrun/shots/afp263_boss_ucurum_ejderi__6_death.png"
+  },
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    -0.01,
+    2.49
+   ],
+   "stop": [
+    0,
+    1.05
+   ],
+   "turn": [
+    0.53,
+    1.05
+   ],
+   "atk": [
+    0,
+    1.05
+   ],
+   "back": [
+    0.53,
+    1.05
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_ucurum_ejderi",
+  "name": "Uçurum Ejderi",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.49,
+    "above": 0.01,
+    "below": 2.49,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     30,
+     17,
+     0,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.88,
+    "plantedSamples": 149,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    1.05
+   ],
+   "walk": [
+    -0.01,
+    2.49
+   ],
+   "stop": [
+    0,
+    1.05
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    1.05
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_bosluk_imparatoru",
+  "name": "Boşluk İmparatoru",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.53,
+    "above": 0,
+    "below": 0.53,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "hover": true,
+    "note": "Bacaksız, rün dairesi üzerinde süzülen büyücü: adım animasyonu yok (çizim böyle tasarlanmış)"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/afp263_boss_bosluk_imparatoru__1_spawn.png",
+   "walk": "finalrun/shots/afp263_boss_bosluk_imparatoru__2_walk.png",
+   "stop": "finalrun/shots/afp263_boss_bosluk_imparatoru__3_stop.png",
+   "attack": "finalrun/shots/afp263_boss_bosluk_imparatoru__4_attack.png",
+   "hurt": "finalrun/shots/afp263_boss_bosluk_imparatoru__5_hurt.png",
+   "death": "finalrun/shots/afp263_boss_bosluk_imparatoru__6_death.png"
+  },
+  "render": "atlas",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0.53
+   ],
+   "walk": [
+    0,
+    0.53
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_bosluk_imparatoru",
+  "name": "Boşluk İmparatoru",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.53,
+    "above": 0,
+    "below": 0.53,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "hover": true,
+    "note": "Bacaksız, rün dairesi üzerinde süzülen büyücü: adım animasyonu yok (çizim böyle tasarlanmış)"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.53
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0.53
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "colossus.stone_golem",
+  "name": "Taş Kolosus",
+  "modes": "Kristal Kolos",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.62,
+    "above": 0,
+    "below": 0.62,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkStateFrames": "90/90",
+    "distinctFrames": 8
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.683,
+      "bossRig": false,
+      "colossus": true,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "colossus death atlas"
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/colossus_stone_golem__1_spawn.png",
+   "walk": "finalrun/shots/colossus_stone_golem__2_walk.png",
+   "stop": "finalrun/shots/colossus_stone_golem__3_stop.png",
+   "attack": "finalrun/shots/colossus_stone_golem__4_attack.png",
+   "hurt": "finalrun/shots/colossus_stone_golem__5_hurt.png",
+   "death": "finalrun/shots/colossus_stone_golem__6_death.png"
+  },
+  "render": "colossus",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0.15
+   ],
+   "walk": [
+    0,
+    0.62
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0.62
+   ],
+   "hurt": [
+    0,
+    0.62
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "colossus.stone_golem",
+  "name": "Taş Kolosus",
+  "modes": "Kristal Kolos",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.62,
+    "above": 0,
+    "below": 0.62,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkStateFrames": "90/90",
+    "distinctFrames": 8
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.683,
+      "bossRig": false,
+      "colossus": true,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "colossus death atlas"
+   }
+  },
+  "notes": [],
+  "render": "colossus",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.62
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0.62
+   ],
+   "hurt": [
+    0,
+    0.62
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "echo.mirror_executioner",
+  "name": "Ayna Celladı",
+  "modes": "Yankı İstilası",
+  "team": "enemy",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     20,
+     20
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 73,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": false,
+      "colossus": false,
+      "kind": null,
+      "refKind": "warrior"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "kahraman iskeleti"
+   }
+  },
+  "notes": [],
+  "shots": {
+   "spawn": "finalrun/shots/echo_mirror_executioner__1_spawn.png",
+   "walk": "finalrun/shots/echo_mirror_executioner__2_walk.png",
+   "stop": "finalrun/shots/echo_mirror_executioner__3_stop.png",
+   "attack": "finalrun/shots/echo_mirror_executioner__4_attack.png",
+   "hurt": "finalrun/shots/echo_mirror_executioner__5_hurt.png",
+   "death": "finalrun/shots/echo_mirror_executioner__6_death.png"
+  },
+  "render": "hero-mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "echo.mirror_executioner",
+  "name": "Ayna Celladı",
+  "modes": "Yankı İstilası",
+  "team": "ally",
+  "res": "740x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     21,
+     20
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 73,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": false,
+      "colossus": false,
+      "kind": null,
+      "refKind": "warrior"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "kahraman iskeleti"
+   }
+  },
+  "notes": [],
+  "render": "hero-mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "res": "740x360",
+  "pageErrors": []
+ },
+ {
+  "key": "boss.ancient_giant",
+  "name": "Kadim Dev",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (warden)",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.11,
+    "above": 0,
+    "below": 0.11,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     20,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_ancient_giant"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_ancient_giant",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_ancient_giant",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.11
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.ancient_giant",
+  "name": "Kadim Dev",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (warden)",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.11,
+    "above": 0,
+    "below": 0.11,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     20,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_ancient_giant"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_ancient_giant",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_ancient_giant",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.11
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.death_lord",
+  "name": "Ölüm Lordu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (executioner)",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.51,
+    "above": 0,
+    "below": 0.51,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     27,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 79,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_death_lord"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_death_lord",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_death_lord",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    1.9,
+    1.9
+   ],
+   "walk": [
+    0.97,
+    1.9
+   ],
+   "stop": [
+    1.9,
+    2.28
+   ],
+   "turn": [
+    1.9,
+    1.9
+   ],
+   "atk": [
+    0,
+    1.9
+   ],
+   "back": [
+    0,
+    1.9
+   ],
+   "hurt": [
+    1.9,
+    1.9
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.death_lord",
+  "name": "Ölüm Lordu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (executioner)",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.51,
+    "above": 0,
+    "below": 0.51,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     27,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 79,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_death_lord"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_death_lord",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_death_lord",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    1.9,
+    1.9
+   ],
+   "walk": [
+    1.07,
+    1.9
+   ],
+   "stop": [
+    1.9,
+    2.28
+   ],
+   "turn": [
+    1.9,
+    1.9
+   ],
+   "atk": [
+    0,
+    1.9
+   ],
+   "back": [
+    0,
+    1.9
+   ],
+   "hurt": [
+    1.9,
+    1.9
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.forest_guardian",
+  "name": "Orman Koruyucusu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (mender)",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0.01,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     26,
+     15
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 79,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_forest_guardian"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_forest_guardian",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_forest_guardian",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.13
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.forest_guardian",
+  "name": "Orman Koruyucusu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (mender)",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0.01,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     26,
+     15
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 79,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_forest_guardian"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_forest_guardian",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_forest_guardian",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.13
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.infernal_behemoth",
+  "name": "Cehennem Behemotu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (berserker)",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.82,
+    "above": 0.01,
+    "below": 0.82,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     24,
+     15
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 80,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_infernal_behemoth"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_infernal_behemoth",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_infernal_behemoth",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.82
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.infernal_behemoth",
+  "name": "Cehennem Behemotu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (berserker)",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.82,
+    "above": 0.01,
+    "below": 0.82,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     24,
+     15
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 80,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_infernal_behemoth"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_infernal_behemoth",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_infernal_behemoth",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.82
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.shadow_stalker",
+  "name": "Gölge Avcısı",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (stalker)",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.2,
+    "above": 0,
+    "below": 0.2,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     31,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 73,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_shadow_stalker"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_shadow_stalker",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_shadow_stalker",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.05,
+    0.18
+   ],
+   "walk": [
+    0,
+    0.2
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.18
+   ],
+   "back": [
+    0,
+    0.18
+   ],
+   "hurt": [
+    0,
+    0.18
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.shadow_stalker",
+  "name": "Gölge Avcısı",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (stalker)",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.2,
+    "above": 0,
+    "below": 0.2,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     31,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 73,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_shadow_stalker"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_shadow_stalker",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_shadow_stalker",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.18,
+    0.18
+   ],
+   "walk": [
+    0,
+    0.2
+   ],
+   "stop": [
+    0,
+    0.18
+   ],
+   "turn": [
+    0,
+    0.18
+   ],
+   "atk": [
+    0,
+    0.18
+   ],
+   "back": [
+    0,
+    0.18
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.lava_dragon",
+  "name": "Lav Ejderhası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (siege)",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.01,
+    "above": 0.01,
+    "below": 0.01,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     19,
+     17,
+     29,
+     17
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_lava_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_lava_dragon",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_lava_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0.01
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.lava_dragon",
+  "name": "Lav Ejderhası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (siege)",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.01,
+    "above": 0.01,
+    "below": 0.01,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     19,
+     17,
+     29,
+     17
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_lava_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_lava_dragon",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_lava_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0.01
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.storm_dragon",
+  "name": "Fırtına Ejderi",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (storm)",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.1,
+    "above": 0.01,
+    "below": 0.1,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     35,
+     9,
+     40,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.62,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_storm_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_storm_dragon",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_storm_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.1
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.storm_dragon",
+  "name": "Fırtına Ejderi",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (storm)",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0.01,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     35,
+     9,
+     40,
+     12
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.61,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_storm_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_storm_dragon",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_storm_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.13
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.venom_hydra",
+  "name": "Zehir Hidrası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (venom)",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.06,
+    "above": 0.01,
+    "below": 2.06,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     26,
+     17,
+     5,
+     20
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_venom_hydra"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_venom_hydra",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_venom_hydra",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    2.06
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.venom_hydra",
+  "name": "Zehir Hidrası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (venom)",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.06,
+    "above": 0.01,
+    "below": 2.06,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     24,
+     17,
+     7,
+     18
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_venom_hydra"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_venom_hydra",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_venom_hydra",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    2.06
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.spider_queen",
+  "name": "Örümcek Kraliçe",
+  "modes": "Örümcek Akını",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     30,
+     15,
+     23,
+     19
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 148,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_spider_queen"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_spider_queen",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_spider_queen",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.spider_queen",
+  "name": "Örümcek Kraliçe",
+  "modes": "Örümcek Akını",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     31,
+     15,
+     26,
+     21
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 148,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_spider_queen"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_spider_queen",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_spider_queen",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_kullerin_hukumdari",
+  "name": "Küllerin Hükümdarı",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 1.86,
+    "above": 0,
+    "below": 1.86,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     22,
+     18
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 79,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    0,
+    1.86
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_kullerin_hukumdari",
+  "name": "Küllerin Hükümdarı",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 1.86,
+    "above": 0,
+    "below": 1.86,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     22,
+     18
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 79,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    0,
+    1.86
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_ucurum_ejderi",
+  "name": "Uçurum Ejderi",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.37,
+    "above": 0.01,
+    "below": 2.37,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     30,
+     17,
+     0,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.82,
+    "plantedSamples": 149,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    -0.01,
+    2.37
+   ],
+   "stop": [
+    0,
+    1.05
+   ],
+   "turn": [
+    0.53,
+    1.05
+   ],
+   "atk": [
+    0,
+    1.05
+   ],
+   "back": [
+    0.53,
+    1.05
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_ucurum_ejderi",
+  "name": "Uçurum Ejderi",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.37,
+    "above": 0.01,
+    "below": 2.37,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     30,
+     17,
+     0,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.81,
+    "plantedSamples": 149,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    1.05
+   ],
+   "walk": [
+    -0.01,
+    2.37
+   ],
+   "stop": [
+    0,
+    1.05
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    1.05
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_bosluk_imparatoru",
+  "name": "Boşluk İmparatoru",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.53,
+    "above": 0,
+    "below": 0.53,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "hover": true,
+    "note": "Bacaksız, rün dairesi üzerinde süzülen büyücü: adım animasyonu yok (çizim böyle tasarlanmış)"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0.53
+   ],
+   "walk": [
+    0,
+    0.53
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_bosluk_imparatoru",
+  "name": "Boşluk İmparatoru",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.53,
+    "above": 0,
+    "below": 0.53,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "hover": true,
+    "note": "Bacaksız, rün dairesi üzerinde süzülen büyücü: adım animasyonu yok (çizim böyle tasarlanmış)"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.53
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0.53
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "colossus.stone_golem",
+  "name": "Taş Kolosus",
+  "modes": "Kristal Kolos",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.62,
+    "above": 0,
+    "below": 0.62,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkStateFrames": "90/90",
+    "distinctFrames": 8
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.683,
+      "bossRig": false,
+      "colossus": true,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "colossus death atlas"
+   }
+  },
+  "notes": [],
+  "render": "colossus",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0.16
+   ],
+   "walk": [
+    0,
+    0.62
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0.62
+   ],
+   "hurt": [
+    0,
+    0.62
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "colossus.stone_golem",
+  "name": "Taş Kolosus",
+  "modes": "Kristal Kolos",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.62,
+    "above": 0,
+    "below": 0.62,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkStateFrames": "90/90",
+    "distinctFrames": 8
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.683,
+      "bossRig": false,
+      "colossus": true,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "colossus death atlas"
+   }
+  },
+  "notes": [],
+  "render": "colossus",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.62
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0.62
+   ],
+   "hurt": [
+    0,
+    0.62
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "echo.mirror_executioner",
+  "name": "Ayna Celladı",
+  "modes": "Yankı İstilası",
+  "team": "enemy",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     20,
+     22
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 74,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": false,
+      "colossus": false,
+      "kind": null,
+      "refKind": "warrior"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "kahraman iskeleti"
+   }
+  },
+  "notes": [],
+  "render": "hero-mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "echo.mirror_executioner",
+  "name": "Ayna Celladı",
+  "modes": "Yankı İstilası",
+  "team": "ally",
+  "res": "667x375",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     20,
+     22
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 74,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": false,
+      "colossus": false,
+      "kind": null,
+      "refKind": "warrior"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "kahraman iskeleti"
+   }
+  },
+  "notes": [],
+  "render": "hero-mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "res": "667x375",
+  "pageErrors": []
+ },
+ {
+  "key": "boss.ancient_giant",
+  "name": "Kadim Dev",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (warden)",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.11,
+    "above": 0.01,
+    "below": 0.11,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     21,
+     17
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_ancient_giant"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_ancient_giant",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_ancient_giant",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.11
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.ancient_giant",
+  "name": "Kadim Dev",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (warden)",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.11,
+    "above": 0.01,
+    "below": 0.11,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     21,
+     17
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_ancient_giant"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_ancient_giant",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_ancient_giant",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.11
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.death_lord",
+  "name": "Ölüm Lordu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (executioner)",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.15,
+    "above": 0,
+    "below": 0.15,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     22,
+     20
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 77,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_death_lord"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_death_lord",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_death_lord",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    1.9,
+    1.9
+   ],
+   "walk": [
+    0.87,
+    1.92
+   ],
+   "stop": [
+    1.9,
+    1.9
+   ],
+   "turn": [
+    1.9,
+    1.9
+   ],
+   "atk": [
+    0,
+    1.9
+   ],
+   "back": [
+    0,
+    1.9
+   ],
+   "hurt": [
+    1.9,
+    1.9
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.death_lord",
+  "name": "Ölüm Lordu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (executioner)",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.15,
+    "above": 0,
+    "below": 0.15,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     22,
+     20
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 77,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_death_lord"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_death_lord",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_death_lord",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    1.9,
+    1.9
+   ],
+   "walk": [
+    0.85,
+    1.92
+   ],
+   "stop": [
+    1.9,
+    1.9
+   ],
+   "turn": [
+    1.9,
+    1.9
+   ],
+   "atk": [
+    0,
+    1.9
+   ],
+   "back": [
+    0,
+    1.9
+   ],
+   "hurt": [
+    1.9,
+    1.9
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.forest_guardian",
+  "name": "Orman Koruyucusu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (mender)",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0.01,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     25,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_forest_guardian"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_forest_guardian",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_forest_guardian",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.13
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.forest_guardian",
+  "name": "Orman Koruyucusu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (mender)",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0.01,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     25,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 78,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_forest_guardian"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_forest_guardian",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_forest_guardian",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.13
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.infernal_behemoth",
+  "name": "Cehennem Behemotu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (berserker)",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.82,
+    "above": 0,
+    "below": 0.82,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     26,
+     14
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 79,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_infernal_behemoth"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_infernal_behemoth",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_infernal_behemoth",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.82
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.infernal_behemoth",
+  "name": "Cehennem Behemotu",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (berserker)",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.82,
+    "above": 0,
+    "below": 0.82,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     26,
+     14
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 79,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_infernal_behemoth"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_infernal_behemoth",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_infernal_behemoth",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.82
+   ],
+   "back": [
+    0,
+    0.13
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.shadow_stalker",
+  "name": "Gölge Avcısı",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (stalker)",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.2,
+    "above": 0,
+    "below": 0.2,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     31,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 73,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_shadow_stalker"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_shadow_stalker",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_shadow_stalker",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.04,
+    0.18
+   ],
+   "walk": [
+    0,
+    0.2
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0.18
+   ],
+   "back": [
+    0,
+    0.18
+   ],
+   "hurt": [
+    0,
+    0.18
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.shadow_stalker",
+  "name": "Gölge Avcısı",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (stalker)",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.2,
+    "above": 0,
+    "below": 0.2,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     31,
+     16
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 73,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_shadow_stalker"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_shadow_stalker",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_shadow_stalker",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.18,
+    0.18
+   ],
+   "walk": [
+    0,
+    0.2
+   ],
+   "stop": [
+    0,
+    0.18
+   ],
+   "turn": [
+    0,
+    0.18
+   ],
+   "atk": [
+    0,
+    0.18
+   ],
+   "back": [
+    0,
+    0.18
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.lava_dragon",
+  "name": "Lav Ejderhası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (siege)",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.01,
+    "above": 0.01,
+    "below": 0.01,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     17,
+     11,
+     29,
+     17
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_lava_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_lava_dragon",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_lava_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0.01
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.lava_dragon",
+  "name": "Lav Ejderhası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (siege)",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.01,
+    "above": 0.01,
+    "below": 0.01,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     17,
+     11,
+     29,
+     17
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_lava_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_lava_dragon",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_lava_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    -0.01,
+    0.01
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.storm_dragon",
+  "name": "Fırtına Ejderi",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (storm)",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.1,
+    "above": 0.01,
+    "below": 0.1,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     37,
+     9,
+     40,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.75,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_storm_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_storm_dragon",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_storm_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.1
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.storm_dragon",
+  "name": "Fırtına Ejderi",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (storm)",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.13,
+    "above": 0.01,
+    "below": 0.13,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     36,
+     9,
+     40,
+     13
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.74,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_storm_dragon"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_storm_dragon",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_storm_dragon",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.13
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.venom_hydra",
+  "name": "Zehir Hidrası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (venom)",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.14,
+    "above": 0.01,
+    "below": 2.14,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     23,
+     18,
+     9,
+     22
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.74,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_venom_hydra"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_venom_hydra",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_venom_hydra",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    2.14
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.venom_hydra",
+  "name": "Zehir Hidrası",
+  "modes": "Sefer/Kule/Gökyüzü/Lonca (venom)",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.14,
+    "above": 0.01,
+    "below": 2.14,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     22,
+     17,
+     11,
+     22
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.72,
+    "plantedSamples": 149,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_venom_hydra"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_venom_hydra",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_venom_hydra",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    2.14
+   ],
+   "stop": [
+    -0.01,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.spider_queen",
+  "name": "Örümcek Kraliçe",
+  "modes": "Örümcek Akını",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     28,
+     14,
+     21,
+     24
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 147,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_spider_queen"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_spider_queen",
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_spider_queen",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "boss.spider_queen",
+  "name": "Örümcek Kraliçe",
+  "modes": "Örümcek Akını",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     32,
+     15,
+     26,
+     22
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0,
+    "plantedSamples": 148,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": false,
+      "kind": "afp286_spider_queen"
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.433,
+      "bossRig": true,
+      "colossus": false,
+      "kind": "afp286_spider_queen",
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "afp286_spider_queen",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_kullerin_hukumdari",
+  "name": "Küllerin Hükümdarı",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.03,
+    "above": 0,
+    "below": 2.03,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     18,
+     23
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 77,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    0,
+    2.03
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_kullerin_hukumdari",
+  "name": "Küllerin Hükümdarı",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.03,
+    "above": 0,
+    "below": 2.03,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     18,
+     23
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 77,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    0,
+    2.03
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_ucurum_ejderi",
+  "name": "Uçurum Ejderi",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.56,
+    "above": 0.01,
+    "below": 2.56,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     30,
+     15,
+     0,
+     18
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.95,
+    "plantedSamples": 149,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    0.53
+   ],
+   "walk": [
+    -0.01,
+    2.56
+   ],
+   "stop": [
+    0,
+    1.05
+   ],
+   "turn": [
+    0.53,
+    1.05
+   ],
+   "atk": [
+    0,
+    1.05
+   ],
+   "back": [
+    0.53,
+    1.05
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_ucurum_ejderi",
+  "name": "Uçurum Ejderi",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0.01,
+    "samples": 126
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 2.56,
+    "above": 0.01,
+    "below": 2.56,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     30,
+     15,
+     0,
+     18
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.93,
+    "plantedSamples": 149,
+    "phaseSteps": 21,
+    "walkState": "mesh"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas+mesh",
+  "groundByPhase": {
+   "spawn": [
+    0.53,
+    1.05
+   ],
+   "walk": [
+    -0.01,
+    2.56
+   ],
+   "stop": [
+    0,
+    1.05
+   ],
+   "turn": [
+    0.53,
+    0.53
+   ],
+   "atk": [
+    0,
+    1.05
+   ],
+   "back": [
+    0.53,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_bosluk_imparatoru",
+  "name": "Boşluk İmparatoru",
+  "modes": "Karanlık Geçit",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.53,
+    "above": 0,
+    "below": 0.53,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "hover": true,
+    "note": "Bacaksız, rün dairesi üzerinde süzülen büyücü: adım animasyonu yok (çizim böyle tasarlanmış)"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0.53
+   ],
+   "walk": [
+    0,
+    0.53
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "afp263:boss_bosluk_imparatoru",
+  "name": "Boşluk İmparatoru",
+  "modes": "Karanlık Geçit",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.53,
+    "above": 0,
+    "below": 0.53,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "hover": true,
+    "note": "Bacaksız, rün dairesi üzerinde süzülen büyücü: adım animasyonu yok (çizim böyle tasarlanmış)"
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": {
+      "atlasDeath": true,
+      "kind": null
+     }
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": true,
+      "colossus": false,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 1,
+    "own": "kendi ölüm atlası",
+    "stand_in": []
+   }
+  },
+  "notes": [],
+  "render": "atlas",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.53
+   ],
+   "stop": [
+    0,
+    0.53
+   ],
+   "turn": [
+    0,
+    0.53
+   ],
+   "atk": [
+    0,
+    0.53
+   ],
+   "back": [
+    0,
+    0.53
+   ],
+   "hurt": [
+    0,
+    0.53
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "colossus.stone_golem",
+  "name": "Taş Kolosus",
+  "modes": "Kristal Kolos",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.62,
+    "above": 0,
+    "below": 0.62,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkStateFrames": "90/90",
+    "distinctFrames": 8
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.683,
+      "bossRig": false,
+      "colossus": true,
+      "kind": null,
+      "refKind": "golem"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "colossus death atlas"
+   }
+  },
+  "notes": [],
+  "render": "colossus",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0.15
+   ],
+   "walk": [
+    0,
+    0.62
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0.62
+   ],
+   "hurt": [
+    0,
+    0.62
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "colossus.stone_golem",
+  "name": "Taş Kolosus",
+  "modes": "Kristal Kolos",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": null,
+    "samples": 0
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0.62,
+    "above": 0,
+    "below": 0.62,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkStateFrames": "90/90",
+    "distinctFrames": 8
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 1.683,
+      "bossRig": false,
+      "colossus": true,
+      "kind": null,
+      "refKind": "stormcaller"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "colossus death atlas"
+   }
+  },
+  "notes": [],
+  "render": "colossus",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0.62
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0.62
+   ],
+   "hurt": [
+    0,
+    0.62
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "echo.mirror_executioner",
+  "name": "Ayna Celladı",
+  "modes": "Yankı İstilası",
+  "team": "enemy",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     23,
+     19
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 74,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": false,
+      "colossus": false,
+      "kind": null,
+      "refKind": "warrior"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "kahraman iskeleti"
+   }
+  },
+  "notes": [],
+  "render": "hero-mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "key": "echo.mirror_executioner",
+  "name": "Ayna Celladı",
+  "modes": "Yankı İstilası",
+  "team": "ally",
+  "res": "800x360",
+  "checks": {
+   "feetContact": {
+    "pass": true,
+    "maxGapPx": 0,
+    "samples": 294
+   },
+   "ground": {
+    "pass": true,
+    "maxErrPx": 0,
+    "above": 0,
+    "below": 0,
+    "samples": 294
+   },
+   "facing": {
+    "pass": true,
+    "walk": true,
+    "turnToTarget": true,
+    "attackFacesTarget": true,
+    "returnsToTeamDir": true
+   },
+   "walk": {
+    "pass": true,
+    "moved": true,
+    "walkWeight": true,
+    "alternatingFeet": true,
+    "liftedFramesPerLimb": [
+     24,
+     19
+    ],
+    "framesAllLimbsUp": 0,
+    "plantedSlideMaxPx": 0.01,
+    "plantedSamples": 74,
+    "phaseSteps": 21
+   },
+   "idle": {
+    "pass": true,
+    "idle": true,
+    "still": true
+   },
+   "attack": {
+    "pass": true,
+    "seen": true
+   },
+   "hurt": {
+    "pass": true,
+    "seen": true
+   },
+   "death": {
+    "pass": true,
+    "killed": {
+     "fallen": 1,
+     "bossRig": null
+    },
+    "gone": true,
+    "first": [
+     {
+      "life": 0.783,
+      "bossRig": false,
+      "colossus": false,
+      "kind": null,
+      "refKind": "warrior"
+     }
+    ],
+    "firstAf263": 0,
+    "own": "kahraman iskeleti"
+   }
+  },
+  "notes": [],
+  "render": "hero-mesh",
+  "groundByPhase": {
+   "spawn": [
+    0,
+    0
+   ],
+   "walk": [
+    0,
+    0
+   ],
+   "stop": [
+    0,
+    0
+   ],
+   "turn": [
+    0,
+    0
+   ],
+   "atk": [
+    0,
+    0
+   ],
+   "back": [
+    0,
+    0
+   ],
+   "hurt": [
+    0,
+    0
+   ]
+  },
+  "result": "GEÇTİ"
+ },
+ {
+  "res": "800x360",
+  "pageErrors": []
+ }
+]
