@@ -1,0 +1,27 @@
+name: Arena Forge v288 denge
+on:
+  push:
+    branches: [denge/v288]
+    paths: ['denge-v288/**', '.github/workflows/denge-v288.yml']
+permissions:
+  contents: write
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Oyunu derle
+        run: python denge-v288/build.py denge-v287/ArenaForgePro_v287.html denge-v288/ArenaForgePro_v288.html
+      - name: Tarayıcı testleri
+        run: |
+          python -m pip install playwright
+          cp minyon-yetenekleri/arac/tests/harness.py denge-v288/harness.py
+          cp minyon-yetenekleri/arac/src/af285_qa.js denge-v288/qa.js
+          python denge-v288/test.py
+      - name: Test edilen oyunu ve ZIP dosyasını kaydet
+        working-directory: denge-v288
+        run: |
+          zip -9 ArenaForgePro_v288.zip ArenaForgePro_v288.html qa-*.json
+          git add ArenaForgePro_v288.html ArenaForgePro_v288.zip qa-*.json
+          git -c user.name=github-actions -c user.email=41898282+github-actions[bot]@users.noreply.github.com commit -m "Test edilen v288 HTML ve ZIP"
+          git push origin HEAD:refs/heads/denge/v288
