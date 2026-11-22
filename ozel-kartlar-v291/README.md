@@ -12,6 +12,6 @@ sha256sum ArenaForgePro_v291.html
 ```
 
 - v290 SHA-256 `310865f53ab1a9f5d2912cf90c167c58cf4a88f76845abb3b91907cedcb5861f`
-- v291 SHA-256 `d2041c909a103ae203290e1fda412fd873dc8a08cd793728653c8276487794da`
+- v291 SHA-256 `26e700d529e34c09a5bc0ddca9abeb875163ab252fd521971e37d020e21d0134`
 
 Hazırlık ve gerçekleşen etki ayrı görsel olaylardır. Konuk istemci yutma durumunu ev sahibinin gönderdiği kimliklerden kurar. Geçerli kısmi destelerde kart sırası ve boş yuvalar korunur.

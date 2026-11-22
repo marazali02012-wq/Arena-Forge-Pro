@@ -4,12 +4,12 @@
  @media(max-width:450px){.af282-offers{grid-template-columns:1fr}.af282-offer{grid-template-columns:34px minmax(0,1fr) auto;grid-template-rows:auto}.af282-offer>button{grid-column:3}}
  </style>
 +<style id="af291-cards-css">
-+.af291-card-trim{position:absolute;inset:2px;z-index:3;border-radius:inherit;pointer-events:none;
++.af291-card-trim{position:absolute;inset:2px!important;z-index:3;border:0!important;border-radius:inherit!important;pointer-events:none;
 + background:linear-gradient(145deg,#ffdcaece,transparent 45%) top left/24% 2px no-repeat,
 + linear-gradient(235deg,#ffdcaece,transparent 45%) top right/24% 2px no-repeat,
 + linear-gradient(325deg,#d5a8fbcc,transparent 50%) bottom right/24% 2px no-repeat,
-+ linear-gradient(35deg,#d5a8fbcc,transparent 50%) bottom left/24% 2px no-repeat;
-+ box-shadow:inset 0 0 7px #d7a9fc70}
++ linear-gradient(35deg,#d5a8fbcc,transparent 50%) bottom left/24% 2px no-repeat!important;
++ box-shadow:inset 0 0 7px #d7a9fc70!important}
 +.afp132-tabs .af291-filter{--g:#d5acfa;color:#f4dfff}
 +</style>
  </head>
@@ -32,7 +32,7 @@
 +  return af291BossCard(type)?'boss':AF291_NORMAL_CARDS.has(type)?'normal':'special';
 +}
 +function af291Trim(type){
-+  return af291BossCard(type)?'<span class="af291-card-trim" aria-hidden="true"></span>':'';
++  return af291BossCard(type)?'<i class="af291-card-trim" aria-hidden="true"></i>':'';
 +}
  function energyCost(type){
    if(Object.hasOwn(AF290_CARDS,type))return AF290_CARDS[type].energy;
@@ -369,13 +369,16 @@
 +      }
        t.slowUntil=Math.max(t.slowUntil||0,elapsed+span);
        af327Timed(t,'tslow','tslowUntil',t.isBoss?1.15:1.55,span);
-@@ -29913,5 +30043,5 @@
+@@ -29913,7 +30043,7 @@
  }
  AF285_VFX.clock_field=function(f,p){
 -  const at=af285At(f.lane,f.x0),r=at.px*1.16;
 +  const at=af285At(f.lane,f.x0),r=Math.abs(laneX(f.x0+.105)-at.x);
    ctx.save();ctx.translate(at.x,at.y);
-   ctx.scale(1,.32);ctx.globalAlpha=Math.min(.87,p*9,(1-p)*5);
+-  ctx.scale(1,.32);ctx.globalAlpha=Math.min(.87,p*9,(1-p)*5);
++  ctx.scale(1,.32);ctx.globalAlpha=Math.min(.87,.32+p*8,(1-p)*5);
+   ctx.fillStyle='#48351a';ctx.strokeStyle='#ffd67c';ctx.lineWidth=3;
+   ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.fill();ctx.stroke();
 @@ -29930,10 +30060,10 @@
    group:10,role:'kontrol',status:'dönüştürüldü',name:'Kırık Saat Alanı',icon:'🕰️',
    cd:10,first:1.18,wind:.44,cast:.28,rec:.30,retarget:true,sfx:['spell','dark'],
