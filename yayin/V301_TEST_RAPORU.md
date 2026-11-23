@@ -16,7 +16,7 @@ Ayrıntılı satır satır sonuç: `TEST_SONUCLARI.csv`. Kanıt görüntüleri: 
 |---|---|
 | `app/src/main/assets/www/index.html` | v301 + 1 CSS düzeltmesi (SHA-256 `183c97f2…f535f713`, 67.705.858 bayt) |
 | `app/build.gradle` | versionCode 220 → **301**, versionName **3.60.301**, targetSdk 36, minSdk 24, applicationId aynı (`com.arenaforgepro.game`) |
-| `gradle/wrapper/gradle-wrapper.jar` | Depoya eklendi: `.gitignore` yüzünden eksikti, `./gradlew` bu nedenle hiç çalışamıyordu |
+| Gradle | `./gradlew :app:bundleRelease` Android SDK 36 + Build-Tools 36.0.0 + JDK 21 ile sorunsuz derlendi (depodaki wrapper değişmedi) |
 | `app-release.aab` | Derlendi, **İMZASIZ** (48,7 MB). Depoya konmadı (`*.aab` gitignore) |
 | `app-debug.apk` | Derlendi, yalnızca Android Debug anahtarıyla imzalı. Yayın için kullanılamaz |
 
