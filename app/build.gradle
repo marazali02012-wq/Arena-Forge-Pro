@@ -17,10 +17,19 @@ android {
 
     // Kurulu orijinal uygulamayla imza cakismasin diye yalnizca test APK'si
     // farkli paket adi kullanir. Release AAB'nin paket adi degismez.
+    buildFeatures {
+        buildConfig true
+    }
+
     buildTypes {
+        // Test APK: ayri paket adi -> kurulu oyun ve onceki .testfix test surumu silinmeden yan yana kurulur.
         debug {
-            applicationIdSuffix '.testfix'
-            versionNameSuffix '-fullscreen-test'
+            applicationIdSuffix '.stripfix'
+            versionNameSuffix '-strip-test'
+            buildConfigField 'boolean', 'DIAG', 'true'
+        }
+        release {
+            buildConfigField 'boolean', 'DIAG', 'false'
         }
     }
 

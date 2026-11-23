@@ -6,6 +6,10 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.TypedValue;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,8 +51,20 @@ public final class GameActivity extends Activity {
         // HTML viewport-fit=cover and safe-area CSS handle control spacing independently.
         if (Build.VERSION.SDK_INT >= 28) {
             WindowManager.LayoutParams windowParams = getWindow().getAttributes();
-            windowParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS;
+            windowParams.layoutInDisplayCutoutMode = Build.VERSION.SDK_INT >= 30
+                    ? WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+                    : WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
             getWindow().setAttributes(windowParams);
+        }
+        // KÖK NEDEN (sol şerit): Android 14 ve öncesinde DecorView varsayılan olarak "fitsSystemWindows"
+        // davranır ve içerik alanını uyumluluk ekleri (systemBars | displayCutout) kadar içeri çeker.
+        // İmmersive modda sistem çubukları gizli olduğu için onların payı 0 olur, ama yataydaki ön kamera
+        // deliğinin (DisplayCutout) payı gizlenemez: içerik soldan ~110 px içeri itilir ve pencere arka
+        // planı (#111827) şerit olarak görünür. layoutInDisplayCutoutMode tek başına bunu çözmez; pencere
+        // çentiğe uzansa da DecorView içerik alanını yine kırpar. Bu yüzden DecorView'ın ekleri
+        // uygulaması kapatılır; WebView tam ekranı kaplar, düğmeler CSS env(safe-area-inset-*) ile korunur.
+        if (Build.VERSION.SDK_INT >= 30) {
+            getWindow().setDecorFitsSystemWindows(false);
         }
         FrameLayout root = new FrameLayout(this);
         root.setBackgroundColor(Color.rgb(17, 24, 39));
@@ -78,9 +94,16 @@ public final class GameActivity extends Activity {
         loading.setText("Arena Forge Pro yükleniyor…");
         root.addView(loading, new FrameLayout.LayoutParams(-1, -1));
 
-        // Do not apply DisplayCutout safeInsets as padding to the *whole* root:
-        // in landscape this shifts every screen right, leaving a black strip on the left.
-        // The WebView itself fills the display; game controls use CSS safe-area insets.
+        // Kök görünüme çentik/sistem çubuğu payı uygulanmaz (sola şerit bırakır). DecorView artık klavye
+        // için de yer açmadığından, giriş ekranındaki adjustResize davranışı korunur: yalnız klavye
+        // yüksekliği kadar alt boşluk verilir. Sol, sağ ve üst boşluk her zaman 0'dır.
+        if (Build.VERSION.SDK_INT >= 30) {
+            root.setOnApplyWindowInsetsListener((view, insets) -> {
+                int imeBottom = insets.getInsets(WindowInsets.Type.ime()).bottom;
+                view.setPadding(0, 0, 0, imeBottom);
+                return insets;
+            });
+        }
         setContentView(root);
         immersive();
         root.requestApplyInsets();
@@ -89,6 +112,79 @@ public final class GameActivity extends Activity {
                     OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::handleBack);
         }
         game.loadUrl(START);
+        if (BuildConfig.DIAG) startLayoutDiagnostics(root);
+    }
+
+    // ---- Yalnız test APK (BuildConfig.DIAG): sol şeridin hangi katmanda oluştuğunu cihazda ölçer. ----
+    // İlk 25 sn: pencere arka planı KIRMIZI, kök görünüm YEŞİL, WebView arka planı MAVİ. Şeridin rengi kaynağı gösterir.
+    // Release AAB'de DIAG=false olduğundan bu kod hiç çalışmaz.
+    private TextView diag;
+    private final Handler diagHandler = new Handler(Looper.getMainLooper());
+    private String diagJs = "";
+
+    private void startLayoutDiagnostics(FrameLayout root) {
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.RED));
+        root.setBackgroundColor(Color.GREEN);
+        game.setBackgroundColor(Color.BLUE);
+        diag = new TextView(this);
+        diag.setTextColor(Color.WHITE);
+        diag.setBackgroundColor(Color.argb(200, 0, 0, 0));
+        diag.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        diag.setPadding(12, 6, 12, 6);
+        root.addView(diag, new FrameLayout.LayoutParams(-2, -2, Gravity.TOP | Gravity.CENTER_HORIZONTAL));
+        final long t0 = System.currentTimeMillis();
+        diagHandler.post(new Runnable() {
+            @Override public void run() {
+                if (game == null || isFinishing()) return;
+                long sec = (System.currentTimeMillis() - t0) / 1000;
+                if (sec >= 25) {
+                    getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(17, 24, 39)));
+                    root.setBackgroundColor(Color.rgb(17, 24, 39));
+                    game.setBackgroundColor(Color.rgb(17, 24, 39));
+                    root.removeView(diag);
+                    return;
+                }
+                game.evaluateJavascript("(function(){var d=document.createElement('div');d.style.cssText='position:fixed;left:env(safe-area-inset-left,0px);right:env(safe-area-inset-right,0px);top:0;height:1px;pointer-events:none';document.documentElement.appendChild(d);var r=d.getBoundingClientRect();d.remove();return 'iw='+innerWidth+'x'+innerHeight+' dpr='+devicePixelRatio+' scr='+screen.width+'x'+screen.height+' safeL='+r.left+' safeR='+(innerWidth-r.right)+' vvL='+(window.visualViewport?visualViewport.offsetLeft:'-');})()",
+                        v -> diagJs = v == null ? "" : v.replace("\"", ""));
+                diag.setText(describeLayout(root) + "\nJS " + diagJs + "  [" + (25 - sec) + " sn]");
+                diagHandler.postDelayed(this, 1000);
+            }
+        });
+    }
+
+    private static String box(View v) {
+        int[] p = new int[2];
+        v.getLocationOnScreen(p);
+        return "x" + p[0] + " y" + p[1] + " w" + v.getWidth() + " h" + v.getHeight()
+                + (v.getPaddingLeft() + v.getPaddingRight() + v.getPaddingTop() + v.getPaddingBottom() > 0
+                ? " pad" + v.getPaddingLeft() + "," + v.getPaddingTop() + "," + v.getPaddingRight() + "," + v.getPaddingBottom() : "");
+    }
+
+    private String describeLayout(View root) {
+        StringBuilder b = new StringBuilder();
+        b.append("SDK ").append(Build.VERSION.SDK_INT).append(" ").append(Build.MANUFACTURER).append(" ").append(Build.MODEL);
+        if (Build.VERSION.SDK_INT >= 30) {
+            android.graphics.Rect m = getWindowManager().getCurrentWindowMetrics().getBounds();
+            android.graphics.Rect mx = getWindowManager().getMaximumWindowMetrics().getBounds();
+            b.append(" rot").append(getDisplay().getRotation()).append(" win ").append(m.toShortString()).append(" max ").append(mx.toShortString());
+        }
+        View decor = getWindow().getDecorView();
+        View content = findViewById(android.R.id.content);
+        b.append("\nDECOR ").append(box(decor)).append(" | CONTENT ").append(box(content));
+        b.append("\nROOT ").append(box(root)).append(" | WEBVIEW ").append(box(game));
+        WindowInsets in = decor.getRootWindowInsets();
+        if (in != null) {
+            if (Build.VERSION.SDK_INT >= 28 && in.getDisplayCutout() != null) {
+                android.view.DisplayCutout c = in.getDisplayCutout();
+                b.append("\nCUTOUT L").append(c.getSafeInsetLeft()).append(" T").append(c.getSafeInsetTop())
+                        .append(" R").append(c.getSafeInsetRight()).append(" B").append(c.getSafeInsetBottom());
+            } else b.append("\nCUTOUT yok");
+            if (Build.VERSION.SDK_INT >= 30) {
+                b.append(" | BARS ").append(in.getInsets(WindowInsets.Type.systemBars()))
+                        .append(" | BARS(gizli dahil) ").append(in.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars()));
+            }
+        }
+        return b.toString();
     }
 
     @Override
@@ -106,8 +202,11 @@ public final class GameActivity extends Activity {
                 controller.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
             }
         } else {
+            // LAYOUT_* bayrakları API 28-29'da DecorView'ın çentik/sistem çubuğu payını uygulamasını engeller.
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
     }
 
