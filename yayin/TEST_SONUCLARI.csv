@@ -1,0 +1,46 @@
+Alan,Senaryo,Sonuç,Platform,Kanıt,Log / not
+Kaynak,v301 parça01+parça02 birleştirme birebir aynı,PASS,Linux,SHA-256 20e62617…2f4d / 67.705.395 bayt,ORIJINAL_SHA256.txt ile eşleşti
+Kaynak,Orijinal v301 Android projesine yerleştirildi,PASS,Linux,commit 7b28fa4,app/src/main/assets/www/index.html birebir v301
+Yeni hesap,Misafir giriş -> hikâye -> ilk minyon -> ilk savaş -> zafer,PASS,Chromium başsız 740x360,v301-kanitlar/acilis_740.jpg; f_2.jpg,"Tek zafer, sebep enemy_portals_destroyed, +50 kredi, konsol hatası 0"
+Yeni hesap,İlk zaferden sonra DEVAM akışı,PASS,Chromium başsız 740x360,ftue.js,"Siyah ekran yok; rehber 1/4 (sandık aç) adımına geçiyor"
+Kayıtlı profil,İkinci açılışta kredi/kupa/rehber korunur,PASS,Chromium başsız (http),relaunch.js,"Kredi 300 korundu, hikâye tekrar başlamadı"
+Mod,Arena (bot yedeği) başla-oyna-portal 0-bitir,PASS,Chromium başsız,mode.js arena,"Tek zafer, +25 kupa, ödül tekrar verilmedi (idempotent)"
+Mod,Doruk Kulesi,PASS,Chromium başsız,mode.js tower,"Kat 1->2, ödül bir kez"
+Mod,Hikâye Seferi,PASS,Chromium başsız,mode.js campaign,"Aşama 1->2, ödül bir kez"
+Mod,Gökyüzü Adaları,PASS,Chromium başsız,mode.js sky,"Tek zafer, kupa değişmedi (tasarım)"
+Mod,Sancak Hâkimiyeti (çevrim dışı yedek),PASS,Chromium başsız,mode.js flag,Tek zafer; gerçek çevrim içi eşleşme ayrıca PvP satırlarında
+Mod,Yankı İstilası: 3 dalga + güçlendirme seçimi + Ayna Celladı,PASS,Chromium başsız,echo.js; v301-kanitlar/echo_end.jpg,"Portal kalkanı tasarım gereği; boss yenilince tek zafer, aşama 1->2, +38 kredi"
+Mod,Örümcek Akını kademe 1 (portal) ve kademe 5 (Örümcek Kraliçe),PASS,Chromium başsız,gait.js raid/queen; queen_0.jpg,"Kademe 1->2 ve 5->6; Kraliçe yenilince tek zafer"
+Mod,Kristal Kolos (Taş Kolosus) kademe 1,PASS,Chromium başsız,mode.js colossus,Gerçek savaşla portal yıkıldı; tek zafer
+Mod,Karanlık Geçit (kilit şartı test kopyasında dolduruldu),PASS,Chromium başsız,mode.js dark,"+32 kupa (zor düello tablosu), ödül bir kez"
+Mod,Gizli Bölge (kilit şartı test kopyasında dolduruldu),PASS,Chromium başsız,mode.js secret,"+32 kupa: zor düello tablosundan geliyor; tasarım sorusu olarak not edildi"
+Mod,Son Kahraman Ayakta / Sekizlerin Son Sınavı (8 oyunculu turnuva),BLOCKED,—,res_*_SON_KAHRAMAN_AYAKTA,"Giriş + 8 gerçek oyuncu gerekiyor; çevrim dışı doğru uyarı gösteriyor. DOĞRULANAMADI"
+Mod,Kendi portalı 0 -> tek mağlubiyet,PASS,Chromium başsız,raid.js,"Örümcek Akını: kayıp +1, sonuç bir kez"
+Mod,Kule 5. kat muhafız boss,PASS,Chromium başsız,gait.js tower5,Muhafız çıktı; zafer bir kez
+Boss,Taş Kolosus yürüyüşü (kayma/yön),PASS,Chromium başsız,gait.js colossus,"55 hareket örneği: kayma 0, ters bakış 0"
+Boss,Örümcek Kraliçe portal önünde sabit,PASS,Chromium başsız,queen.js,Kod gereği x=0.94 sabit (yürümez); yönü oyuncuya dönük; kayma yok
+Minyon,59 minyon sahneye giriş + hareket + yön + hasar + ölüm temizliği,PASS,Chromium başsız,v301-test-araclari/minions_all.json,"59/59 oynandı, hasar verdi, facingDir=+1, öldüğünde sahneden silindi"
+Minyon,Grup minyonları (2/2/3/6/9),PASS,Chromium başsız,minions_all.json,"Kılıçlı Asker 2, Orman Okçusu 2, İskelet Savaşçı 3, Kâşif 6, İskelet Kalkanlı 9"
+Minyon,59 özel yetenek gerçek etki (start/cast sayaçları + hedef can/konum/durum),PASS,Chromium başsız,minions_all.json; cond.js,"56 doğrudan; İskelet Savaşçı (ölüm darbesi 9 hasar), Nekromancı (dostu %16 = 35,2 iyileştirdi), Sedef Pervane (3 mermi saptırdı) koşul kurularak"
+Minyon,Walk/Idle/Attack/Hurt/Death karelerinin gözle tek tek incelenmesi,NOT_TESTED,—,—,Durum makinesi (0-1-2-3) ve görüntüler alındı; 59x5 animasyonun kare kare görsel onayı insan gözüyle yapılmalı
+Büyü,25 büyü doğru kahraman / bekleme süresi / nişan tipi,PASS,Chromium başsız,v301-test-araclari/spells_table.txt,"5 kahraman x 5; hepsinde cd tanımla aynı, enerji düşmüyor (Heroic kuralı)"
+Büyü,25 büyü gerçek etki,PASS,Chromium başsız,spells.js; spells2.js,"Hasar, sersemletme, donma, kırılganlık, iyileştirme, kalkan 45, emici can 72, portal hasarı 99->59, kart 3->1 enerji, ruh kopyası"
+Savaş,Sürükle-bırak geçerli bırakma,PASS,"Chromium touch 740x360, 667x375, 800x360",drag.js; drag_740_1.jpg,Minyon doğru koridorda; enerji düştü
+Savaş,Ele geri / boş rakip bölge / yetersiz enerji bırakma,PASS,3 çözünürlük,drag.js,"Minyon yok, enerji değişmedi, sürükleme durumu temizlendi"
+Savaş,İki parmak aynı anda,PASS,3 çözünürlük,drag.js; two.js,Yalnız ilk parmağın kartı oynanıyor
+Savaş,touchcancel / el yenilenmesi / 5 hızlı sürükleme,PASS,3 çözünürlük,drag.js,"Hayalet kalmadı, __afBattleGhostRenderErrors=0"
+Savaş,Ödül tekrar verilmez (endGame ikinci çağrı),PASS,Chromium başsız,mode.js (tüm modlar),Profil değişmedi
+Arayüz,740x360 ana ekranlar (26 ekran) taşma/çakışma,FAIL -> DÜZELTİLDİ,Chromium 740x360,MINYONLAR_740x360_DUZELTME_ONCESI/SONRASI.jpg,Minyonlar paneli 12 px taşıyordu (min-height:290px); CSS düzeltmesi sonrası 0
+Arayüz,800x360 ana ekranlar,FAIL -> DÜZELTİLDİ,Chromium 800x360,res_800x360_*.json,Aynı Minyonlar taşması; düzeltildi
+Arayüz,667x375 ana ekranlar,PASS,Chromium 667x375,res_667x375_*.json,Taşma yok
+Arayüz,Konsol error / pageerror / motor tick ve çizim hatası,PASS,Chromium başsız,tüm betikler,"Tüm koşularda 0"
+Android,Uzun oyun belleği (6 maç arka arkaya),PASS,Chromium başsız,soak.js,"JS heap 47 -> 45 MB, sızıntı yok"
+Android,Arka plana alma / dönme,PASS,Chromium (visibilitychange),bg.js; bg_return.jpg,"Gizlenince maç durdu ve profil kaydedildi; dönüşte DEVAM ET ile sürdü"
+Android,Realme C55 FPS / soğuk açılış / ses / çok maç,NOT_TESTED,—,—,Gerçek cihaz yok. Başsız tarayıcı FPS (13-36) GPU'suz olduğu için kanıt sayılmaz. DOĞRULANAMADI
+PvP,Çevrim dışı kuyruk: rakipsizken saha açılmaz + bot yedeği,PASS,Chromium başsız (ağ kapalı),queue.js,"Rakip aranıyor; ~20 sn sonra bot maçı. Bot gerçek oyuncu adıyla gösteriliyor (tasarım: disguised arena)"
+PvP,2 ayrı Android cihaz aynı odada eşleşme,BLOCKED,—,—,İkinci cihaz yok. DOĞRULANAMADI
+PvP,1 dk arama / kopma-yeniden giriş / pes / tek ödül / kupa farkı,BLOCKED,—,—,Gerçek iki cihaz ve sunucu oturumu gerekli. DOĞRULANAMADI
+Google Play,AAB derlemesi (targetSdk 36),PASS,Linux Gradle 8.13 / AGP 8.13.2,app-release.aab SHA-256 89044ed3…3fcc,"com.arenaforgepro.game, versionCode 301, versionName 3.60.301, minSdk 24, targetSdk 36"
+Google Play,İmzalı release AAB,BLOCKED,—,jarsigner: jar is unsigned,Yükleme anahtarı (keystore) yok; imzasız AAB üretildi. Sahte imza üretilmedi
+Google Play,Debug APK cihazda smoke test,NOT_TESTED,—,app-debug.apk SHA-256 514e68f5…7268,Yalnız Android Debug imzalı; cihaz/emülatör yok
+Google Play,12 kişi / kesintisiz 14 gün kapalı test,NOT_TESTED,—,—,Başlatılmadı (Play'e yükleme yapılmadı)

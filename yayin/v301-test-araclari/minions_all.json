@@ -1,0 +1,2107 @@
+[
+ {
+  "i": 0,
+  "T": "mage",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.188,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 620,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "effect": 8,
+   "cast": 4,
+   "damage": 92
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 1,
+  "T": "afn_alize_bicakli",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.468,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 411,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 76,
+   "effect": 8,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 2,
+  "T": "afn_ayaz_kalkanlisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.404,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 231,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "effect": 3,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 3,
+  "T": "afn_bulut_dalgici",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.048,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 583,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 84,
+   "effect": 4,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 4,
+  "T": "afn_buz_zurnacisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.134,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 220,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 12,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "effect": 5,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 5,
+  "T": "afn_donuk_mizrakci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.237,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 565,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "damage": 152,
+   "effect": 8,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 6,
+  "T": "afn_el_arabali_topcu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 1037,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 234,
+   "effect": 6,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 7,
+  "T": "afn_firtina_baglayici",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.073,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 717,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 5,
+   "damage": 268,
+   "hops": 12,
+   "effect": 12,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 8,
+  "T": "afn_gece_yirticisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.023,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 517,
+  "enemyMoved": 1,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "effect": 3,
+   "cast": 2,
+   "damage": 32
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 9,
+  "T": "afn_kapi_ustasi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.403,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 230,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 22,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "effect": 3,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 10,
+  "T": "afn_kar_fenercisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.141,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 175,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 112,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "effect": 4,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 11,
+  "T": "afn_kehribar_sovalye",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.256,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 334,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 2,
+   "effect": 2,
+   "cast": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 12,
+  "T": "afn_kiragi_dokuyucusu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.08,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 347,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "effect": 4,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 13,
+  "T": "afn_kirik_kuklaci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.075,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 314,
+  "enemyMoved": 5,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "effect": 5,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 14,
+  "T": "afn_kirik_saat_efendisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.106,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 369,
+  "enemyMoved": 0,
+  "stun": 6,
+  "slow": 38,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "cast": 3,
+   "stun": 6,
+   "effect": 6
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 15,
+  "T": "afn_kok_titani",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.397,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 323,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 2,
+   "effect": 4,
+   "cast": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 16,
+  "T": "afn_kutup_kiricisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.406,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 473,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 145,
+   "effect": 5,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 17,
+  "T": "afn_mantar_davulcusu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.235,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 200,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 2,
+   "effect": 2,
+   "cast": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 18,
+  "T": "afn_ocak_dovucusu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.24,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 422,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 36,
+   "effect": 3,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 19,
+  "T": "afn_sedef_pervane",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.031,
+  "face": [
+   1
+  ],
+  "states": [
+   "0"
+  ],
+  "dmg": 315,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {},
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 20,
+  "T": "afn_sicrayan_kocbasi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.466,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 414,
+  "enemyMoved": 11,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 102,
+   "effect": 5,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 21,
+  "T": "afn_toprak_yarici",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.409,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 374,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 60,
+   "effect": 2,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 22,
+  "T": "afn_zincir_kiran",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.144,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "2",
+   "3"
+  ],
+  "dmg": 440,
+  "enemyMoved": 6,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 1,
+   "effect": 3,
+   "cast": 1,
+   "damage": 27
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 23,
+  "T": "af37_kilicli_asker",
+  "play": "ok",
+  "count": 2,
+  "x0": [
+   0.248,
+   0.192
+  ],
+  "moved": 0.215,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 291,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 3,
+  "stat0": {},
+  "stat1": {
+   "start": 10,
+   "cast": 10,
+   "damage": 65,
+   "effect": 5
+  },
+  "killed": 2,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 24,
+  "T": "af37_orman_okcu",
+  "play": "ok",
+  "count": 2,
+  "x0": [
+   0.165,
+   0.115
+  ],
+  "moved": 0.175,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 328,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 19,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 3,
+  "stat0": {},
+  "stat1": {
+   "start": 10,
+   "damage": 64,
+   "effect": 8,
+   "cast": 10
+  },
+  "killed": 2,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 25,
+  "T": "af37_golge_suikastci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.045,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 550,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 62,
+   "effect": 3,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 26,
+  "T": "af37_mavi_buyucu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.172,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 410,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "damage": 74,
+   "effect": 4,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 27,
+  "T": "af37_isik_sifacisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.196,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 171,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 108,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "effect": 3,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 28,
+  "T": "af37_cuce_savasci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.404,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 150,
+  "enemyMoved": 0,
+  "stun": 3,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "stun": 3,
+   "effect": 3,
+   "cast": 3,
+   "damage": 13
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 29,
+  "T": "af37_agir_zirhli",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.43,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2"
+  ],
+  "dmg": 238,
+  "enemyMoved": 3,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 10,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 2,
+   "effect": 3,
+   "cast": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 30,
+  "T": "af37_kizil_duellocu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.036,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3"
+  ],
+  "dmg": 424,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "damage": 48,
+   "effect": 3,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 31,
+  "T": "af37_kesifci",
+  "play": "ok",
+  "count": 6,
+  "x0": [
+   0.173,
+   0.107,
+   0.173,
+   0.107,
+   0.173,
+   0.107
+  ],
+  "moved": 0.175,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 867,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 7,
+  "stat0": {},
+  "stat1": {
+   "start": 30,
+   "damage": 56,
+   "effect": 14,
+   "cast": 30
+  },
+  "killed": 6,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 32,
+  "T": "af37_ates_buyucusu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.143,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 439,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "cast": 4,
+   "effect": 7,
+   "damage": 73
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 33,
+  "T": "af37_nekromanci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.177,
+  "face": [
+   1
+  ],
+  "states": [
+   "0"
+  ],
+  "dmg": 244,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {},
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 34,
+  "T": "af37_buz_sovalyesi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.404,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2"
+  ],
+  "dmg": 201,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 15,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 2,
+   "effect": 3,
+   "cast": 2,
+   "damage": 24
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 35,
+  "T": "af37_alev_muhafizi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.445,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2"
+  ],
+  "dmg": 274,
+  "enemyMoved": 6,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 24,
+   "effect": 4,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 36,
+  "T": "af37_golge_buyucusu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.144,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 280,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 38,
+   "effect": 3,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 37,
+  "T": "af37_muhendis_nisanci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.082,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 476,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "effect": 3,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 38,
+  "T": "af37_dovus_ustasi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.082,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "2",
+   "1",
+   "3"
+  ],
+  "dmg": 382,
+  "enemyMoved": 8,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "effect": 9,
+   "start": 5,
+   "damage": 48,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 39,
+  "T": "af37_iskelet_savasci",
+  "play": "ok",
+  "count": 3,
+  "x0": [
+   0.264,
+   0.212,
+   0.174
+  ],
+  "moved": 0.199,
+  "face": [
+   1
+  ],
+  "states": [
+   "0"
+  ],
+  "dmg": 93,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 4,
+  "stat0": {},
+  "stat1": {
+   "damage": 9,
+   "effect": 2
+  },
+  "killed": 0,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 40,
+  "T": "af37_iskelet_kalkanli",
+  "play": "ok",
+  "count": 9,
+  "x0": [
+   0.111,
+   0.073,
+   0.035,
+   0.111,
+   0.073,
+   0.035,
+   0.111,
+   0.073,
+   0.035
+  ],
+  "moved": 0.424,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3"
+  ],
+  "dmg": 955,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 10,
+  "stat0": {},
+  "stat1": {
+   "start": 35,
+   "effect": 35,
+   "cast": 35
+  },
+  "killed": 8,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 41,
+  "T": "af37_ork_savasci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.324,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "2",
+   "3",
+   "1"
+  ],
+  "dmg": 993,
+  "enemyMoved": 10,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "damage": 96,
+   "effect": 6,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 42,
+  "T": "af37_kristal_golem",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.398,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3"
+  ],
+  "dmg": 214,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 2,
+   "effect": 2,
+   "cast": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 43,
+  "T": "af37_lav_golemi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.397,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 607,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 2,
+   "cast": 2,
+   "damage": 168,
+   "effect": 24
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 44,
+  "T": "af37_ates_elementali",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.274,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 647,
+  "enemyMoved": 10,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 56,
+   "effect": 4,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 45,
+  "T": "af37_buz_elementali",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.234,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 339,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 16,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 40,
+   "effect": 4,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 46,
+  "T": "af37_orman_ruhu",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.218,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 309,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 79,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "healTargets": 2,
+   "effect": 2,
+   "cast": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 47,
+  "T": "af37_tas_devi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.449,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 563,
+  "enemyMoved": 9,
+  "stun": 4,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "interrupt": 1,
+   "damage": 90,
+   "stun": 3,
+   "effect": 2,
+   "cast": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 48,
+  "T": "af37_ruh_cagirici",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.204,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 451,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 4,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "effect": 6,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 49,
+  "T": "af37_zehirci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.169,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 519,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {
+   "start": 1,
+   "damage": 9,
+   "effect": 1,
+   "cast": 1
+  },
+  "stat1": {
+   "start": 5,
+   "damage": 53,
+   "effect": 5,
+   "cast": 5
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 50,
+  "T": "af37_golge_avcisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.041,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 616,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 72,
+   "effect": 4,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 51,
+  "T": "af37_elit_kadin_savasci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.269,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 671,
+  "enemyMoved": 6,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "cast": 4,
+   "damage": 76,
+   "effect": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 52,
+  "T": "af37_buz_muhafizi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.401,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3"
+  ],
+  "dmg": 219,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 6,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 2,
+   "damage": 26,
+   "effect": 4,
+   "cast": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 53,
+  "T": "af37_altin_muhafiz",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.047
+  ],
+  "moved": 0.404,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "2",
+   "3",
+   "1"
+  ],
+  "dmg": 210,
+  "enemyMoved": 4,
+  "stun": 0,
+  "slow": 0,
+  "heal": 30,
+  "shield": 21,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "shielded": 5,
+   "effect": 3,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 54,
+  "T": "af37_samuray",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.395
+  ],
+  "moved": 0.037,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "2",
+   "1"
+  ],
+  "dmg": 662,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 5,
+   "cast": 5,
+   "damage": 42,
+   "effect": 2
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 55,
+  "T": "af37_dovus_ustasi_ii",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.215
+  ],
+  "moved": 0.285,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "3",
+   "2"
+  ],
+  "dmg": 624,
+  "enemyMoved": 5,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "damage": 136,
+   "effect": 8,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 56,
+  "T": "af37_arbaletci",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.155,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 848,
+  "enemyMoved": 6,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "damage": 192,
+   "effect": 8,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 57,
+  "T": "af37_alev_silahcisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.162,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 614,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 3,
+   "damage": 78,
+   "effect": 6,
+   "cast": 3
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ },
+ {
+  "i": 58,
+  "T": "af37_savas_muhendisi",
+  "play": "ok",
+  "count": 1,
+  "x0": [
+   0.143
+  ],
+  "moved": 0.025,
+  "face": [
+   1
+  ],
+  "states": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "dmg": 882,
+  "enemyMoved": 0,
+  "stun": 0,
+  "slow": 0,
+  "heal": 0,
+  "shield": 0,
+  "maxAlly": 2,
+  "stat0": {},
+  "stat1": {
+   "start": 4,
+   "damage": 248,
+   "effect": 8,
+   "cast": 4
+  },
+  "killed": 1,
+  "aliveAfterDeath": 0,
+  "stillPlaying": true
+ }
+]
