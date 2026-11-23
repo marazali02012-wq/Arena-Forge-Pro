@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
+import android.view.WindowManager;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -42,6 +43,13 @@ public final class GameActivity extends Activity {
     @SuppressLint("SetJavaScriptEnabled")
     public void onCreate(Bundle state) {
         super.onCreate(state);
+        // Draw the game into the landscape display-cutout region instead of leaving a black stripe.
+        // HTML viewport-fit=cover and safe-area CSS handle control spacing independently.
+        if (Build.VERSION.SDK_INT >= 28) {
+            WindowManager.LayoutParams windowParams = getWindow().getAttributes();
+            windowParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS;
+            getWindow().setAttributes(windowParams);
+        }
         FrameLayout root = new FrameLayout(this);
         root.setBackgroundColor(Color.rgb(17, 24, 39));
 
@@ -70,18 +78,9 @@ public final class GameActivity extends Activity {
         loading.setText("Arena Forge Pro yükleniyor…");
         root.addView(loading, new FrameLayout.LayoutParams(-1, -1));
 
-        if (Build.VERSION.SDK_INT >= 28) {
-            root.setOnApplyWindowInsetsListener((view, insets) -> {
-                var cutout = insets.getDisplayCutout();
-                if (cutout != null) {
-                    view.setPadding(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
-                            cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
-                } else {
-                    view.setPadding(0, 0, 0, 0);
-                }
-                return insets;
-            });
-        }
+        // Do not apply DisplayCutout safeInsets as padding to the *whole* root:
+        // in landscape this shifts every screen right, leaving a black strip on the left.
+        // The WebView itself fills the display; game controls use CSS safe-area insets.
         setContentView(root);
         immersive();
         root.requestApplyInsets();
