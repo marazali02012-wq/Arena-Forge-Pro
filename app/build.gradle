@@ -11,8 +11,8 @@ android {
         applicationId 'com.arenaforgepro.game'
         minSdk 24
         targetSdk 36
-        versionCode 301
-        versionName '3.60.301'
+        versionCode 302
+        versionName '3.60.302'
     }
 
     // Kurulu orijinal uygulamayla imza cakismasin diye yalnizca test APK'si
@@ -24,8 +24,8 @@ android {
     buildTypes {
         // Test APK: ayri paket adi -> kurulu oyun ve onceki .testfix test surumu silinmeden yan yana kurulur.
         debug {
-            applicationIdSuffix '.stripfix'
-            versionNameSuffix '-strip-test'
+            applicationIdSuffix '.v302fix'
+            versionNameSuffix '-v302-test'
             buildConfigField 'boolean', 'DIAG', 'true'
         }
         release {
