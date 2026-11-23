@@ -15,6 +15,15 @@ android {
         versionName '3.60.301'
     }
 
+    // Kurulu orijinal uygulamayla imza cakismasin diye yalnizca test APK'si
+    // farkli paket adi kullanir. Release AAB'nin paket adi degismez.
+    buildTypes {
+        debug {
+            applicationIdSuffix '.test'
+            versionNameSuffix '-test'
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
