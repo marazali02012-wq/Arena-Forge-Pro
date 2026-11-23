@@ -19,8 +19,8 @@ android {
     // farkli paket adi kullanir. Release AAB'nin paket adi degismez.
     buildTypes {
         debug {
-            applicationIdSuffix '.test'
-            versionNameSuffix '-test'
+            applicationIdSuffix '.testfix'
+            versionNameSuffix '-fullscreen-test'
         }
     }
 
