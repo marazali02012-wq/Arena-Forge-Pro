@@ -141,3 +141,59 @@ Hiçbir minyon koridor bandının dışına çıkmıyor. Önce/sonra görüntüs
 **Bilinen etki:** gruplar artık dikeyde daha sıkı duruyor. 9'lu İskelet Kalkanlı grubunda üyeler daha çok üst üste görünebilir; ön/arka sırası korunuyor.
 
 **Doğrulanmadı:** gerçek Android cihazda görünüm.
+
+---
+
+# v305 ekleri: üç koridorda portal önü tek düz çizgi
+
+**İstek:**
+- Portal önüne gelen minyonlar bir koridorda biri geride biri önde dağınık duruyordu.
+- Üç koridorda da portal önünde tek düz çizgi olsun; oyuncunun kırmızı çizdiği örnek, portal platformunun ön kenarını izleyen eğik çizgi.
+- Menzilliler dahil herkes çizgiye gelsin (oyuncu seçimi).
+
+## Kök nedenler
+
+1. **Menzilliler uzaktan vuruyordu.** Portal menzili (`af268PortalAim`) menzilli ve top birimlerinin portala uzaktan vurmasına izin veriyordu. Okçu, arbaletçi ve topçu portalın 0,12–0,26 gerisinde kalıyordu.
+2. **Kalabalık istisnası dardı.** Portal çizgisini yalnızca yakın dövüşçüler ve en fazla 3 birim paylaşabiliyordu (`af34055CanCrowdPortal`). Portal yuvası da 3 taneydi.
+3. **Biri hep geride kalıyordu.** v3.60.67'deki üst üste binme önleme adımı, aynı dikey banttaki iki birimden sonra geleni her karede 0,004 geri itiyordu.
+4. **Çizgi perspektife uymuyordu.** Durma noktası tüm koridorlarda aynıydı (0,105 / 0,895). Portal görseli ise perspektifli; üst koridorda portal önü daha içeride.
+
+## Düzeltme (`tools/patch_v305.py`)
+
+- **Koridora göre durma çizgisi.** Oyuncunun ekran görüntüsündeki kırmızı doğrudan ölçüldü:
+  - Mavi portal önü: üst 0,1207 / orta 0,0925 / alt 0,0646.
+  - Kırmızı portal önü bunun aynası: 0,8793 / 0,9075 / 0,9354.
+- **Herkes çizgiden vurur.** Yakın dövüş, menzilli ve top birimleri çizgiye kadar yürüyüp oradan vuruyor. Sıçrayan Koçbaşı kendi kuşatma menzilini koruyor.
+- **Çizgide durma** (`af305HoldLine`): birim çizgiye normal hızıyla yürüyor ve tam çizgide duruyor; ışınlanma yok.
+- **Kalabalık:** portal çizgisini tüm türler paylaşabiliyor, en fazla 8 birim. Yuva sayısı 8; yuvalar üst/alt sırayla dağıtılıyor ve v304 koridor bandına sıkışıyor.
+- **Geri itme:** portal çizgisindeki birimlere üst üste binme geri itmesi uygulanmıyor.
+
+## Sonuç
+
+Her koridora 6 karışık minyon gönderildi (iki takım, üç koridor, 36 birim). Ölçülen değer, birimin x'inin çizgiden farkı.
+
+| | Önce (v304) | Sonra (v305) |
+|---|---|---|
+| Kırmızı takım, koridor başına | yakın dövüşçüler −0,007…+0,002; menzilliler +0,116 / +0,172 / +0,259 geride | hepsi 0 (orta koridorda −0,001, 1 px'ten az) |
+| Portala vuran | 5/6 | 6/6 |
+
+Üç koridordaki durma noktaları, portal kenarını izleyen tek eğik çizgi oluşturuyor. 740×360, 800×360 ve 667×375'te görsel kontrol yapıldı: `yayin/v305-kanitlar/pl3_res.png`, `portal_cizgi_once_sonra.png`.
+
+## Gerileme (v305)
+
+- **Portal kilidi:** düello, kule, örümcek akını ve yankı modlarında 24/24 geçti.
+- **Modlar:**
+  - Arena, Kule, Hikâye, Gökyüzü, Sancak, Örümcek Akını, Kolosus ve Yankı İstilası tek zaferle bitiyor; ödüller aynı ve tekrarlanmıyor.
+  - Kolosus bu kez "Taş Kolosus devrildi · portal yıkıldı" ile bitti.
+- **59 minyon:** 58 doğrudan geçti. Taş Devi'nin hasar vermemesi v304'te de görülen bir test zamanlaması sorunu; tekrarda v305'te geçti.
+- **Sürükle-bırak:** 740×360 ve 667×375'te 9/9.
+- **HP çubukları (40 minyon, tek ve karışık takım):** çakışma 0, aç/kapa 0,04–0,06.
+- **JS, motor ve çizim hatası:** 0.
+
+## Bilinen etkiler
+
+- **Denge değişti (oyuncu bu seçeneği bilerek seçti).** Menzilliler ve top artık portala uzaktan değil çizgiden vuruyor; çizgiye kadar yürüdükleri için portal savunmasından daha çok hasar alabilir ve portala daha geç vurmaya başlayabilirler.
+- **Çizgide görsel üst üste binme.** Bir koridorda 4'ten fazla minyon çizgide durunca koridor bandı dar olduğu için kısmen üst üste görünüyorlar.
+- **Çizgi her arenada ölçülmedi.** Çizgi saray ve çöl/kule arenasında portal kenarıyla örtüşüyor; diğer arena görsellerinde ayrıca bakılmalı.
+
+**Doğrulanmadı:** gerçek Android cihazda görünüm.

@@ -18803,7 +18803,7 @@ function af34034MeleeFlankOffset(u,px){
   if(!u)return 0;
   let offset=0;
   if(u._afTower===1&&u._afEng===1&&Number.isFinite(u._afPortalSlot)&&u._afPortalSlot>0&&!u._afMeleeFlankSide){
-    offset+=(u._afPortalSlot===1?-1:1)*Math.min(px*.3,H*.03); // v3.40.55
+    offset+=((u._afPortalSlot%2)?-Math.ceil(u._afPortalSlot/2):u._afPortalSlot/2)*Math.min(px*.3,H*.03); // v3.60.305: 8 yuva üst/alt sırayla (v304 bandına sıkışır)
   }else if(u._afMeleeFlankSide){
     const blend=Math.max(0,Math.min(1,+u._afMeleeFlankBlend||0));
     // v3.40.44: up to four staggered side bands each side of the lane center.
@@ -19558,25 +19558,26 @@ function af267ArtBulk(card,cls){
   return base/(AF320_CLASSES[cls]||AF320_CLASSES.soldier).h;
 }
 function af268WalkSpeed(type,raw){return Math.max(.052,Math.min(.19,raw));}
+/* v3.60.305 AFP_V305_PORTAL_LINE_20261124: portal önü çizgisi koridora göre (portal platformunun ön kenarı, perspektif).
+   Mavi portal önü (kırmızı takımın durduğu yer) üst/orta/alt; kırmızı portal önü bunun aynası. */
+const AF305_PORTAL_LINE=[.1207,.0925,.0646];
+function af305Line(u){const l=Math.max(0,Math.min(2,u&&Number.isInteger(u.lane)?u.lane:1));return u&&u.team==='ally'?1-AF305_PORTAL_LINE[l]:AF305_PORTAL_LINE[l];}
 function af268PortalAim(u,range,siege){
-  const ally=u.team==='ally',portalX=ally?.965:.035;
+  const ally=u.team==='ally';
   if((ally?enemyHP:allyTowerHP)[u.lane]<=0)return false;
   if(siege&&af265RamInRange(u))return true;
-  const gun=af268Gun(u);
-  if(gun)return Math.abs(portalX-u.x)<=gun.portal+1e-6;
-  if(af323IsShooter(u)&&!af34033IsCloseCombat(u))return Math.abs(portalX-u.x)<=range+1e-6;
-  return ally?u.x>=.895:u.x<=.105;
+  /* v3.60.305: menzilli ve top dahil herkes portala çizgiden vurur (eskiden menzilliler uzaktan vuruyordu) */
+  const line=af305Line(u);
+  return ally?u.x>=line-1e-6:u.x<=line+1e-6;
 }
 
 /* v3.60.303 kilitli birim için portal menzili payı (yalnız hedef sürekliliği; menzil/hasar değişmez) */
 function af303PortalHoldAim(u,range,siege){
   if(af268PortalAim(u,range,siege))return true;
-  const ally=u.team==='ally',portalX=ally?.965:.035,m=.045;
+  const ally=u.team==='ally',m=.045;
   if((ally?enemyHP:allyTowerHP)[u.lane]<=0)return false;
-  const gun=af268Gun(u);
-  if(gun)return Math.abs(portalX-u.x)<=gun.portal+m;
-  if(af323IsShooter(u)&&!af34033IsCloseCombat(u))return Math.abs(portalX-u.x)<=range+m;
-  return ally?u.x>=.895-m:u.x<=.105+m;
+  const line=af305Line(u);
+  return ally?u.x>=line-m:u.x<=line+m;
 }
 const AF265_RAM='afn_sicrayan_kocbasi';
 function af265Siege(u){
@@ -20085,11 +20086,16 @@ function af323ApplyHit(u,target,damage,ambush=false){
 /* v3.40.55: portal-front crowding. Close-combat units no longer hit the portal from the rear of a single-file queue, so up to 3 of them
    may share the portal line (staggered vertically) instead of one attacker with everyone else idle behind it. Visual/spacing only; ranges are unchanged. */
 function af34055PortalAttackers(u){return units.filter(v=>v!==u&&v.hp>0&&v.team===u.team&&v.lane===u.lane&&v._afTower===1&&v._afEng===1&&!v.isBarrier);}
-function af34055PortalSlot(u){const g=af34055PortalAttackers(u),used=new Set(g.map(v=>v._afPortalSlot));let k=Number.isFinite(u._afPortalSlot)&&!used.has(u._afPortalSlot)?u._afPortalSlot:0;while(used.has(k)&&k<2)k++;u._afPortalSlot=k;}
+function af34055PortalSlot(u){const g=af34055PortalAttackers(u),used=new Set(g.map(v=>v._afPortalSlot));let k=Number.isFinite(u._afPortalSlot)&&!used.has(u._afPortalSlot)?u._afPortalSlot:0;while(used.has(k)&&k<7)k++;u._afPortalSlot=k;} /* v3.60.305: 8 yuva */
+function af305HoldLine(u,dt){
+  const line=af305Line(u),d=line-u.x;if(Math.abs(d)<.0008){u.x=line;return;}
+  const step=Math.abs(u.speed||.06)*Math.max(0,dt||0)*UNIT_MOVE_PACING;
+  u.x+=Math.sign(d)*Math.min(Math.abs(d),Math.max(step,.0008));u.animMove=1;
+}
 function af34055CanCrowdPortal(u,other){
-  if(!u||!other||other.team!==u.team||other._afTower!==1||other._afEng!==1||!af34033IsCloseCombat(u))return false;
-  const zone=u.team==='ally'?(u.x>=.78&&other.x>=.88):(u.x<=.22&&other.x<=.12);
-  return zone&&af34055PortalAttackers(u).length<3;
+  if(!u||!other||other.team!==u.team||other._afTower!==1||other._afEng!==1)return false; /* v3.60.305: tüm türler */
+  const line=af305Line(u),zone=u.team==='ally'?(u.x>=line-.12&&other.x>=line-.02):(u.x<=line+.12&&other.x<=line+.02);
+  return zone&&af34055PortalAttackers(u).length<8;
 }
 function moveUnitWithSpacing(u, delta){
   if(gameMode==='boss'&&u&&u.team==='enemy'&&u.isBoss&&!(window.__AFPColossusPvEContext&&window.__AFPColossusPvEContext.active)){u.x=.94;u.speed=0;u.animMove=0;return;}
@@ -20352,11 +20358,11 @@ function tick(ts){
       /* v3.40.55: close-combat units may not use the portal queue exception (hits from up to ~.27 away); they strike the portal only from the real portal line. Ranged units keep it. */
       // v1.92: prevent tower-front deadlock. Spacing stopped rear units below .962 forever.
       // Units in a short same-lane queue can attack from their real positions, without teleporting/overlapping.
-      u.facingDir=1;u._afEng=1;u._afTgt=null;u._afTower=1;if(!u.isCommander){u._afPortalLock=1;u._afPortalLockLane=u.lane;}af34055PortalSlot(u);
+      u.facingDir=1;u._afEng=1;u._afTgt=null;u._afTower=1;if(!u.isCommander){u._afPortalLock=1;u._afPortalLockLane=u.lane;}af34055PortalSlot(u);if(!af265IsSiege)af305HoldLine(u,dt);
       if(af290BasicReady(u,null)){if(af264Type(u)===AF264.assassin)af264Reveal(u);af321MarkHit(u,null);const damage=af265RamDamage(u,u.atk*(u.heroType==='orc'?1.25:1)*(u.buffUntil>elapsed?(u.buffDamage||1):1)*(u.siegeMul||1));const af323Hit=()=>{if(enemyHP[u.lane]<=0)return;const beforeTower=enemyHP[u.lane],af327f=af327EnemyPortalFactor(u.lane)*(+window.__AF36PortalScale||1),af327pd=af327f<1?Math.max(1,Math.round(damage*af327f)):damage;enemyHP[u.lane]=Math.max(0,enemyHP[u.lane]-af327pd);try{af334NoteSiege(af327E,u.lane,beforeTower-enemyHP[u.lane]);}catch(_){}if(beforeTower>0&&enemyHP[u.lane]<=0){af274Beep('tower');af274Vibrate(45);}matchStats.towerDamage+=beforeTower-enemyHP[u.lane];const tx=W*.92,ty=laneY(u.lane,tx)-8,sx=laneX(u.x),sy=laneY(u.lane,sx)-af320ChestY(u);addCombatText(tx,ty-10,'-'+Math.round(beforeTower-enemyHP[u.lane]),af327f<AF332_PORTAL_TAKEN-1e-9?'#9ee8ff':'#ffcf82');!af34033IsCloseCombat(u)&&af321QueueShot(u,tx,ty,.16,u.heroType==='mage'?'#c39aff':u.heroType==='archer'||u.heroType==='ranger'?'#ffdf92':'#ffad51',sx,sy);burst(tx,ty,u.heroType==='mage'?'#b98cff':'#ffad51',u.heroType==='mage'?8:5);try{AFX.portal(tx,ty,u);}catch(_){}};if(gun)af264Shell(u,{x:.965},damage*gun.portalMul,true);else if(af323IsShooter(u))af323Launch(u,null,damage,{x:1,apply:af323Hit});else af323Hit();u.cd=af327Period(u)*(gun?.reload||1)+Math.max(u.cd,-dt);if(!(af323IsShooter(u)&&af222IsFire(u)))af274Beep('hit',af323IsShooter(u)?'ranged':(u.atk>=30?'heavy':'melee'))}
     }else if(u.team==='enemy'&&(af303PortalHold?af303PortalHoldAim(u,attackRange,af265IsSiege):af268PortalAim(u,attackRange,af265IsSiege))){
       // v1.92: same queue fix for enemies attacking the blue tower; keep formation spacing intact.
-      u.facingDir=-1;u._afEng=1;u._afTgt=null;u._afTower=1;if(!u.isCommander){u._afPortalLock=1;u._afPortalLockLane=u.lane;}af34055PortalSlot(u);
+      u.facingDir=-1;u._afEng=1;u._afTgt=null;u._afTower=1;if(!u.isCommander){u._afPortalLock=1;u._afPortalLockLane=u.lane;}af34055PortalSlot(u);if(!af265IsSiege)af305HoldLine(u,dt);
       if(af290BasicReady(u,null)){if(af264Type(u)===AF264.assassin)af264Reveal(u);if(gameMode==='boss'&&u.team==='enemy'){u.attackPulse=.30;u._afSpiderBiteUntil=elapsed+.30;u._afSpiderBiteSeq=(u._afSpiderBiteSeq||0)+1;}af321MarkHit(u,null);const af327buff=u.buffUntil>elapsed?(u.buffDamage||1):1;const damage=af265RamDamage(u,(u.heroType&&!u.enemyType)?u.atk*(u.heroType==='orc'?1.25:1)*af327buff:Math.max(4,Math.round(u.atk*(u.enemyType==='brute'?1.0:.88)*af327buff)));const af323Hit=()=>{if(allyTowerHP[u.lane]<=0)return;const af327b=allyTowerHP[u.lane],af327f=af327PortalFactor(u.lane)*(+window.__AF36PortalScale||1),af327pd=af327f<1?Math.max(1,Math.round(damage*af327f)):damage;allyTowerHP[u.lane]=Math.max(0,af327b-af327pd);const af327real=af327b-allyTowerHP[u.lane];try{af334NoteSiege(af327S,u.lane,af327real);}catch(_){}if(af327b>0&&allyTowerHP[u.lane]<=0){af274Beep('tower');af274Vibrate(60);}if(af327real>0)af332PortalHit(af327S);matchStats.portalTaken=(matchStats.portalTaken||0)+af327real;const tx=W*.08,ty=laneY(u.lane,tx)-7,sx=laneX(u.x),sy=laneY(u.lane,sx)-af320ChestY(u);addCombatText(tx,ty-10,'-'+Math.round(af327real),af327f<AF332_PORTAL_TAKEN-1e-9?'#9ee8ff':'#ff9990');!af34033IsCloseCombat(u)&&af321QueueShot(u,tx,ty,.16,'#ff786b',sx,sy);burst(tx,ty,'#ff786b',6);try{AFX.portal(tx,ty,u);}catch(_){}if(allyTowerHP[u.lane]<=0)showNotice('ANA KALE HASAR ALDI! Üç kapının ortak canı azaldı.');};if(gun)af264Shell(u,{x:.035},damage*gun.portalMul,true);else if(af323IsShooter(u))af323Launch(u,null,damage,{x:0,apply:af323Hit});else af323Hit();u.cd=af327Period(u)*(gun?.reload||1)+Math.max(u.cd,-dt);}
     }else if(u.team==='ally'&&!u.isCommander&&enemyHP[u.lane]<=0&&!units.some(other=>other.team==='enemy'&&other.hp>0&&other.lane===u.lane)){
       // v3.34.100: a destroyed outer portal redirects survivors to the middle/live portal instead of letting them walk off-screen.
@@ -20377,7 +20383,7 @@ function tick(ts){
   if(af378Heals.length){for(const q of af378Heals.splice(0))af327HealUnit(q[0],q[1],q[2],q[3]);}
   if(af378Pushes.length){for(const q of af378Pushes.splice(0))af327Push(q[0],q[1],q[2]);}
   if(af378Cd.length){for(const [v,offset,reload] of af378Cd.splice(0)){if(v&&v.hp>0)v.cd=af327Period(v)*reload+offset;}} // v3.77.05: öfke/hız etkileri iki tarafta aynı anda
-  /* v3.40.46 U-BUG-5: aynı görsel şeritte üst üste binme ayırıcısı */ {const band=v=>((v._afMeleeFlankSide||0)*(+v._afMeleeFlankBlend||0))||((v._afCrowdPassActive===1&&Number.isFinite(v._afCrowdPassSide)?v._afCrowdPassSide:0)*(+v._afCrowdPassBlend||0)); /* v3.60.67 AFQA-01: geçiş şeridindeki birlik geri itilmez */for(let l=0;l<3;l++)for(const tm of ['ally','enemy']){const g=units.filter(v=>v.hp>0&&v.lane===l&&v.team===tm&&!v.isBarrier&&!v.isCommander);for(let a=0;a<g.length;a++)for(let b=a+1;b<g.length;b++){const A=g[a],B=g[b];if(A._afSkeletonPack&&A._afSkeletonPack===B._afSkeletonPack)continue;if(Math.abs(band(A)-band(B))>=.5)continue;const d=Math.abs(A.x-B.x);if(d>=.004)continue;const late=(B.spawnedAt||0)>=(A.spawnedAt||0)?B:A,early=late===B?A:B,dir=tm==='ally'?-1:1;late.x=Math.max(.025,Math.min(.965,early.x+dir*.004));}}}
+  /* v3.40.46 U-BUG-5: aynı görsel şeritte üst üste binme ayırıcısı */ {const band=v=>((v._afMeleeFlankSide||0)*(+v._afMeleeFlankBlend||0))||((v._afCrowdPassActive===1&&Number.isFinite(v._afCrowdPassSide)?v._afCrowdPassSide:0)*(+v._afCrowdPassBlend||0)); /* v3.60.67 AFQA-01: geçiş şeridindeki birlik geri itilmez */for(let l=0;l<3;l++)for(const tm of ['ally','enemy']){const g=units.filter(v=>v.hp>0&&v.lane===l&&v.team===tm&&!v.isBarrier&&!v.isCommander);for(let a=0;a<g.length;a++)for(let b=a+1;b<g.length;b++){const A=g[a],B=g[b];if(A._afSkeletonPack&&A._afSkeletonPack===B._afSkeletonPack)continue;if((A._afTower===1||B._afTower===1)&&Math.abs(A.x-af305Line(A))<.02&&Math.abs(B.x-af305Line(B))<.02)continue; /* v3.60.305 portal çizgisi */if(Math.abs(band(A)-band(B))>=.5)continue;const d=Math.abs(A.x-B.x);if(d>=.004)continue;const late=(B.spawnedAt||0)>=(A.spawnedAt||0)?B:A,early=late===B?A:B,dir=tm==='ally'?-1:1;late.x=Math.max(.025,Math.min(.965,early.x+dir*.004));}}}
   af323UpdateShots();af327Tick(dt);const afpPeerBattle=!!(window.__AFPUseModeNetworkV1&&window.__AFPOnlineContext&&window.__AFPOnlineContext.active);if(!afpPeerBattle&&(gameMode==='duel'||(gameMode!=='boss'&&window.__AF36PveAI&&window.__AF36PveAI()))&&!af35TutorialHold())af329Tick(dt); // v3.40.83: Örümcek Akını has spider-wave AI only; generic PvE card AI must not add extra enemies.
   // Normalize animation intensity against expected travel distance. Tiny spacing corrections
   // should not look like a full walking cycle.
