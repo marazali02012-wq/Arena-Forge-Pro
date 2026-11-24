@@ -86,3 +86,58 @@ Diğer HP çubuğu testleri:
 4. **40 minyon senaryosu stres testidir.** Oyunda saha sınırı `MAX_UNITS = 36`; test birimleri doğrudan ekledi.
 5. **Gerçek Android cihazda bu sürüm denenmedi.** FPS ve bellek GPU'suz tarayıcıda ölçüldü. Realme C55'te kontrol edilmeli.
 6. **Çevrim içi PvP iki cihazla denenmedi.** Yalnızca bağlantı adresi doğrulandı.
+
+---
+
+# v304 ekleri: minyonlar koridorun ortasında
+
+**Şikâyet:** savaşta minyonlar koridorun ortasında değil, yamuk geliyor.
+
+## Ölçüm
+
+**Duran minyonlar:** 59 minyonun hepsi tek tek ölçüldü. Ayak tabanı, koridor çizgisinin yaklaşık −1 ile +7 px arasında. Eski minyonlardaki birkaç piksellik fark kontur parlamasından geliyor. Kırık Saat Efendisi bilerek süzülüyor. Duran minyonlarda hizalama hatası yok.
+
+**Gerçek savaşta (v303):**
+- Ayak konumlarının %70'i koridor çizgisinden 4 px'ten fazla sapıyor.
+- Ortanca sapma 7,9 px, %90'lık dilim 24 px, en fazla 39 px.
+- 740×360'ta koridorlar arası mesafe yaklaşık 67 px; gruplar komşu koridora ve çit hattına taşıyordu.
+
+## Kök neden
+
+İki dikey kayma koridor genişliğinden bağımsız olarak uygulanıyordu:
+- `af34034MeleeFlankOffset`: kalabalık dizilmede 8 yuva, ±4 kat.
+- Grup üyelerinin yayılması: `_afSkeletonCloneSide × px × 0,15` (2'li, 3'lü, 6'lı, 9'lu gruplar).
+
+İkisi toplanınca minyon kendi taş yolundan çıkıyordu.
+
+## Düzeltme
+
+Yeni fonksiyon `af304LaneDY` (`tools/patch_v304.py`). Toplam dikey kayma, koridorlar arası mesafenin %16'sı olan banda `tanh` ile yumuşakça sıkıştırılıyor; 740×360'ta bu yaklaşık ±10,7 px. Ön/arka sırası korunuyor.
+
+Dört çizim noktasında uygulandı:
+- Ana çizim.
+- Karakter motoru.
+- İki sürükleme önizlemesi.
+
+Yalnızca çizim değişti. Simülasyon, hedefleme, menzil, hasar ve koridor numaraları x ve koridor bilgisini kullanmaya devam ediyor. HP çubukları ve efektler minyonun çizilen konumunu izliyor.
+
+## Sonuç (aynı savaş testi)
+
+| | v303 | v304 |
+|---|---|---|
+| Ortanca sapma | 7,9 px | 6,2 px |
+| %90'lık dilim | 24,1 px | 9,9 px |
+| En fazla | 39 px | 10,6 px |
+
+Hiçbir minyon koridor bandının dışına çıkmıyor. Önce/sonra görüntüsü: `yayin/v304-kanitlar/koridor_once_sonra.png`.
+
+## Gerileme (v304)
+
+- **Modlar:** Arena, Kule, Hikâye, Örümcek Akını tek zaferle bitiyor; ödül aynı ve tekrarlanmıyor.
+- **Sürükle-bırak:** 740×360 ve 667×375'te 9/9.
+- **HP çubukları (40 minyon):** çakışma 0, aç/kapa 0,01, titreme 0,4–0,6 px.
+- **JS, motor ve çizim hatası:** 0.
+
+**Bilinen etki:** gruplar artık dikeyde daha sıkı duruyor. 9'lu İskelet Kalkanlı grubunda üyeler daha çok üst üste görünebilir; ön/arka sırası korunuyor.
+
+**Doğrulanmadı:** gerçek Android cihazda görünüm.

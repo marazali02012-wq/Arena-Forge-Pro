@@ -14001,7 +14001,7 @@ function afBattleDrawGhostDirectArt(){
     if(!u||!u._afBattleGhostDirect)continue;
     let saved=false;
     try{
-      const R=af320Resolve(u),px=af320BodyPx(R,u.lane),x=laneX(u.x),y=(Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))+(u._af214GroupMember?u._afSkeletonCloneSide*px*.15:0);
+      const R=af320Resolve(u),px=af320BodyPx(R,u.lane),x=laneX(u.x),y=(Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))+af304LaneDY(u._af214GroupMember?u._afSkeletonCloneSide*px*.15:0);
       let k=px/m.coreH;
       if(m.b.w*k>px*1.3)k=px*1.3/m.b.w;
       if(m.b.h*k>px*1.42)k=px*1.42/m.b.h;
@@ -14019,7 +14019,7 @@ function afBattleDrawGhostDirectArt(){
 }
 function afBattleDrawGhostMarker(){
   const d=afBattleDragState,r=d&&d.result;if(!d||!d.preview||!r||!r.xs)return;
-  try{ctx.save();const valid=!!r.valid;for(let i=0;i<r.xs.length;i++){const x=laneX(r.xs[i]),u=d.ghostUnits[i],px=u&&u._vis&&u._vis.px||Math.max(24,H*.045),y=r.markerYs[i]+(u?._af214GroupMember?u._afSkeletonCloneSide*px*.15:0);ctx.globalAlpha=valid?.92:.98;ctx.fillStyle=valid?'rgba(82,231,171,.19)':'rgba(255,66,72,.23)';ctx.strokeStyle=valid?'#75f0b5':'#ff555d';ctx.lineWidth=Math.max(2,px*.045);ctx.beginPath();ctx.ellipse(x,y+2,px*.55,px*.18,0,0,Math.PI*2);ctx.fill();ctx.stroke();if(!valid){ctx.globalAlpha=.95;ctx.lineWidth=Math.max(1.5,px*.045);ctx.beginPath();ctx.moveTo(x-px*.18,y-px*.18);ctx.lineTo(x+px*.18,y+px*.18);ctx.moveTo(x+px*.18,y-px*.18);ctx.lineTo(x-px*.18,y+px*.18);ctx.stroke();}}ctx.restore();}catch(_){try{ctx.restore();}catch(__){}}
+  try{ctx.save();const valid=!!r.valid;for(let i=0;i<r.xs.length;i++){const x=laneX(r.xs[i]),u=d.ghostUnits[i],px=u&&u._vis&&u._vis.px||Math.max(24,H*.045),y=r.markerYs[i]+af304LaneDY(u?._af214GroupMember?u._afSkeletonCloneSide*px*.15:0);ctx.globalAlpha=valid?.92:.98;ctx.fillStyle=valid?'rgba(82,231,171,.19)':'rgba(255,66,72,.23)';ctx.strokeStyle=valid?'#75f0b5':'#ff555d';ctx.lineWidth=Math.max(2,px*.045);ctx.beginPath();ctx.ellipse(x,y+2,px*.55,px*.18,0,0,Math.PI*2);ctx.fill();ctx.stroke();if(!valid){ctx.globalAlpha=.95;ctx.lineWidth=Math.max(1.5,px*.045);ctx.beginPath();ctx.moveTo(x-px*.18,y-px*.18);ctx.lineTo(x+px*.18,y+px*.18);ctx.moveTo(x+px*.18,y-px*.18);ctx.lineTo(x-px*.18,y+px*.18);ctx.stroke();}}ctx.restore();}catch(_){try{ctx.restore();}catch(__){}}
 }
 const HERO_ROLES={
  paladin:'Kutsal öncü · dayanıklı savunma',necromancer:'Karanlık büyü · yüksek tek hedef hasarı',berserker:'Çift balta · hızlı yakın dövüş',frostmage:'Buz büyüsü · yavaşlatma',golem:'Ağır tank · çok yüksek can',
@@ -15847,7 +15847,7 @@ function af320DrawHeroLegacy(u){
   // Suikastçı, saldırı sonrası kısa süre açığa çıkar; gizliyken savaş alanında çizilmez.
   if(af264Hidden(u)&&playing&&!u._af262StealthPass)return;
   const R=af320Resolve(u),C=AF320_CLASSES[R.cls],blue=R.blue,heroUnit=R.heroUnit,heroKind=R.heroKind;
-  const x=laneX(u.x),px=af320BodyPx(R,u.lane),y=(u._afBattleGhost&&Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))+(u._afSkeletonCloneSide||0)*px*.15+af34034MeleeFlankOffset(u,px),k2=px/C.h;
+  const x=laneX(u.x),px=af320BodyPx(R,u.lane),y=(u._afBattleGhost&&Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))+af304LaneDY((u._afSkeletonCloneSide||0)*px*.15+af34034MeleeFlankOffset(u,px)),k2=px/C.h;
   const attackPose=Math.max(0,Math.min(1,(u.attackPulse||0)/.22));
   const moving=(u.animMove||0)>.12,ph=u.phase||0;
   const dist=u.x*W*.84;                                   // world distance -> walk phase (no foot sliding)
@@ -16972,7 +16972,7 @@ function drawHero(u){
   const R=af320Resolve(u),C=AF320_CLASSES[R.cls],blue=R.blue,heroUnit=R.heroUnit;
   const px=af320BodyPx(R,u.lane)*(u._af205Boss?1.32:1),x=laneX(u.x)+af285PoseDX(u,px),k2=px/C.h;
   const y=(u._afBattleGhost&&Number.isFinite(u._afBattleGhostY)?u._afBattleGhostY:laneY(u.lane,x))
-    +(u._afSkeletonCloneSide||0)*px*.15+af34034MeleeFlankOffset(u,px)+af285PoseDY(u,px);
+    +af304LaneDY((u._afSkeletonCloneSide||0)*px*.15+af34034MeleeFlankOffset(u,px))+af285PoseDY(u,px);
   if(afp177DrawHero(u,R,C,x,y,px,k2))return;
   if(afp179DrawHero(u,R,C,x,y,px,k2))return;
   const custom=window.AFNewMinions.has(u.heroType);
@@ -18792,6 +18792,13 @@ window.__afpMeleeRangeQA={
 // Short within-lane visual offset for a real melee flank; does not alter lane targeting or hit range.
 /* v3.78.41 MOVEMENT FIX: stalled units can reserve a temporary side file to pass friendly queues.
    Runtime-only state; no profile/save fields, HP, damage, energy, attack ranges, or card costs changed. */
+/* v3.60.304 AFP_V304_LANE_CENTER_20261124: dikey kalabalık/grup kayması koridor bandında kalır (yalnız çizim). */
+let af304Band={w:0,h:0,b:0};
+function af304LaneDY(raw){
+  if(!raw||!Number.isFinite(raw))return 0;
+  if(af304Band.w!==W||af304Band.h!==H){const g=Math.abs(laneY(1,W*.5)-laneY(0,W*.5))||H*.18;af304Band={w:W,h:H,b:Math.max(5,g*.16)};}
+  const b=af304Band.b;return b*Math.tanh(raw/b);
+}
 function af34034MeleeFlankOffset(u,px){
   if(!u)return 0;
   let offset=0;
