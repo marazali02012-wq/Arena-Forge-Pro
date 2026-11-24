@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -34,6 +35,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import org.json.JSONObject;
 
 public final class GameActivity extends Activity {
     private static final String HOST = "appassets.androidplatform.net";
@@ -111,6 +113,9 @@ public final class GameActivity extends Activity {
             getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
                     OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::handleBack);
         }
+        // v3.60.306: "Google ile devam et" için güvenli köprü (yalnız yerel oyun sayfası; yalnız Supabase Google giriş adresi açılır).
+        game.addJavascriptInterface(new AuthBridge(), "AFPAndroidAuth");
+        captureAuthCallback(getIntent());
         game.loadUrl(START);
         if (BuildConfig.DIAG) startLayoutDiagnostics(root);
     }
@@ -185,6 +190,95 @@ public final class GameActivity extends Activity {
             }
         }
         return b.toString();
+    }
+
+    // ---- v3.60.306 Google ile devam et ----
+    // Google, uygulama içi WebView'da OAuth girişini engeller. Giriş sayfası Chrome Custom Tab'da açılır,
+    // Supabase PKCE kodunu <paket adı>://auth-callback adresine yollar, kod buradan oyuna verilir.
+    private static final String AUTH_HOST = "lvjivtnnclaotayncavj.supabase.co";
+    private static final String AUTH_PATH = "/auth/v1/authorize";
+    private String pendingAuthCallback;
+    private boolean pageReady;
+
+    private String authRedirectUri() {
+        return getPackageName() + "://auth-callback";
+    }
+
+    private final class AuthBridge {
+        @JavascriptInterface
+        public String redirectUri() {
+            return authRedirectUri();
+        }
+
+        @JavascriptInterface
+        public boolean openExternal(String url) {
+            final Uri uri;
+            try {
+                uri = Uri.parse(url);
+            } catch (Exception e) {
+                return false;
+            }
+            if (uri == null || !"https".equals(uri.getScheme()) || !AUTH_HOST.equals(uri.getHost())
+                    || !AUTH_PATH.equals(uri.getPath()) || !"google".equals(uri.getQueryParameter("provider"))) {
+                return false;
+            }
+            String back = uri.getQueryParameter("redirect_to");
+            if (back == null || !back.startsWith(authRedirectUri() + "?")) return false;
+            runOnUiThread(() -> openSecureBrowser(uri));
+            return true;
+        }
+    }
+
+    private void openSecureBrowser(Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        // Chrome Custom Tab (ek kütüphane gerekmez): oturum anahtarı boş Custom Tabs isteği.
+        Bundle extras = new Bundle();
+        extras.putBinder("android.support.customtabs.extra.SESSION", null);
+        intent.putExtras(extras);
+        intent.putExtra("android.support.customtabs.extra.TOOLBAR_COLOR", Color.rgb(17, 24, 39));
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            } catch (ActivityNotFoundException ignored) {
+                deliverAuthError("Google giriş sayfası açılamadı: cihazda tarayıcı yok.");
+            }
+        }
+    }
+
+    private void captureAuthCallback(Intent intent) {
+        Uri data = intent == null ? null : intent.getData();
+        if (data == null || !getPackageName().equals(data.getScheme()) || !"auth-callback".equals(data.getHost())) return;
+        pendingAuthCallback = data.toString();
+        intent.setData(null);
+        if (pageReady) deliverAuthCallback(0);
+    }
+
+    private void deliverAuthCallback(int attempt) {
+        if (game == null || pendingAuthCallback == null) return;
+        final String link = pendingAuthCallback;
+        game.evaluateJavascript("(function(u){var g=window.AFPGoogleOAuth;if(g&&g.completeFromApp){g.completeFromApp(u);return 'ok';}return 'wait';})("
+                + JSONObject.quote(link) + ")", result -> {
+            if ("\"ok\"".equals(result)) {
+                if (link.equals(pendingAuthCallback)) pendingAuthCallback = null;
+            } else if (attempt < 40 && game != null) {
+                game.postDelayed(() -> deliverAuthCallback(attempt + 1), 250);
+            }
+        });
+    }
+
+    private void deliverAuthError(String message) {
+        if (game == null) return;
+        game.evaluateJavascript("(function(m){var e=window.AFQEntry;if(e&&e.googleError)e.googleError(m);})(" + JSONObject.quote(message) + ")", null);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        captureAuthCallback(intent);
     }
 
     @Override
@@ -333,6 +427,10 @@ public final class GameActivity extends Activity {
         public void onPageFinished(WebView view, String url) {
             if (START.equals(url) && !Boolean.TRUE.equals(loading.getTag())) {
                 loading.setVisibility(View.GONE);
+            }
+            if (START.equals(url)) {
+                pageReady = true;
+                if (pendingAuthCallback != null) deliverAuthCallback(0);
             }
         }
 

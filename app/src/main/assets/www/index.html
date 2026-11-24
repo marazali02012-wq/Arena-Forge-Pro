@@ -10582,7 +10582,8 @@ t payloads consolidated; standalone HTML retained. -->
   remember=$('.remember input'),go=$('.go'),fPass=$('.f-pass'),fSigned=$('.f-signed'),loading=$('.loading'),msgEl=$('.msg'),
   sideL=$('.side.left'),sideR=$('.side.right'),bSignup=$('[data-act=signup]'),bGuest=$('[data-act=guest]'),bSwitch=$('[data-act=switch]'),bGoogle=$('[data-act=google]');
  if(location.hostname==='appassets.androidplatform.net'&&bGoogle){
-  bGoogle.style.setProperty('display','none','important');
+  /* v3.60.306 AFP_V306_ANDROID_GOOGLE_20261124: yerel güvenli giriş köprüsü varsa Google düğmesi görünür */
+  if(!(window.AFPAndroidAuth&&typeof window.AFPAndroidAuth.openExternal==='function'))bGoogle.style.setProperty('display','none','important');
   const privacy=document.createElement('button');
   privacy.type='button';
   privacy.className='alt';
@@ -31965,11 +31966,16 @@ window.ArenaForge297={render,RELICS,CHALLENGE_TYPES,EVENTS,act,eventProgress,saf
   if(window.AFPGoogleOAuth)return;
   const BASE='https://lvjivtnnclaotayncavj.supabase.co',KEY='sb_publishable_0KrAa9rX_l82wV2HsaduDw_C9talJ7o',PENDING='afpGooglePKCEV1';
   const getPending=()=>{try{return JSON.parse(sessionStorage.getItem(PENDING)||'null');}catch(_){return null;}};
+  /* v3.60.306: APK yolu. Bekleyen giriş localStorage'da tutulur (tarayıcıdan dönüşte WebView yeniden kurulmuş olabilir). */
+  const NATIVE_PENDING='afpGooglePKCENativeV1';
+  const bridge=()=>{const b=window.AFPAndroidAuth;return location.hostname==='appassets.androidplatform.net'&&b&&typeof b.openExternal==='function'&&typeof b.redirectUri==='function'?b:null;};
+  const getNativePending=()=>{try{return JSON.parse(localStorage.getItem(NATIVE_PENDING)||'null');}catch(_){return null;}};
   function cleanURL(){try{const u=new URL(location.href);['afp_google','afp_tx','code','error','error_code','error_description'].forEach(k=>u.searchParams.delete(k));history.replaceState(history.state,'',u.pathname+u.search+u.hash);}catch(_){}}
   function b64(bytes){let s='';bytes.forEach(b=>s+=String.fromCharCode(b));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
   function random(size){const v=new Uint8Array(size);crypto.getRandomValues(v);return b64(v);}
   async function request(path,init){const ac=new AbortController(),timer=setTimeout(()=>ac.abort(),18000);try{const r=await fetch(BASE+path,Object.assign({headers:{apikey:KEY,'Content-Type':'application/json'},signal:ac.signal},init));let body={};try{body=await r.json();}catch(_){}return {ok:r.ok,status:r.status,data:body};}finally{clearTimeout(timer);}}
   function runtimeOK(){
+    if(bridge()){if(!crypto||!crypto.subtle||!crypto.getRandomValues)throw new Error('Cihaz güvenli Google girişi için gereken şifreleme özelliğini desteklemiyor.');return;}
     if(location.protocol!=='https:'||!location.hostname||location.hostname==='localhost')throw new Error('Google girişi HTTPS ile yayınlanan Netlify sitesinde kullanılabilir. Yerel HTML dosyasında çalışmaz.');
     if(!crypto||!crypto.subtle||!crypto.getRandomValues)throw new Error('Tarayıcı güvenli Google girişi için gereken şifreleme özelliğini desteklemiyor.');
     // Google disallows OAuth inside embedded Android WebView; native APK must open an external secure browser/deep link.
@@ -31985,6 +31991,15 @@ window.ArenaForge297={render,RELICS,CHALLENGE_TYPES,EVENTS,act,eventProgress,saf
     const verifier=random(48), tx=random(20);
     const bytes=new TextEncoder().encode(verifier);
     const challenge=b64(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)));
+    const nb=bridge();
+    if(nb){
+      const back=String(nb.redirectUri()||'');if(!/^[a-z][a-z0-9.+-]*:\/\/auth-callback$/.test(back))throw new Error('Uygulama dönüş adresi geçersiz.');
+      const redirectTo=back+'?afp_google=1&afp_tx='+encodeURIComponent(tx);
+      localStorage.setItem(NATIVE_PENDING,JSON.stringify({verifier,tx,created:Date.now(),origin:back}));
+      const au=new URL('/auth/v1/authorize',BASE);au.searchParams.set('provider','google');au.searchParams.set('redirect_to',redirectTo);au.searchParams.set('code_challenge',challenge);au.searchParams.set('code_challenge_method','s256');
+      if(!nb.openExternal(au.toString())){try{localStorage.removeItem(NATIVE_PENDING);}catch(_){}throw new Error('Güvenli Google giriş sayfası açılamadı. Cihazda bir tarayıcı (Chrome) olmalı.');}
+      return;
+    }
     const redirect=new URL(location.pathname,location.origin);redirect.searchParams.set('afp_google','1');redirect.searchParams.set('afp_tx',tx);
     sessionStorage.setItem(PENDING,JSON.stringify({verifier,tx,created:Date.now(),origin:location.origin}));
     const u=new URL('/auth/v1/authorize',BASE);u.searchParams.set('provider','google');u.searchParams.set('redirect_to',redirect.toString());u.searchParams.set('code_challenge',challenge);u.searchParams.set('code_challenge_method','s256');
@@ -32010,7 +32025,32 @@ window.ArenaForge297={render,RELICS,CHALLENGE_TYPES,EVENTS,act,eventProgress,saf
     }catch(e){if(window.AFQEntry&&window.AFQEntry.googleError)window.AFQEntry.googleError(String(e&&e.message||e));}
     finally{try{sessionStorage.removeItem(PENDING);}catch(_){}}
   }
-  window.AFPGoogleOAuth=Object.freeze({start,complete});
+  /* v3.60.306: tarayıcıdan dönen <paket>://auth-callback?... bağlantısı GameActivity tarafından verilir.
+     Yalnız bu cihazda başlatılmış, 10 dakikadan eski olmayan ve aynı işlem kimliğini taşıyan kod kabul edilir. */
+  let nativeBusy=false;
+  async function completeFromApp(link){
+    const nb=bridge();if(!nb||nativeBusy)return false;
+    let u;try{u=new URL(String(link||''));}catch(_){return false;}
+    const back=String(nb.redirectUri()||'');
+    if(u.protocol+'//'+u.host!==back||u.searchParams.get('afp_google')!=='1')return false;
+    nativeBusy=true;const pending=getNativePending();
+    const code=u.searchParams.get('code'),err=u.searchParams.get('error')||u.searchParams.get('error_code'),tx=u.searchParams.get('afp_tx');
+    try{
+      if(!pending||!pending.tx||pending.tx!==tx||pending.origin!==back||Date.now()-pending.created>600000||Date.now()<pending.created-60000)throw new Error('Google oturum güvenliği doğrulanamadı. Girişi yeniden başlat.');
+      if(err)throw new Error(err==='access_denied'?'Google girişi iptal edildi.':'Google giriş hatası: '+String(u.searchParams.get('error_description')||err).slice(0,120));
+      if(!code)throw new Error('Google girişinden doğrulama kodu dönmedi.');
+      const api=window.AFPCloudAuth; if(!api||!api.beginExternal||!api.completeExternal)throw new Error('Oturum modülü yüklenemedi.');
+      const attempt=api.beginExternal();
+      const r=await request('/auth/v1/token?grant_type=pkce',{method:'POST',body:JSON.stringify({auth_code:code,code_verifier:pending.verifier})});
+      if(!r.ok)throw new Error('Google oturumu açılmadı (HTTP '+r.status+'). Yeniden dene.');
+      const session=api.completeExternal(r.data,attempt);
+      if(session.cancelled)return true;
+      if(window.AFQEntry&&window.AFQEntry.googleSignedIn)window.AFQEntry.googleSignedIn(session);
+    }catch(e){if(window.AFQEntry&&window.AFQEntry.googleError)window.AFQEntry.googleError(String(e&&e.message||e));}
+    finally{nativeBusy=false;try{localStorage.removeItem(NATIVE_PENDING);}catch(_){}}
+    return true;
+  }
+  window.AFPGoogleOAuth=Object.freeze({start,complete,completeFromApp}); /* AFP_V306_ANDROID_GOOGLE_20261124 */
   // Called once after the existing AFPCloudAuth module is installed. Never process arbitrary URL codes.
   if(new URLSearchParams(location.search).get('afp_google')==='1')complete();
 })();
