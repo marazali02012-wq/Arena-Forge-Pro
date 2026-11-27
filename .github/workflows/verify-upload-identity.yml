@@ -1,0 +1,40 @@
+name: Mevcut yükleme sertifikasını denetle
+on:
+  workflow_dispatch:
+  push:
+    branches: ['repair/v308-android-recovery']
+    paths: ['.github/workflows/verify-upload-identity.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    if: github.repository == 'marazali02012-wq/Arena-Forge-Pro' && github.ref == 'refs/heads/repair/v308-android-recovery'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: GitHub Actions yükleme anahtarı kimliği
+        env:
+          KEYSTORE_BASE64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}
+          UPLOAD_KEYSTORE_PASSWORD: ${{ secrets.UPLOAD_KEYSTORE_PASSWORD }}
+          UPLOAD_KEY_ALIAS: ${{ secrets.UPLOAD_KEY_ALIAS }}
+        run: |
+          for name in KEYSTORE_BASE64 UPLOAD_KEYSTORE_PASSWORD UPLOAD_KEY_ALIAS; do
+            if [ -z "${!name}" ]; then
+              printf '%s ayarlanmamış.\n' "$name"
+            fi
+          done
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$UPLOAD_KEYSTORE_PASSWORD" ] || [ -z "$UPLOAD_KEY_ALIAS" ]; then
+            exit 0
+          fi
+          umask 077
+          keyfile="$(mktemp "$RUNNER_TEMP/upload-key.XXXXXX")"
+          trap 'rm -f "$keyfile"' EXIT
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$keyfile"
+          fingerprint="$(keytool -exportcert -keystore "$keyfile" -storepass:env UPLOAD_KEYSTORE_PASSWORD \
+            -alias "$UPLOAD_KEY_ALIAS" | sha256sum | cut -d' ' -f1)"
+          printf 'Yükleme sertifikası SHA-256 %s\n' "$fingerprint"
