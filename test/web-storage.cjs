@@ -31,7 +31,7 @@ async function main() {
     errors = [];
     await page.reload();
     await page.waitForFunction(() => !!window.AFPModeNetworkV1);
-    assert.equal(await page.title(), 'Arena Forge Pro v3.60.308');
+    assert.equal(await page.title(), 'Arena Forge Pro v3.60.' + (process.argv[3] || 308));
 
     const restored = await page.evaluate(() => JSON.parse(localStorage.getItem('arenaForgeProProfileV19')));
     const retainedGuestKeys = await page.evaluate(() => Object.keys(localStorage).filter(key => /guest/i.test(key)).sort());

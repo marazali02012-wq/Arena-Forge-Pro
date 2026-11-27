@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,11 +30,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.window.OnBackInvokedDispatcher;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import org.json.JSONObject;
@@ -41,7 +47,11 @@ public final class GameActivity extends Activity {
     private static final String HOST = "appassets.androidplatform.net";
     private static final String START = "https://" + HOST + "/assets/www/index.html";
     private WebView game;
-    private TextView loading;
+    private FrameLayout loading;
+    private TextView loadingLabel;
+    private ProgressBar loadingProgress;
+    private boolean loadingFailed;
+    private long loadingGeneration;
     private boolean waitingForBack;
     private AlertDialog exitDialog;
     private AlertDialog gameDialog;
@@ -90,13 +100,7 @@ public final class GameActivity extends Activity {
         settings.setJavaScriptCanOpenWindowsAutomatically(false);
         root.addView(game, new FrameLayout.LayoutParams(-1, -1));
 
-        loading = new TextView(this);
-        loading.setGravity(Gravity.CENTER);
-        loading.setBackgroundColor(Color.rgb(17, 24, 39));
-        loading.setTextColor(Color.rgb(249, 220, 166));
-        loading.setTextSize(18);
-        loading.setText("Arena Forge Pro yükleniyor…");
-        root.addView(loading, new FrameLayout.LayoutParams(-1, -1));
+        addLoadingScreen(root);
 
         // Kök görünüme çentik/sistem çubuğu payı uygulanmaz (sola şerit bırakır). DecorView artık klavye
         // için de yer açmadığından, giriş ekranındaki adjustResize davranışı korunur: yalnız klavye
@@ -124,6 +128,98 @@ public final class GameActivity extends Activity {
         captureAuthCallback(getIntent());
         game.loadUrl(START);
         if (BuildConfig.DIAG) startLayoutDiagnostics(root);
+    }
+
+    private int splashDp(int value) {
+        return Math.round(value * getResources().getDisplayMetrics().density);
+    }
+
+    private void addLoadingScreen(FrameLayout root) {
+        loading = new FrameLayout(this);
+        loading.setBackgroundColor(0xff101621);
+        ImageView artwork = new ImageView(this);
+        artwork.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        try (InputStream stream = getAssets().open("launch/war-arena.webp")) {
+            artwork.setImageDrawable(Drawable.createFromStream(stream, null));
+        } catch (IOException ignored) {
+            // Keep the loading controls available if the artwork cannot be read.
+        }
+        loading.addView(artwork, new FrameLayout.LayoutParams(-1, -1));
+
+        View shade = new View(this);
+        shade.setBackground(new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
+                new int[]{0xff090c17, 0xc0090c17, Color.TRANSPARENT}));
+        loading.addView(shade, new FrameLayout.LayoutParams(-1, splashDp(136), Gravity.BOTTOM));
+
+        LinearLayout controls = new LinearLayout(this);
+        controls.setOrientation(LinearLayout.VERTICAL);
+        controls.setGravity(Gravity.CENTER);
+        controls.setPadding(splashDp(24), splashDp(10), splashDp(24), splashDp(20));
+        TextView title = new TextView(this);
+        title.setText("ARENA FORGE PRO");
+        title.setTextColor(0xffffe3a5);
+        title.setTextSize(23);
+        title.setTypeface(null, android.graphics.Typeface.BOLD);
+        title.setLetterSpacing(0.11f);
+        title.setGravity(Gravity.CENTER);
+        controls.addView(title, new LinearLayout.LayoutParams(-1, -2));
+
+        loadingLabel = new TextView(this);
+        loadingLabel.setText("Oyun dosyaları yükleniyor…");
+        loadingLabel.setTextColor(0xfffff1d8);
+        loadingLabel.setTextSize(14);
+        loadingLabel.setGravity(Gravity.CENTER);
+        controls.addView(loadingLabel, new LinearLayout.LayoutParams(-1, -2));
+
+        loadingProgress = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+        loadingProgress.setMax(100);
+        loadingProgress.setContentDescription("Oyun yükleme durumu");
+        loadingProgress.setProgressTintList(android.content.res.ColorStateList.valueOf(0xfff2be64));
+        LinearLayout.LayoutParams bar = new LinearLayout.LayoutParams(-1, splashDp(8));
+        bar.topMargin = splashDp(6);
+        controls.addView(loadingProgress, bar);
+        loading.addView(controls, new FrameLayout.LayoutParams(
+                Math.min(splashDp(400), getResources().getDisplayMetrics().widthPixels), -2,
+                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL));
+        root.addView(loading, new FrameLayout.LayoutParams(-1, -1));
+    }
+
+    private void waitForGamePaint(long generation, int attemptsLeft) {
+        if (isDestroyed() || loadingFailed || generation != loadingGeneration) return;
+        game.evaluateJavascript("Boolean(window.afp309BootReady)", ready -> {
+            if (isDestroyed() || loadingFailed || generation != loadingGeneration) return;
+            if ("true".equals(ready)) {
+                game.postVisualStateCallback(generation, new WebView.VisualStateCallback() {
+                    @Override
+                    public void onComplete(long requestId) {
+                        if (isDestroyed() || loadingFailed || requestId != loadingGeneration) return;
+                        loadingProgress.setProgress(100);
+                        loading.setVisibility(View.GONE);
+                        pageReady = true;
+                        if (pendingAuthCallback != null) deliverAuthCallback(0);
+                    }
+                });
+            } else if (attemptsLeft > 0) {
+                loading.postDelayed(() -> waitForGamePaint(generation, attemptsLeft - 1), 100);
+            } else {
+                showLoadError();
+            }
+        });
+    }
+
+    private void showLoadError() {
+        loadingFailed = true;
+        loadingLabel.setText("Oyun açılamadı. Tekrar denemek için dokun.");
+        loadingProgress.setVisibility(View.GONE);
+        loading.setVisibility(View.VISIBLE);
+        loading.setOnClickListener(v -> {
+            loading.setOnClickListener(null);
+            loadingFailed = false;
+            loadingLabel.setText("Oyun dosyaları yükleniyor…");
+            loadingProgress.setProgress(0);
+            loadingProgress.setVisibility(View.VISIBLE);
+            game.loadUrl(START);
+        });
     }
 
     // ---- Yalnız test APK (BuildConfig.DIAG): sol şeridin hangi katmanda oluştuğunu cihazda ölçer. ----
@@ -381,6 +477,13 @@ public final class GameActivity extends Activity {
         }
 
         @Override
+        public void onProgressChanged(WebView view, int progress) {
+            if (loadingProgress == null || loadingFailed || loading.getVisibility() != View.VISIBLE) return;
+            loadingProgress.setProgress(Math.min(99, progress));
+            if (progress >= 100) loadingLabel.setText("Ana üs hazırlanıyor…");
+        }
+
+        @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
             if (!usable()) {
                 result.cancel();
@@ -443,14 +546,16 @@ public final class GameActivity extends Activity {
         }
 
         @Override
-        public void onPageFinished(WebView view, String url) {
-            if (START.equals(url) && !Boolean.TRUE.equals(loading.getTag())) {
-                loading.setVisibility(View.GONE);
-            }
+        public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
             if (START.equals(url)) {
-                pageReady = true;
-                if (pendingAuthCallback != null) deliverAuthCallback(0);
+                pageReady = false;
+                loadingGeneration++;
             }
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            if (START.equals(url) && !loadingFailed) waitForGamePaint(loadingGeneration, 100);
         }
 
         @Override
@@ -463,16 +568,5 @@ public final class GameActivity extends Activity {
             if (request.isForMainFrame()) showLoadError();
         }
 
-        private void showLoadError() {
-            loading.setTag(true);
-            loading.setText("Oyun açılamadı. Tekrar denemek için dokun.");
-            loading.setVisibility(View.VISIBLE);
-            loading.setOnClickListener(v -> {
-                loading.setOnClickListener(null);
-                loading.setTag(false);
-                loading.setText("Arena Forge Pro yükleniyor…");
-                game.loadUrl(START);
-            });
-        }
     }
 }

@@ -3,9 +3,10 @@ name: Arena Forge Pro Android
 on:
   workflow_dispatch:
   push:
-    branches: ['repair/v308-android-recovery']
+    branches: ['repair/v309']
     paths:
       - 'app/**'
+      - 'onarim-v309/**'
       - 'gradle/**'
       - 'tools/**'
       - 'test/**'
@@ -22,19 +23,16 @@ concurrency:
 
 jobs:
   build:
-    if: github.repository == 'marazali02012-wq/Arena-Forge-Pro' && startsWith(github.ref, 'refs/heads/repair/v308-android-recovery')
+    if: github.repository == 'marazali02012-wq/Arena-Forge-Pro' && github.ref == 'refs/heads/repair/v309'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Kurtarılan HTML dosyasını dala kaydet
+      - name: v309 oyun HTML dosyasını hazırla
         run: |
-          if ! python3 tools/set-version.py "$(cut -d= -f2 version.properties)" --check; then
+          if ! python3 tools/set-version.py 309 --check; then
             python3 tools/recovery/restore-html.py
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add app/src/main/assets/www/index.html
-            git commit -m "Restore complete Arena Forge Pro game HTML"
-            git push origin "HEAD:${GITHUB_REF}"
+            python3 onarim-v309/patch-html.py
+            python3 tools/set-version.py 309
           fi
       - uses: actions/setup-java@v4
         with:
@@ -98,13 +96,68 @@ jobs:
           name: ArenaForgePro-android
           path: artifacts/
           if-no-files-found: ignore
-      - name: Derleme dosyalarını GitHub Releases’a ekle
-        env:
-          GH_TOKEN: ${{ github.token }}
+  android-smoke:
+    needs: build
+    timeout-minutes: 16
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ArenaForgePro-android
+          path: artifacts
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Üretim paketinden açılış APK’sı çıkar
         run: |
-          version="$(cut -d= -f2 version.properties)"
-          tag="android-recovery-v${version}"
-          if ! gh release view "$tag" >/dev/null 2>&1; then
-            gh release create "$tag" --target "$(git rev-parse HEAD)" --draft               --title "Arena Forge Pro 3.60.${version}" --notes-file yayin/v308-SURUM-NOTLARI.md
+          curl -fsSL -o "$RUNNER_TEMP/bundletool.jar" https://github.com/google/bundletool/releases/download/1.18.2/bundletool-all-1.18.2.jar
+          java -jar "$RUNNER_TEMP/bundletool.jar" build-apks --mode=universal \
+            --bundle=artifacts/ArenaForgePro_v309_IMZASIZ.aab --output=artifacts/universal.apks
+          unzip -q artifacts/universal.apks universal.apk -d artifacts
+      - name: KVM erişimini aç
+        run: |
+          if [[ -e /dev/kvm ]]; then
+            echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+            sudo udevadm control --reload-rules
+            sudo udevadm trigger --name-match=kvm
           fi
-          gh release upload "$tag" artifacts/* --clobber
+          echo "ANDROID_I_WANT_MY_TCG=yes" >> "$GITHUB_ENV"
+      - uses: android-actions/setup-android@v3
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          target: google_apis
+          emulator-boot-timeout: 420
+          script: |
+            mkdir -p native-results
+            adb install artifacts/universal.apk
+            adb shell wm density 160
+            for size in 360x740 375x667; do
+              adb shell am force-stop com.arenaforgepro.game
+              adb shell wm size "$size"
+              adb logcat -c
+              adb shell am start -W -n com.arenaforgepro.game/.GameActivity | tee "native-results/start-$size.txt"
+              grep -q 'Status: ok' "native-results/start-$size.txt"
+              ready=0
+              for attempt in {1..12}; do
+                adb shell uiautomator dump /sdcard/arena-window.xml
+                adb pull /sdcard/arena-window.xml "native-results/window-$size.xml"
+                if grep -Eiq 'Misafir|Google ile giriş|Şifremi unuttum|Hesap oluştur' "native-results/window-$size.xml"; then
+                  ready=1
+                  break
+                fi
+              done
+              adb exec-out screencap -p > "native-results/arena-$size.png"
+              adb logcat -d -s AndroidRuntime:F > "native-results/runtime-$size.txt"
+              test "$ready" -eq 1
+              adb shell pidof com.arenaforgepro.game
+              ! grep -E 'FATAL EXCEPTION|Process: com\.arenaforgepro\.game' "native-results/runtime-$size.txt"
+            done
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: ArenaForgePro-v309-native-smoke
+          path: native-results/
+          if-no-files-found: ignore
