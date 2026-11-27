@@ -324,6 +324,21 @@ replace(""" window.addEventListener('afp:mode-battle-start',()=>{if(openFlag)clo
  });
  window.addEventListener('online',()=>{if(openFlag&&!gate)void onTab();});""")
 
+# Older Android WebViews lack these built-in methods even when the UI can load.
+compat = """<script>
+(function(){
+ if(!Object.hasOwn)Object.defineProperty(Object,'hasOwn',{configurable:true,writable:true,
+    value:function(object,key){return Object.prototype.hasOwnProperty.call(object,key);}});
+ if(!Array.prototype.at)Object.defineProperty(Array.prototype,'at',{configurable:true,writable:true,
+    value:function(index){const n=Math.trunc(Number(index)||0),i=n<0?this.length+n:n;return i>=0&&i<this.length?this[i]:undefined;}});
+})();
+</script>"""
+replace('<head>\n<meta charset="utf-8">','<head>\n<meta charset="utf-8">\n'+compat)
+# Logical assignment syntax makes the entire engine script fail to parse on older WebViews.
+if html.count('(af329.drawAt||=[]).push(')!=3:
+    raise SystemExit('Beklenen üç eski WebView uyumluluk noktası bulunamadı.')
+html=html.replace('(af329.drawAt||=[]).push(', '(af329.drawAt||(af329.drawAt=[])).push(')
+
 # Inline the existing artwork for a standalone web build.
 art = base64.b64encode((root / "app/src/main/assets/launch/war-arena.webp").read_bytes()).decode()
 style = """<style id="af309-boot-css">
