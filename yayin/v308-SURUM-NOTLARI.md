@@ -1,0 +1,3 @@
+- Google Play’de sunulan güncellemeler oyun açılışında ve oyuna geri dönüldüğünde kontrol edilir.
+- Zorunlu güncelleme ekranı üzerinden güncelleme başlatılabilir veya yarım kalan kurulum sürdürülebilir.
+- Çevrim içi savaş bağlantısında istemci sürümü sunucuya bildirilir.

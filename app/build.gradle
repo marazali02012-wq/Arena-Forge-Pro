@@ -2,6 +2,10 @@ plugins {
     id 'com.android.application' version '8.13.2'
 }
 
+def appVersion = new Properties()
+rootProject.file('version.properties').withInputStream { appVersion.load(it) }
+def appVersionCode = appVersion.getProperty('versionCode').toInteger()
+
 android {
     namespace 'com.arenaforgepro.game'
     compileSdk 36
@@ -11,8 +15,8 @@ android {
         applicationId 'com.arenaforgepro.game'
         minSdk 24
         targetSdk 36
-        versionCode 306
-        versionName '3.60.306'
+        versionCode appVersionCode
+        versionName "3.60.${appVersionCode}"
     }
 
     // Kurulu orijinal uygulamayla imza cakismasin diye yalnizca test APK'si
@@ -24,8 +28,8 @@ android {
     buildTypes {
         // Test APK: ayri paket adi -> kurulu oyun ve onceki .testfix test surumu silinmeden yan yana kurulur.
         debug {
-            applicationIdSuffix '.v306test'
-            versionNameSuffix '-v306-test'
+            applicationIdSuffix ".v${appVersionCode}test"
+            versionNameSuffix '-test'
             buildConfigField 'boolean', 'DIAG', 'false' // v303: şerit tanı katmanı kapalı; şerit düzeltmesi GameActivity'de kalıcı
         }
         release {
@@ -37,4 +41,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+}
+
+dependencies {
+    implementation 'com.google.android.play:app-update:2.1.0'
 }

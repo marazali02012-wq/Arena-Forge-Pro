@@ -44,6 +44,7 @@ public final class GameActivity extends Activity {
     private TextView loading;
     private boolean waitingForBack;
     private AlertDialog exitDialog;
+    private PlayUpdateGate updateGate;
 
     @Override
     @SuppressLint("SetJavaScriptEnabled")
@@ -106,6 +107,9 @@ public final class GameActivity extends Activity {
                 return insets;
             });
         }
+        if (!BuildConfig.DEBUG) updateGate = new PlayUpdateGate(this, root, game, () -> {
+            if (exitDialog != null) exitDialog.dismiss();
+        });
         setContentView(root);
         immersive();
         root.requestApplyInsets();
@@ -311,10 +315,12 @@ public final class GameActivity extends Activity {
     }
 
     private void handleBack() {
+        if (updateGate != null && updateGate.blocksGame()) return;
         if (game == null || waitingForBack || (exitDialog != null && exitDialog.isShowing())) return;
         waitingForBack = true;
         game.evaluateJavascript("window.AFPAndroidNavigation?.back() === true", handled -> {
             waitingForBack = false;
+            if (updateGate != null && updateGate.blocksGame()) return;
             if ("true".equals(handled) || isFinishing() || isDestroyed()) return;
             exitDialog = new AlertDialog.Builder(this)
                     .setMessage("Oyundan çıkılsın mı?")
@@ -326,6 +332,7 @@ public final class GameActivity extends Activity {
 
     @Override
     protected void onPause() {
+        if (updateGate != null) updateGate.onPause();
         if (game != null) game.onPause();
         super.onPause();
     }
@@ -334,10 +341,19 @@ public final class GameActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if (game != null) game.onResume();
+        if (updateGate != null) updateGate.onResume();
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (updateGate != null) updateGate.onActivityResult(requestCode, resultCode);
     }
 
     @Override
     protected void onDestroy() {
+        if (updateGate != null) updateGate.destroy();
         if (game != null) {
             ((FrameLayout) game.getParent()).removeView(game);
             game.destroy();
