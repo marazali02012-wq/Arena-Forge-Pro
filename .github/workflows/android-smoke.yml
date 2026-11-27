@@ -1,0 +1,69 @@
+name: Arena Forge Pro Android açılış testi
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['repair/v308-android-recovery']
+    paths: ['.github/workflows/android-smoke.yml']
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  native:
+    timeout-minutes: 14
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: GitHub’da doğrulanan AAB’yi indir
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir artifacts
+          gh run download 45915369217 -R "$GITHUB_REPOSITORY" -n ArenaForgePro-android --dir artifacts
+          curl -fsSL -o "$RUNNER_TEMP/bundletool.jar" \
+            https://github.com/google/bundletool/releases/download/1.18.2/bundletool-all-1.18.2.jar
+          java -jar "$RUNNER_TEMP/bundletool.jar" build-apks --mode=universal \
+            --bundle=artifacts/ArenaForgePro_v308_IMZASIZ.aab --output=artifacts/universal.apks
+          unzip -q artifacts/universal.apks universal.apk -d artifacts
+      - name: KVM erişimini aç
+        run: |
+          if [[ -e /dev/kvm ]]; then
+            echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+            sudo udevadm control --reload-rules
+            sudo udevadm trigger --name-match=kvm
+          fi
+          echo "ANDROID_I_WANT_MY_TCG=yes" >> "$GITHUB_ENV"
+      - uses: android-actions/setup-android@v3
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          target: google_apis
+          emulator-boot-timeout: 420
+          script: |
+            mkdir native-results
+            adb shell wm size 360x740
+            adb shell wm density 160
+            adb install artifacts/universal.apk
+            adb logcat -c
+            adb shell am start -W -n com.arenaforgepro.game/.GameActivity | tee native-results/start.txt
+            grep -q 'Status: ok' native-results/start.txt
+            sleep 12
+            adb shell pidof com.arenaforgepro.game
+            adb shell uiautomator dump /sdcard/arena-window.xml
+            adb pull /sdcard/arena-window.xml native-results/window.xml
+            adb exec-out screencap -p > native-results/arena-android.png
+            adb logcat -d -s AndroidRuntime:F > native-results/runtime.txt
+            ! grep -E 'FATAL EXCEPTION|Process: com\.arenaforgepro\.game' native-results/runtime.txt
+            grep -Ei 'Misafir|Google ile giriş|Şifremi unuttum|Hesap oluştur' native-results/window.xml
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: ArenaForgePro-native-smoke
+          path: native-results/
+          if-no-files-found: ignore
