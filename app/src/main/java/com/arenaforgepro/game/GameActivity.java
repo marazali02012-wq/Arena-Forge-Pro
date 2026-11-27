@@ -44,6 +44,7 @@ public final class GameActivity extends Activity {
     private TextView loading;
     private boolean waitingForBack;
     private AlertDialog exitDialog;
+    private AlertDialog gameDialog;
     private PlayUpdateGate updateGate;
 
     @Override
@@ -109,6 +110,7 @@ public final class GameActivity extends Activity {
         }
         if (!BuildConfig.DEBUG) updateGate = new PlayUpdateGate(this, root, game, () -> {
             if (exitDialog != null) exitDialog.dismiss();
+            if (gameDialog != null) gameDialog.cancel();
         });
         setContentView(root);
         immersive();
@@ -374,7 +376,8 @@ public final class GameActivity extends Activity {
      */
     private final class GameChromeClient extends WebChromeClient {
         private boolean usable() {
-            return !isFinishing() && !isDestroyed();
+            return !isFinishing() && !isDestroyed()
+                    && (updateGate == null || !updateGate.blocksGame());
         }
 
         @Override
@@ -383,7 +386,7 @@ public final class GameActivity extends Activity {
                 result.cancel();
                 return true;
             }
-            new AlertDialog.Builder(GameActivity.this)
+            gameDialog = new AlertDialog.Builder(GameActivity.this)
                     .setMessage(message)
                     .setCancelable(true)
                     .setPositiveButton("Tamam", (dialog, which) -> result.confirm())
@@ -398,7 +401,7 @@ public final class GameActivity extends Activity {
                 result.cancel();
                 return true;
             }
-            new AlertDialog.Builder(GameActivity.this)
+            gameDialog = new AlertDialog.Builder(GameActivity.this)
                     .setMessage(message)
                     .setCancelable(true)
                     .setPositiveButton("Tamam", (dialog, which) -> result.confirm())

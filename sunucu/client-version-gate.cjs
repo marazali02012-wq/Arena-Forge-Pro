@@ -7,7 +7,7 @@ function createClientVersionGate(env = process.env) {
     throw new Error('Invalid AFP_MIN_ONLINE_VERSION_CODE');
   }
 
-  return function admitClient(socket, frame) {
+  function admitClient(socket, frame) {
     if (minimum === 0) return true;
     const version = frame?.clientVersionCode;
     if (Number.isSafeInteger(version) && version >= minimum && version <= 2100000000) {
@@ -23,7 +23,8 @@ function createClientVersionGate(env = process.env) {
     }));
     socket.close(4406, 'client_update_required');
     return false;
-  };
+  }
+  return Object.assign(admitClient, { minimum });
 }
 
 module.exports = { createClientVersionGate };

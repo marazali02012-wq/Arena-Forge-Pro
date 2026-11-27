@@ -192,6 +192,7 @@ final class PlayUpdateGate {
     private void render(String detail) {
         boolean blocked = blocksGame();
         screen.setVisibility(blocked ? View.VISIBLE : View.GONE);
+        game.setVisibility(blocked ? View.INVISIBLE : View.VISIBLE);
         game.setImportantForAccessibility(blocked
                 ? View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
                 : View.IMPORTANT_FOR_ACCESSIBILITY_AUTO);
