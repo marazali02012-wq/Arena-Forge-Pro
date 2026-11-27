@@ -101,20 +101,11 @@ jobs:
     timeout-minutes: 16
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: ArenaForgePro-android
           path: artifacts
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-      - name: Üretim paketinden açılış APK’sı çıkar
-        run: |
-          curl -fsSL -o "$RUNNER_TEMP/bundletool.jar" https://github.com/google/bundletool/releases/download/1.18.2/bundletool-all-1.18.2.jar
-          java -jar "$RUNNER_TEMP/bundletool.jar" build-apks --mode=universal \
-            --bundle=artifacts/ArenaForgePro_v309_IMZASIZ.aab --output=artifacts/universal.apks
-          unzip -q artifacts/universal.apks universal.apk -d artifacts
       - name: KVM erişimini aç
         run: |
           if [[ -e /dev/kvm ]]; then
@@ -129,31 +120,7 @@ jobs:
           arch: x86_64
           target: google_apis
           emulator-boot-timeout: 420
-          script: |
-            mkdir -p native-results
-            adb install artifacts/universal.apk
-            adb shell wm density 160
-            for size in 360x740 375x667; do
-              adb shell am force-stop com.arenaforgepro.game
-              adb shell wm size "$size"
-              adb logcat -c
-              adb shell am start -W -n com.arenaforgepro.game/.GameActivity | tee "native-results/start-$size.txt"
-              grep -q 'Status: ok' "native-results/start-$size.txt"
-              ready=0
-              for attempt in {1..12}; do
-                adb shell uiautomator dump /sdcard/arena-window.xml
-                adb pull /sdcard/arena-window.xml "native-results/window-$size.xml"
-                if grep -Eiq 'Misafir|Google ile giriş|Şifremi unuttum|Hesap oluştur' "native-results/window-$size.xml"; then
-                  ready=1
-                  break
-                fi
-              done
-              adb exec-out screencap -p > "native-results/arena-$size.png"
-              adb logcat -d -s AndroidRuntime:F > "native-results/runtime-$size.txt"
-              test "$ready" -eq 1
-              adb shell pidof com.arenaforgepro.game
-              ! grep -E 'FATAL EXCEPTION|Process: com\.arenaforgepro\.game' "native-results/runtime-$size.txt"
-            done
+          script: bash test/android-smoke-v309.sh artifacts/ArenaForgePro_v309_TEST.apk
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         with:
