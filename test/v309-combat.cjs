@@ -45,6 +45,23 @@ window.af309CombatTest = () => {
   units=[];af323Shots=[];af323Resolved=[];
   return results;
 };
+window.af309MirrorTest=()=>{
+  elapsed=5;gameMode='duel';
+  const mage={uid:101,heroType:'mage',team:'ally',x:.4,lane:1,hp:85,maxHp:85,atk:22,isHero:true,isRoster:true};
+  const target={uid:102,heroType:'af37_kilicli_asker',team:'enemy',x:.54,lane:1,hp:120,maxHp:120,atk:22,isHero:true,isRoster:true};
+  units=[mage,target];af323Shots=[];
+  af321MarkHit(mage,target);
+  af323Launch(mage,target,22,null);
+  window.__AFPOnlineContext={active:true,authority:true,seat:1,matchId:'mirror-309'};
+  const snapshot=window.AFPOnlineBattleInternal.createOnlineSnapshot();
+  window.__AFPOnlineContext={active:true,authority:false,seat:2,matchId:'mirror-309'};
+  af323Shots=[];
+  window.AFPOnlineBattleInternal.applyOnlineSnapshot(snapshot,1);
+  const shot=af323Shots[0],before=shot.target.hp,impact=shot.t1;
+  elapsed=impact+.01;af323UpdateShots();
+  const facts={kind:shot.kind,visualOnly:shot.visualOnly,hitMarker:shot.u._afHits,damage:before-shot.target.hp};
+  window.__AFPOnlineContext=null;units=[];af323Shots=[];return facts;
+};
 `;
 
 async function main() {
@@ -93,10 +110,11 @@ async function main() {
       assert.equal(layout.height,height);
       assert.equal(layout.version,'v3.60.309');
       assert.deepEqual(layout.modeIds.filter(id=>id!=='lhs').sort(),['arena','boss','campaign','colossus','dark','flag','secret','sky','tower']);
-      await page.screenshot({path:path.join(out,`v309-ana-us-${width}x${height}.png`)});
+      await page.screenshot({path:path.join(out,`v309-giris-${width}x${height}.png`)});
       if(width===740){
         const rows=await page.evaluate(()=>window.af309CombatTest());
         writeFileSync(path.join(out,'v309-59-minyon.json'),JSON.stringify(rows,null,2));
+        assert.deepEqual(await page.evaluate(()=>window.af309MirrorTest()),{kind:'bolt',visualOnly:true,hitMarker:1,damage:0});
         assert.equal(rows.length,59);
         assert.equal(new Set(rows.map(r=>r.id)).size,59);
         for(const r of rows){

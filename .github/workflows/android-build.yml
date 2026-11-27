@@ -123,7 +123,6 @@ jobs:
             sudo udevadm trigger --name-match=kvm
           fi
           echo "ANDROID_I_WANT_MY_TCG=yes" >> "$GITHUB_ENV"
-      - uses: android-actions/setup-android@v3
       - uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 30

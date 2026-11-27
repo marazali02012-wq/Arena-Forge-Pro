@@ -78,6 +78,39 @@ replace("   if(u.heroType==='af37_golge_suikastci')key='sparks_light';\n","")
 replace("""function af222IsMagic(u){return /mage|witch|priest|oracle|caller|shaman|druid|sifaci|buyucu|rahip|cagirici|nekromanci|healer|necro|wizard/.test(String(u.heroType||u.enemyType||''));}""",
 """function af222IsMagic(u){const card=af290Unit(u);return card?card.delivery==='cast':/mage|witch|priest|oracle|caller|shaman|druid|sifaci|buyucu|rahip|cagirici|nekromanci|healer|necro|wizard/.test(String(u.heroType||u.enemyType||''));}""")
 
+# Mirror the actual ranged shots and attack markers for the second player.
+replace("""    const unitFields=[...abilityFields,'uid',""", """    const unitFields=[...abilityFields,'_afHits','_afHitAt','_afTower','uid',""")
+replace("""      if(u._afp177CaptiveBy)item.af291Captor=af330Uid(u._afp177CaptiveBy);""", """      if(u._afTgt?.hp>0)item.attackTargetId=af330Uid(u._afTgt);
+      if(u._afp177CaptiveBy)item.af291Captor=af330Uid(u._afp177CaptiveBy);""")
+replace("""    const abilityFx=(af327S?.fx||[]).filter(f=>f.kind==='af264'&&f.t0+f.life>elapsed).slice(-18)""", """    const projectiles=af323Shots.filter(p=>['arrow','bolt','bullet'].includes(p.kind)&&!p.visualOnly&&p.u).slice(-24)
+      .map(p=>({source:af330Uid(p.u),target:p.target?af330Uid(p.target):0,tower:!!p.tower,
+        lane:p.lane,kind:p.kind,t0:p.t0,t1:p.t1}));
+    const abilityFx=(af327S?.fx||[]).filter(f=>f.kind==='af264'&&f.t0+f.life>elapsed).slice(-18)""")
+replace("""units:list,shellShots,abilityFx,af285Fx:""", """units:list,shellShots,projectiles,abilityFx,af285Fx:""")
+replace("""      const captor=mirrorUid.get(u.af291Captor);""", """      const attackTarget=mirrorUid.get(Number(u.attackTargetId));
+      u._afTgt=attackTarget&&attackTarget.team!==u.team&&attackTarget.lane===u.lane?attackTarget:null;
+      u.attackTargetId=0;
+      const captor=mirrorUid.get(u.af291Captor);""")
+replace("""    af323Shots=af323Shots.filter(p=>p.kind!=='shell');""", """    af323Shots=af323Shots.filter(p=>p.kind!=='shell'&&!p.visualOnly);
+    const projectiles=Array.isArray(snapshot.projectiles)?snapshot.projectiles.slice(0,24):[];
+    for(const shot of projectiles){
+      if(!shot||!['arrow','bolt','bullet'].includes(shot.kind)||!Number.isInteger(shot.lane)||shot.lane<0||shot.lane>2||
+        !Number.isFinite(shot.t0)||shot.t0>snapshot.elapsed||!Number.isFinite(shot.t1)||
+        shot.t1<=snapshot.elapsed||shot.t1-shot.t0>.81)continue;
+      const u=mirrorUid.get(Number(shot.source)),target=mirrorUid.get(Number(shot.target));
+      if(!u||u.lane!==shot.lane||(!shot.tower&&(!target||target.team===u.team||target.lane!==shot.lane)))continue;
+      const style=af323Style(u);
+      const expected=style==='bow'?'arrow':style==='bullet'?'bullet':style==='cast'?'bolt':null;
+      if(shot.kind!==expected&&!(shot.kind==='arrow'&&u.heroType==='runeguard'))continue;
+      af323Shots.push({u,target,tower:shot.tower?{x:u.team==='ally'?1:0}:null,team:u.team,
+        lane:shot.lane,kind:shot.kind,t0:shot.t0,t1:shot.t1,visualOnly:true});
+    }""")
+replace("""    if(elapsed<s.t1-1e-9){keep.push(s);continue;}
+    if(s.kind==='shell'){""", """    if(elapsed<s.t1-1e-9){keep.push(s);continue;}
+    if(s.visualOnly&&s.kind!=='shell')continue;
+    if(s.kind==='shell'){""")
+replace("gain:{cups:a.cups-b.cups,credits:a.cr-b.cr,tp,dust:a.dust-b.dust,levels:a.lv-b.lv}", "gain:{cups:arguments[2]?.__serverTrophy?.delta??(a.cups-b.cups),credits:a.cr-b.cr,tp,dust:a.dust-b.dust,levels:a.lv-b.lv}")
+
 # Sancak victory text lacks the word Bayrak. This is an objective finish even if both portals stand.
 replace("if(forfeitWin&&!finalSaysLoss){const rewarded=x.rewardsEnabled===true&&!c.suspect;finish('win','',rewarded?'rewarded':'confirmed',{reason:'forfeit',block:x.rewardBlock||null,note:rewarded?'':rewardNote(x.rewardBlock,c)});return true;}",
 "if(forfeitWin&&!finalSaysLoss){finish('win','','confirmed',{reason:'forfeit',block:x.rewardBlock||null,note:rewardNote(x.rewardBlock||'unranked_forfeit',c)});return true;}")
@@ -92,6 +125,11 @@ replace("const REWARD_NOTES={friendly:", """const REWARD_NOTES={
   same_pair_cap:'Aynı rakibe karşı günlük kupa sınırı doldu.',
   daily_gain_cap:'Günlük kupa kazanma sınırı doldu.',
   short_match:'Maç kupa için gereken süreyi tamamlamadı.',
+  sure_gecersiz:'Maç, Supabase kupa kaydı için gereken süreyi tamamlamadı.',
+  ayni_rakip_siniri:'Aynı rakibe karşı günlük kupa sınırı doldu.',
+  eslesme_araligi_disi:'Kupa farkı dereceli maç sınırının dışında.',
+  'maç_taraflari_uyusmuyor':'Kupa defterindeki maç tarafları bu sonuçla eşleşmiyor.',
+  gecersiz_istek:'Sunucu geçersiz kupa isteği bildirdi.',
   friendly:""")
 replace("return 'Sunucu bu maç için ödül onayı vermedi.';}", "return b?'Ödül reddedildi ('+b.slice(0,70)+').':'Sunucu ödül onayı vermedi.';}")
 replace("function grantProgression(outcome){", "function grantProgression(outcome,trophy=null){")
@@ -214,7 +252,8 @@ async function onSendDm(ev){
   if(dmGeneration!==generation||dmWith?.user_id!==uid)return;
   if(inp.value.trim()===body)inp.value='';
   // Keep the cursor on the ordered read path. A send response can jump over unread messages.
-  await pollDm();await pollDm();
+  if(dmFlight?.generation===generation)await dmFlight.promise;
+  await pollDm();
  }catch(e){if(dmGeneration===generation&&dmWith?.user_id===uid)showErr(e);}
  finally{busy=false;btn.disabled=!dmWith;}
 }
@@ -254,7 +293,8 @@ async function onSendWorld(ev){
   await rpc('afp_world_send',{p_channel:ch,p_body:body});
   if(ch!==worldCh||generation!==worldGeneration)return;
   if(inp.value.trim()===body)inp.value='';
-  await loadWorld(false);await loadWorld(false);
+  if(worldFlight?.generation===generation)await worldFlight.promise;
+  await loadWorld(false);
  }catch(e){if(ch===worldCh&&generation===worldGeneration)showErr(e);}
  finally{busy=false;btn.disabled=false;}
 }
